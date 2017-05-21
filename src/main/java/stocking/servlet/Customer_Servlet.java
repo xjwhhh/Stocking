@@ -15,16 +15,17 @@ import java.io.PrintWriter;
  * Created by dell on 2017/5/21.
  */
 public class Customer_Servlet extends HttpServlet {
+    private Customer_Data_Service cds;
     public void service(HttpServletRequest request, HttpServletResponse response) throws IOException{
         /*
          *an example
          *should be implemented by using request
          */
-        Customer_Data_Service cds = new Customer_Data_Impl();
-        CustomerPO customerInfo = cds.login(null,null);
-        JSONArray object = JSONArray.fromObject(customerInfo);
+        //cds =
+        //CustomerPO customerInfo = cds.login(null,null);
+        //JSONArray object = JSONArray.fromObject(customerInfo);
 
-        PrintWriter pw=response.getWriter();
-        pw.println(object.toString());
+        //PrintWriter pw=response.getWriter();
+        //pw.println(object.toString());
     }
 }
