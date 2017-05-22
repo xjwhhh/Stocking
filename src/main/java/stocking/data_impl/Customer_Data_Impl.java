@@ -54,7 +54,6 @@ public class Customer_Data_Impl implements Customer_Data_Service{
         return null;
     }
 
-    //考虑返回内容，返回一个成功或失败的标识就可以了吧？
     private CustomerPO signUp(CustomerPO customerPO) {
         Connection connection=MysqlConnector.getConn();
         String name=customerPO.getName();
@@ -66,8 +65,14 @@ public class Customer_Data_Impl implements Customer_Data_Service{
             pstmt.setString(1, customerPO.getName());
             pstmt.setString(2, customerPO.getPassword());
             pstmt.executeUpdate();
+            pstmt = (PreparedStatement) connection.prepareStatement("select last_insert_id()");
+            ResultSet re=pstmt.executeQuery();
+            while(re.next()){
+                customerPO.setId(String.valueOf(re.getInt(1)));
+            }
             pstmt.close();
             connection.close();
+            return customerPO;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -91,6 +96,7 @@ public class Customer_Data_Impl implements Customer_Data_Service{
             pstmt.executeUpdate();
             pstmt.close();
             connection.close();
+            return newcustomerPO;
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -119,16 +125,16 @@ public class Customer_Data_Impl implements Customer_Data_Service{
 
     public static void main(String [] args){
         CustomerPO customerPO=new CustomerPO();
-//        customerPO.setName("123");
+        customerPO.setName("xjw");
         customerPO.setPassword("456");
-        customerPO.setId("1");
+//        customerPO.setId("1");
         Customer_Data_Impl c=new Customer_Data_Impl();
-        CustomerPO cc=c.login(customerPO);
+        CustomerPO cc=c.signUp(customerPO);
 //        CustomerPO newc=new CustomerPO();
 //        newc.setName("456");
 //        newc.setPassword("456");
 //        c.modify(newc,customerPO);
-        System.out.print(cc.getName());
+//        System.out.print(cc.getName());
 //        Connection connection=MysqlConnector.getConn();
 ////        String name=customerPO.getName();
 ////        String password=customerPO.getPassword();
