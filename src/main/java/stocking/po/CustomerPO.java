@@ -14,6 +14,9 @@ public class CustomerPO {
         this.password = password;
     }
 
+    public CustomerPO(){
+    };
+
     public String getId() {
         return id;
     }
@@ -24,5 +27,17 @@ public class CustomerPO {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setId(String id){
+        this.id=id;
+    }
+
+    public void setName(String name){
+        this.name=name;
+    }
+
+    public void setPassword(String password){
+        this.password=password;
     }
 }
