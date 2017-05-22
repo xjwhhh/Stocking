@@ -1,5 +1,6 @@
 package stocking.servlet;
 
+import net.sf.json.JSONObject;
 import stocking.data_impl.DataFactory_Data_Impl;
 import stocking.data_service.Customer_Data_Service;
 import net.sf.json.JSONArray;
@@ -9,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -20,11 +22,17 @@ public class Customer_Servlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ToJSON toJSON = new ToJSON();
+        JSONObject jsonObject = toJSON.toJSONObject(request);
+        if (jsonObject == null) {
+            return;
+        }
+
         cds = DataFactory_Data_Impl.getInstance().customer();
-        String opType = request.getParameter("op"); //指明这是何种操作(login，signup，modify)
-        String id = request.getParameter("id");   //登录时用id不用name，name设空
-        String name = request.getParameter("name");
-        String password = request.getParameter("password");
+        String opType = jsonObject.getString("op"); //指明这是何种操作(login，signup，modify)
+        String id = jsonObject.getString("id");   //登录时用id不用name，name设空
+        String name = jsonObject.getString("name");
+        String password = jsonObject.getString("password");
         CustomerPO customerPO = new CustomerPO(id, name, password);
         CustomerPO result;
 
