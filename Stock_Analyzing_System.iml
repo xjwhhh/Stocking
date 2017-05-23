@@ -31,17 +31,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="json" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.12" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
-    <orderEntry type="library" name="Maven: org.java-websocket:Java-WebSocket:1.3.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: javax:javaee-api:7.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.sun.mail:javax.mail:1.5.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: javax.activation:activation:1.1" level="project" />
-    <orderEntry type="library" name="Maven: javax.servlet:javax.servlet-api:3.1.0" level="project" />
-    <orderEntry type="library" name="Maven: org.webjars.bower:jquery:3.2.1" level="project" />
-    <orderEntry type="library" name="Maven: org.webjars.bower:bootstrap:4.0.0-alpha.6" level="project" />
-    <orderEntry type="library" name="Maven: org.webjars.bower:tether:1.4.0" level="project" />
-    <orderEntry type="library" name="Maven: org.python:jython-standalone:2.7.1b3" level="project" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -56,6 +45,71 @@
       <library>
         <CLASSES>
           <root url="jar://$USER_HOME$/Downloads/jar包/mysql-connector-java-5.0.0-beta-bin.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.12" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
+    <orderEntry type="library" name="Maven: org.java-websocket:Java-WebSocket:1.3.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: javax:javaee-api:7.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.sun.mail:javax.mail:1.5.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: javax.activation:activation:1.1" level="project" />
+    <orderEntry type="library" name="Maven: javax.servlet:javax.servlet-api:3.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars.bower:jquery:3.2.1" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars.bower:bootstrap:4.0.0-alpha.6" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars.bower:tether:1.4.0" level="project" />
+    <orderEntry type="library" name="Maven: org.python:jython-standalone:2.7.1b3" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Desktop/jar/commons-beanutils-1.7.0副本.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Desktop/jar/commons-collections-3.2副本.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Desktop/jar/commons-lang-2.4副本.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Desktop/jar/commons-logging-1.1副本.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Desktop/jar/ezmorph-1.0.4副本.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Desktop/jar/json-lib-2.2.3-jdk13副本.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
