@@ -9,5 +9,5 @@
 def incAbove(previous, present, percent):
     import pandas as pd
     result = list(map(lambda x, y: (y - x) / x, previous, present))
-    count = len(list(filter(lambda x: x > percent, result)))
+    count = len(list(filter(lambda x: x >= percent, result)))
     return count
