@@ -3,7 +3,7 @@ package stocking.po;
 /**
  * Created by dell on 2017/5/21.
  */
-public class CustomerPO {
+public class CustomerPO extends Object{
     private String id;
     private String name;
     private String password;
@@ -46,6 +46,14 @@ public class CustomerPO {
 
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
+    }
+
+    @Override
+    public boolean equals(Object customerPO){
+        if(customerPO instanceof CustomerPO) {
+            return id.equals(((CustomerPO) customerPO).getId()) && name.equals(((CustomerPO) customerPO).getName()) && password.equals(((CustomerPO) customerPO).getPassword()) && newPassword.equals(((CustomerPO) customerPO).getNewPassword());
+        }
+        return false;
     }
 
 }
