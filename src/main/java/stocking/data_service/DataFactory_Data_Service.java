@@ -1,6 +1,8 @@
 package stocking.data_service;
 
 import stocking.po.CustomerPO;
+import stocking.po.StockPO;
+import stocking.po.MarketPO;
 
 /**
  * Created by dell on 2017/5/21.
@@ -13,4 +15,8 @@ public interface DataFactory_Data_Service {
     OverallSearch_Data_Service overall();
 
     CustomerPO getCustomerPO(String id,String name,String password,String newpassword);
+
+    StockPO getStockPO();
+
+    MarketPO getMarketPO();
 }

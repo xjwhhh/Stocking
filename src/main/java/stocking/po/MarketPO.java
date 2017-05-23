@@ -23,31 +23,61 @@ public class MarketPO {
         this.oc_belowMFivePerNum = oc_belowMFivePerNum;
     }
 
+    public MarketPO(){};
+
     public double getTotalDeal() {
         return totalDeal;
+    }
+
+    public void setTotalDeal(double totalDeal) {
+        this.totalDeal = totalDeal;
     }
 
     public int getLimitUpNum() {
         return limitUpNum;
     }
 
+    public void setLimitUpNum(int limitUpNum) {
+        this.limitUpNum = limitUpNum;
+    }
+
     public int getLimitDownNum() {
         return limitDownNum;
+    }
+
+    public void setLimitDownNum(int limitDownNum) {
+        this.limitDownNum = limitDownNum;
     }
 
     public int getOverFivePerNum() {
         return overFivePerNum;
     }
 
+    public void setOverFivePerNum(int overFivePerNum) {
+        this.overFivePerNum = overFivePerNum;
+    }
+
     public int getBelowFivePerNum() {
         return belowFivePerNum;
+    }
+
+    public void setBelowFivePerNum(int belowFivePerNum) {
+        this.belowFivePerNum = belowFivePerNum;
     }
 
     public int getOc_overPFivePerNum() {
         return oc_overPFivePerNum;
     }
 
+    public void setOc_overPFivePerNum(int oc_overPFivePerNum) {
+        this.oc_overPFivePerNum = oc_overPFivePerNum;
+    }
+
     public int getOc_belowMFivePerNum() {
         return oc_belowMFivePerNum;
+    }
+
+    public void setOc_belowMFivePerNum(int oc_belowMFivePerNum) {
+        this.oc_belowMFivePerNum = oc_belowMFivePerNum;
     }
 }

@@ -5,6 +5,8 @@ import stocking.data_service.DataFactory_Data_Service;
 import stocking.data_service.OverallSearch_Data_Service;
 import stocking.data_service.SingleSearch_Data_Service;
 import stocking.po.CustomerPO;
+import stocking.po.StockPO;
+import stocking.po.MarketPO;
 
 /**
  * Created by dell on 2017/5/21.
@@ -38,5 +40,13 @@ public class DataFactory_Data_Impl implements DataFactory_Data_Service {
 
     public CustomerPO getCustomerPO(String id,String name,String password,String newpassword){
         return new CustomerPO(id,name,password,newpassword);
+    }
+
+    public StockPO getStockPO(){
+        return new StockPO();
+    }
+
+    public MarketPO getMarketPO(){
+        return new MarketPO();
     }
 }

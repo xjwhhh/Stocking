@@ -22,7 +22,7 @@ public class Customer_Data_Impl implements Customer_Data_Service{
     DBConnectionManager connectionManager=DBConnectionManager.getInstance();
     Hashtable pools=connectionManager.getPools();
     DBConnectionPool pool=(DBConnectionPool) pools.get("stock");
-
+    DataFactory_Data_Service dataFactory_data_=DataFactory_Data_Impl.getInstance();
 
     public CustomerPO execute(String op, CustomerPO customerPO) {
         if(op.equals("login")){
@@ -38,7 +38,6 @@ public class Customer_Data_Impl implements Customer_Data_Service{
     }
 
     private CustomerPO login(CustomerPO customerPO) {
-        DataFactory_Data_Service dataFactory_data_=DataFactory_Data_Impl.getInstance();
         Connection  connection=connectionManager.getConnection("stock");
         String id=customerPO.getId();
         String name=customerPO.getName();
