@@ -78,6 +78,7 @@ public class Customer_Data_Impl implements Customer_Data_Service{
             ResultSet re=pstmt.executeQuery();
             while(re.next()){
                 customerPO.setId(String.valueOf(re.getInt(1)));
+                customerPO.setNewPassword("");
             }
             pstmt.close();
             pool.freeConnection(connection);
@@ -129,36 +130,5 @@ public class Customer_Data_Impl implements Customer_Data_Service{
         return null;
     }
 
-    public static void main(String [] args){
 
-        CustomerPO customerPO=new CustomerPO("","xjw","456","");
-        Customer_Data_Impl c=new Customer_Data_Impl();
-        CustomerPO cc=c.signUp(customerPO);
-//        CustomerPO newc=new CustomerPO();
-//        newc.setName("456");
-//        newc.setPassword("456");
-//        c.modify(newc,customerPO);
-//        System.out.print(cc.getName());
-//        Connection connection=MysqlConnector.getConn();
-////        String name=customerPO.getName();
-////        String password=customerPO.getPassword();
-////        String sql = "insert into clientinfo(id,name,password)VALUES (NULL,customerPO.getName,)";
-//        PreparedStatement pstmt;
-//        try {
-//            pstmt = (PreparedStatement) connection.prepareStatement(sql);
-//            pstmt.execute();
-//            System.out.print(12345);
-////            ResultSet resultSet=pstmt.executeQuery();
-////            while(resultSet.next()){
-////                System.out.print(resultSet.getString(1));
-////                System.out.print(resultSet.getString(2));
-////                System.out.print(resultSet.getString(3));
-////                System.out.print(resultSet.getString(4));
-////            }
-//
-//        }
-//        catch (SQLException e){
-//            e.printStackTrace();
-//        }
-    }
 }
