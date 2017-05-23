@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Date;
 
 /**
  * Created by dell on 2017/5/23.
@@ -32,9 +33,20 @@ public class SingleStock_Servlet extends HttpServlet {
 
         ssds = DataFactory_Data_Impl.getInstance().singleSearch();
         String identifier = jsonObject.getString("identifier");//code或name
+
+        ParseDate pd = new ParseDate();
+        Date start = null;
+        Date end = null;
+        try {
+            start = pd.parse(jsonObject.getString("start"));
+            end = pd.parse(jsonObject.getString("end"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return;
+        }
         StockPO stockPO = null;
         try {
-            stockPO = ssds.getStockList(identifier);
+            stockPO = ssds.getStockList(identifier, start, end);
         } catch (ParseException e) {
             e.printStackTrace();
             return;
