@@ -1,6 +1,7 @@
 package stocking.data_impl;
 
 import stocking.data_service.Customer_Data_Service;
+import stocking.data_service.DataFactory_Data_Service;
 import stocking.po.CustomerPO;
 import java.sql.Connection;
 import java.sql.Blob;
@@ -12,30 +13,36 @@ import java.util.ArrayList;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Hashtable;
+
 /**
  * Created by dell on 2017/5/21.
  */
 public class Customer_Data_Impl implements Customer_Data_Service{
+    DBConnectionManager connectionManager=DBConnectionManager.getInstance();
+    Hashtable pools=connectionManager.getPools();
+    DBConnectionPool pool=(DBConnectionPool) pools.get("stock");
+
 
     public CustomerPO execute(String op, CustomerPO customerPO) {
         if(op.equals("login")){
-            this.login(customerPO);
+            customerPO=this.login(customerPO);
         }
         else if(op.equals("signUp")){
-            this.signUp(customerPO);
+            customerPO=this.signUp(customerPO);
         }
         else{
-            //
+            customerPO=this.modify(customerPO);
         }
-        return null;
+        return customerPO;
     }
 
     private CustomerPO login(CustomerPO customerPO) {
-        Connection connection=MysqlConnector.getConn();
+        DataFactory_Data_Service dataFactory_data_=DataFactory_Data_Impl.getInstance();
+        Connection  connection=connectionManager.getConnection("stock");
         String id=customerPO.getId();
         String name=customerPO.getName();
         String password=customerPO.getPassword();
-        CustomerPO newcustomerPO=new CustomerPO();
         String sql ="select id,decode(name,'key'),decode(password,'key') from clientinfo where id="+Integer.parseInt(id)+" and password=encode(?,'key')";
         PreparedStatement pstmt;
         try{
@@ -43,11 +50,13 @@ public class Customer_Data_Impl implements Customer_Data_Service{
             pstmt.setString(1,password);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()){
-                newcustomerPO.setId(String.valueOf(rs.getInt("id")));
-                newcustomerPO.setName(BlobtoString(rs.getBlob("decode(name,'key')")));
-                newcustomerPO.setPassword(BlobtoString(rs.getBlob("decode(password,'key')")));
+                id=(String.valueOf(rs.getInt("id")));
+                name=(BlobtoString(rs.getBlob("decode(name,'key')")));
+                password=(BlobtoString(rs.getBlob("decode(password,'key')")));
             }
-            return newcustomerPO;
+            CustomerPO newCustomerPO=dataFactory_data_.getCustomerPO(id,name,password,"");
+            pool.freeConnection(connection);
+            return newCustomerPO;
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -55,7 +64,7 @@ public class Customer_Data_Impl implements Customer_Data_Service{
     }
 
     private CustomerPO signUp(CustomerPO customerPO) {
-        Connection connection=MysqlConnector.getConn();
+        Connection  connection=connectionManager.getConnection("stock");
         String name=customerPO.getName();
         String password=customerPO.getPassword();
         String sql = "insert into clientinfo (id,name,password) values(NULL,encode(?,'key'),encode(?,'key'))";
@@ -71,7 +80,7 @@ public class Customer_Data_Impl implements Customer_Data_Service{
                 customerPO.setId(String.valueOf(re.getInt(1)));
             }
             pstmt.close();
-            connection.close();
+            pool.freeConnection(connection);
             return customerPO;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -79,24 +88,25 @@ public class Customer_Data_Impl implements Customer_Data_Service{
         return null;
     }
 
-    /*
-    更新什么内容呢，如果是密码，一个po是不够的
-     */
-    private CustomerPO modify(CustomerPO newcustomerPO,CustomerPO oldcustomerPO ) {
-        Connection connection=MysqlConnector.getConn();
-        String id=oldcustomerPO.getId();
-        String oldpassword=oldcustomerPO.getPassword();
+
+    private CustomerPO modify(CustomerPO customerPO ) {
+        Connection  connection=connectionManager.getConnection("stock");
+        String id=customerPO.getId();
+        String name=customerPO.getName();
+        String oldpassword=customerPO.getPassword();
+        String newpassword=customerPO.getNewPassword();
         String sql = "update clientinfo set name=encode(?,'key'),password=encode(?,'key') where id="+Integer.parseInt(id)+" and password=encode(?,'key')";
         PreparedStatement pstmt;
         try{
             pstmt= (PreparedStatement) connection.prepareStatement(sql);
-            pstmt.setString(1,newcustomerPO.getName());
-            pstmt.setString(2,newcustomerPO.getPassword());
+            pstmt.setString(1,name);
+            pstmt.setString(2,newpassword);
             pstmt.setString(3,oldpassword);
             pstmt.executeUpdate();
             pstmt.close();
-            connection.close();
-            return newcustomerPO;
+            pool.freeConnection(connection);
+            customerPO.setPassword(newpassword);
+            return customerPO;
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -119,15 +129,9 @@ public class Customer_Data_Impl implements Customer_Data_Service{
         return null;
     }
 
-    /*public CustomerPO login(String name, String password) {
-        return new CustomerPO("wuyuhan","12345");
-    }*/
-
     public static void main(String [] args){
-        CustomerPO customerPO=new CustomerPO();
-        customerPO.setName("xjw");
-        customerPO.setPassword("456");
-//        customerPO.setId("1");
+
+        CustomerPO customerPO=new CustomerPO("","xjw","456","");
         Customer_Data_Impl c=new Customer_Data_Impl();
         CustomerPO cc=c.signUp(customerPO);
 //        CustomerPO newc=new CustomerPO();
