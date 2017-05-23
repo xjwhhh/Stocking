@@ -21,7 +21,8 @@
 
     <!-- Custom styles for this template -->
     <link href="dashboard.css" rel="stylesheet">
-
+    <link href="FlatUI/dist/css/flat-ui.css" rel="stylesheet">
+    <link rel="shortcut icon" href="FlatUI/dist/img/favicon.ico">
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]>
     <script src="../../assets/js/ie8-responsive-file-warning.js"></script>
@@ -32,6 +33,11 @@
     <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style type="text/css">
+        ul {
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
@@ -53,29 +59,28 @@
                 <li><a href="login.html" target="_blank">登录</a></li>
                 <li><a href="#">注册</a></li>
             </ul>
-            <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="Search...">
+            <form class="navbar-form navbar-right" action="#" role="search">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
+                        <span class="input-group-btn">
+                  <button type="submit" class="btn"><span class="fui-search"></span></button>
+                </span>
+                    </div>
+                </div>
             </form>
-            <!--<ul class="nav nav-tabs" contenteditable="true">
-              <li class="active"><a href="#">首页</a></li>
-              <li><a href="#">话题</a></li>
-              <li><a href="#">问答</a></li>
-              <li><a href="#">行情</a></li>
-              <li><a href="#">交易</a></li>
-              <li><a href="#">发现</a></li>
-            </ul>-->
         </div>
     </div>
 </nav>
 
-<div>
+<div class="collapse navbar-collapse" id="navbar-collapse-6">
     <ul class="nav nav-tabs" contenteditable="true">
         <li class="active"><a href="#">首页</a></li>
-        <li><a href="#">个股</a></li>
-        <li><a href="#">市场</a></li>
-        <li><a href="#">回测</a></li>
-        <li><a href="#">新闻</a></li>
-        <!--<li><a href="#"></a></li>-->
+        <li><a href="singleStock.html">个股</a></li>
+        <li><a href="market.html">市场</a></li>
+        <li><a href="regressionTest.html">回测</a></li>
+        <li><a href="news.html">新闻</a></li>
+        <!--这里尚未实现跳转-->
     </ul>
 
 </div>
@@ -87,6 +92,8 @@
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="FlatUI/dist/js/flat-ui.min.js"></script>
+<script src="FlatUI/docs/assets/js/application.js"></script>
 <!-- Just to make our placeholder images work. Don't actually copy the next line!
 <script src="../../assets/js/vendor/holder.min.js"></script> -->
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug
