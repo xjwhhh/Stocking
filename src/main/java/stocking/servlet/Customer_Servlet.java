@@ -33,7 +33,8 @@ public class Customer_Servlet extends HttpServlet {
         String id = jsonObject.getString("id");   //登录时用id不用name，name设空
         String name = jsonObject.getString("name");
         String password = jsonObject.getString("password");
-        CustomerPO customerPO = new CustomerPO(id, name, password);
+        String newPassword = jsonObject.getString("newPassword");
+        CustomerPO customerPO = new CustomerPO(id, name, password, newPassword);
         CustomerPO result;
 
         result = cds.execute(opType, customerPO);

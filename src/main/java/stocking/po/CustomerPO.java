@@ -7,15 +7,14 @@ public class CustomerPO {
     private String id;
     private String name;
     private String password;
+    private String newPassword;//若非更改操作则为空
 
-    public CustomerPO(String id, String name, String password) {
+    public CustomerPO(String id, String name, String password, String newPassword) {
         this.id = id;
         this.name = name;
         this.password = password;
+        this.newPassword = newPassword;
     }
-
-    public CustomerPO(){
-    };
 
     public String getId() {
         return id;
@@ -39,5 +38,9 @@ public class CustomerPO {
 
     public void setPassword(String password){
         this.password=password;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
     }
 }
