@@ -3,7 +3,7 @@
         <type>mysql</type>
         <name>stock</name>
         <driver>com.mysql.jdbc.Driver</driver>
-        <url>jdbc:mysql://localhost:3306/stock</url>
+        <url>jdbc:mysql://localhost:3306/stock?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;failOverReadOnly=false&amp;useSSL=true&amp;zeroDateTimeBehavior=convertToNull</url>
         <username>root</username>
         <password>123456</password>
         <maxconn>100</maxconn>

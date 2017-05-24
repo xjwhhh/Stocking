@@ -23,29 +23,24 @@ public class DBConnectionManager {
      */
     public DBConnectionManager() {
         this.init();
+        this.createInitConnection();
     }
 
     /**
      * 新建五个连接
      */
-    public void createInitConnection(){
-        DBConnectionManager connectionManager = DBConnectionManager.getInstance();
-        String name = "stock";//从上下文得到你要访问的数据库的名字
-        Connection connection1 = connectionManager.getConnection(name);
-        Connection connection2= connectionManager.getConnection(name);
-        Connection connection3 = connectionManager.getConnection(name);
-        Connection connection4 = connectionManager.getConnection(name);
-        Connection connection5 = connectionManager.getConnection(name);
-        DBConnectionPool pool=(DBConnectionPool) pools.get("stock");
-//        System.out.print(pool.getInUsed());
-//        System.out.print(pool.getfreeconnectionlength());
+    public void createInitConnection() {
+        DBConnectionPool pool = (DBConnectionPool) pools.get("stock");
+        Connection connection1 = pool.getConnection();
+        Connection connection2 = pool.getConnection();
+        Connection connection3 = pool.getConnection();
+        Connection connection4 = pool.getConnection();
+        Connection connection5 = pool.getConnection();
         pool.freeConnection(connection1);
         pool.freeConnection(connection2);
         pool.freeConnection(connection3);
         pool.freeConnection(connection4);
         pool.freeConnection(connection5);
-//        System.out.print(pool.getInUsed());
-//        System.out.print(pool.getfreeconnectionlength());
     }
 
     /**
@@ -160,18 +155,6 @@ public class DBConnectionManager {
 
     public Hashtable getPools() {
         return pools;
-    }
-
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
-        // TODO Auto-generated method stub
-        DBConnectionManager db=DBConnectionManager.getInstance();
-        db.createInitConnection();
-//        String name = "stock";//从上下文得到你要访问的数据库的名字
-//        Connection con = connectionManager.getConnection(name);
-
     }
 
 

@@ -11,11 +11,18 @@ import java.util.Hashtable;
  */
 public class Cache {
     static private Cache cache;
-    DBConnectionManager connectionManager=DBConnectionManager.getInstance();
-    Hashtable pools=connectionManager.getPools();
-    DBConnectionPool pool=(DBConnectionPool) pools.get("stock");
+    DBConnectionManager connectionManager = DBConnectionManager.getInstance();
+    Hashtable pools = connectionManager.getPools();
+    DBConnectionPool pool = (DBConnectionPool) pools.get("stock");
 
-    private Hashtable<String,String> code_name=getCode_Name();
+    private Hashtable<String, String> code_name = new Hashtable<String, String>();
+    private Hashtable<String, String> name_code = new Hashtable<String, String>();
+
+    private Cache() {
+        this.setCode_Name();
+        this.setName_Code();
+        System.out.println(name_code.size());
+    }
 
     static synchronized public Cache getInstance() {
         if (cache == null) {
@@ -24,26 +31,43 @@ public class Cache {
         return cache;
     }
 
-    private Hashtable<String,String> getCode_Name(){
-        Connection connection=connectionManager.getConnection("stock");
-        Hashtable<String,String> code_name=new Hashtable<String, String>();
-        String sql="select name,code from basicinfo";
+    private void setCode_Name() {
+        Connection connection = connectionManager.getConnection("stock");
+        String sql = "select name,code from basicinfo";
         PreparedStatement pstmt;
-        try{
-            pstmt= (PreparedStatement) connection.prepareStatement(sql);
+        try {
+            pstmt = (PreparedStatement) connection.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
-            while (rs.next()){
-                code_name.put(rs.getString("code"),rs.getString("name"));
+            while (rs.next()) {
+                code_name.put(rs.getString("code"), rs.getString("name"));
             }
             pool.freeConnection(connection);
-            return code_name;
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
     }
 
-    public Hashtable<String,String> getCode_name(){
+    private void setName_Code() {
+        Connection connection = connectionManager.getConnection("stock");
+        String sql = "select name,code from basicinfo";
+        PreparedStatement pstmt;
+        try {
+            pstmt = (PreparedStatement) connection.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                name_code.put(rs.getString("name"), rs.getString("code"));
+            }
+            pool.freeConnection(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Hashtable<String, String> getCode_Name() {
         return code_name;
+    }
+
+    public Hashtable<String, String> getName_Code() {
+        return name_code;
     }
 }
