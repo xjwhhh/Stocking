@@ -22,12 +22,12 @@ public class OverallSearch_Data_Impl implements OverallSearch_Data_Service {
     Hashtable pools=connectionManager.getPools();
     DBConnectionPool pool=(DBConnectionPool) pools.get("stock");
     DataFactory_Data_Service dataFactory_data_=DataFactory_Data_Impl.getInstance();
-    Hashtable<String,String> code_name=getCode_Name();
+    Cache cache=Cache.getInstance();
+    Hashtable<String,String> code_name=cache.getCode_name();
 
     public MarketPO getMarketInfo(Date date){
         Connection connection=connectionManager.getConnection("stock");
-        SimpleDateFormat formatter;
-        formatter = new SimpleDateFormat ("yyyy-MM-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd");
         String datestring = formatter.format(date);
         String formerdatestring=formatter.format(new Date(date.getTime()-24*60*60*1000));
         String[] tablename={"cyb","sha0","sha1","sha3","shb","sza","szb","zxb"};
@@ -56,23 +56,5 @@ public class OverallSearch_Data_Impl implements OverallSearch_Data_Service {
     }
 
 
-    public Hashtable<String,String> getCode_Name(){
-        Connection connection=connectionManager.getConnection("stock");
-        Hashtable<String,String> code_name=new Hashtable<String, String>();
-        String sql="select name,code from basicinfo";
-        PreparedStatement pstmt;
-        try{
-            pstmt= (PreparedStatement) connection.prepareStatement(sql);
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next()){
-                code_name.put(rs.getString("code"),rs.getString("name"));
-            }
-            pool.freeConnection(connection);
-            return code_name;
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        return null;
 
-    }
 }

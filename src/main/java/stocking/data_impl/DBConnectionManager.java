@@ -23,7 +23,6 @@ public class DBConnectionManager {
      */
     public DBConnectionManager() {
         this.init();
-
     }
 
     /**
