@@ -13,7 +13,7 @@
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
+    <!--<link href="dashboard.css" rel="stylesheet">-->
     <link href="FlatUI/dist/css/flat-ui.css" rel="stylesheet">
     <link rel="shortcut icon" href="FlatUI/dist/img/favicon.ico">
 
@@ -21,12 +21,18 @@
         ul {
             text-align: center;
         }
+        .nav-tabs>li{
+            width:20%;
+        }
+        body {
+            padding-top: 50px;
+        }
     </style>
 
 
     <!--以下是外部网站引用-->
-    <!--<link rel="stylesheet" type="text/css" href="temperature.css">-->
-    <!--<script type="text/javascript" src="http://s.thsi.cn/cb?js/;jquery-1.8.3.min.js"></script>-->
+    <link rel="stylesheet" type="text/css" href="temperature.css">
+    <script type="text/javascript" src="http://s.thsi.cn/cb?js/;jquery-1.8.3.min.js"></script>
 
 </head>
 
@@ -61,16 +67,97 @@
             </form>
         </div>
     </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse-6">
+        <ul class="nav nav-tabs">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="singleStock.html">个股</a></li>
+            <li class="active"><a href="market.html">市场</a></li>
+            <li><a href="regressionTest.html">回测</a></li>
+            <li><a href="news.html">新闻</a></li>
+        </ul>
+    </div>
 </nav>
 
-<div class="collapse navbar-collapse" id="navbar-collapse-6">
-    <ul class="nav nav-tabs">
-        <li><a href="index.html">首页</a></li>
-        <li><a href="singleStock.html">个股</a></li>
-        <li class="active"><a href="market.html">市场</a></li>
-        <li><a href="regressionTest.html">回测</a></li>
-        <li><a href="news.html">新闻</a></li>
-    </ul>
+
+
+<div class="temp_panel l_3">
+    <div class="control">
+        <div class="num clearfix">
+            <span class="updateT"></span>
+            <label>--</label>
+            <span class="txt">--</span>
+            <p>
+                <span>今日股市天气扫描</span>
+                <span class="date">----</span>
+            </p>
+        </div>
+        <div class="clearfix">
+
+            <p class="fl summer" id="lxart" seq="598669939" time="15:10"><a style="color:#fff" href="http://yuanchuang.10jqka.com.cn/20170523/c598669939.shtml" target="_blank">　　截至收盘，沪深两市所有交易个股涨跌比为369:2589，市场总体赚钱效应为12%，市场走势极弱，可操作性极差。两市换手率前50只个股赚钱效应为40%，显示热门股遭遇较大抛压，市场追涨热情不高。　　目前两市涨停20家，其中一字板14家；盘......[更多]</a></p>
+            <div class="fl">
+                <ul>
+                    <li>
+                        <span class="single_p" data-code="hs_1A0001">上证指数</span>
+                        <span class="val">--</span>
+                        <div>
+                            <span>--</span>
+                            <span>--</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="single_p" data-code="hs_399001">深证指数</span>
+                        <span class="val">--</span>
+                        <div>
+                            <span>--</span>
+                            <span>--</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="single_p" data-code="hs_399006">创业指数</span>
+                        <span class="val">--</span>
+                        <div>
+                            <span>--</span>
+                            <span>--</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="control main_box">
+    <h2 class="title codeTotal">涨跌停统计
+        <span>(两市共计：<i>3000</i>只</span>
+        <span>停牌个股：<i>46</i>只)</span>
+    </h2>
+    <div class="module ta-parent-box" data-taid="zdt_wdj">
+        <div class="l_panel fl">
+            <div class="chart_title">
+                <label>赚钱效应：<i class="green"></i></label>
+
+                <label class="earn">涨停家数：<i class="red">20</i></label>
+                <label class="fall">跌停家数：<i class="green">106</i></label>
+                <label>昨日涨停股，今日均涨幅：<i class="green">-3.05%</i></label>
+                <span></span>
+
+            </div>
+            <div class="similar_chart" id="similar_chart"></div>
+        </div>
+        <div class="r_panel temp temp_1">
+            <div class="grade">
+                <div class="triangle"><span></span></div>
+                <i class="red"></i>
+                <span id="message"></span>
+                <div class="shadow"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="rate_pan fl" id="rate1"></div>
+        <div class="rate_pan fr" id="rate2"></div>
+        <div class="clear"></div>
+    </div>
 </div>
 
 
