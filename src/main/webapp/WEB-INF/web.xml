@@ -13,6 +13,10 @@
         <servlet-name>singleStock</servlet-name>
         <servlet-class>stocking.servlet.SingleStock_Servlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>market</servlet-name>
+        <servlet-class>stocking.servlet.Market_Servlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>customer</servlet-name>
@@ -21,6 +25,10 @@
     <servlet-mapping>
         <servlet-name>singleStock</servlet-name>
         <url-pattern>/singleStock</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>market</servlet-name>
+        <url-pattern>/market</url-pattern>
     </servlet-mapping>
 
 </web-app>
