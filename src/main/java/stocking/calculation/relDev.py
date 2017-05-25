@@ -4,6 +4,7 @@
 adjClose(series)
 '''
 
+
 def relDev(tsPrice):
     import pandas as pd
     import math
