@@ -16,6 +16,7 @@
     <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">-->
 
     <!-- Custom styles for this template -->
+    <link href="singleSearch.css " rel="stylesheet">
     <link href="dashboard.css" rel="stylesheet">
     <link href="FlatUI/dist/css/flat-ui.css" rel="stylesheet">
     <link rel="shortcut icon" href="FlatUI/dist/img/favicon.ico">
@@ -33,7 +34,10 @@
         ul {
             text-align: center;
         }
-        .nav > li:hover .dropdown-menu {display: block;}
+
+        .nav > li:hover .dropdown-menu {
+            display: block;
+        }
     </style>
 </head>
 
@@ -71,13 +75,13 @@
     <div class="collapse navbar-collapse" id="navbar-collapse-6">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#">首页</a></li>
-            <li><a >个股</a>
+            <li><a>个股</a>
                 <ul class="dropdown-menu">
                     <li><a href="singleSearch.html">个股详情</a></li>
                     <li><a href="compare.html">行情比较</a></li>
                     <!--<li><a href="#">Jasper Report</a></li>-->
 
-                 </ul>
+                </ul>
             </li>
             <li><a href="market.html">市场</a></li>
             <li><a href="regressionTest.html">回测</a>
@@ -93,7 +97,22 @@
     </div>
 </nav>
 
+<div class="main">
+    <div class="nav__search">
+        <input type="text" placeholder="搜索">
+        <span class="nav__search__addon">
+         <button type="button" class="btn btn-default btn-sm">
+             <a href="singleStock.html"></a>
+          <span class="glyphicon glyphicon-search"></span>
+        </button>
+        </span>
 
+    </div>
+
+
+
+
+</div>
 
 
 <!-- Bootstrap core JavaScript

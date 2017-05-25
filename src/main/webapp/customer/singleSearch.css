@@ -1,0 +1,19 @@
+.main {
+
+    width: 960px;
+    height: 580px;
+    margin: 0 auto;
+
+}
+
+.search {
+    width: 470px;
+    background: url(http://i.thsi.cn/images/stockpage/search_shadow.png) no-repeat -9px 15px;
+    margin: 176px auto 0;
+    height: 100px;
+}
+
+.nav__search {
+    margin: 300px;
+    margin-top: 150px
+}
