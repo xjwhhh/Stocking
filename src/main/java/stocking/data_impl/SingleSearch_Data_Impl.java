@@ -46,7 +46,7 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
             }
         }
         if (section.length() > 0) {
-            String sql = "select date,open,high,close,low,volume,code from kdata_" + section + " where code=" + identifier + " and date>'" + startDateStr + "' and date<'" + endDateStr + "' and autotype='前复权'";
+            String sql = "select date,open,high,adjclose,low,volume,code from kdata_" + section + " where code=" + identifier + " and date>'" + startDateStr + "' and date<'" + endDateStr + "' and autotype='前复权'";
             PreparedStatement pstmt;
             try {
                 pstmt = (PreparedStatement) connection.prepareStatement(sql);
@@ -69,10 +69,9 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
                     dateArrayList.add(rs.getDate("date"));
                     opens.add(rs.getDouble("open"));
                     highs.add(rs.getDouble("high"));
-                    adjcloses.add(rs.getDouble("close"));
+                    adjcloses.add(rs.getDouble("adjclose"));
                     lows.add(rs.getDouble("low"));
                     volumes.add((int) rs.getDouble("volume"));
-//                    System.out.print(rs.getDate("date"));
                 }
                 //返回集是否为空
                 if (judge > 0) {
