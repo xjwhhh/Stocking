@@ -115,6 +115,32 @@
     <orderEntry type="library" name="Maven: org.webjars.bower:bootstrap:4.0.0-alpha.6" level="project" />
     <orderEntry type="library" name="Maven: org.webjars.bower:tether:1.4.0" level="project" />
     <orderEntry type="library" name="Maven: org.jdom:jdom:1.1.3" level="project" />
-    <orderEntry type="library" name="Maven: org.mongodb:mongo-java-driver:3.4.2" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Desktop/mongodb-jar/bson-3.4.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Desktop/mongodb-jar/mongodb-driver-3.4.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Desktop/mongodb-jar/mongodb-driver-core-3.4.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
