@@ -8,7 +8,7 @@
 
 def incGre(previous, present, percent):
     import pandas as pd
-    difference = pd.Series(present['close'] - present['open'])
+    difference = pd.Series(present['open'] - present['close'])
     count = 0
     for i in range(0, len(previous)):
         if difference[i] >= previous[i] * percent:
