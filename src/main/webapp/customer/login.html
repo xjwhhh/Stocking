@@ -8,6 +8,18 @@
 
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!--以下是servlet通信-->
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="This is my page">
+    <!--
+ <link rel="stylesheet" type="text/css" href="styles.css">
+ -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/json2.js"></script>
 </head>
 
 <body>
@@ -47,6 +59,31 @@
     </div>
 
 </div>  <!--/container -->
+<script type="text/javascript">
+    function User(userId, name) {
+        this.userId = userId;
+        this.name = name;
+    }
+    function requestServlet()
+    {
+        var urlStr="http://192.168.1.118:8080/AjaxTest/servlet/JasonServlet";
+        var user = JSON.stringify(new User(101,"阿猫"));
 
+//调用JQuery提供的Ajax方法
+        $.ajax({
+            type:"POST",
+            url:urlStr,
+            data:user,
+            dataType: "jason",//此处要设置成jason
+            success: callback});//回调函数
+    }
+    function callback(jasonObj)
+    {
+        var str = jasonObj;
+        var obj = JSON.parse(str);//调用Json2.js中提供的JSON解析器来解析成JSONObject
+        alert(obj.errNum);
+    }
+    requestServlet();
+</script>
 </body>
 </html>
