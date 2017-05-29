@@ -38,15 +38,4 @@ public class DataFactory_Data_Impl implements DataFactory_Data_Service {
         return null;
     }
 
-    public CustomerPO getCustomerPO(String id,String name,String password,String newpassword){
-        return new CustomerPO(id,name,password,newpassword);
-    }
-
-    public StockPO getStockPO(){
-        return new StockPO();
-    }
-
-    public MarketPO getMarketPO(){
-        return new MarketPO();
-    }
 }

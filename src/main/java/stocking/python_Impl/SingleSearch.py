@@ -3,8 +3,7 @@ import sys
 
 import pandas as pd
 import pymysql
-import smaCal
-import relDev
+# import ffn
 
 # mysql操作
 db = pymysql.connect("localhost", "root", "123456", "stock", charset="utf8")
@@ -32,7 +31,7 @@ cursor = db.cursor();
 
 
 def getkdata(sectionname, code, startdate, enddate):
-    sql = "select * from kdata_" + sectionname + " where code='%s' and date>='%s' and date<='%s' order by date" % (
+    sql = "select distinct date,adjopen,adjhigh,adjlow,adjclose,volume,code from kdata_" + sectionname + " where code='%s' and date>='%s' and date<='%s' order by date" % (
         code, startdate, enddate)
     try:
         cursor.execute(sql)
@@ -42,31 +41,53 @@ def getkdata(sectionname, code, startdate, enddate):
             date = row[0]
             open = row[1]
             high = row[2]
-            low = row[4]
+            low = row[3]
+            close = row[4]
             volume = row[5]
-            amount = row[6]
-            adjclose = row[7]
-            code = row[8]
-            resultlist = [date, open, high, adjclose, low, volume, amount, code]
+            code = row[6]
+            resultlist = [date, open, high, close, low, volume, code]
             re.append(resultlist)
-        df = pd.DataFrame(re, columns=['date', 'open', 'high', 'close', 'low', 'volumn', 'amount', 'code'])
+        df = pd.DataFrame(re, columns=['date', 'open', 'high', 'close', 'low', 'volume',  'code'])
     except:
         print('get data fail')
     return df
 
 
 if __name__ == "__main__":
+    paths = sys.argv[0].split("/")
+    newpath = ""
+    for i in range(0, len(paths) - 2):
+        newpath += (paths[i] + "\\")
+    newpath += "calculation"
+    sys.path.append(newpath)
+    sys.path.append(
+        "C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\Stock_Analyzing_System\\src\\main\\java\\stocking\\calculation")
+    import smaCal
+    import relDev
+
     # df = getkdata_(sectionname=sys.argv[1], code=sys.argv[2], startdate=sys.argv[3], enddate=sys.argv[4])
-    df = getkdata(sectionname="shb", code="900932", startdate="2017-04-12", enddate="2017-05-19")
-    ss=df['close']
-    #平均值
-    for i in {5,10,20,30,60}:
-        tt=smaCal.smaCal(ss,i)
+    df = getkdata(sectionname="szb", code="200012", startdate="2017-04-12", enddate="2017-05-19")
+
+    print(len(df))
+
+    print(df['open'])
+    print(df['high'])
+    print(df['low'])
+    print(df['volume'])
+    print(df['close'])
+    print(df['date'])
+
+    df = df.set_index('date')
+    ss = df['close']
+
+    # 平均值
+    for i in {5, 10, 20, 30, 60}:
+        tt = smaCal.smaCal(ss, i)
         print(tt)
-    print(ss)
-    #相对方差
-    # oo=relDev.relDev(ss)
-    # print(oo)
-    # 调用方法获得平均值,每日收益率，相对方差，并返回
-    #相对方差计算似乎有问题
-    #平均值要传之前的数据吗
+
+    #每日收益率
+
+
+    # 相对方差
+    oo = relDev.relDev(ss)
+    print(oo)

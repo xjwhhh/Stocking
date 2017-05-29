@@ -8,12 +8,31 @@
 '''
 
 from abc import abstractmethod
+import pymysql
+import pandas as pd
+
 
 class Strategy(object):
     @abstractmethod
-    def count(self, oriDf, isPla, plaName): pass
+    def count(self, oriDf, isPla, plaName):
+        pass
 
-    def getPlaIndex(self, startdate, enddate, plaName): pass
+    def getPlaIndex(self, startdate, enddate, plaName):
+        db = pymysql.connect("localhost", "root", "123456", "stock", charset="utf8")
+        cursor = db.cursor();
+        sql = "select close from market_index where date>='%s' and date<='%s' and code='%s' " % (
+            startdate, enddate, plaName)
+        try:
+            cursor.execute(sql)
+            results = cursor.fetchall()
+            re = []
+            for row in results:
+                re.append(row[0])
+            se = pd.Series(re)
+            index = se.mean()
+        except:
+            print('get data fail')
+        return index
 
     def getAnnualPro(self):
         length = int(self.selectLen / 5)

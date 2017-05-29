@@ -21,9 +21,12 @@ public class Cache {
     private Cache() {
         this.setCode_Name();
         this.setName_Code();
-        System.out.println(name_code.size());
     }
 
+    /**
+     * 获取唯一实例
+     * @return
+     */
     static synchronized public Cache getInstance() {
         if (cache == null) {
             cache = new Cache();
@@ -31,6 +34,9 @@ public class Cache {
         return cache;
     }
 
+    /**
+     * 读取code_name键值对
+     */
     private void setCode_Name() {
         Connection connection = connectionManager.getConnection("stock");
         String sql = "select name,code from basicinfo";
@@ -47,6 +53,9 @@ public class Cache {
         }
     }
 
+    /**
+     * 读取name_code键值对
+     */
     private void setName_Code() {
         Connection connection = connectionManager.getConnection("stock");
         String sql = "select name,code from basicinfo";

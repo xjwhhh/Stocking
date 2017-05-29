@@ -30,7 +30,7 @@ public class jythontest {
 //        System.out.print('2');
 //        PythonInterpreter interpreter = new PythonInterpreter();
 //        System.out.print(1);
-//        interp.execfile("C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\Stock_Analyzing_System\\src\\main\\java\\stocking\\calculation\\test.py");
+//        interp.execfile("C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\Stock_Analyzing_System\\src\\main\\java\\stocking\\calculation\\ttt.py");
 //        PythonInterpreter interpreter = new PythonInterpreter();
 //        interpreter.exec("C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\Stock_Analyzing_System\\src\\main\\java\\stocking\\data_impl\\SingleSearch.py");
 //        interpreter.exec("print days[1];");

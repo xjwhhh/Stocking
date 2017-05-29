@@ -6,7 +6,9 @@ import stocking.po.StockPO;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,91 +22,28 @@ import java.util.regex.Pattern;
  * Created by xjwhhh on 2017/5/23.
  */
 public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
-
-    //    DBConnectionManager connectionManager = DBConnectionManager.getInstance();
-//    Hashtable pools = connectionManager.getPools();
-//    DBConnectionPool pool = (DBConnectionPool) pools.get("stock");
-    DataFactory_Data_Service dataFactory_data_ = DataFactory_Data_Impl.getInstance();
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     Cache cache = Cache.getInstance();
     Hashtable<String, String> code_name = cache.getCode_Name();
     Hashtable<String, String> name_code = cache.getName_Code();
 
-    //
-//    public StockPO getStockList(String identifier, Date startDate, Date endDate) throws ParseException {
-//        boolean isInteger = isInteger(identifier);
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//        String startDateStr = formatter.format(startDate);
-//        String endDateStr = formatter.format(endDate);
-//        Connection connection = connectionManager.getConnection("stock");
-//        String section = "";
-//        //判断是股票代码还是名字，如果是名字转换为代码
-//        if (isInteger) {
-//            section = getsectionbycode(identifier);
-//        } else {
-//            System.out.print(code_name.size());
-//            System.out.print(name_code.size());
-//            if (name_code.contains(identifier)) {
-//                section = getsectionbycode(name_code.get(identifier));
-//            } else {
-//                return null;
-//            }
-//        }
-//        if (section.length() > 0) {
-//            String sql = "select date,open,high,adjclose,low,volume,code from kdata_" + section + " where code=" + identifier + " and date>'" + startDateStr + "' and date<'" + endDateStr + "' and autotype='前复权'";
-//            PreparedStatement pstmt;
-//            try {
-//                pstmt = (PreparedStatement) connection.prepareStatement(sql);
-//                ResultSet rs = pstmt.executeQuery();
-//                int judge = 0;
-//                StockPO stockPO = dataFactory_data_.getStockPO();
-//                String name = code_name.get(identifier);
-//                String code = identifier;
-//                Date start = startDate;
-//                Date end = endDate;
-//                ArrayList<Date> dateArrayList = new ArrayList<Date>();
-//                ArrayList<Double> opens = new ArrayList<Double>();
-//                ArrayList<Double> highs = new ArrayList<Double>();
-//                ArrayList<Double> adjcloses = new ArrayList<Double>();
-//                ArrayList<Double> lows = new ArrayList<Double>();
-//                ArrayList<Integer> volumes = new ArrayList<Integer>();
-//                //TODO adjclose
-//                while (rs.next()) {
-//                    judge++;
-//                    dateArrayList.add(rs.getDate("date"));
-//                    opens.add(rs.getDouble("open"));
-//                    highs.add(rs.getDouble("high"));
-//                    adjcloses.add(rs.getDouble("adjclose"));
-//                    lows.add(rs.getDouble("low"));
-//                    volumes.add((int) rs.getDouble("volume"));
-//                }
-//                //返回集是否为空
-//                if (judge > 0) {
-//                    stockPO.setName(name);
-//                    stockPO.setCode(code);
-//                    stockPO.setStart(start);
-//                    stockPO.setOver(end);
-//                    stockPO.setOpen(changeDoubleArrayList(opens));
-//                    stockPO.setHigh(changeDoubleArrayList(highs));
-//                    stockPO.setAdjClose(changeDoubleArrayList(adjcloses));
-//                    stockPO.setLow(changeDoubleArrayList(lows));
-//                    stockPO.setVolume(changeIntegerArrayList(volumes));
-//                    stockPO.setDates(changeDateArrayList(dateArrayList));
-//                    //TODO 其余属性，需要计算
-//                    return stockPO;
-//                }
-//                pool.freeConnection(connection);
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        return null;
-//    }
-//
+    /**
+     * 判断字符串是否完全由数字构成
+     *
+     * @param str
+     * @return
+     */
     private boolean isInteger(String str) {
         Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
         return pattern.matcher(str).matches();
     }
 
+    /**
+     * 通过股票代码获取股票板块
+     *
+     * @param code
+     * @return
+     */
     private String getsectionbycode(String code) {
         String section = "";
         if (code.length() == 6) {
@@ -129,37 +68,10 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
         }
         return section;
     }
-//
-//    private double[] changeDoubleArrayList(ArrayList<Double> doubleArrayList) {
-//        int size = doubleArrayList.size();
-//        double[] doubles = new double[size];
-//        for (int i = 0; i < doubleArrayList.size(); i++) {
-//            doubles[i] = doubleArrayList.get(i);
-//        }
-//        return doubles;
-//    }
-//
-//    private int[] changeIntegerArrayList(ArrayList<Integer> intArrayList) {
-//        int size = intArrayList.size();
-//        int[] ints = new int[size];
-//        for (int i = 0; i < intArrayList.size(); i++) {
-//            ints[i] = intArrayList.get(i);
-//        }
-//        return ints;
-//    }
-//
-//    private Date[] changeDateArrayList(ArrayList<Date> dateArrayList) {
-//        int size = dateArrayList.size();
-//        Date[] dates = new Date[size];
-//        for (int i = 0; i < dateArrayList.size(); i++) {
-//            dates[i] = dateArrayList.get(i);
-//        }
-//        return dates;
-//    }
+
 
     public StockPO getStockList(String identifier, Date startDate, Date endDate) throws ParseException {
         boolean isInteger = isInteger(identifier);
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String startDateStr = formatter.format(startDate);
         String endDateStr = formatter.format(endDate);
         String section = "";
@@ -178,7 +90,7 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
             try {
                 List<String> commands = new LinkedList<String>();
                 commands.add("python");
-                commands.add(getpath("\\src\\main\\java\\stocking\\calculation\\SingleSearch.py"));
+                commands.add(getpath("src\\main\\java\\stocking\\python_Impl\\SingleSearch.py"));
                 commands.add(section);
                 commands.add(identifier);
                 commands.add(startDateStr);
@@ -188,9 +100,76 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
                 BufferedReader in = new BufferedReader(new
                         InputStreamReader(pr.getInputStream(), "gbk"));
                 String line;
-                while ((line = in.readLine()) != null) {
-                    System.out.println(line);
+                line = in.readLine();
+
+                if (isInteger(line)) {
+                    String name = name_code.get(identifier);
+                    String code = identifier;
+                    Date start = startDate;
+                    Date over = endDate;
+                    int num = Integer.parseInt(line);
+                    double[] open = new double[num];
+                    double[] high = new double[num];
+                    double[] low = new double[num];
+                    int[] volume = new int[num];
+                    double[] adjClose = new double[num];
+                    Date[] dates = new Date[num];
+                    double[] average5 = new double[num];
+                    double[] average10 = new double[num];
+                    double[] average20 = new double[num];
+                    double[] average30 = new double[num];
+                    double[] average60 = new double[num];
+                    double[] profit = new double[num];
+                    double variance = 0;
+                    open = getdouble(in, open, num);
+                    in.readLine();
+                    high = getdouble(in, high, num);
+                    in.readLine();
+                    low = getdouble(in, low, num);
+                    in.readLine();
+                    volume = getint(in, volume, num);
+                    in.readLine();
+                    adjClose = getdouble(in, adjClose, num);
+                    in.readLine();
+                    dates = getdate(in, dates, num);
+                    in.readLine();
+                    in.readLine();
+                    average5 = getdouble(in, average5, num);
+                    in.readLine();
+                    in.readLine();
+                    average10 = getdouble(in, average10, num);
+                    in.readLine();
+                    in.readLine();
+                    average20 = getdouble(in, average20, num);
+                    in.readLine();
+                    in.readLine();
+                    average30 = getdouble(in, average30, num);
+                    in.readLine();
+                    in.readLine();
+                    average60 = getdouble(in, average60, num);
+                    in.readLine();
+                    //TODO 收益率
+                    BigDecimal bd=new BigDecimal(in.readLine());
+                    String varianceStr=bd.toPlainString();
+                    variance=Double.parseDouble(varianceStr);
+
+
+                    System.out.println(open[0]);
+                    System.out.println(high[0]);
+                    System.out.println(low[0]);
+                    System.out.println(volume[0]);
+                    System.out.println(adjClose[0]);
+                    System.out.println(dates[0]);
+                    System.out.println(average5[0]);
+                    System.out.println(average10[0]);
+                    System.out.println(average20[0]);
+                    System.out.println(average30[0]);
+                    System.out.println(average60[0]);
+                    System.out.println(variance);
+
+                    //TODO stockpo
                 }
+
                 in.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -199,20 +178,74 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
         return null;
     }
 
+    public double[] getdouble(BufferedReader in, double[] doubles, int num) {
+        String line = "";
+        try {
+            for (int i = 0; i < num; i++) {
+                line = in.readLine();
+                String[] t = line.split("\\s+");
+                doubles[i] = Double.parseDouble(t[1]);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return doubles;
+    }
+
+    public int[] getint(BufferedReader in, int[] ints, int num) {
+        String line = "";
+        try {
+            for (int i = 0; i < num; i++) {
+                line = in.readLine();
+                String[] t = line.split("\\s+");
+                ints[i] = (int)Double.parseDouble(t[1]);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ints;
+    }
+
+    public Date[] getdate(BufferedReader in, Date[] dates, int num) {
+        String line = "";
+        try {
+            for (int i = 0; i < num; i++) {
+                line = in.readLine();
+                String[] t = line.split("\\s+");
+                dates[i]=formatter.parse(t[1]);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+        return dates;
+    }
+
+    /**
+     * 获取项目路径
+     *
+     * @param path
+     * @return
+     */
     private String getpath(String path) {
         String rpath = this.getClass().getResource("").getPath().substring(1);
         String[] pathlist = rpath.split("/");
         String newpath = "";
         for (int i = 0; i < pathlist.length - 4; i++) {
-            newpath += (pathlist[i] + "/");
+            newpath += (pathlist[i] + "\\");
         }
-        newpath += path;
-        System.out.print(newpath);
+        newpath = newpath + path;
         return newpath;
     }
 
     public static void main(String[] args) {
-
+        SingleSearch_Data_Impl singleSearch_data_ = new SingleSearch_Data_Impl();
+        try {
+            singleSearch_data_.getStockList("000001", new Date(), new Date());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
 }

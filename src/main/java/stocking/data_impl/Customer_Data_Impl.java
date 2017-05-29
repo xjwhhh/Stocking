@@ -24,6 +24,12 @@ public class Customer_Data_Impl implements Customer_Data_Service{
     DBConnectionPool pool=(DBConnectionPool) pools.get("stock");
     DataFactory_Data_Service dataFactory_data_=DataFactory_Data_Impl.getInstance();
 
+    /**
+     * 根据指令判断进行哪种操作
+     * @param op
+     * @param customerPO
+     * @return
+     */
     public CustomerPO execute(String op, CustomerPO customerPO) {
         if(op.equals("login")){
             customerPO=this.login(customerPO);
@@ -37,6 +43,11 @@ public class Customer_Data_Impl implements Customer_Data_Service{
         return customerPO;
     }
 
+    /**
+     * 登录
+     * @param customerPO
+     * @return
+     */
     private CustomerPO login(CustomerPO customerPO) {
         Connection  connection=connectionManager.getConnection("stock");
         String id=customerPO.getId();
@@ -62,6 +73,11 @@ public class Customer_Data_Impl implements Customer_Data_Service{
         return null;
     }
 
+    /**
+     * 注册
+     * @param customerPO
+     * @return
+     */
     private CustomerPO signUp(CustomerPO customerPO) {
         Connection  connection=connectionManager.getConnection("stock");
         String name=customerPO.getName();
@@ -89,6 +105,11 @@ public class Customer_Data_Impl implements Customer_Data_Service{
     }
 
 
+    /**
+     * 更改用户信息
+     * @param customerPO
+     * @return
+     */
     private CustomerPO modify(CustomerPO customerPO ) {
         Connection  connection=connectionManager.getConnection("stock");
         String id=customerPO.getId();
@@ -113,7 +134,11 @@ public class Customer_Data_Impl implements Customer_Data_Service{
         return null;
     }
 
-
+    /**
+     * blob数据类型转换为string
+     * @param blob
+     * @return
+     */
     public String BlobtoString(Blob blob) {
         try {
             InputStream is = blob.getBinaryStream();

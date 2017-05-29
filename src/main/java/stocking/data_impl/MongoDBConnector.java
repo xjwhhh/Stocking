@@ -11,6 +11,9 @@ public class MongoDBConnector {
     static MongoDBConnector mongoDBConnector;
     static MongoClient mongoClient;
 
+    /**
+     * 初始化时连接到mongodb服务
+     */
     private MongoDBConnector() {
         try {
             // 连接到 mongodb 服务
@@ -21,6 +24,10 @@ public class MongoDBConnector {
         }
     }
 
+    /**
+     * 获取唯一实例
+     * @return
+     */
     static synchronized public MongoDBConnector getInstance() {
         if (mongoDBConnector == null) {
             mongoDBConnector = new MongoDBConnector();
@@ -28,6 +35,11 @@ public class MongoDBConnector {
         return mongoDBConnector;
     }
 
+    /**
+     * 通过数据库名获取数据库连接
+     * @param databaseName
+     * @return
+     */
     public MongoDatabase getMongoDatabase(String databaseName) {
         try {
             // 连接到数据库
