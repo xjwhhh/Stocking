@@ -69,7 +69,14 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
         return section;
     }
 
-
+    /**
+     * 获取股票一段时间内的个股信息
+     * @param identifier
+     * @param startDate
+     * @param endDate
+     * @return
+     * @throws ParseException
+     */
     public StockPO getStockList(String identifier, Date startDate, Date endDate) throws ParseException {
         boolean isInteger = isInteger(identifier);
         String startDateStr = formatter.format(startDate);
@@ -100,8 +107,7 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
                 BufferedReader in = new BufferedReader(new
                         InputStreamReader(pr.getInputStream(), "gbk"));
                 String line;
-                line = in.readLine();
-
+                line = in.readLine();//个数
                 if (isInteger(line)) {
                     String name = name_code.get(identifier);
                     String code = identifier;
@@ -148,28 +154,14 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
                     in.readLine();
                     average60 = getdouble(in, average60, num);
                     in.readLine();
-                    //TODO 收益率
-                    BigDecimal bd=new BigDecimal(in.readLine());
-                    String varianceStr=bd.toPlainString();
-                    variance=Double.parseDouble(varianceStr);
-
-
-                    System.out.println(open[0]);
-                    System.out.println(high[0]);
-                    System.out.println(low[0]);
-                    System.out.println(volume[0]);
-                    System.out.println(adjClose[0]);
-                    System.out.println(dates[0]);
-                    System.out.println(average5[0]);
-                    System.out.println(average10[0]);
-                    System.out.println(average20[0]);
-                    System.out.println(average30[0]);
-                    System.out.println(average60[0]);
-                    System.out.println(variance);
-
-                    //TODO stockpo
+                    profit = getdouble(in, profit, num);
+                    in.readLine();
+                    BigDecimal bd = new BigDecimal(in.readLine());
+                    String varianceStr = bd.toPlainString();
+                    variance = Double.parseDouble(varianceStr);
+                    StockPO stockPO = new StockPO(name, code, start, over, open, high, low, volume, adjClose, dates, average5, average10, average20, average30, average60, profit, variance);
+                    return stockPO;
                 }
-
                 in.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -198,7 +190,7 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
             for (int i = 0; i < num; i++) {
                 line = in.readLine();
                 String[] t = line.split("\\s+");
-                ints[i] = (int)Double.parseDouble(t[1]);
+                ints[i] = (int) Double.parseDouble(t[1]);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -212,11 +204,11 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
             for (int i = 0; i < num; i++) {
                 line = in.readLine();
                 String[] t = line.split("\\s+");
-                dates[i]=formatter.parse(t[1]);
+                dates[i] = formatter.parse(t[1]);
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }catch (ParseException e){
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         return dates;

@@ -30,12 +30,14 @@ public class OverallSearch_Data_Impl implements OverallSearch_Data_Service {
         String[] data = new String[7];
         int i = 0;
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String dateStr = formatter.format(date);
+        String todayStr = formatter.format(date);
+        String yesterdayStr=formatter.format(new Date(date.getTime()-24*60*60*1000));
         try {
             List<String> commands = new LinkedList<String>();
             commands.add("python");
             commands.add(getpath("src\\main\\java\\stocking\\python_Impl\\OverallSearch.py"));
-            commands.add(dateStr);
+            commands.add(todayStr);
+            commands.add(yesterdayStr);
             ProcessBuilder processBuilder = new ProcessBuilder(commands);
             Process pr = processBuilder.start();
             BufferedReader in = new BufferedReader(new

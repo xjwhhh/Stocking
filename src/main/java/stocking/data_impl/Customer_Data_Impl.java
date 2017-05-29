@@ -64,7 +64,7 @@ public class Customer_Data_Impl implements Customer_Data_Service{
                 name=(BlobtoString(rs.getBlob("decode(name,'key')")));
                 password=(BlobtoString(rs.getBlob("decode(password,'key')")));
             }
-            CustomerPO newCustomerPO=dataFactory_data_.getCustomerPO(id,name,password,"");
+            CustomerPO newCustomerPO=new CustomerPO(id,name,password,"");
             pool.freeConnection(connection);
             return newCustomerPO;
         }catch (SQLException e){

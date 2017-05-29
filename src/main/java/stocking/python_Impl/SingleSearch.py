@@ -3,11 +3,6 @@ import sys
 
 import pandas as pd
 import pymysql
-# import ffn
-
-# mysql操作
-db = pymysql.connect("localhost", "root", "123456", "stock", charset="utf8")
-cursor = db.cursor();
 
 
 # def getstockinfobycode(code):
@@ -47,13 +42,15 @@ def getkdata(sectionname, code, startdate, enddate):
             code = row[6]
             resultlist = [date, open, high, close, low, volume, code]
             re.append(resultlist)
-        df = pd.DataFrame(re, columns=['date', 'open', 'high', 'close', 'low', 'volume',  'code'])
+        df = pd.DataFrame(re, columns=['date', 'open', 'high', 'close', 'low', 'volume', 'code'])
     except:
         print('get data fail')
     return df
 
 
 if __name__ == "__main__":
+    db = pymysql.connect("localhost", "root", "123456", "stock", charset="utf8")
+    cursor = db.cursor();
     paths = sys.argv[0].split("/")
     newpath = ""
     for i in range(0, len(paths) - 2):
@@ -85,9 +82,16 @@ if __name__ == "__main__":
         tt = smaCal.smaCal(ss, i)
         print(tt)
 
-    #每日收益率
-
+    # 收益率
+    profit = []
+    ttt = list(ss)
+    profit.append(0)
+    for i in range(1, len(ttt)):
+        t = (ttt[i] - ttt[i - 1]) / ttt[i - 1]
+        profit.append(t)
+    profitSeries = pd.Series(profit)
+    print(profitSeries)
 
     # 相对方差
-    oo = relDev.relDev(ss)
-    print(oo)
+    variance = relDev.relDev(ss)
+    print(variance)

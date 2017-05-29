@@ -49,8 +49,6 @@ public class StockPO {
         this.variance = variance;
     }
 
-    public StockPO(){};
-
     public String getName() {
         return name;
     }

@@ -24,7 +24,7 @@ def getallkdata(sectioname, date):
             low = row[4]
             volume = row[5]
             code = row[6]
-            resultlist = [date, open, close, high, low , volume, code]
+            resultlist = [date, open, close, high, low, volume, code]
             re.append(resultlist)
         df = pd.DataFrame(re, columns=['date', 'open', 'close', 'high', 'low', 'volume', 'code'])
     except:
@@ -39,7 +39,6 @@ if __name__ == "__main__":
         newpath += (paths[i] + "\\")
     newpath += "calculation"
     sys.path.append(newpath)
-
     sys.path.append(
         "C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\Stock_Analyzing_System\\src\\main\\java\\stocking\\calculation")
     import decBelow
@@ -47,8 +46,8 @@ if __name__ == "__main__":
     import incAbove
     import incGre
 
-    totalDeal = 0;  # 当日总交易量
-    limitUpNum = 0;  # 当日涨停股票数
+    totalDeal = 0  # 当日总交易量
+    limitUpNum = 0  # 当日涨停股票数
     limitDownNum = 0  # 当日跌停股票数
     overFivePerNum = 0  # 涨幅超过5%的股票数
     belowFivePerNum = 0  # 跌幅超过5%的股票数
@@ -56,16 +55,15 @@ if __name__ == "__main__":
     oc_belowMFivePerNum = 0  # 开盘-收盘小于-5%*上一个交易日收盘价的股票个数
     # for i in {"sha0", "sha1", "sha3", "shb", "sza", "szb", "cyb", "zxb"}:
     for i in {"sha0"}:
-        todaydf = getallkdata('sha0', "2012-11-16")
-        yesterdaydf = getallkdata('sha0', "2012-11-15")
-        # print(todaydf)
-        # print(yesterdaydf)
-        newdf = pd.merge(todaydf, yesterdaydf, on=['code'],how='inner')  # 两天都有的股票
-        print(newdf)
+        todaydf = getallkdata('szb', "2012-11-16")
+        yesterdaydf = getallkdata('szb', "2012-11-15")
+        # todaydf = getallkdata(i, sys.argv[1])
+        # yesterdaydf = getallkdata(i, sys.argv[2])
+        newdf = pd.merge(todaydf, yesterdaydf, on=['code'], how='inner')  # 两天都有的股票
         closex = newdf['close_x']  # 当天close
         highx = newdf['high_x']  # 当天high
         lowx = newdf['low_x']  # 当天low
-        volumex = newdf['volume_x']#当天交易量
+        volumex = newdf['volume_x']  # 当天交易量
         closey = newdf['close_y']  # 前一天close
         todaynewdf = newdf.iloc[:, 0:3]  # 当天date,open与close
         todaynewdf.rename(columns={'open_x': 'open', 'close_x': 'close', 'date_x': 'date'}, inplace=True)  # 更改列名
@@ -84,4 +82,3 @@ if __name__ == "__main__":
         print(belowFivePerNum)
         print(oc_overPFivePerNum)
         print(oc_belowMFivePerNum)
-
