@@ -34,16 +34,39 @@ class Strategy(object):
             print('get data fail')
         return index
 
+    pass
+
     def getAnnualPro(self):
         length = int(self.selectLen / 5)
         select = list(map(lambda x: self.winner[x].iloc[0:length].mean(), self.winner))
         avr = sum(select) / len(select)  # 每个持有期的平均收益率
         return (avr / self.hold) * 250
-
     pass
 
     def getBasicAnnualPro(self):
         basic = sum(self.basic.values()) / len(self.basic)
         return (basic / self.hold) * 250
 
+    pass
+
+    def getBeta(self):
+        total = sum(self.select[x] * self.basic[x] for x in self.select)
+        cov = total / len(self.select) - self.avr * self.basicAvr
+        basicDev = self.getDev(self.basic) - self.basicAvr * self.basicAvr
+        return cov / basicDev
+
+    pass
+
+    def getSquare(self, dictionary):
+        dev = sum(list(map(lambda x: x * x, dictionary.values()))) / len(dictionary)
+        return dev
+
+    pass
+
+    def getMaxDraw(self):
+        lst = []
+        temp = pd.Series(self.select)
+        for i in range(0, len(self.select)):
+            lst.append(temp[i] - min(temp[i:len(self.select)]))
+        return max(lst)
     pass
