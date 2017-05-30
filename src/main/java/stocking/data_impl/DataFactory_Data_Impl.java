@@ -1,9 +1,6 @@
 package stocking.data_impl;
 
-import stocking.data_service.Customer_Data_Service;
-import stocking.data_service.DataFactory_Data_Service;
-import stocking.data_service.OverallSearch_Data_Service;
-import stocking.data_service.SingleSearch_Data_Service;
+import stocking.data_service.*;
 import stocking.po.CustomerPO;
 import stocking.po.StockPO;
 import stocking.po.MarketPO;
@@ -35,6 +32,10 @@ public class DataFactory_Data_Impl implements DataFactory_Data_Service {
     }
 
     public OverallSearch_Data_Service overall() {
+        return null;
+    }
+
+    public Strategy_Data_Service strategy() {
         return null;
     }
 

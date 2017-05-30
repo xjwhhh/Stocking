@@ -3,7 +3,7 @@ package stocking.po;
 /**
  * Created by dell on 2017/5/21.
  */
-public class CustomerPO extends Object{
+public class CustomerPO {
     private String id;
     private String name;
     private String password;

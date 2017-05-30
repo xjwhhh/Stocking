@@ -14,4 +14,5 @@ public interface DataFactory_Data_Service {
 
     OverallSearch_Data_Service overall();
 
+    Strategy_Data_Service strategy();
 }
