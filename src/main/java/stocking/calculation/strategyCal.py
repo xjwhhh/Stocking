@@ -23,7 +23,6 @@ class StrategyCalculator:
         self.pros = self.stra.select  # 每个持有期的策略收益率(dict)
         self.basics = self.stra.basic  # 每个持有期的基准收益率(dict)
         self.candidates = self.stra.winner  # 每个持有期前百分之二十的股票及其收益率(dict,值为series)
-
     pass
 
     def _getrf(self, startdate, enddate): pass
