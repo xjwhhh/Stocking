@@ -5,21 +5,21 @@
     <title>Stocking量化交易</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
     <link href="Flat-UI-master/dist/css/flat-ui.css" rel="stylesheet">
 
     <style type="text/css">
         #input {
-            margin-top: 15px;
+            margin-top: 20px;
         }
 
         .nav-tabs > li {
             width: 20%;
-            background-color: #00ddff;
+            background-color: #0099ff;
         }
 
         a {
-            color: #555555
+            color: #333333
         }
 
         /*a:hover {*/
@@ -33,6 +33,7 @@
         .nav > li:hover .dropdown-menu {
             display: block;
         }
+
     </style>
 </head>
 <body>
@@ -52,18 +53,18 @@
     </div>
     <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="login.html" target="_blank" style="height: 100px;line-height: 70px; font-size:1.5em">登录</a>
+            <li><a href="login.html" target="_blank" style="height: 100px;line-height: 70px; font-size:1.2em">登录</a>
             </li>
-            <li><a href="#" style="height: 100px;line-height: 70px; font-size:1.5em">注册</a></li>
+            <li><a href="#" style="height: 100px;line-height: 70px; font-size:1.2em">注册</a></li>
         </ul>
         <form class="navbar-form navbar-right" action="#" role="search">
             <div class="form-group">
                 <div class="input-group" id="input">
                     <input class="form-control" id="navbarInput-01" type="search" placeholder="Search"
-                           style="height: 53px;padding: 10px 16px;font-size: 22px;line-height: 1.318; width:300px">
+                           style="height: 45px;padding: 10px 15px;font-size: 17px;line-height: 1.235; width:300px">
                     <span class="input-group-btn">
                   <button type="submit" class="btn"
-                          style="height: 53px;padding: 10px 16px;font-size: 22px;line-height: 1.318"><span
+                          style="height: 45px;padding: 10px 15px;font-size: 17px;line-height: 1.235"><span
                           class="fui-search "></span></button>
                 </span>
                 </div>
@@ -85,49 +86,79 @@
 <div class="container">
     <div class="row-fluid">
         <div class="col-md-8">
-            <div class="stock_index">
+            <div class="container-fluid" id="stock">
                 <h5>市场数据</h5>
+                <hr />
                 <div class="col-md-4">
-                    <h6>上证指数</h6>
-                    <p>3000</p>
+                    <p>
+                        上证指数</p>
+                    <div class="current" style="color: #ff4b44; font-size: 1.5em; font-weight: bold;">3110.06</div>
+                    <div class="growth" style="color: #ff4b44;"><i>+</i>0.07%
+                        (<i>+</i>2.23)
+                    </div>
                 </div>
                 <div class="col-md-4">
-                    <h6>深证指数</h6>
-                    <p>2000</p>
+                    <p>创业板指</p>
+                    <div class="current" style="color: #00bb00; font-size: 1.5em; font-weight: bold;">1759.63</div>
+                    <div class="growth" style="color: #00bb00;"><i>+</i>-1.02%
+                        (<i>+</i>-18.06)
+                    </div>
                 </div>
                 <div class="col-md-4">
-                    <h6>创业板指</h6>
-                    <p>1000</p>
+                    <p>恒生指数</p>
+                    <div class="current" style="color: #ff4b44; font-size: 1.5em; font-weight: bold;">25701.63</div>
+                    <div class="growth" style="color: #ff4b44;"><i>+</i>0.24%
+                        (<i>+</i>62.36)
+                    </div>
                 </div>
             </div>
-            <div class="news_index">
+
+            <div class="container-fluid" id="news">
                 <h5>新闻专栏</h5>
+                <hr />
                 <div class="news_1">
                     <a href="#">新闻1</a>
                 </div>
+                <hr />
                 <div class="news_2">
                     <a href="#">新闻2</a>
                 </div>
+                <hr />
                 <div class="news_3">
                     <a href="#">新闻3</a>
                 </div>
+                <hr />
                 <div class="news_4">
                     <a href="#">新闻4</a>
                 </div>
+                <hr />
                 <div class="news_5">
                     <a href="#">新闻5</a>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
+            <div class="container-fluid">
+                <br><br>
+                <ul>
+                    <li><a href="#">跳转</a></li>
+                    <li><a href="#">跳转</a></li>
+                    <li><a href="#">跳转</a></li>
+                    <li><a href="#">跳转</a></li>
+                    <li><a href="#">跳转</a></li>
+                    <li><a href="#">跳转</a></li>
+                </ul>
+            </div>
+            <hr>
+            <div class="container-fluid"></div>
         </div>
     </div>
 </div>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
-<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="jquery-1.12.4.js"></script>
+<script>window.jQuery || document.write('<script src="jquery-1.12.4.js"><\/script>')</script>
+<script src="js/bootstrap.js"></script>
 </body>
 </html>
