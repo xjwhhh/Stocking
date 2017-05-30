@@ -10,15 +10,23 @@
     <link href="Flat-UI-master/dist/css/flat-ui.css" rel="stylesheet">
     <link href="singleSearch.css" rel="stylesheet">
     <style type="text/css">
-        .nav-tabs > li {
-            width: 20%;
-            background-color: #2f4b93;
+        #input{
+            /*top:50%;*/
+            margin-top: 15px;
         }
-
         ul {
             text-align: center;
         }
-
+        .nav-tabs > li {
+            width: 20%;
+            background-color: #00ddff;
+        }
+        a {
+            color: #555555
+        }
+        /*a:hover {*/
+        /*color: #000000*/
+        /*}*/
         .nav > li:hover .dropdown-menu {
             display: block;
         }
@@ -38,19 +46,23 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Stocking</a>
+        <a class="navbar-brand" href="#" style="height: 100px;line-height: 70px; font-size:4em">Stocking</a>
     </div>
-    <div id="navbar" class="navbar-collapse collapse">
+    <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="login.html" target="_blank">登录</a></li>
-            <li><a href="#">注册</a></li>
+            <li><a href="login.html" target="_blank" style="height: 100px;line-height: 70px; font-size:1.5em">登录</a>
+            </li>
+            <li><a href="#" style="height: 100px;line-height: 70px; font-size:1.5em">注册</a></li>
         </ul>
         <form class="navbar-form navbar-right" action="#" role="search">
             <div class="form-group">
-                <div class="input-group">
-                    <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
+                <div class="input-group" id="input">
+                    <input class="form-control" id="navbarInput-01" type="search" placeholder="Search"
+                           style="height: 53px;padding: 10px 16px;font-size: 22px;line-height: 1.318; width:300px">
                     <span class="input-group-btn">
-                  <button type="submit" class="btn"><span class="fui-search"></span></button>
+                  <button type="submit" class="btn"
+                          style="height: 53px;padding: 10px 16px;font-size: 22px;line-height: 1.318"><span
+                          class="fui-search "></span></button>
                 </span>
                 </div>
             </div>
@@ -59,7 +71,7 @@
 </div>
 <div class="collapse navbar-collapse" id="navbar-collapse-6">
     <ul class="nav nav-tabs">
-        <li><a href="#">首页</a></li>
+        <li><a href="index.html">首页</a></li>
         <li class="active"><a href="singleSearch.html">股票数据</a>
 
         </li>
