@@ -4,21 +4,13 @@ package stocking.data_impl;
  * Created by xjwhhh on 2017/5/23.
  */
 public class DBConfigBean {
-    private String type     =""; //数据库类型
-    private String name     =""; //连接池名字
-    private String driver   =""; //数据库驱动
-    private String url      =""; //数据库url
-    private String username =""; //用户名
-    private String password =""; //密码
-    private int maxconn  =0; //最大连接数
-
-    public DBConfigBean() {
-        // TODO Auto-generated constructor stub
-    }
-
-    public static void main(String[] args) {
-        // TODO Auto-generated method stub
-    }
+    private String type = ""; //数据库类型
+    private String name = ""; //连接池名字
+    private String driver = ""; //数据库驱动
+    private String url = ""; //数据库url
+    private String username = ""; //用户名
+    private String password = ""; //密码
+    private int maxconn = 0; //最大连接数
 
     public String getDriver() {
         return driver;

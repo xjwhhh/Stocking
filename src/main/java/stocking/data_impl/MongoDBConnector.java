@@ -26,6 +26,7 @@ public class MongoDBConnector {
 
     /**
      * 获取唯一实例
+     *
      * @return
      */
     static synchronized public MongoDBConnector getInstance() {
@@ -37,6 +38,7 @@ public class MongoDBConnector {
 
     /**
      * 通过数据库名获取数据库连接
+     *
      * @param databaseName
      * @return
      */

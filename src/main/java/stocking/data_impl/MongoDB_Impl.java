@@ -1,4 +1,5 @@
 package stocking.data_impl;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Filter;
@@ -19,11 +20,11 @@ import stocking.po.CustomerPO;
  * Created by xjwhhh on 2017/5/25.
  */
 public class MongoDB_Impl {
-    MongoDBConnector mongoDBConnector=MongoDBConnector.getInstance();
+    MongoDBConnector mongoDBConnector = MongoDBConnector.getInstance();
     MongoDatabase mongoDatabase = mongoDBConnector.getMongoDatabase("mycol");
-    MongoCollection<Document> collection=mongoDatabase.getCollection("clientStock");
+    MongoCollection<Document> collection = mongoDatabase.getCollection("clientStock");
 
-    public static void main( String args[] ){
+    public static void main(String args[]) {
 //        MongoDBConnector mongoDBConnector=MongoDBConnector.getInstance();
 //        MongoDatabase mongoDatabase = mongoDBConnector.getMongoDatabase("mycol");
 //        MongoCollection<Document> collection=mongoDatabase.getCollection("test");
@@ -83,22 +84,20 @@ public class MongoDB_Impl {
 
     }
 
-    public void getClientStock(CustomerPO customerPO){
-        String id=customerPO.getId();
-        BasicDBObject basicDBObject=new BasicDBObject();
-        basicDBObject.put("id",id);
-        FindIterable<Document> findIterable=collection.find(basicDBObject);
+    public void getClientStock(CustomerPO customerPO) {
+        String id = customerPO.getId();
+        BasicDBObject basicDBObject = new BasicDBObject();
+        basicDBObject.put("id", id);
+        FindIterable<Document> findIterable = collection.find(basicDBObject);
         MongoCursor<Document> mongoCursor = findIterable.iterator();
-        while(mongoCursor.hasNext()){
+        while (mongoCursor.hasNext()) {
             System.out.println(mongoCursor.next());
         }
     }
 
-    public void setClientStock(CustomerPO customerPO){
-        String id=customerPO.getId();
-        collection.updateMany(Filters.eq("id",id),new Document("$set",new Document()));//新键值对
+    public void setClientStock(CustomerPO customerPO) {
+        String id = customerPO.getId();
+        collection.updateMany(Filters.eq("id", id), new Document("$set", new Document()));//新键值对
     }
-
-
 
 }

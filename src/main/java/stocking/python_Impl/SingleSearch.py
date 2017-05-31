@@ -25,9 +25,9 @@ import pymysql
 #     return df
 
 
-def getkdata(sectionname, code, startdate, enddate):
-    sql = "select distinct date,adjopen,adjhigh,adjlow,adjclose,volume,code from kdata_" + sectionname + " where code='%s' and date>='%s' and date<='%s' order by date" % (
-        code, startdate, enddate)
+def getkdata(sectionName, code, startDate, endDate):
+    sql = "select distinct date,adjopen,adjhigh,adjlow,adjclose,volume,code from kdata_" + sectionName + " where code='%s' and date>='%s' and date<='%s' order by date" % (
+        code, startDate, endDate)
     try:
         cursor.execute(sql)
         results = cursor.fetchall()
@@ -52,18 +52,18 @@ if __name__ == "__main__":
     db = pymysql.connect("localhost", "root", "123456", "stock", charset="utf8")
     cursor = db.cursor();
     paths = sys.argv[0].split("/")
-    newpath = ""
+    newPath = ""
     for i in range(0, len(paths) - 2):
-        newpath += (paths[i] + "\\")
-    newpath += "calculation"
-    sys.path.append(newpath)
+        newPath += (paths[i] + "\\")
+    newPath += "calculation"
+    sys.path.append(newPath)
     sys.path.append(
         "C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\Stock_Analyzing_System\\src\\main\\java\\stocking\\calculation")
     import smaCal
     import relDev
 
     # df = getkdata_(sectionname=sys.argv[1], code=sys.argv[2], startdate=sys.argv[3], enddate=sys.argv[4])
-    df = getkdata(sectionname="szb", code="200012", startdate="2017-04-12", enddate="2017-05-19")
+    df = getkdata(sectionName="szb", code="200012", startDate="2017-04-12", endDate="2017-05-19")
 
     print(len(df))
 

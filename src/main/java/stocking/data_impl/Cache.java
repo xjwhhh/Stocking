@@ -25,6 +25,7 @@ public class Cache {
 
     /**
      * 获取唯一实例
+     *
      * @return
      */
     static synchronized public Cache getInstance() {

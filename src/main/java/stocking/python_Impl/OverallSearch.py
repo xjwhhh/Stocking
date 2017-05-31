@@ -55,8 +55,8 @@ if __name__ == "__main__":
     oc_belowMFivePerNum = 0  # 开盘-收盘小于-5%*上一个交易日收盘价的股票个数
     # for i in {"sha0", "sha1", "sha3", "shb", "sza", "szb", "cyb", "zxb"}:
     for i in {"sha0"}:
-        todaydf = getallkdata('szb', "2012-11-16")
-        yesterdaydf = getallkdata('szb', "2012-11-15")
+        todaydf = getallkdata('szb', "2017-04-25")
+        yesterdaydf = getallkdata('szb', "2017-04-24")
         # todaydf = getallkdata(i, sys.argv[1])
         # yesterdaydf = getallkdata(i, sys.argv[2])
         newdf = pd.merge(todaydf, yesterdaydf, on=['code'], how='inner')  # 两天都有的股票

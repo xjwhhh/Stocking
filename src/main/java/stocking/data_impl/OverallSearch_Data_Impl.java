@@ -19,6 +19,7 @@ import java.text.*;
  * Created by xjwhhh on 2017/5/23.
  */
 public class OverallSearch_Data_Impl implements OverallSearch_Data_Service {
+    Paths paths = new Paths();
 
     /**
      * 获取某日市场信息
@@ -31,11 +32,11 @@ public class OverallSearch_Data_Impl implements OverallSearch_Data_Service {
         int i = 0;
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String todayStr = formatter.format(date);
-        String yesterdayStr=formatter.format(new Date(date.getTime()-24*60*60*1000));
+        String yesterdayStr = formatter.format(new Date(date.getTime() - 24 * 60 * 60 * 1000));
         try {
             List<String> commands = new LinkedList<String>();
             commands.add("python");
-            commands.add(getpath("src\\main\\java\\stocking\\python_Impl\\OverallSearch.py"));
+            commands.add(paths.getProjectPath("src\\main\\java\\stocking\\python_Impl\\OverallSearch.py"));
             commands.add(todayStr);
             commands.add(yesterdayStr);
             ProcessBuilder processBuilder = new ProcessBuilder(commands);
@@ -56,7 +57,7 @@ public class OverallSearch_Data_Impl implements OverallSearch_Data_Service {
             int belowFivePerNum = Integer.parseInt(data[4]);//跌幅超过5%的股票数
             int oc_overPFivePerNum = Integer.parseInt(data[5]);//开盘-收盘大于5%*上一个交易日收盘价的股票个数
             int oc_belowMFivePerNum = Integer.parseInt(data[6]);//开盘-收盘小于-5%*上一个交易日收盘价的股票个数
-            MarketPO marketPO=new MarketPO(totalDeal,limitUpNum,limitDownNum,overFivePerNum,belowFivePerNum,oc_overPFivePerNum,oc_belowMFivePerNum);
+            MarketPO marketPO = new MarketPO(totalDeal, limitUpNum, limitDownNum, overFivePerNum, belowFivePerNum, oc_overPFivePerNum, oc_belowMFivePerNum);
             return marketPO;
         } catch (IOException e) {
             e.printStackTrace();
@@ -64,22 +65,6 @@ public class OverallSearch_Data_Impl implements OverallSearch_Data_Service {
         return null;
     }
 
-    /**
-     * 获取项目路径
-     *
-     * @param path
-     * @return
-     */
-    private String getpath(String path) {
-        String rpath = this.getClass().getResource("").getPath().substring(1);
-        String[] pathlist = rpath.split("/");
-        String newpath = "";
-        for (int i = 0; i < pathlist.length - 4; i++) {
-            newpath += (pathlist[i] + "\\");
-        }
-        newpath += path;
-        return newpath;
-    }
 
     public static void main(String[] args) {
         OverallSearch_Data_Impl overallSearch_data_ = new OverallSearch_Data_Impl();
