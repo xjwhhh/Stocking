@@ -1,4 +1,4 @@
-package stocking.data_impl;
+package stocking.data_impl.dbconnector;
 
 
 import com.mongodb.MongoClient;

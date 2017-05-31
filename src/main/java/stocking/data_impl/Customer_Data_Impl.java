@@ -1,17 +1,15 @@
 package stocking.data_impl;
 
+import stocking.data_impl.dbconnector.DBConnectionManager;
+import stocking.data_impl.dbconnector.DBConnectionPool;
 import stocking.data_service.Customer_Data_Service;
-import stocking.data_service.DataFactory_Data_Service;
 import stocking.po.CustomerPO;
 
 import java.sql.Connection;
 import java.sql.Blob;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Hashtable;
@@ -61,8 +59,8 @@ public class Customer_Data_Impl implements Customer_Data_Service {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 id = (String.valueOf(rs.getInt("id")));
-                name = (BlobtoString(rs.getBlob("decode(name,'key')")));
-                password = (BlobtoString(rs.getBlob("decode(password,'key')")));
+                name = (BlobToString(rs.getBlob("decode(name,'key')")));
+                password = (BlobToString(rs.getBlob("decode(password,'key')")));
             }
             CustomerPO newCustomerPO = new CustomerPO(id, name, password, "");
             pool.freeConnection(connection);
@@ -116,19 +114,19 @@ public class Customer_Data_Impl implements Customer_Data_Service {
         Connection connection = connectionManager.getConnection("stock");
         String id = customerPO.getId();
         String name = customerPO.getName();
-        String oldpassword = customerPO.getPassword();
-        String newpassword = customerPO.getNewPassword();
+        String oldPassword = customerPO.getPassword();
+        String newPassword = customerPO.getNewPassword();
         String sql = "update clientinfo set name=encode(?,'key'),password=encode(?,'key') where id=" + Integer.parseInt(id) + " and password=encode(?,'key')";
         PreparedStatement pstmt;
         try {
             pstmt = (PreparedStatement) connection.prepareStatement(sql);
             pstmt.setString(1, name);
-            pstmt.setString(2, newpassword);
-            pstmt.setString(3, oldpassword);
+            pstmt.setString(2, newPassword);
+            pstmt.setString(3, oldPassword);
             pstmt.executeUpdate();
             pstmt.close();
             pool.freeConnection(connection);
-            customerPO.setPassword(newpassword);
+            customerPO.setPassword(newPassword);
             return customerPO;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -142,7 +140,7 @@ public class Customer_Data_Impl implements Customer_Data_Service {
      * @param blob
      * @return
      */
-    public String BlobtoString(Blob blob) {
+    private String BlobToString(Blob blob) {
         try {
             InputStream is = blob.getBinaryStream();
             byte[] b = new byte[is.available()];

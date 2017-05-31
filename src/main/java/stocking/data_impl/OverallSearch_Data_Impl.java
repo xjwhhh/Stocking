@@ -1,17 +1,11 @@
 package stocking.data_impl;
 
-import stocking.data_service.DataFactory_Data_Service;
 import stocking.data_service.OverallSearch_Data_Service;
 import stocking.po.MarketPO;
-import stocking.po.StockPO;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.*;
 import java.text.*;
 
@@ -19,7 +13,7 @@ import java.text.*;
  * Created by xjwhhh on 2017/5/23.
  */
 public class OverallSearch_Data_Impl implements OverallSearch_Data_Service {
-    Paths paths = new Paths();
+    Tools tools = new Tools();
 
     /**
      * 获取某日市场信息
@@ -36,7 +30,7 @@ public class OverallSearch_Data_Impl implements OverallSearch_Data_Service {
         try {
             List<String> commands = new LinkedList<String>();
             commands.add("python");
-            commands.add(paths.getProjectPath("src\\main\\java\\stocking\\python_Impl\\OverallSearch.py"));
+            commands.add(tools.getProjectPath("src\\main\\java\\stocking\\python_Impl\\OverallSearch.py"));
             commands.add(todayStr);
             commands.add(yesterdayStr);
             ProcessBuilder processBuilder = new ProcessBuilder(commands);

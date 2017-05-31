@@ -12,13 +12,13 @@ import java.util.List;
  * Created by xjwhhh on 2017/5/29.
  */
 public class GetNews {
-    Paths paths = new Paths();
+    Tools tools = new Tools();
 
     public String getnews() {
         try {
             List<String> commands = new LinkedList<String>();
             commands.add("python");
-            commands.add(paths.getProjectPath("src\\main\\java\\stocking\\python_Impl\\NewsSpider.py"));
+            commands.add(tools.getProjectPath("src\\main\\java\\stocking\\python_Impl\\NewsSpider.py"));
             ProcessBuilder processBuilder = new ProcessBuilder(commands);
             Process pr = processBuilder.start();
             BufferedReader in = new BufferedReader(new
