@@ -78,7 +78,7 @@
 
 <div style="margin-top: 20px" class="main">
     <div class="stockTile">
-        <span class="stockName"><strong title="Chunghsin Technology Group Co.,Ltd."
+        <span class="stockName"><strong style="height: 20px;width: 30px" title="Chunghsin Technology Group Co.,Ltd."
                                         class="stockName">中新科技(SH:603996)</strong>
         </span>
         <span class="stockOp" style="display: inline;">
@@ -87,7 +87,7 @@
             </span>
         </span>
     </div>
-    <table class="topTable">
+    <table style="margin-top: 20px" class="topTable">
         <tbody>
         <tr>
             <td>今开：<span>7.79</span></td>
@@ -111,7 +111,7 @@
         </tbody>
     </table>
 
-    <div id="candleStick" style="height: 100%">
+    <div id="candleStick" style="height: 100%;margin-top: 15px">
         <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
         <script type="text/javascript"
                 src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
@@ -139,12 +139,18 @@
 
     </div>
     <div class="history_search">
-        <h>历史行情</h>>
-        <div style="display: inline;">From: <input aria-label="From: "
-                                                   class="amChartsInputField amcharts-start-date-input"
-                                                   style="text-align: center; width: 100px;" type="date"> to: <input
-                aria-label="to: " class="amChartsInputField amcharts-end-date-input"
-                style="text-align: center; width: 100px;" type="date"></div>
+        <h>历史行情</h>
+        <div style="display: inline;">From: <input type="date" value="2015-09-24"/> to: <input type="date" value="2015-09-24"
+                >
+
+        </div>
+        <div style="margin-top: -25px;margin-left: 500px">
+        <form>
+            <input style="background: rgba(44,100,191,0.72)" type="button" value="点击查看" onclick="msg()" />
+        </form>
+        </div>
+    </div>
+    <div style="height: 50px">
     </div>
 
 
