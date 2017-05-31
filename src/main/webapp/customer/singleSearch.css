@@ -15,7 +15,19 @@
     color: #ffffff;
     background-color: #2767a9 ;
     margin-top: 0px;
-    padding: 0 15px
+    padding: 0 15px;
+}
+.compare_table{
+    /*border: 1px solid #2767a9;*/
+    width: 500px;
+
+
+}
+.common_clom2_2{
+    border: 1px solid #2767a9;
+    width: 700px;
+    margin-top: -300px;
+    margin-left: 400px;
 }
 /*.sc_selector.sc_title small{*/
     /*color: #fff;*/
