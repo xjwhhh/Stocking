@@ -1,12 +1,9 @@
-package stocking.data_impl;
+package stocking.data_impl.dbconnector;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.Properties;
 import java.util.Vector;
 
 /**

@@ -1,4 +1,4 @@
-package stocking.data_impl;
+package stocking.data_impl.dbconnector;
 
 /**
  * Created by xjwhhh on 2017/5/23.
