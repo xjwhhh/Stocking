@@ -1,18 +1,12 @@
 package stocking.data_impl;
 
-import stocking.data_service.DataFactory_Data_Service;
 import stocking.data_service.SingleSearch_Data_Service;
 import stocking.po.StockPO;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -26,7 +20,7 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
     Cache cache = Cache.getInstance();
     Hashtable<String, String> code_name = cache.getCode_Name();
     Hashtable<String, String> name_code = cache.getName_Code();
-    Paths paths = new Paths();
+    Tools tools = new Tools();
 
     /**
      * 判断字符串是否完全由数字构成
@@ -45,7 +39,7 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
      * @param code
      * @return
      */
-    private String getsectionbycode(String code) {
+    private String getSectionByCode(String code) {
         String section = "";
         if (code.length() == 6) {
             String type = code.substring(0, 3);
@@ -88,14 +82,14 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
         if (isInteger) {
             //判断该股票代码是否存在
             if (code_name.contains(identifier)) {
-                section = getsectionbycode(identifier);
+                section = getSectionByCode(identifier);
             } else {
                 return null;
             }
         } else {
             if (name_code.contains(identifier)) {
                 identifier = name_code.get(identifier);
-                section = getsectionbycode(identifier);
+                section = getSectionByCode(identifier);
             } else {
                 return null;
             }
@@ -104,7 +98,7 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
             try {
                 List<String> commands = new LinkedList<String>();
                 commands.add("python");
-                commands.add(paths.getProjectPath("src\\main\\java\\stocking\\python_Impl\\SingleSearch.py"));
+                commands.add(tools.getProjectPath("src\\main\\java\\stocking\\python_Impl\\SingleSearch.py"));
                 commands.add(section);
                 commands.add(identifier);
                 commands.add(startDateStr);
@@ -177,7 +171,7 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
         return null;
     }
 
-    public double[] getdouble(BufferedReader in, double[] doubles, int num) {
+    private double[] getdouble(BufferedReader in, double[] doubles, int num) {
         String line = "";
         try {
             for (int i = 0; i < num; i++) {
@@ -191,7 +185,7 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
         return doubles;
     }
 
-    public int[] getint(BufferedReader in, int[] ints, int num) {
+    private int[] getint(BufferedReader in, int[] ints, int num) {
         String line = "";
         try {
             for (int i = 0; i < num; i++) {
@@ -205,7 +199,7 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
         return ints;
     }
 
-    public Date[] getdate(BufferedReader in, Date[] dates, int num) {
+    private Date[] getdate(BufferedReader in, Date[] dates, int num) {
         String line = "";
         try {
             for (int i = 0; i < num; i++) {

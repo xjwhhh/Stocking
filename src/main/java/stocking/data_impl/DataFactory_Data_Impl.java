@@ -39,4 +39,8 @@ public class DataFactory_Data_Impl implements DataFactory_Data_Service {
         return new Strategy_Data_Impl();
     }
 
+    public BGraph_Data_Service bGraph() {
+        return null;
+    }
+
 }

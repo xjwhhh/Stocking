@@ -26,6 +26,7 @@ def getStockInfo(code, startDate, endDate):
         print('get data fail')
     return df
 
+
 def getSectionByCode(code):
     subcode = code[:3]
     if (subcode == "600"):
@@ -66,5 +67,6 @@ if __name__ == "__main__":
     endDate = sys.argv[3]  # 结束日期
     form = int(sys.argv[4])  # 形成期
     hold = int(sys.argv[5])  # 持有期
-    stocks = sys.argv[6]
+    isPla = sys.argv[6]  # 是否为板块
+    stocks = sys.argv[7]
     stockLists = stocks.split("/")  # 股票代码列表

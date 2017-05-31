@@ -16,8 +16,8 @@ class MomentumStrategy(Strategy):
 
     def count(self, oriDf, isPla, plaName):
         length = len(oriDf)
-        self.selectLen = int(len(oriDf.columns) * 0.2)
-        # self.selectLen = 2
+        # self.selectLen = int(len(oriDf.columns) * 0.2)
+        self.selectLen = 2
         i = self.form - 1
         while i < length:
             tempRes = (oriDf.iloc[i] - oriDf.iloc[i - self.form + 1]) / oriDf.iloc[i - self.form + 1]  # 计算形成期

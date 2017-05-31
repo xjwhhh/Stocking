@@ -9,5 +9,6 @@ import java.util.Date;
  * Created by dell on 2017/5/30.
  */
 public interface Strategy_Data_Service {
-    StrategyPO traceBack(String type, Date start, Date end, int form, int hold, JSONArray stocks);
+    StrategyPO traceBack(String type, Date start, Date end, int form, int hold, String isPla,
+                         JSONArray stocks);
 }

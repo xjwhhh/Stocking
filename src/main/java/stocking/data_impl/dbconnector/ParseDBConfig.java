@@ -1,10 +1,8 @@
-package stocking.data_impl;
+package stocking.data_impl.dbconnector;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Vector;
 import java.util.Iterator;
@@ -13,8 +11,7 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
-import org.jdom.output.Format;
-import org.jdom.output.XMLOutputter;
+import stocking.data_impl.dbconnector.DBConfigBean;
 
 /**
  * Created by xjwhhh on 2017/5/23.
@@ -29,17 +26,17 @@ public class ParseDBConfig {
      */
     public Vector readConfigInfo(String path) {
         String rpath = this.getClass().getResource("").getPath().substring(1);
-        String[] pathlist = rpath.split("/");
-        String newpath = "";
-        for (int i = 0; i < pathlist.length - 4; i++) {
-            newpath += (pathlist[i] + "/");
+        String[] pathList = rpath.split("/");
+        String newPath = "";
+        for (int i = 0; i < pathList.length - 5; i++) {
+            newPath += (pathList[i] + "/");
         }
-        newpath += "src/main/java/stocking/data_impl/";
-        newpath += path;
+        newPath += "src/main/java/stocking/data_impl/dbconnector/";
+        newPath += path;
         Vector dsConfig = null;
         FileInputStream fi = null;
         try {
-            fi = new FileInputStream(newpath);//读取路径文件
+            fi = new FileInputStream(newPath);//读取路径文件
             dsConfig = new Vector();
             SAXBuilder sb = new SAXBuilder();
             Document doc = sb.build(fi);

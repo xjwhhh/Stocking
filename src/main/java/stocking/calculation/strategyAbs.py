@@ -8,45 +8,28 @@
 '''
 
 from abc import abstractmethod
-import pymysql
 import pandas as pd
-
 
 class Strategy(object):
     @abstractmethod
-    def count(self, oriDf, isPla, plaName):
-        pass
+    def count(self, oriDf, isPla, plaName): pass
 
-    def getPlaIndex(self, startdate, enddate, plaName):
-        db = pymysql.connect("localhost", "root", "123456", "stock", charset="utf8")
-        cursor = db.cursor();
-        sql = "select close from market_index where date>='%s' and date<='%s' and code='%s' " % (
-            startdate, enddate, plaName)
-        try:
-            cursor.execute(sql)
-            results = cursor.fetchall()
-            re = []
-            for row in results:
-                re.append(row[0])
-            se = pd.Series(re)
-            index = se.mean()
-        except:
-            print('get data fail')
-        return index
-
-    pass
+    def getPlaIndex(self, startdate, enddate, plaName): pass
 
     def getAnnualPro(self):
-        length = int(self.selectLen / 5)
-        select = list(map(lambda x: self.winner[x].iloc[0:length].mean(), self.winner))
-        avr = sum(select) / len(select)  # 每个持有期的平均收益率
-        return (avr / self.hold) * 250
+        # length = int(self.selectLen / 5)
+        length = 1
+        # 每个日期的平均策略收益
+        self.select = dict(zip(self.winner.keys(),
+                               list(map(lambda x: self.winner[x].iloc[0:length].mean(), self.winner))))
+        self.avr = sum(self.select.values()) / len(self.select)  # 每个持有期的平均收益率
+        return (self.avr / self.hold) * 250
+
     pass
 
     def getBasicAnnualPro(self):
-        basic = sum(self.basic.values()) / len(self.basic)
-        return (basic / self.hold) * 250
-
+        self.basicAvr = sum(self.basic.values()) / len(self.basic)
+        return (self.basicAvr / self.hold) * 250
     pass
 
     def getBeta(self):
@@ -54,7 +37,6 @@ class Strategy(object):
         cov = total / len(self.select) - self.avr * self.basicAvr
         basicDev = self.getDev(self.basic) - self.basicAvr * self.basicAvr
         return cov / basicDev
-
     pass
 
     def getSquare(self, dictionary):

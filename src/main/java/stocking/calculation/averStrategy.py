@@ -7,22 +7,21 @@ import pandas as pd
 
 
 class AverageStrategy(Strategy):
-    def __init__(self, form, hold, num):
+    def __init__(self, form, hold):
         self.winner = {}
         self.basic = {}  # 市场基本收益率
         self.form = form
         self.hold = hold
-        self.num = num
-
     pass
 
     def count(self, oriDf, isPla, plaName):
         length = len(oriDf)
+        self.selectLen = int(len(oriDf.columns) * 0.2)
         i = self.form - 1
         while i < length:
             average = oriDf[i - self.form + 1:i + 1].sum() / self.form
             tempRes = abs(average - oriDf.iloc[i])
-            tempRes = tempRes.sort_values(axis=0, ascending=False)[0:self.num]  # 筛选要持有的股票数
+            tempRes = tempRes.sort_values(axis=0, ascending=False)[0:self.selectLen]  # 筛选要持有的股票数
             candidate = tempRes.index
             if i + self.hold >= length and length - 1 > i + 1:
                 basicPro = (oriDf.iloc[length - 1] - oriDf.iloc[i + 1]) / oriDf.iloc[i + 1]
