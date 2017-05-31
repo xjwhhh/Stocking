@@ -8,9 +8,8 @@ from calculation.strategyAbs import Strategy
 from calculation.momStrategy import MomentumStrategy
 from calculation.averStrategy import AverageStrategy
 
-
 class BGraph:
-    def count(self, oriDf, isPla, plaName, type, num, isHold, interval):
+    def count(self, oriDf, isPla, plaName, type, isHold, interval):
         self.profits = []
         self.winChance = []
         self.strategy = Strategy()
@@ -29,7 +28,7 @@ class BGraph:
             if type == 1:
                 self.strategy = MomentumStrategy(form, hold)
             else:
-                self.strategy = AverageStrategy(form, hold, num)
+                self.strategy = AverageStrategy(form, hold)
 
             self.strategy.count(oriDf, isPla, plaName)
             self.strategy.getAnnualPro()

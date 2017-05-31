@@ -3,9 +3,8 @@ package stocking.servlet;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import stocking.data_impl.DataFactory_Data_Impl;
-import stocking.data_service.Strategy_Data_Service;
-import stocking.po.CustomerPO;
-import stocking.po.StrategyPO;
+import stocking.data_service.BGraph_Data_Service;
+import stocking.po.BGraphPO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,11 +16,11 @@ import java.text.ParseException;
 import java.util.Date;
 
 /**
- * Created by dell on 2017/5/30.
+ * Created by dell on 2017/5/31.
  */
-@WebServlet(name = "strategy")
-public class Strategy_Servlet extends HttpServlet {
-    private Strategy_Data_Service sds;
+@WebServlet(name = "BGraphServlet")
+public class BGraphServlet extends HttpServlet {
+    private BGraph_Data_Service bds;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
@@ -33,7 +32,7 @@ public class Strategy_Servlet extends HttpServlet {
             return;
         }
 
-        sds = DataFactory_Data_Impl.getInstance().strategy();
+        bds = DataFactory_Data_Impl.getInstance().bGraph();
         String type = jsonObject.getString("type");//策略类型(M,A)
 
         ParseDate pd = new ParseDate();
@@ -46,13 +45,11 @@ public class Strategy_Servlet extends HttpServlet {
             e.printStackTrace();
             return;
         }
-        int form = jsonObject.getInt("form");//形成期
-        int hold = jsonObject.getInt("hold");//持有期
-        String isPla = jsonObject.getString("isPla");//是否为板块
+        String isHold = jsonObject.getString("isHold");//是否为形成期
+        int interval = jsonObject.getInt("interval");//持有期
+        String isPla = jsonObject.getString("isPla");
         JSONArray stocks = JSONArray.fromObject(jsonObject.getString("stocks"));
-        StrategyPO result;
-
-        result = sds.traceBack(type, start, end, form, hold, isPla, stocks);
+        BGraphPO result = bds.get(type, start, end, isHold, interval, isPla, stocks);
 
         new Send().doSend(response, result);
     }
