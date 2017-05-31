@@ -24,19 +24,19 @@ public class DataFactory_Data_Impl implements DataFactory_Data_Service {
     }
 
     public Customer_Data_Service customer() {
-        return null;
+        return new Customer_Data_Impl();
     }
 
     public SingleSearch_Data_Service singleSearch() {
-        return null;
+        return new SingleSearch_Data_Impl();
     }
 
     public OverallSearch_Data_Service overall() {
-        return null;
+        return new OverallSearch_Data_Impl();
     }
 
     public Strategy_Data_Service strategy() {
-        return null;
+        return new Strategy_Data_Impl();
     }
 
 }

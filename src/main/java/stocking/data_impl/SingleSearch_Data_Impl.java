@@ -26,6 +26,7 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
     Cache cache = Cache.getInstance();
     Hashtable<String, String> code_name = cache.getCode_Name();
     Hashtable<String, String> name_code = cache.getName_Code();
+    Paths paths = new Paths();
 
     /**
      * 判断字符串是否完全由数字构成
@@ -71,6 +72,7 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
 
     /**
      * 获取股票一段时间内的个股信息
+     *
      * @param identifier
      * @param startDate
      * @param endDate
@@ -84,7 +86,12 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
         String section = "";
         //判断是股票代码还是名字，如果是名字转换为代码
         if (isInteger) {
-            section = getsectionbycode(identifier);
+            //判断该股票代码是否存在
+            if (code_name.contains(identifier)) {
+                section = getsectionbycode(identifier);
+            } else {
+                return null;
+            }
         } else {
             if (name_code.contains(identifier)) {
                 identifier = name_code.get(identifier);
@@ -97,7 +104,7 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
             try {
                 List<String> commands = new LinkedList<String>();
                 commands.add("python");
-                commands.add(getpath("src\\main\\java\\stocking\\python_Impl\\SingleSearch.py"));
+                commands.add(paths.getProjectPath("src\\main\\java\\stocking\\python_Impl\\SingleSearch.py"));
                 commands.add(section);
                 commands.add(identifier);
                 commands.add(startDateStr);
@@ -214,22 +221,6 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
         return dates;
     }
 
-    /**
-     * 获取项目路径
-     *
-     * @param path
-     * @return
-     */
-    private String getpath(String path) {
-        String rpath = this.getClass().getResource("").getPath().substring(1);
-        String[] pathlist = rpath.split("/");
-        String newpath = "";
-        for (int i = 0; i < pathlist.length - 4; i++) {
-            newpath += (pathlist[i] + "\\");
-        }
-        newpath = newpath + path;
-        return newpath;
-    }
 
     public static void main(String[] args) {
         SingleSearch_Data_Impl singleSearch_data_ = new SingleSearch_Data_Impl();
