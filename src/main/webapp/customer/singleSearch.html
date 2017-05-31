@@ -3,23 +3,27 @@
 <head>
     <meta charset="utf-8">
     <title></title>
+    <link href="singleSearch.css" rel="stylesheet" type="text/css" charset="utf-8">
     <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="Flat-UI-master/dist/css/flat-ui.css" rel="stylesheet">
-    <link href="singleSearch.css" rel="stylesheet">
+
     <style type="text/css">
-        #input{
+        #input {
             margin-top: 20px;
         }
+
         ul {
             text-align: center;
         }
+
         .nav-tabs > li {
             width: 20%;
             background-color: #0099ff;
         }
+
         a {
             color: #333333
         }
@@ -267,20 +271,132 @@
             </div>
 
 
-            <div class="tab-pane fade" id="stockCompare">
-                <p>compare。</p>
-            </div>
-
         </div>
 
     </div>
+    <div class="tab-pane " id="stockCompare">
+        <div style="margin-left: 10px;margin-top:10px;width: 300px;" class="common_clom2_1">
+            <div class="sc_selector">
+                <div class="sc_title">
+                    <h2 style="margin: 0px">股票对比
+                        <small style="color: white;font-size: small">提示：最多对比5只股票</small>
+                    </h2>
+                </div>
+                <div style="display: inline;width: 28px">时间选择： <input style="width: 86px" type="date" value="2015-09-24"/> - <input style="width: 86px" type="date" value="2015-09-24"
+                >
+                    <div class="sc_suggest">
+                        添加对比：<input type="text" value="代码/名称/拼音" id="sc_suggest_key" autocomplete="off">
+                        <!-- <a href="" class="sc_sel_btn" id="sc_sel_add">添加对比</a> -->
+                        <ol class="sc_sel_results" id="sc_sel_results">
+                        </ol>
+                        <div class="sc_sel_btns">
+                            <a href="javascript:void(0)" _url="http://quotes.money.163.com/tools/stockcomp/{code}.html"
+                               class="sc_sel_btn" id="sc_sel_compare">开始对比</a>
+                            <!-- _url为对比的跳转链接,只需保证存在{code}存在即可		 -->
+                            <a href="http://quotes.money.163.com/tools/stockcomp/index.html" class="sc_sel_empty"
+                               target="_self">清空</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sc_bigshot">
+                    <div class="sc_title">
+                        <h2>大盘指数：</h2>
+                    </div>
+                    <table class="sc_common_data">
+                        <tbody>
+                        <tr>
+                            <td><a href="http://quotes.money.163.com/0000001.html#1b01" target="_blank">上证指数</a></td>
+                            <th><a href="javascript:void(0)" class="sc_to_compare" _symbol="0000001" _type="SH"
+                                   _name="上证指数">对比</a></th>
+                        </tr>
+                        <tr>
+                            <td><a href="http://quotes.money.163.com/1399001.html#1b01" target="_blank">深证成指</a></td>
+                            <th><a href="javascript:void(0)" class="sc_to_compare" _symbol="1399001" _type="SZ"
+                                   _name="深证成指">对比</a></th>
+                        </tr>
+                        <tr>
+                            <td><a href="http://quotes.money.163.com/1399300.html#1b01" target="_blank">沪深300</a></td>
+                            <th><a href="javascript:void(0)" class="sc_to_compare" _symbol="1399300" _type="SZ"
+                                   _name="沪深300">对比</a></th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="sc_bigshot sc_tabs">
+                    <div class="sc_tabs_head" id="sc_tabs_panel">
+                        <span class="current">热门股</span>
+
+                    </div>
+                    <div class="sc_tabs_panel current" id="sc_tabs_panel1">
+                        <table class="sc_common_data">
+                            <tbody>
+                            <tr>
+                                <td><a href="http://quotes.money.163.com/0603758.html#12b02" target="_blank">秦安股份</a>
+                                </td>
+                                <td><span>(<em _ntesquote_="code:0603758;attr:price;fixed:2;color:updown;bgchg:price"
+                                               class="cRed">25.29</em> <em
+                                        _ntesquote_="code:0603758;attr:percent;percent:2;color:updown;bgchg:price"
+                                        class="cRed">2.06%</em>)</span></td>
+                                <th><a href="javascript:void(0)" class="sc_to_compare" _symbol="0603758" _type="SH"
+                                       _name="秦安股份">对比</a></th>
+                            </tr>
+                            <tr>
+                                <td><a href="http://quotes.money.163.com/1300643.html#12b02" target="_blank">万通智控</a>
+                                </td>
+                                <td><span>(<em _ntesquote_="code:1300643;attr:price;fixed:2;color:updown;bgchg:price"
+                                               class="cGreen">20.95</em> <em
+                                        _ntesquote_="code:1300643;attr:percent;percent:2;color:updown;bgchg:price"
+                                        class="cGreen">-1.13%</em>)</span></td>
+                                <th><a href="javascript:void(0)" class="sc_to_compare" _symbol="1300643" _type="SZ"
+                                       _name="万通智控">对比</a></th>
+                            </tr>
+                            <tr>
+                                <td><a href="http://quotes.money.163.com/1002871.html#12b02" target="_blank">伟隆股份</a>
+                                </td>
+                                <td><span>(<em _ntesquote_="code:1002871;attr:price;fixed:2;color:updown;bgchg:price"
+                                               class="cGreen">51.70</em> <em
+                                        _ntesquote_="code:1002871;attr:percent;percent:2;color:updown;bgchg:price"
+                                        class="cGreen">-2.32%</em>)</span></td>
+                                <th><a href="javascript:void(0)" class="sc_to_compare" _symbol="1002871" _type="SZ"
+                                       _name="伟隆股份">对比</a></th>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="common_clom2_2">
+            <div class="compare_table">
+                <div class="sc_title">
+                    <h2>基本指标对比</h2>
+                </div>
+                <table class="data_table">
+                    <thead>
+                    <tr>
+                        <th>股票名称</th>
+                        <th>股票编号</th>
+                        <th>最低值</th>
+                        <th>最高值</th>
+                        <th>涨跌幅</th>
+                        <th>涨跌幅</th>
+
+                    </tr>
+                    </thead>
 
 
+                </table>
 
-    
+            </div>
 
 
+        </div>
 
+
+    </div>
 </div>
 </body>
 </html>
