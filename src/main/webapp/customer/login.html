@@ -47,12 +47,12 @@
                            id="login-pass"/>
                     <label class="login-field-icon fui-lock" for="login-pass"></label>
                 </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label>
-                </div>
-                <a class="btn btn-primary btn-lg btn-block" href="#">Log in</a>
+                <!--<div class="checkbox">-->
+                    <!--<label>-->
+                        <!--<input type="checkbox" value="remember-me"> Remember me-->
+                    <!--</label>-->
+                <!--</div>-->
+                <input type="button" class="btn btn-primary btn-lg btn-block" onclick="submit()" value="Log in"/>
                 <a class="login-link" href="#">Lost your password?</a>
             </div>
         </div>
@@ -64,15 +64,17 @@
         this.userId = userId;
         this.name = name;
     }
-    function requestServlet()
+    function submit()
     {
-        var urlStr="http://192.168.1.118:8080/AjaxTest/servlet/JasonServlet";
-        var user = JSON.stringify(new User(101,"阿猫"));
+        var url="http://";
+        var name = document.getElementById("login-name").value();
+        var password = document.getElementById("login-pass").value();
+        var user = JSON.stringify(new User(name,password));
 
 //调用JQuery提供的Ajax方法
         $.ajax({
             type:"POST",
-            url:urlStr,
+            url:url,
             data:user,
             dataType: "jason",//此处要设置成jason
             success: callback});//回调函数
@@ -83,7 +85,6 @@
         var obj = JSON.parse(str);//调用Json2.js中提供的JSON解析器来解析成JSONObject
         alert(obj.errNum);
     }
-    requestServlet();
 </script>
 </body>
 </html>
