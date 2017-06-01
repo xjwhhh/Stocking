@@ -301,6 +301,7 @@ option = {
 
 
 ;
+
 if (option && typeof option === "object") {
     myChart.setOption(option, true);
 }

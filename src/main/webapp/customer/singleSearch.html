@@ -98,7 +98,7 @@
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade in active" id="stockContent">
         <form action="singleStock.html" method="POST">
-            <div style="margin-top: 40px ;margin-left: 10px" class="nav__search">
+            <div style="padding-left:40px;margin-top: 40px ;margin-left: 40px" class="nav__search">
                 <input type="text" placeholder="输入股票名或股票编号">
                 <span class="nav__search__addon">
            <input style="background: rgba(0,0,0,0)" type="submit">
@@ -111,30 +111,13 @@
 
             </div>
         </form>
-        <div style="width: 150px;height: 300px;margin-left: 850px;margin-top: 10px" class="hotStock_container">
-            <h3>热股榜</h3>
-            <table cellspacing="10" class="hotStock_List">
-                <tr class="depreciate">
-                    <td>1</td>
-                    <td style="margin-left: 20px"><a href="/S/BABA" target="_blank">深发展A</a></td>
-
-                </tr>
-                <tr class="depreciate">
-                    <td>2</td>
-                    <td style="margin-left: 20px"><a href="/S/BABA" target="_blank">沪深</a></td>
-
-                </tr>
-
-            </table>
 
 
-        </div>
 
-
-        <div style="margin-left: 20px;margin-top: -300px" class="stockScreener-range">
+        <div style="padding-left:40px;margin-left: 40px;margin-top:40px;width:70%;float:left" class="stockScreener-range">
             <div class="stockScreener-title">选择范围</div>
             <div class="stockScreener-range-wrapper">
-                <div class="stockScreener-range-industry"><span>行业：</span><select>
+                <div class="stockScreener-range-industry" style="width:50%;float:left"><span>行业：</span><select>
                     <option value="">全部</option>
                     <option value="J68">保险业</option>
                     <option value="G59">仓储业</option>
@@ -215,7 +198,7 @@
                     <option value="C35">专用设备制造业</option>
                     <option value="C22">造纸和纸制品业</option>
                 </select></div>
-                <div style="margin-top:-20px;margin-left:350px" class="stockScreener-range-area">
+                <div  class="stockScreener-range-area" style="width:40%;float:left">
                     <span>板块：</span><select>
                     <option value="">全部</option>
                     <option value="CN340000">创业板</option>
@@ -224,13 +207,13 @@
 
             </div>
 
-            <div style="margin-top: 50px;margin-left: 20px" class="stockScreener-search-result new-portfolio">
+            <div style="margin-top: 50px;margin-left: 0px" class="stockScreener-search-result new-portfolio">
                 <div class="stockScreener-search-result-share"><span class="result">符合条件股票<strong>0</strong>只</span>
 
                 </div>
                 <div class="stockScreener-search-result-table-container">
                     <div class="stockScreener-search-result-table mainTable overflowx">
-                        <table style="width:690px;" cellspacing="0" cellpadding="0" class="portfolio">
+                        <table style="width:690px;" cellspacing="0" cellpadding="0" class="table table-striped">
                             <thead>
                             <tr>
                                 <th class="sortable desc" data-key="symbol" style="min-width:80px"><s></s>股票</th>
@@ -273,16 +256,42 @@
 
         </div>
 
+        <div style="width: 15%;height: 300px;margin-top: 10px;float:left" class="sc_selector">
+            <table cellspacing="10" class="table table-condensed">
+                <thead>
+                <tr><h3  class="sc_title" style="height:60px;font-size:50px;padding-top:10px">热股榜</h3></tr>
+                </thead>
+                <tr class="depreciate">
+                    <td>1</td>
+                    <td style="margin-left: 20px"><a href="/S/BABA" target="_blank">深发展A</a></td>
+
+                </tr>
+                <tr class="depreciate">
+                    <td>2</td>
+                    <td style="margin-left: 20px"><a href="/S/BABA" target="_blank">沪深</a></td>
+
+                </tr>
+
+            </table>
+
+
+        </div>
+
     </div>
+
+
+
+
+
     <div class="tab-pane " id="stockCompare">
-        <div style="margin-left: 10px;margin-top:10px;width: 300px;" class="common_clom2_1">
+        <div style="margin-left: 5%;margin-top:3%;width: 30%;" class="common_clom2_1">
             <div class="sc_selector">
                 <div class="sc_title">
-                    <h2 style="margin: 0px">股票对比
+                    <h4 style="margin: 0px">股票对比
                         <small style="color: white;font-size: small">提示：最多对比5只股票</small>
-                    </h2>
+                    </h4>
                 </div>
-                <div style="display: inline;width: 28px">时间选择： <input style="width: 86px" type="date" value="2015-09-24"/> - <input style="width: 86px" type="date" value="2015-09-24"
+                <div style="display: inline;width: 95%">时间： <input style="width: 40%" type="date" value="2015-09-24"/> - <input style="width: 40%" type="date" value="2015-09-24"
                 >
                     <div class="sc_suggest">
                         添加对比：<input type="text" value="代码/名称/拼音" id="sc_suggest_key" autocomplete="off">
@@ -301,7 +310,7 @@
 
                 <div class="sc_bigshot">
                     <div class="sc_title">
-                        <h2>大盘指数：</h2>
+                        <h4>大盘指数：</h4>
                     </div>
                     <table class="sc_common_data">
                         <tbody>
@@ -324,9 +333,8 @@
                     </table>
                 </div>
                 <div class="sc_bigshot sc_tabs">
-                    <div class="sc_tabs_head" id="sc_tabs_panel">
-                        <span class="current">热门股</span>
-
+                    <div class="sc_title">
+                        <h4>热门股：</h4>
                     </div>
                     <div class="sc_tabs_panel current" id="sc_tabs_panel1">
                         <table class="sc_common_data">
@@ -372,7 +380,7 @@
         <div class="common_clom2_2">
             <div class="compare_table">
                 <div class="comparetitle">
-                    <h4 style="size: 10px">基本指标对比</h4>
+                    <h6 >基本指标对比</h6>
                 </div>
                 <table class="table table-hover">
                     <thead>
@@ -393,7 +401,7 @@
                         <td>2</td>
                         <td>3</td>
                         <td>4</td>
-                        <td>5</td>
+
 
                     </tr>
 
@@ -403,14 +411,50 @@
             </div>
 
 
+
+
+            <div class="close_price">
+                <!--<h6>每日收盘价</h6>-->
+                <div  >
+                    <div id="closePrice" style="height:350px;width: 600px"></div>
+                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+                    <script type="text/javascript" src="closePrice.js"></script>
+                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+                    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+                    <script type="text/javascript" src="closePrice.js"></script>
+                    <!--<div id="closePrice" style="height: 100%"></div>-->
+
+                </div>
+            </div>
+
+            <div class="variance">
+                <!--<h6>每日收盘价</h6>-->
+                <div  >
+                    <div id="variance" style="height:350px;width: 600px"></div>
+                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+                    <script type="text/javascript" src="variance.js"></script>
+                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+                    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+                    <!--<script type="text/javascript" src="variance.js"></script>-->
+                    <!--<div id="closePrice" style="height: 100%"></div>-->
+
+                </div>
+            </div>
+
+
+
         </div>
 
 
-        <div class="close_price">
-            <h4>每日收盘价</h4>
-            
 
-        </div>
 
 
     </div>
