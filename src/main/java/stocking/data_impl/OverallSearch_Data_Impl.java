@@ -25,8 +25,15 @@ public class OverallSearch_Data_Impl implements OverallSearch_Data_Service {
         String[] data = new String[7];
         int i = 0;
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFm = new SimpleDateFormat("EEEE");
+        String ofWeek = dateFm.format(date);
         String todayStr = formatter.format(date);
-        String yesterdayStr = formatter.format(new Date(date.getTime() - 24 * 60 * 60 * 1000));
+        String yesterdayStr = "";
+        if (ofWeek.equals("星期一")) {
+            yesterdayStr = formatter.format(new Date(date.getTime() - 3 * 24 * 60 * 60 * 1000));
+        } else {
+            yesterdayStr = formatter.format(new Date(date.getTime() - 24 * 60 * 60 * 1000));
+        }
         try {
             List<String> commands = new LinkedList<String>();
             commands.add("python");
@@ -60,9 +67,15 @@ public class OverallSearch_Data_Impl implements OverallSearch_Data_Service {
     }
 
 
-    public static void main(String[] args) {
-        OverallSearch_Data_Impl overallSearch_data_ = new OverallSearch_Data_Impl();
-        overallSearch_data_.getMarketInfo(new Date());
+    public static void main(String[] args) throws Exception {
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//        OverallSearch_Data_Impl overallSearch_data_ = new OverallSearch_Data_Impl();
+//        Date d=formatter.parse("2017-03-13");
+//        MarketPO marketPO=overallSearch_data_.getMarketInfo(d);
+//        SimpleDateFormat dateFm = new SimpleDateFormat("EEEE");
+//        String str = dateFm.format(new Date());
+//        System.out.print(str);
+
     }
 
 }

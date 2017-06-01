@@ -2,7 +2,7 @@
 均值策略
 '''
 
-from calculation.strategyAbs import Strategy
+from strategyAbs import Strategy
 import pandas as pd
 
 

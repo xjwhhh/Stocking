@@ -21,11 +21,23 @@ public class StockWinnerSet {
         return codes;
     }
 
+    public void setCodes(List<String> codes) {
+        this.codes = codes;
+    }
+
     public List<String> getNames() {
         return names;
     }
 
+    public void setNames(List<String> names) {
+        this.names = names;
+    }
+
     public List<Double> getProfits() {
         return profits;
+    }
+
+    public void setProfits(List<Double> profits) {
+        this.profits = profits;
     }
 }

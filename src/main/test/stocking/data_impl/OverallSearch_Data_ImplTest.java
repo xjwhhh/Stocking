@@ -37,4 +37,15 @@ public class OverallSearch_Data_ImplTest {
         assertEquals(0, marketPO.getLimitDownNum());
     }
 
+    /**
+     * 非休息日
+     * @throws Exception
+     */
+    @Test
+    public void getMarketInfo1() throws Exception {
+        Date date = dateFormat.parse("2017-03-10");
+        MarketPO marketPO = overallSearch_data_service.getMarketInfo(date);
+        assertEquals(0, marketPO.getLimitDownNum());
+    }
+
 }

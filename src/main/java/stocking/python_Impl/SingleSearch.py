@@ -62,8 +62,7 @@ if __name__ == "__main__":
     import smaCal
     import relDev
 
-    # df = getkdata_(sectionname=sys.argv[1], code=sys.argv[2], startdate=sys.argv[3], enddate=sys.argv[4])
-    df = getkdata(sectionName="szb", code="200012", startDate="2017-04-12", endDate="2017-05-19")
+    df = getkdata(sectionName=sys.argv[1], code=sys.argv[2], startDate=sys.argv[3], endDate=sys.argv[4])
 
     print(len(df))
 

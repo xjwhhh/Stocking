@@ -10,6 +10,7 @@ import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import net.sf.json.JSONObject;
 
 import static org.junit.Assert.*;
 
@@ -97,6 +98,40 @@ public class SingleSearch_Data_ImplTest {
         StockPO stockPO = singleSearch_data_service.getStockList("发VR不能", myDate1, myDate2);
         assertEquals(true, stockPO == null);
     }
+
+    /**
+     * 存在的股票代码
+     *
+     * @throws Exception
+     */
+    @Test
+    public void getStockList3() throws Exception {
+        Date myDate1 = dateFormat.parse("2017-05-12");
+        Date myDate2 = dateFormat.parse("2017-05-17");
+        StockPO stockPO = singleSearch_data_service.getStockList("000001", myDate1, myDate2);
+        JSONObject json = JSONObject.fromObject(stockPO);//将java对象转换为json对象
+        String str = json.toString();//将json对象转换为字符串
+        String needStr="{\"adjClose\":[8.9,8.86,8.84,8.77],\"average10\":[0,0,0,0],\"average20\":[0,0,0,0],\"average30\":[0,0,0,0],\"average5\":[0,0,0,0],\"average60\":[0,0,0,0],\"code\":\"000001\",\"dates\":[{\"date\":12,\"day\":5,\"hours\":0,\"minutes\":0,\"month\":4,\"seconds\":0,\"time\":1494518400000,\"timezoneOffset\":-480,\"year\":117},{\"date\":15,\"day\":1,\"hours\":0,\"minutes\":0,\"month\":4,\"seconds\":0,\"time\":1494777600000,\"timezoneOffset\":-480,\"year\":117},{\"date\":16,\"day\":2,\"hours\":0,\"minutes\":0,\"month\":4,\"seconds\":0,\"time\":1494864000000,\"timezoneOffset\":-480,\"year\":117},{\"date\":17,\"day\":3,\"hours\":0,\"minutes\":0,\"month\":4,\"seconds\":0,\"time\":1494950400000,\"timezoneOffset\":-480,\"year\":117}],\"high\":[8.9,8.95,8.85,8.81],\"low\":[8.64,8.81,8.73,8.75],\"name\":\"平安银行\",\"open\":[8.68,8.89,8.84,8.81],\"over\":{\"date\":17,\"day\":3,\"hours\":0,\"minutes\":0,\"month\":4,\"seconds\":0,\"time\":1494950400000,\"timezoneOffset\":-480,\"year\":117},\"start\":{\"date\":12,\"day\":5,\"hours\":0,\"minutes\":0,\"month\":4,\"seconds\":0,\"time\":1494518400000,\"timezoneOffset\":-480,\"year\":117},\"variance\":8.214730517016192E-6,\"volume\":[91796819,53657821,52487233,41733802]}";
+        assertEquals(needStr, str);
+    }
+
+    /**
+     * 存在的股票名
+     *
+     * @throws Exception
+     */
+    @Test
+    public void getStockList4() throws Exception {
+        Date myDate1 = dateFormat.parse("2017-05-12");
+        Date myDate2 = dateFormat.parse("2017-05-17");
+        StockPO stockPO = singleSearch_data_service.getStockList("平安银行", myDate1, myDate2);
+        JSONObject json = JSONObject.fromObject(stockPO);//将java对象转换为json对象
+        String str = json.toString();//将json对象转换为字符串
+        String needStr="{\"adjClose\":[8.9,8.86,8.84,8.77],\"average10\":[0,0,0,0],\"average20\":[0,0,0,0],\"average30\":[0,0,0,0],\"average5\":[0,0,0,0],\"average60\":[0,0,0,0],\"code\":\"000001\",\"dates\":[{\"date\":12,\"day\":5,\"hours\":0,\"minutes\":0,\"month\":4,\"seconds\":0,\"time\":1494518400000,\"timezoneOffset\":-480,\"year\":117},{\"date\":15,\"day\":1,\"hours\":0,\"minutes\":0,\"month\":4,\"seconds\":0,\"time\":1494777600000,\"timezoneOffset\":-480,\"year\":117},{\"date\":16,\"day\":2,\"hours\":0,\"minutes\":0,\"month\":4,\"seconds\":0,\"time\":1494864000000,\"timezoneOffset\":-480,\"year\":117},{\"date\":17,\"day\":3,\"hours\":0,\"minutes\":0,\"month\":4,\"seconds\":0,\"time\":1494950400000,\"timezoneOffset\":-480,\"year\":117}],\"high\":[8.9,8.95,8.85,8.81],\"low\":[8.64,8.81,8.73,8.75],\"name\":\"平安银行\",\"open\":[8.68,8.89,8.84,8.81],\"over\":{\"date\":17,\"day\":3,\"hours\":0,\"minutes\":0,\"month\":4,\"seconds\":0,\"time\":1494950400000,\"timezoneOffset\":-480,\"year\":117},\"start\":{\"date\":12,\"day\":5,\"hours\":0,\"minutes\":0,\"month\":4,\"seconds\":0,\"time\":1494518400000,\"timezoneOffset\":-480,\"year\":117},\"variance\":8.214730517016192E-6,\"volume\":[91796819,53657821,52487233,41733802]}";
+        assertEquals(needStr, str);
+    }
+
+
 
 
 }

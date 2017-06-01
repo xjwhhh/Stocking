@@ -4,9 +4,9 @@
 dataframe,是否是板块，板块名，策略类型(1:M,2:A),仓内持有股票数，给出的是否是持有期，如果是则给出持有期，否则给出形成期
 '''
 
-from calculation.strategyAbs import Strategy
-from calculation.momStrategy import MomentumStrategy
-from calculation.averStrategy import AverageStrategy
+from strategyAbs import Strategy
+from momStrategy import MomentumStrategy
+from averStrategy import AverageStrategy
 
 class BGraph:
     def count(self, oriDf, isPla, plaName, type, isHold, interval):

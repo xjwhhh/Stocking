@@ -22,14 +22,25 @@ public class Customer_Data_ImplTest {
     }
 
     /**
-     * 登录
+     * 登录成功
      */
     @Test
-    public void login() {
+    public void login1() {
         CustomerPO customerPO = new CustomerPO("1", "456", "23456", "");
         CustomerPO newCustomer = customer_data_service.execute("login", customerPO);
         CustomerPO newCustomer1 = new CustomerPO("1", "456", "23456", "");
         assertEquals(newCustomer1, newCustomer);
+    }
+
+    /**
+     * 登录失败
+     */
+    @Test
+    public void login2() {
+        CustomerPO customerPO = new CustomerPO("1", "456", "234567", "");
+        CustomerPO newCustomer = customer_data_service.execute("login", customerPO);
+        CustomerPO newCustomer1 = new CustomerPO("1", "456", "23456", "");
+        assertEquals(true, newCustomer==null);
     }
 
     /**
@@ -44,13 +55,24 @@ public class Customer_Data_ImplTest {
     }
 
     /**
-     * 修改信息
+     * 修改信息成功
      */
     @Test
-    public void modify() {
+    public void modify1() {
         CustomerPO customerPO = new CustomerPO("1", "456", "23456", "23456");
         CustomerPO newCustomer = customer_data_service.execute("modify", customerPO);
         CustomerPO newCustomer1 = new CustomerPO("1", "456", "23456", "23456");
         assertEquals(newCustomer1, newCustomer);
+    }
+
+    /**
+     * 修改信息失败
+     */
+    @Test
+    public void modify2() {
+        CustomerPO customerPO = new CustomerPO("1", "456", "234567", "23456");
+        CustomerPO newCustomer = customer_data_service.execute("modify", customerPO);
+        CustomerPO newCustomer1 = new CustomerPO("1", "456", "23456", "23456");
+        assertEquals(true,newCustomer==null);
     }
 }

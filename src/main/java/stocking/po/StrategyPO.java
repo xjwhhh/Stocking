@@ -37,39 +37,79 @@ public class StrategyPO {
         return annualReturn;
     }
 
+    public void setAnnualReturn(double annualReturn) {
+        this.annualReturn = annualReturn;
+    }
+
     public double getBasicAnnualReturn() {
         return basicAnnualReturn;
+    }
+
+    public void setBasicAnnualReturn(double basicAnnualReturn) {
+        this.basicAnnualReturn = basicAnnualReturn;
     }
 
     public double getAlpha() {
         return alpha;
     }
 
+    public void setAlpha(double alpha) {
+        this.alpha = alpha;
+    }
+
     public double getBeta() {
         return beta;
+    }
+
+    public void setBeta(double beta) {
+        this.beta = beta;
     }
 
     public double getSharpeRatio() {
         return sharpeRatio;
     }
 
+    public void setSharpeRatio(double sharpeRatio) {
+        this.sharpeRatio = sharpeRatio;
+    }
+
     public double getMaxDrawDown() {
         return maxDrawDown;
+    }
+
+    public void setMaxDrawDown(double maxDrawDown) {
+        this.maxDrawDown = maxDrawDown;
     }
 
     public Date[] getDates() {
         return dates;
     }
 
+    public void setDates(Date[] dates) {
+        this.dates = dates;
+    }
+
     public List<Double> getProfits() {
         return profits;
+    }
+
+    public void setProfits(List<Double> profits) {
+        this.profits = profits;
     }
 
     public List<Double> getBasicProfits() {
         return basicProfits;
     }
 
+    public void setBasicProfits(List<Double> basicProfits) {
+        this.basicProfits = basicProfits;
+    }
+
     public List<StockWinnerSet> getSets() {
         return sets;
+    }
+
+    public void setSets(List<StockWinnerSet> sets) {
+        this.sets = sets;
     }
 }

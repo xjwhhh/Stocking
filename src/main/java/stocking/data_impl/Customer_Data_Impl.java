@@ -57,14 +57,18 @@ public class Customer_Data_Impl implements Customer_Data_Service {
             pstmt = (PreparedStatement) connection.prepareStatement(sql);
             pstmt.setString(1, password);
             ResultSet rs = pstmt.executeQuery();
+            boolean get = false;
             while (rs.next()) {
+                get = true;
                 id = (String.valueOf(rs.getInt("id")));
                 name = (BlobToString(rs.getBlob("decode(name,'key')")));
                 password = (BlobToString(rs.getBlob("decode(password,'key')")));
             }
-            CustomerPO newCustomerPO = new CustomerPO(id, name, password, "");
-            pool.freeConnection(connection);
-            return newCustomerPO;
+            if (get) {
+                CustomerPO newCustomerPO = new CustomerPO(id, name, password, "");
+                pool.freeConnection(connection);
+                return newCustomerPO;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -123,11 +127,13 @@ public class Customer_Data_Impl implements Customer_Data_Service {
             pstmt.setString(1, name);
             pstmt.setString(2, newPassword);
             pstmt.setString(3, oldPassword);
-            pstmt.executeUpdate();
+            int rows=pstmt.executeUpdate();
             pstmt.close();
             pool.freeConnection(connection);
-            customerPO.setPassword(newPassword);
-            return customerPO;
+            if(rows>0) {
+                customerPO.setPassword(newPassword);
+                return customerPO;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

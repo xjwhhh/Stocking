@@ -18,7 +18,15 @@ public class BGraphPO {
         return overProfit;
     }
 
+    public void setOverProfit(List<Double> overProfit) {
+        this.overProfit = overProfit;
+    }
+
     public List<Double> getWinChance() {
         return winChance;
+    }
+
+    public void setWinChance(List<Double> winChance) {
+        this.winChance = winChance;
     }
 }

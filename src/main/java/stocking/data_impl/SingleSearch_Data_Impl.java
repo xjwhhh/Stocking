@@ -81,16 +81,20 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
         //判断是股票代码还是名字，如果是名字转换为代码
         if (isInteger) {
             //判断该股票代码是否存在
-            if (code_name.contains(identifier)) {
+            if (code_name.containsKey(identifier)) {
                 section = getSectionByCode(identifier);
+                System.out.print(1);
             } else {
+                System.out.print(2);
                 return null;
             }
         } else {
-            if (name_code.contains(identifier)) {
+            if (name_code.containsKey(identifier)) {
+                System.out.print(3);
                 identifier = name_code.get(identifier);
                 section = getSectionByCode(identifier);
             } else {
+                System.out.print(4);
                 return null;
             }
         }
@@ -110,7 +114,7 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
                 String line;
                 line = in.readLine();//个数
                 if (isInteger(line)) {
-                    String name = name_code.get(identifier);
+                    String name = code_name.get(identifier);
                     String code = identifier;
                     Date start = startDate;
                     Date over = endDate;
@@ -128,34 +132,34 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
                     double[] average60 = new double[num];
                     double[] profit = new double[num];
                     double variance = 0;
-                    open = getdouble(in, open, num);
+                    open = tools.getdouble(in, open, num);
                     in.readLine();
-                    high = getdouble(in, high, num);
+                    high = tools.getdouble(in, high, num);
                     in.readLine();
-                    low = getdouble(in, low, num);
+                    low = tools.getdouble(in, low, num);
                     in.readLine();
-                    volume = getint(in, volume, num);
+                    volume = tools.getint(in, volume, num);
                     in.readLine();
-                    adjClose = getdouble(in, adjClose, num);
+                    adjClose = tools.getdouble(in, adjClose, num);
                     in.readLine();
-                    dates = getdate(in, dates, num);
-                    in.readLine();
-                    in.readLine();
-                    average5 = getdouble(in, average5, num);
+                    dates = tools.getdate(in, dates, num);
                     in.readLine();
                     in.readLine();
-                    average10 = getdouble(in, average10, num);
+                    average5 = tools.getdouble(in, average5, num);
                     in.readLine();
                     in.readLine();
-                    average20 = getdouble(in, average20, num);
+                    average10 = tools.getdouble(in, average10, num);
                     in.readLine();
                     in.readLine();
-                    average30 = getdouble(in, average30, num);
+                    average20 = tools.getdouble(in, average20, num);
                     in.readLine();
                     in.readLine();
-                    average60 = getdouble(in, average60, num);
+                    average30 = tools.getdouble(in, average30, num);
                     in.readLine();
-                    profit = getdouble(in, profit, num);
+                    in.readLine();
+                    average60 = tools.getdouble(in, average60, num);
+                    in.readLine();
+                    profit = tools.getdouble(in, profit, num);
                     in.readLine();
                     BigDecimal bd = new BigDecimal(in.readLine());
                     String varianceStr = bd.toPlainString();
@@ -171,58 +175,19 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
         return null;
     }
 
-    private double[] getdouble(BufferedReader in, double[] doubles, int num) {
-        String line = "";
-        try {
-            for (int i = 0; i < num; i++) {
-                line = in.readLine();
-                String[] t = line.split("\\s+");
-                doubles[i] = Double.parseDouble(t[1]);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return doubles;
-    }
 
-    private int[] getint(BufferedReader in, int[] ints, int num) {
-        String line = "";
-        try {
-            for (int i = 0; i < num; i++) {
-                line = in.readLine();
-                String[] t = line.split("\\s+");
-                ints[i] = (int) Double.parseDouble(t[1]);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return ints;
-    }
-
-    private Date[] getdate(BufferedReader in, Date[] dates, int num) {
-        String line = "";
-        try {
-            for (int i = 0; i < num; i++) {
-                line = in.readLine();
-                String[] t = line.split("\\s+");
-                dates[i] = formatter.parse(t[1]);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return dates;
-    }
-
-
-    public static void main(String[] args) {
-        SingleSearch_Data_Impl singleSearch_data_ = new SingleSearch_Data_Impl();
-        try {
-            singleSearch_data_.getStockList("000001", new Date(), new Date());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void main(String[] args) {
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//        SingleSearch_Data_Impl singleSearch_data_ = new SingleSearch_Data_Impl();
+//        try {
+//            System.out.println("begin");
+//            Date st=formatter.parse("2017-04-12");
+//            Date end=formatter.parse("2017-04-20");
+//            singleSearch_data_.getStockList("000001", st, end);
+//            System.out.print("end");
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 }
