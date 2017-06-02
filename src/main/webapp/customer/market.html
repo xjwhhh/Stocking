@@ -104,8 +104,9 @@
 
                 <p class="fl summer" id="lxart" seq="598669939" time="15:10"><a style="color:#fff"
                                                                                 href="http://yuanchuang.10jqka.com.cn/20170523/c598669939.shtml"
-                                                                                target="_blank">消息</a>
+                                                                                target="_blank"></a>
                 </p>
+                <p id="check" onclick="check()">查看市场温度计</p>
                 <!--<div class="fl">-->
                 <!--<ul>-->
                 <!--<li>-->
@@ -1927,6 +1928,24 @@
 
 </script>
 
+<script type="text/javascript">
+    function check() {
+        //调用JQuery提供的Ajax方法
+        var url="http://";
+        $.ajax({
+            type:"POST",
+            url:url,
+//            data:user,
+            dataType: "jason",//此处要设置成jason
+            success: callback});//回调函数
+    }
+    function callback(jasonObj)
+    {
+        var str = jasonObj;
+        var obj = JSON.parse(str);//调用Json2.js中提供的JSON解析器来解析成JSONObject
+        alert(obj.errNum);
+    }
+</script>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
