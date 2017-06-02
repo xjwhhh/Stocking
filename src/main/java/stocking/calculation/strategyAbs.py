@@ -9,12 +9,27 @@
 
 from abc import abstractmethod
 import pandas as pd
+import pymysql
 
 class Strategy(object):
     @abstractmethod
     def count(self, oriDf, isPla, plaName): pass
 
-    def getPlaIndex(self, startdate, enddate, plaName): pass
+    def getPlaIndex(self, startdate, enddate, plaName):
+        db = pymysql.connect("localhost", "root", "123456", "stock", charset="utf8")
+        cursor = db.cursor()
+        sql = "select close from market_index where date>='%s' and date<='%s' and code='%s'" % (startdate, enddate,plaName)
+        try:
+            cursor.execute(sql)
+            results = cursor.fetchall()
+            re = []
+            for row in results:
+                re.append(float(row[0]))
+            ss = pd.Series(re)
+            index = ss.mean()
+        except:
+            print('get data fail')
+        return index
 
     def getAnnualPro(self):
         # length = int(self.selectLen / 5)
@@ -39,7 +54,7 @@ class Strategy(object):
         return cov / basicDev
     pass
 
-    def getSquare(self, dictionary):
+    def getDev(self, dictionary):
         dev = sum(list(map(lambda x: x * x, dictionary.values()))) / len(dictionary)
         return dev
 

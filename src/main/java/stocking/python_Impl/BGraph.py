@@ -16,10 +16,8 @@ def getStockInfo(code, startDate, endDate):
             close = row[1]
             resultlist = [date, close]
             re.append(resultlist)
-            print(resultlist)
         df = pd.DataFrame(re, columns=['date', code])
         df = df.set_index('date')
-        # print(df)
     except:
         print('get data fail')
     return df
@@ -110,7 +108,7 @@ for i in range(1, len(stockLists)):
 finalDF.dropna(axis=1, how="any", inplace=True)  # 去除有nan值的列
 
 bgraph=bGraph.BGraph()
-bgraph.count(finalDF,isPla,plaName,strategyType,True,20)
+bgraph.count(finalDF,True,'沪深300',2,True,20)
 profits=bgraph.profits
 # print(type(profits))
 print(len(profits))

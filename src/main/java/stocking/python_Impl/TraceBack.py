@@ -16,14 +16,11 @@ def getStockInfo(code, startDate, endDate):
             close = row[1]
             resultlist = [date, close]
             re.append(resultlist)
-            print(resultlist)
         df = pd.DataFrame(re, columns=['date', code])
         df = df.set_index('date')
-        # print(df)
     except:
         print('get data fail')
     return df
-
 
 
 def getSectionByCode(code):
@@ -82,7 +79,7 @@ if __name__ == "__main__":
     form = 10  # 形成期
     hold = 20  # 持有期
     isPla = False  # 是否为板块
-    plaName = " "
+
     # stocks = sys.argv[7]
     stockLists = ["000001",
                   "000002",
@@ -107,6 +104,11 @@ if __name__ == "__main__":
                   "000025",
                   "000026"]  # 股票代码列表
 
+    if isPla:
+        plaName = stockLists[0]
+    else:
+        plaName = " "
+
     code = stockLists[0]
     finalDF = getStockInfo(code=code, startDate=startDate, endDate=endDate)
 
@@ -123,39 +125,35 @@ if __name__ == "__main__":
 
     strategyCalculator = strategyCal.StrategyCalculator(strategy)
     strategyCalculator.count(finalDF, isPla, plaName)
-    # annualReturns = strategyCalculator.annualPro  # 年化收益率
-    # print(annualReturns)
-    # basicAnnualReturn=strategyCalculator.basicPro#基准年化收益率
-    # print(basicAnnualReturn)
+    annualReturns = strategyCalculator.annualPro  # 年化收益率
+    print(annualReturns)
+    basicAnnualReturn = strategyCalculator.basicPro  # 基准年化收益率
+    print(basicAnnualReturn)
     alpha = strategyCalculator.alpha
     print(alpha)
     beta = strategyCalculator.beta
     print(beta)
     sharpeRatio = strategyCalculator.sharpe  # 夏普比率
     print(sharpeRatio)
-    # print(0)
-    # print(0)
-    # print(0)
-    # print(0)
 
-    # maxDrawDown = strategyCalculator.maxDraw
-    # print(maxDrawDown)  # 最大回撤
+    maxDrawDown = strategyCalculator.maxDraw
+    print(maxDrawDown)  # 最大回撤
 
-    # profits = strategyCalculator.pros
-    # print(len(profits))
-    # for k, v in profits.items():
-    #     key = k
-    #     date = str(k).split(" ")[0]
-    #     print(date)  # dates
-    #
-    # for k, v in profits.items():
-    #     print(v)  # profits
-    #
-    # basicProfits = strategyCalculator.basics
-    # for k, v in basicProfits.items():
-    #     print(0)
-    #
-    # sets = strategyCalculator.candidates
-    # print(len(sets.get(key)))
-    # for k, v in sets.items():
-    #     print(v)
+    profits = strategyCalculator.pros
+    print(len(profits))
+    for k, v in profits.items():
+        key = k
+        date = str(k).split(" ")[0]
+        print(date)  # dates
+
+    for k, v in profits.items():
+        print(v)  # profits
+
+    basicProfits = strategyCalculator.basics
+    for k, v in basicProfits.items():
+        print(v)
+
+    sets = strategyCalculator.candidates
+    print(len(sets.get(key)))
+    for k, v in sets.items():
+        print(v)
