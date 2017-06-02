@@ -18,8 +18,8 @@
     <!--
  <link rel="stylesheet" type="text/css" href="styles.css">
  -->
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/json2.js"></script>
+    <script type="text/javascript" src="http://cdn.static.runoob.com/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="json2-min.js"></script>
 </head>
 
 <body>
@@ -67,8 +67,8 @@
     function submit()
     {
         var url="http://";
-        var name = document.getElementById("login-name").value();
-        var password = document.getElementById("login-pass").value();
+        var name = document.getElementById("login-name").value;
+        var password = document.getElementById("login-pass").value;
         var user = JSON.stringify(new User(name,password));
 
 //调用JQuery提供的Ajax方法
