@@ -29,20 +29,30 @@ public class Strategy_Data_Impl implements Strategy_Data_Service {
             List<String> commands = new LinkedList<String>();
             commands.add("python");
             commands.add(tools.getProjectPath("src\\main\\java\\stocking\\python_Impl\\TraceBack.py"));
-            commands.add(type);//策略类型
-            commands.add(startDate);//开始日期
-            commands.add(endDate);//结束日期
-            commands.add(String.valueOf(form));//形成期
-            commands.add(String.valueOf(hold));//持有期
-            commands.add(isPla);//是否为板块
-            commands.add(tools.jsonArrayToString(stocks));//股票列表转成的string
+            String value=type+"?"+startDate+"?"+endDate+"?"+String.valueOf(form)+"?"+String.valueOf(hold)+"?"+isPla+"?"+tools.jsonArrayToString(stocks);
+//            commands.add(type);//策略类型
+//            commands.add(startDate);//开始日期
+//            commands.add(endDate);//结束日期
+//            commands.add(String.valueOf(form));//形成期
+//            commands.add(String.valueOf(hold));//持有期
+//            commands.add(isPla);//是否为板块
+//            commands.add(tools.jsonArrayToString(stocks));//股票列表转成的string
+            commands.add(value);
+
             ProcessBuilder processBuilder = new ProcessBuilder(commands);
             Process pr = processBuilder.start();
             BufferedReader in = new BufferedReader(new
                     InputStreamReader(pr.getInputStream(), "gbk"));
             String[] data = new String[6];
             for (int i = 0; i < data.length; i++) {
-                data[i] = in.readLine();
+                String line=in.readLine();
+                if(line!="nan") {
+                    data[i] = line;
+                }
+                else{
+                    data[i]="0";
+                }
+                System.out.print(data[i]);
             }
             double annualReturn = Double.parseDouble(data[0]);//年化收益率
             double basicAnnualReturn = Double.parseDouble(data[1]);//基准年化收益率
@@ -77,10 +87,10 @@ public class Strategy_Data_Impl implements Strategy_Data_Service {
         return null;
     }
 
-    public static void main(String[] args) {
-        Strategy_Data_Impl strategy_data_ = new Strategy_Data_Impl();
-        strategy_data_.traceBack("", new Date(), new Date(), 1, 1, "", new JSONArray());
-    }
+//    public static void main(String[] args) {
+//        Strategy_Data_Impl strategy_data_ = new Strategy_Data_Impl();
+//        strategy_data_.traceBack("", new Date(), new Date(), 1, 1, "", new JSONArray());
+//    }
 
 
 }
