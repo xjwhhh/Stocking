@@ -40,7 +40,7 @@ public class DataFactory_Data_Impl implements DataFactory_Data_Service {
     }
 
     public BGraph_Data_Service bGraph() {
-        return null;
+        return new BGraph_Data_Impl();
     }
 
 }

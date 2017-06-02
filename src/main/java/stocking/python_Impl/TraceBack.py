@@ -48,7 +48,7 @@ def getSectionByCode(code):
 
 if __name__ == "__main__":
     db = pymysql.connect("localhost", "root", "123456", "stock", charset="utf8")
-    cursor = db.cursor();
+    cursor = db.cursor()
     paths = sys.argv[0].split("/")
     newPath = ""
     for i in range(0, len(paths) - 2):
@@ -61,54 +61,76 @@ if __name__ == "__main__":
     import averStrategy
     import momStrategy
     import strategyCal
-    import strategyAbs
 
-    # strategyType = sys.argv[1]  # 策略类型
-    # startDate = sys.argv[2]  # 开始日期
-    # endDate = sys.argv[3]  # 结束日期
-    # form = int(sys.argv[4])  # 形成期
-    # hold = int(sys.argv[5])  # 持有期
-    # isPla = sys.argv[6]  # 是否为板块
-    # stocks = sys.argv[7]
-    # stockLists = stocks.split("/")  # 股票代码列表
+    ff = open("C:\\Users\\xjwhh\\Desktop\\t.txt", 'a')
+    value = sys.argv[1]
+    # ff.write(value)
+
+    values = value.split("?")
+
+    strategyType = int(values[0])  # 策略类型
+    startDate = values[1]  # 开始日期
+    endDate = values[2]  # 结束日期
+    form = int(values[3])  # 形成期
+    hold = int(values[4])  # 持有期
+    isPla = int(values[5])  # 是否为板块
+    stocks = values[6]
+    stockLists = stocks.split("/")  # 股票代码列表
+
+    # strategyType = 0  # 策略类型
+    # startDate = "2016-03-01"  # 开始日期
+    # endDate = "2016-06-01"  # 结束日期
+    # form = 10  # 形成期
+    # hold = 20  # 持有期
+    # isPla = False  # 是否为板块
+    # stocks = "000001/000002/000004/300001/300002/300003/"
+    # stockLists = stocks.split("/")
+
+    # stockLists = ["000001",
+    #               "000002",
+    #               "000004",
+    #               "000005",
+    #               "000006",
+    #               "000007",
+    #               "000008",
+    #               "000009",
+    #               "000010",
+    #               "000011",
+    #               "000012",
+    #               "000014",
+    #               "000016",
+    #               "000017",
+    #               "000018",
+    #               "000019",
+    #               "000020",
+    #               "000021",
+    #               "000022",
+    #               "000023",
+    #               "000025",
+    #               "000026"]  # 股票代码列表
+
+    # stockLists=["000001", "000002", "000004","300001","300002","300003"]
 
 
-    strategyType = 1  # 策略类型
-    startDate = "2016-03-01"  # 开始日期
-    endDate = "2016-05-01"  # 结束日期
-    form = 10  # 形成期
-    hold = 20  # 持有期
-    isPla = False  # 是否为板块
-
-    # stocks = sys.argv[7]
-    stockLists = ["000001",
-                  "000002",
-                  "000004",
-                  "000005",
-                  "000006",
-                  "000007",
-                  "000008",
-                  "000009",
-                  "000010",
-                  "000011",
-                  "000012",
-                  "000014",
-                  "000016",
-                  "000017",
-                  "000018",
-                  "000019",
-                  "000020",
-                  "000021",
-                  "000022",
-                  "000023",
-                  "000025",
-                  "000026"]  # 股票代码列表
-
-    if isPla:
+    if isPla == 1:
+        isPla = True
         plaName = stockLists[0]
     else:
+        isPla = False
         plaName = " "
 
+    ff.write("\n")
+    ff.write(str(strategyType))
+    ff.write(startDate)
+    ff.write(endDate)
+    ff.write(str(form))
+    ff.write(str(hold))
+    ff.write(str(isPla))
+    ff.write(stocks)
+    ff.write("\n")
+
+    ff.write("a")
+    ff.write("\n")
     code = stockLists[0]
     finalDF = getStockInfo(code=code, startDate=startDate, endDate=endDate)
 
@@ -118,26 +140,42 @@ if __name__ == "__main__":
         finalDF = finalDF.join(df)
     finalDF.dropna(axis=1, how="any", inplace=True)  # 去除有nan值的列
 
+    ff.write("b")
+    ff.write("\n")
     if strategyType == 1:
         strategy = momStrategy.MomentumStrategy(form, hold)
+        ff.write("mom")
     else:
         strategy = averStrategy.AverageStrategy(form, hold)
+        ff.write("aver")
+
+    ff.write("c")
+    ff.write("\n")
 
     strategyCalculator = strategyCal.StrategyCalculator(strategy)
+    ff.write(str(finalDF))
+    ff.write(str(isPla))
+    ff.write(plaName)
+    ff.write("\n")
     strategyCalculator.count(finalDF, isPla, plaName)
     annualReturns = strategyCalculator.annualPro  # 年化收益率
-    print(annualReturns)
+    print(str(annualReturns))
+    ff.write(str(annualReturns))
     basicAnnualReturn = strategyCalculator.basicPro  # 基准年化收益率
-    print(basicAnnualReturn)
+    print(str(basicAnnualReturn))
+    ff.write(str(basicAnnualReturn))
     alpha = strategyCalculator.alpha
-    print(alpha)
+    print(str(alpha))
+    ff.write(str(alpha))
     beta = strategyCalculator.beta
-    print(beta)
+    print(str(beta))
+    ff.write(str(beta))
     sharpeRatio = strategyCalculator.sharpe  # 夏普比率
-    print(sharpeRatio)
+    print(str(sharpeRatio))
+    ff.write(str(sharpeRatio))
 
     maxDrawDown = strategyCalculator.maxDraw
-    print(maxDrawDown)  # 最大回撤
+    print(str(maxDrawDown))  # 最大回撤
 
     profits = strategyCalculator.pros
     print(len(profits))
