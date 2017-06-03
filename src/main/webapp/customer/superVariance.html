@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stocking量化交易</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet">
+
+    <style type="text/css">
+        #input{
+            margin-top: 20px;
+        }
+        ul {
+            text-align: center;
+
+        }
+        .nav-tabs > li {
+            width: 20%;
+            background-color: #0099ff;
+        }
+        a {
+            color: #333333
+        }
+        /*a:hover {*/
+        /*color: #000000*/
+        /*}*/
+
+        .nav > li:hover .dropdown-menu {display: block;}
+    </style>
+
+    <script type="text/javascript" src="json2-min.js"></script>
+</head>
+<body style="background: #efeff4">
+<div class="container-fluid">
+    <div class="navbar-header">
+        <img src="stock2.jpg" class="img-rounded">
+    </div>
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#" style="height: 100px;line-height: 70px; font-size:4em">Stocking</a>
+    </div>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="login.html" target="_blank" style="height: 100px;line-height: 70px; font-size:1.2em">登录</a>
+            </li>
+            <li><a href="#" style="height: 100px;line-height: 70px; font-size:1.2em">注册</a></li>
+        </ul>
+        <form class="navbar-form navbar-right" action="#" role="search">
+            <div class="form-group">
+                <div class="input-group" id="input">
+                    <input class="form-control" id="navbarInput-01" type="search" placeholder="Search"
+                           style="height: 45px;padding: 10px 15px;font-size: 17px;line-height: 1.235; width:300px">
+                    <span class="input-group-btn">
+                  <button type="submit" class="btn"
+                          style="height: 45px;padding: 10px 15px;font-size: 17px;line-height: 1.235"><span
+                          class="fui-search "></span></button>
+                </span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="collapse navbar-collapse" id="navbar-collapse-6">
+    <ul class="nav nav-tabs">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="singleSearch.html">股票数据</a></li>
+        <li><a href="market_2.html">行情信息</a></li>
+        <li class="active"><a href="#">回测</a></li>
+        <li><a href="news.html">新闻</a></li>
+    </ul>
+</div>
+
+
+<div style="width:32%;background: white;margin-top: 2%;margin-left: 5%" class="resultTable">
+    <table class="table table-hover">
+        <!--<caption>周期股票排名</caption>-->
+        <thead>
+        <tr>
+            <th>相对强弱计算周期</th>
+            <th>超额收益</th>
+            <th>一年内收益</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>a</td>
+            <td>0001</td>
+        </tr>
+
+        </tbody>
+    </table>
+
+
+</div>
+
+<div style="background: white;width:60%;margin-left: 41%;margin-top: -12%" class="superVar">
+        <div id="superVar" style="height: 350px;width: 600px"></div>
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+        <script type="text/javascript" >
+            var dom = document.getElementById("superVar");
+            var myChart = echarts.init(dom);
+            var base = +new Date(1968, 9, 3);
+            var oneDay = 24 * 3600 * 1000;
+            var date = [];
+
+            var data = [Math.random() * 300];
+
+            for (var i = 1; i < 20000; i++) {
+                var now = new Date(base += oneDay);
+                date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
+                data.push(Math.round((Math.random() - 0.5) * 20 + data[i - 1]));
+            }
+
+            option = {
+                tooltip: {
+                    trigger: 'axis',
+                    position: function (pt) {
+                        return [pt[0], '10%'];
+                    }
+                },
+                title: {
+                    left: 'center',
+                    text: '大数据量面积图',
+                },
+                toolbox: {
+                    feature: {
+                        dataZoom: {
+                            yAxisIndex: 'none'
+                        },
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: date
+                },
+                yAxis: {
+                    type: 'value',
+                    boundaryGap: [0, '100%']
+                },
+                dataZoom: [{
+                    type: 'inside',
+                    start: 0,
+                    end: 10
+                }, {
+                    start: 0,
+                    end: 10,
+                    handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+                    handleSize: '80%',
+                    handleStyle: {
+                        color: '#fff',
+                        shadowBlur: 3,
+                        shadowColor: 'rgba(0, 0, 0, 0.6)',
+                        shadowOffsetX: 2,
+                        shadowOffsetY: 2
+                    }
+                }],
+                series: [
+                    {
+                        name:'模拟数据',
+                        type:'line',
+                        smooth:true,
+                        symbol: 'none',
+                        sampling: 'average',
+                        itemStyle: {
+                            normal: {
+                                color: 'rgb(255, 70, 131)'
+                            }
+                        },
+                        areaStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: 'rgb(255, 158, 68)'
+                                }, {
+                                    offset: 1,
+                                    color: 'rgb(255, 70, 131)'
+                                }])
+                            }
+                        },
+                        data: data
+                    }
+                ]
+            };
+            myChart.setOption(option);
+
+
+
+
+
+
+        </script>
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+
+
+
+
+</div>
+
+<div style="background: white;width:60%;margin-left: 41%" class="winRate">
+    <div id="winRate" style="height: 350px;width: 600px"></div>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+    <script type="text/javascript" >
+        var dom = document.getElementById("winRate");
+        var myChart = echarts.init(dom);
+        var base = +new Date(1968, 9, 3);
+        var oneDay = 24 * 3600 * 1000;
+        var date = [];
+
+        var data = [Math.random() * 300];
+
+        for (var i = 1; i < 20000; i++) {
+            var now = new Date(base += oneDay);
+            date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
+            data.push(Math.round((Math.random() - 0.5) * 20 + data[i - 1]));
+        }
+
+        option = {
+            tooltip: {
+                trigger: 'axis',
+                position: function (pt) {
+                    return [pt[0], '10%'];
+                }
+            },
+            title: {
+                left: 'center',
+                text: '大数据量面积图',
+            },
+            toolbox: {
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: 'none'
+                    },
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: date
+            },
+            yAxis: {
+                type: 'value',
+                boundaryGap: [0, '100%']
+            },
+            dataZoom: [{
+                type: 'inside',
+                start: 0,
+                end: 10
+            }, {
+                start: 0,
+                end: 10,
+                handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+                handleSize: '80%',
+                handleStyle: {
+                    color: '#fff',
+                    shadowBlur: 3,
+                    shadowColor: 'rgba(0, 0, 0, 0.6)',
+                    shadowOffsetX: 2,
+                    shadowOffsetY: 2
+                }
+            }],
+            series: [
+                {
+                    name:'模拟数据',
+                    type:'line',
+                    smooth:true,
+                    symbol: 'none',
+                    sampling: 'average',
+                    itemStyle: {
+                        normal: {
+                            color: 'rgb(255, 70, 131)'
+                        }
+                    },
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: 'rgb(255, 158, 68)'
+                            }, {
+                                offset: 1,
+                                color: 'rgb(255, 70, 131)'
+                            }])
+                        }
+                    },
+                    data: data
+                }
+            ]
+        };
+        myChart.setOption(option);
+
+
+
+
+
+
+    </script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+
+
+
+
+</div>
+
+
+</body>
+</html>
