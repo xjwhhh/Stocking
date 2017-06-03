@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stocking量化交易</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet">
+
+    <style type="text/css">
+        #input{
+            margin-top: 20px;
+        }
+        ul {
+            text-align: center;
+
+        }
+        .nav-tabs > li {
+            width: 20%;
+            background-color: #0099ff;
+        }
+        a {
+            color: #333333
+        }
+        /*a:hover {*/
+        /*color: #000000*/
+        /*}*/
+
+        .nav > li:hover .dropdown-menu {display: block;}
+    </style>
+
+    <script type="text/javascript" src="json2-min.js"></script>
+</head>
+<body style="background: #efeff4">
+<div class="container-fluid">
+    <div class="navbar-header">
+        <img src="stock2.jpg" class="img-rounded">
+    </div>
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#" style="height: 100px;line-height: 70px; font-size:4em">Stocking</a>
+    </div>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="login.html" target="_blank" style="height: 100px;line-height: 70px; font-size:1.2em">登录</a>
+            </li>
+            <li><a href="#" style="height: 100px;line-height: 70px; font-size:1.2em">注册</a></li>
+        </ul>
+        <form class="navbar-form navbar-right" action="#" role="search">
+            <div class="form-group">
+                <div class="input-group" id="input">
+                    <input class="form-control" id="navbarInput-01" type="search" placeholder="Search"
+                           style="height: 45px;padding: 10px 15px;font-size: 17px;line-height: 1.235; width:300px">
+                    <span class="input-group-btn">
+                  <button type="submit" class="btn"
+                          style="height: 45px;padding: 10px 15px;font-size: 17px;line-height: 1.235"><span
+                          class="fui-search "></span></button>
+                </span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="collapse navbar-collapse" id="navbar-collapse-6">
+    <ul class="nav nav-tabs">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="singleSearch.html">股票数据</a></li>
+        <li><a href="market.html">行情信息</a></li>
+        <li class="active"><a href="#">回测</a></li>
+        <li><a href="news.html">新闻</a></li>
+    </ul>
+</div>
+
+<!--股票排名-->
+<div style="width:80%;background: white;margin-top: 2%;margin-left: 12%" class="ranking">
+    <!--<h6 style="display: inline">周期股票排名</h6>-->
+    <div style="margin-left: 50%" class="timeSelect">
+        <select>
+            <option>第一个周期</option>
+        </select>
+    </div>
+    <div style="margin-top: -3%">
+    <table class="table table-hover">
+        <caption>周期股票排名</caption>
+        <thead>
+        <tr>
+            <th>排名</th>
+            <th>股票名</th>
+            <th>股票编号</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>a</td>
+            <td>0001</td>
+        </tr>
+
+        </tbody>
+    </table>
+    </div>
+
+</div>
+
+<!--累计收益率比较这线图-->
+<div style="width:80%;background: white;margin-top: 2%;margin-left: 12%">
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

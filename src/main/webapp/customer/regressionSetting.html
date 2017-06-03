@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stocking量化交易</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet">
+
+    <style type="text/css">
+        #input {
+            margin-top: 20px;
+        }
+
+        ul {
+            text-align: center;
+
+        }
+
+        .nav-tabs > li {
+            width: 20%;
+            background-color: #0099ff;
+        }
+
+        a {
+            color: #333333
+        }
+
+        /*a:hover {*/
+        /*color: #000000*/
+        /*}*/
+
+        .nav > li:hover .dropdown-menu {
+            display: block;
+        }
+    </style>
+
+    <script type="text/javascript" src="json2-min.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="navbar-header">
+        <img src="stock2.jpg" class="img-rounded">
+    </div>
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#" style="height: 100px;line-height: 70px; font-size:4em">Stocking</a>
+    </div>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="login.html" target="_blank" style="height: 100px;line-height: 70px; font-size:1.2em">登录</a>
+            </li>
+            <li><a href="#" style="height: 100px;line-height: 70px; font-size:1.2em">注册</a></li>
+        </ul>
+        <form class="navbar-form navbar-right" action="#" role="search">
+            <div class="form-group">
+                <div class="input-group" id="input">
+                    <input class="form-control" id="navbarInput-01" type="search" placeholder="Search"
+                           style="height: 45px;padding: 10px 15px;font-size: 17px;line-height: 1.235; width:300px">
+                    <span class="input-group-btn">
+                  <button type="submit" class="btn"
+                          style="height: 45px;padding: 10px 15px;font-size: 17px;line-height: 1.235"><span
+                          class="fui-search "></span></button>
+                </span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="collapse navbar-collapse" id="navbar-collapse-6">
+    <ul class="nav nav-tabs">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="singleSearch.html">股票数据</a></li>
+        <li><a href="market.html">行情信息</a></li>
+        <li class="active"><a href="#">回测</a></li>
+        <li><a href="news.html">新闻</a></li>
+    </ul>
+</div>
+
+
+<div class="conditionChoose">
+    <div class="regressionChoose">
+        <div class="regressionType" style="width:50%;margin-left: 12%;margin-top: 3%"><span>策略：</span><select>
+            <option>动量策略</option>
+            <option>均值回归</option>
+
+        </select></div>
+
+    </div>
+    <div style="margin-top: 2%" class="timeChoose">
+        <div class="time">
+            <div style="display: inline;width: 60%;margin-left: 12%"><span>时间：</span> <input style="width: 16%" type="date" value="2015-09-24"/> -
+                <input style="width: 16%" type="date" value="2015-09-24">
+            </div>
+
+        </div>
+
+    </div>
+
+    <div style="margin-top: 2%" class="timeChoose">
+        <div style="margin-left: 12%;display: inline" class="holdTime">
+            <span>持有期:</span>
+            <input style="width: 16%" type="text" id="holtTime">
+
+        </div>
+        <div  style="display: inline">
+            <span>形成期:</span>
+            <input style="width: 16%" type="text" id="shapeTime">
+        </div>
+    </div>
+    <div style="margin-top: 2%" class="numChoose">
+        <div style="margin-left: 12%">
+            <span>仓内持股数</span>
+            <input style="width: 16%" type="text" id="numberOfStock">
+
+        </div>
+
+    </div>
+    <div  style="margin-top: 2%" class="stockChoose">
+        <h6 style="margin-left: 12%">股票选择</h6>
+        <div style="margin-left: 12%">
+            <input style="width: 16%" type="text" id="search" value="输入股票名／编号">
+            <button style="font-size: 10px" type="button" class="btn btn-info btn-lg">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </div>
+        <div class="stockScreener-range">
+            <div style="margin-left: 12%;margin-top: 2%" class="stockScreener-range-wrapper">
+                <div class="stockScreener-range-industry" style="width:20%;display: inline"><span>行业：</span><select>
+                    <option value="">全部</option>
+                    <option value="J68">保险业</option>
+                    <option value="G59">仓储业</option>
+                    <option value="A03">畜牧业</option>
+                    <option value="H62">餐饮业</option>
+                    <option value="D44">电力、热力生产和供应业</option>
+                    <option value="G54">道路运输业</option>
+                    <option value="C38">电气机械和器材制造业</option>
+                    <option value="I63">电信、广播电视和卫星传输服务</option>
+                    <option value="K70">房地产业</option>
+                    <option value="C30">非金属矿物制品业</option>
+                    <option value="C42">废弃资源综合利用业</option>
+                    <option value="E47">房屋建筑业</option>
+                    <option value="C18">纺织服装、服饰业</option>
+                    <option value="C17">纺织业</option>
+                    <option value="R86">广播、电视、电影和影视录音制作业</option>
+                    <option value="G57">管道运输业</option>
+                    <option value="N78">公共设施管理业</option>
+                    <option value="J66">货币金融服务</option>
+                    <option value="G56">航空运输业</option>
+                    <option value="I64">互联网和相关服务</option>
+                    <option value="B08">黑色金属矿采选业</option>
+                    <option value="C31">黑色金属冶炼和压延加工业</option>
+                    <option value="C28">化学纤维制造业</option>
+                    <option value="C26">化学原料和化学制品制造业</option>
+                    <option value="C21">家具制造业</option>
+                    <option value="C39">计算机、通信和其他电子设备制造业</option>
+                    <option value="C33">金属制品业</option>
+                    <option value="P82">教育</option>
+                    <option value="C15">酒、饮料和精制茶制造业</option>
+                    <option value="E49">建筑安装业</option>
+                    <option value="E50">建筑装饰和其他建筑业</option>
+                    <option value="B11">开采辅助活动</option>
+                    <option value="F52">零售业</option>
+                    <option value="A02">林业</option>
+                    <option value="C20">木材加工和木、竹、藤、棕、草制品业</option>
+                    <option value="B06">煤炭开采和洗选业</option>
+                    <option value="C13">农副食品加工业</option>
+                    <option value="A05">农、林、牧、渔服务业</option>
+                    <option value="A01">农业</option>
+                    <option value="F51">批发业</option>
+                    <option value="C19">皮革、毛皮、羽毛及其制品和制鞋业</option>
+                    <option value="C36">汽车制造业</option>
+                    <option value="J69">其他金融业</option>
+                    <option value="C41">其他制造业</option>
+                    <option value="I65">软件和信息技术服务业</option>
+                    <option value="D45">燃气生产和供应业</option>
+                    <option value="D46">水的生产和供应业</option>
+                    <option value="C14">食品制造业</option>
+                    <option value="G55">水上运输业</option>
+                    <option value="N77">生态保护和环境治理业</option>
+                    <option value="L72">商务服务业</option>
+                    <option value="B07">石油和天然气开采业</option>
+                    <option value="C25">石油加工、炼焦和核燃料加工业</option>
+                    <option value="C37">铁路、船舶、航空航天和其他运输设备制造业</option>
+                    <option value="G53">铁路运输业</option>
+                    <option value="E48">土木工程建筑业</option>
+                    <option value="C34">通用设备制造业</option>
+                    <option value="R87">文化艺术业</option>
+                    <option value="C24">文教、工美、体育和娱乐用品制造业</option>
+                    <option value="Q83">卫生</option>
+                    <option value="C29">橡胶和塑料制品业</option>
+                    <option value="R85">新闻和出版业</option>
+                    <option value="M73">研究和试验发展</option>
+                    <option value="C40">仪器仪表制造业</option>
+                    <option value="C23">印刷和记录媒介复制业</option>
+                    <option value="B09">有色金属矿采选业</option>
+                    <option value="C32">有色金属冶炼和压延加工业</option>
+                    <option value="A04">渔业</option>
+                    <option value="C27">医药制造业</option>
+                    <option value="G60">邮政业</option>
+                    <option value="J67">资本市场服务</option>
+                    <option value="S90">综合</option>
+                    <option value="L71">租赁业</option>
+                    <option value="H61">住宿业</option>
+                    <option value="G58">装卸搬运和运输代理业</option>
+                    <option value="M74">专业技术服务业</option>
+                    <option value="C35">专用设备制造业</option>
+                    <option value="C22">造纸和纸制品业</option>
+                </select></div>
+                <div  class="stockScreener-range-area" style="width:20%;display: inline">
+                    <span>板块：</span><select>
+                    <option value="">全部</option>
+                    <option value="CN340000">创业板</option>
+
+                </select></div>
+                <button style="font-size: 10px" type="button" class="btn btn-info btn-lg">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+
+                <div class="stockScreener-search-result-table-container">
+                    <div class="stockScreener-search-result-table mainTable overflowx">
+                        <table style="width:690px;" cellspacing="0" cellpadding="0" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th class="sortable desc" data-key="symbol" style="min-width:80px"><s></s>股票</th>
+                                <th class="sortable" data-key="current" style="min-width:45px"><s></s>股票编号</th>
+                                <th class="" data-key="hasExist" style="min-width:30px"><s></s>添加对比</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="odd ">
+                                <td><a target="_blank" title="弘信电子 (SZ300657)" href="/S/SZ300657">弘信电子</a></td>
+                                <td><span class="hot-colorup">14.89</span></td>
+
+                                <td>
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </td>
+                            </tr>
+                            <tr class="even ">
+                                <td><a target="_blank" title="正丹股份 (SZ300641)" href="/S/SZ300641">正丹股份</a></td>
+                                <td><span class="hot-colorup">20.59</span></td>
+
+                                <td> <span class="glyphicon glyphicon-plus"></span></td>
+                            </tr>
+
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+    </div>
+</div>
+</div>
+
+<div>
+    <a style=" margin-left:50%;background-color: #32619e" class="btn btn-default" href="regressionResult.html" role="button">开始回测</a>
+</div>
+
+</body>
+</html>
