@@ -4,10 +4,6 @@ import sys
 import pandas as pd
 import pymysql
 
-# mysql操作
-db = pymysql.connect("localhost", "root", "123456", "stock", charset="utf8")
-cursor = db.cursor();
-
 
 def getallkdata(sectioname, date):
     sql = "select distinct date,adjopen,adjclose,adjhigh,adjlow,volume,  code from kdata_" + sectioname + " where date='%s' " % (
@@ -33,6 +29,9 @@ def getallkdata(sectioname, date):
 
 
 if __name__ == "__main__":
+    db = pymysql.connect("localhost", "root", "123456", "stock", charset="utf8")
+    cursor = db.cursor()
+
     paths = sys.argv[0].split("\\")
     newpath = ""
     for i in range(0, len(paths) - 2):

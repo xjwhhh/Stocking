@@ -22,6 +22,17 @@ public class Strategy_Data_Impl implements Strategy_Data_Service {
     Tools tools = new Tools();
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
+    /**
+     * 回测
+     * @param type
+     * @param start
+     * @param end
+     * @param form
+     * @param hold
+     * @param isPla
+     * @param stocks
+     * @return
+     */
     public StrategyPO traceBack(String type, Date start, Date end, int form, int hold, String isPla, JSONArray stocks) {
         String startDate = formatter.format(start);
         String endDate = formatter.format(end);

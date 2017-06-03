@@ -50,7 +50,7 @@ def getkdata(sectionName, code, startDate, endDate):
 
 if __name__ == "__main__":
     db = pymysql.connect("localhost", "root", "123456", "stock", charset="utf8")
-    cursor = db.cursor();
+    cursor = db.cursor()
     paths = sys.argv[0].split("/")
     newPath = ""
     for i in range(0, len(paths) - 2):

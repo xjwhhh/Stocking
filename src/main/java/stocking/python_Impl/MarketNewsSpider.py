@@ -3,6 +3,7 @@ import urllib.request
 from bs4 import BeautifulSoup
 import tushare as ts
 
+
 #
 # def getnews():
 #     url = "http://money.163.com/"
@@ -18,7 +19,7 @@ import tushare as ts
 #             m = m + 1
 
 
-# 实时更新的股票信息
+# 实时更新的股票新闻
 def getMarketNews():
     num = 20
     news = ts.get_latest_news(top=num)
@@ -35,24 +36,6 @@ def getMarketNews():
         print(i)
     for i in url:
         print(i)
-
-
-# # 信息地雷
-# def getnews1(code):
-#     news = ts.get_notices(code=code)
-#     type = list(news['type'])
-#     title = list(news['title'])
-#     date = list(news['date'])
-#     url = list(news['url'])
-#     print(len(type))
-#     for i in type:
-#         print(i)
-#     for i in title:
-#         print(i)
-#     for i in date:
-#         print(i)
-#     for i in url:
-#         print(i)
 
 
 if __name__ == "__main__":

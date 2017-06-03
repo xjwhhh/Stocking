@@ -19,6 +19,12 @@ public class Tools {
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     Cache cache=Cache.getInstance();
     Hashtable<String,String> code_name=cache.getCode_Name();
+
+    /**
+     * 获取项目地址
+     * @param path
+     * @return
+     */
     public String getProjectPath(String path) {
         String rpath = this.getClass().getResource("").getPath().substring(1);
         String[] pathList = rpath.split("/");

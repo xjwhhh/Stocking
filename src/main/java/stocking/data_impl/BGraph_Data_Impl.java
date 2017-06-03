@@ -22,6 +22,17 @@ public class BGraph_Data_Impl implements BGraph_Data_Service {
     Tools tools = new Tools();
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
+    /**
+     * 获取不同持有期/形成期下超额收益率与策略胜率
+     * @param type
+     * @param start
+     * @param end
+     * @param isHold
+     * @param interval
+     * @param isPla
+     * @param stocks
+     * @return
+     */
     public BGraphPO get(String type, Date start, Date end, String isHold, int interval, String isPla, JSONArray stocks) {
         String startDate = formatter.format(start);
         String endDate = formatter.format(end);

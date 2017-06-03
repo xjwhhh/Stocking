@@ -1,9 +1,10 @@
 import tushare as ts
+import sys
 
 
 def getData(date):
     df = ts.top_list(date)
-    df=df.sort(columns='reason')
+    df = df.sort(columns='reason')
     code = list(df['code'])
     name = list(df['name'])
     reason = list(df['reason'])
@@ -16,6 +17,6 @@ def getData(date):
         print(i)
 
 
-
 if __name__ == "__main__":
+    date = sys.argv[1]
     getData('2017-05-11')

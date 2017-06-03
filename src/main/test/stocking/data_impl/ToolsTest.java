@@ -17,6 +17,10 @@ public class ToolsTest {
         tools = new Tools();
     }
 
+    /**
+     * 获取项目路径
+     * @throws Exception
+     */
     @Test
     public void getProjectPath() throws Exception {
         String subPath = "";
@@ -24,6 +28,10 @@ public class ToolsTest {
         assertEquals("C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\Stock_Analyzing_System\\", newPath);
     }
 
+    /**
+     * JsonArray转String
+     * @throws Exception
+     */
     @Test
     public void jsonArrayToString() throws Exception {
         String[] array = new String[]{"JSON", "3", "test"};

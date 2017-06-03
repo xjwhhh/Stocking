@@ -60,18 +60,18 @@ if __name__ == "__main__":
     import bGraph
 
     ff = open("C:\\Users\\xjwhh\\Desktop\\t.txt", 'a')
-    value = sys.argv[1]
-
-    values = value.split("?")
-
-    strategyType = int(values[0])  # 策略类型
-    startDate = values[1]  # 开始日期
-    endDate = values[2]  # 结束日期
-    isHold = int(values[3])  # s是否是形成期
-    interval = int(values[4])  # 已知时间
-    isPla = int(values[5])  # 是否为板块
-    stocks = values[6]
-    stockLists = stocks.split("/")  # 股票代码列表
+    # value = sys.argv[1]
+    #
+    # values = value.split("?")
+    #
+    # strategyType = int(values[0])  # 策略类型
+    # startDate = values[1]  # 开始日期
+    # endDate = values[2]  # 结束日期
+    # isHold = int(values[3])  # s是否是形成期
+    # interval = int(values[4])  # 已知时间
+    # isPla = int(values[5])  # 是否为板块
+    # stocks = values[6]
+    # stockLists = stocks.split("/")  # 股票代码列表
 
     # strategyType = sys.argv[1]  # 策略类型
     # startDate = sys.argv[2]  # 开始日期
@@ -82,13 +82,15 @@ if __name__ == "__main__":
     # stocks = sys.argv[7]
     # stockLists = stocks.split("/")  # 股票代码列表
 
-    # strategyType = 1  # 策略类型
-    # startDate = "2016-03-01"  # 开始日期
-    # endDate = "2016-05-01"  # 结束日期
-    # form = 10  # 形成期
-    # hold = 20  # 持有期
-    # isPla = False  # 是否为板块
-    # plaName = " "
+    strategyType = 1  # 策略类型
+    startDate = "2016-03-01"  # 开始日期
+    endDate = "2016-05-01"  # 结束日期
+    isHold=1
+
+    interval=20
+    isPla = 1  # 是否为板块
+    plaName = " "
+    stockLists=['沪深300']
     # # stocks = sys.argv[7]
     # stockLists = ["000001",
     #               "000002",

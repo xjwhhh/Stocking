@@ -20,6 +20,10 @@ import net.sf.json.JSONObject;
 public class GetNews {
     Tools tools = new Tools();
 
+    /**
+     * 获取股票相关新闻
+     * @return
+     */
     public NewsPO getMarketNews() {
         try {
             List<String> commands = new LinkedList<String>();
@@ -55,6 +59,11 @@ public class GetNews {
         return null;
     }
 
+    /**
+     * 信息地雷，获取单只股票相关新闻
+     * @param code
+     * @return
+     */
     public NewsPO getSingleNews(String code) {
         try {
             List<String> commands = new LinkedList<String>();

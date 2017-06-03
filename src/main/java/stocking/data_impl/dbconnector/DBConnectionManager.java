@@ -75,8 +75,8 @@ public class DBConnectionManager {
         Connection con = null;
         pool = (DBConnectionPool) pools.get(name);//从名字中获取连接池
         con = pool.getConnection();//从选定的连接池中获得连接
-        if (con != null)
-            System.out.println("得到连接。。。");
+//        if (con != null)
+//            System.out.println("得到连接。。。");
         return con;
     }
 
@@ -92,7 +92,7 @@ public class DBConnectionManager {
         Connection con = null;
         pool = (DBConnectionPool) pools.get(name);//从名字中获取连接池
         con = pool.getConnection(timeout);//从选定的连接池中获得连接
-        System.out.println("得到连接。。。");
+//        System.out.println("得到连接。。。");
         return con;
     }
 
