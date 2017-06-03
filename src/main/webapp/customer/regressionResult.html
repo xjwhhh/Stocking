@@ -79,7 +79,7 @@
 </div>
 
 <!--股票排名-->
-<div style="width:80%;background: white;margin-top: 2%;margin-left: 12%" class="ranking">
+<div style="width:75%;background: white;margin-top: 2%;margin-left: 12%" class="ranking">
     <!--<h6 style="display: inline">周期股票排名</h6>-->
     <div style="margin-left: 50%" class="timeSelect">
         <select>
@@ -110,7 +110,31 @@
 </div>
 
 <!--累计收益率比较这线图-->
-<div style="width:80%;background: white;margin-top: 2%;margin-left: 12%">
+<div style="width:75%;background: white;margin-top: 2%;margin-left: 12%">
+    <div id="accumReturnRate" style="height:350px;width: 600px"></div>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+    <script type="text/javascript" src="accumReturnRate.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+    <!--<script type="text/javascript" src="closePrice.js"></script>-->
+
+</div>
+
+<!--收益率分布直方图-->
+<div style="width:75%;background: white;margin-top: 2%;margin-left: 12%">
+    <div id="varianceChart" style="height:350px;width: 600px"></div>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+    <script type="text/javascript" src="varianceChart.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
 
 
 </div>
