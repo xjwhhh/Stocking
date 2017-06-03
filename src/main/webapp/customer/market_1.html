@@ -104,6 +104,7 @@
                     </div>
                 </fieldset>
             </form>
+            <button id="search" onclick="search()">查询</button>
         </div>
         <div class="col-md-6">
             <label class="col-md-12">今日交易量：</label>
@@ -174,6 +175,29 @@
         forceParse: 0,
         showMeridian: 1
     });
+</script>
+
+<!--以下是查询方法-->
+<script type="text/javascript">
+    function getdate(){
+        this.str = dtp_input1.value()
+    }
+    function search() {
+        var url="http://";
+        var datetime = JSON.stringify(new getdate())
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:datetime,
+            dataType: "jason",//此处要设置成jason
+            success: callback});//回调函数
+    }
+    function callback(jasonObj)
+    {
+        var str = jasonObj;
+        var obj = JSON.parse(str);//调用Json2.js中提供的JSON解析器来解析成JSONObject
+        alert(obj.errNum);
+    }
 </script>
 
 <!--以下是饼图相关引用-->
