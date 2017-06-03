@@ -63,28 +63,28 @@ if __name__ == "__main__":
     import strategyCal
 
     ff = open("C:\\Users\\xjwhh\\Desktop\\t.txt", 'a')
-    value = sys.argv[1]
-    # ff.write(value)
+    # value = sys.argv[1]
+    # # ff.write(value)
+    #
+    # values = value.split("?")
+    #
+    # strategyType = int(values[0])  # 策略类型
+    # startDate = values[1]  # 开始日期
+    # endDate = values[2]  # 结束日期
+    # form = int(values[3])  # 形成期
+    # hold = int(values[4])  # 持有期
+    # isPla = int(values[5])  # 是否为板块
+    # stocks = values[6]
+    # stockLists = stocks.split("/")  # 股票代码列表
 
-    values = value.split("?")
-
-    strategyType = int(values[0])  # 策略类型
-    startDate = values[1]  # 开始日期
-    endDate = values[2]  # 结束日期
-    form = int(values[3])  # 形成期
-    hold = int(values[4])  # 持有期
-    isPla = int(values[5])  # 是否为板块
-    stocks = values[6]
-    stockLists = stocks.split("/")  # 股票代码列表
-
-    # strategyType = 0  # 策略类型
-    # startDate = "2016-03-01"  # 开始日期
-    # endDate = "2016-06-01"  # 结束日期
-    # form = 10  # 形成期
-    # hold = 20  # 持有期
-    # isPla = False  # 是否为板块
-    # stocks = "000001/000002/000004/300001/300002/300003/"
-    # stockLists = stocks.split("/")
+    strategyType = 0  # 策略类型
+    startDate = "2016-03-01"  # 开始日期
+    endDate = "2016-06-01"  # 结束日期
+    form = 10  # 形成期
+    hold = 20  # 持有期
+    isPla = 1  # 是否为板块
+    stocks = "沪深300"
+    stockLists = stocks.split("/")
 
     # stockLists = ["000001",
     #               "000002",

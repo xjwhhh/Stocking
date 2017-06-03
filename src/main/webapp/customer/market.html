@@ -106,7 +106,11 @@
                                                                                 href="http://yuanchuang.10jqka.com.cn/20170523/c598669939.shtml"
                                                                                 target="_blank"></a>
                 </p>
-                <p id="check" onclick="check()">查看市场温度计</p>
+                <br>
+                <br>
+                <br>
+                <br>
+                <button id="check" onclick="check()" style="color: #ffffff; font-size: 15px;" class="btn btn-info btn-hg">查看市场温度计</button>
                 <!--<div class="fl">-->
                 <!--<ul>-->
                 <!--<li>-->
@@ -999,19 +1003,21 @@
             }];
 
             var rates = [
-                {id: 0, up: 12, down: 19, uprate: 13, downrate: 30}, {
+                {id: 0, up: 12, down: 19, uprate: 13, downrate: 30}
+                , {
                     id: 1,
                     up: 12,
                     down: 21,
                     uprate: 14,
                     downrate: 38
-                }, {id: 2, up: 12, down: 22, uprate: 14, downrate: 48}, {
+                }
+                , {id: 2, up: 12, down: 22, uprate: 14, downrate: 48}, {
                     id: 3,
                     up: 12,
                     down: 23,
                     uprate: 15,
-                    downrate: 44
-                }, {id: 4, up: 12, down: 21, uprate: 16, downrate: 42}, {
+                    downrate: 44}
+                , {id: 4, up: 12, down: 21, uprate: 16, downrate: 42}, {
                     id: 5,
                     up: 12,
                     down: 19,
@@ -1725,7 +1731,8 @@
                     down: 23,
                     uprate: 95,
                     downrate: 43
-                }];
+                }
+                ];
 
 
             var earnData = [
@@ -1862,22 +1869,22 @@
 <script type="text/javascript" src="http://s.thsi.cn/js/webHQ/resources/require.min.js"></script>
 <!--上面这个表情控制顶部图片和温度计图片-->
 <script type="text/javascript" src="http://s.thsi.cn/cb?/js/home/v5/app/flash/;puredataprovider-1.1.1.js"></script>
-<!--<script type="text/javascript" src="http://s.thsi.cn/cb?js/home/;ths_index_v2.js"></script>-->
-<!--<script type="text/javascript" src="http://s.thsi.cn/cb?js/ucenter/showChartNum.js"></script>-->
-<!--<script type="text/javascript" src="http://s.thsi.cn/js/special/temperature/provider.js"></script>-->
-<!--<script type="text/javascript" src="http://s.thsi.cn/js/special/temperature/drawHuice.js"></script>-->
-<!--<script type="text/javascript" src="http://s.thsi.cn/cb?/js/apps/comment/sns/;FaceData.js"></script>-->
-<!--<script type="text/javascript" src="http://s.thsi.cn/js/apps/comment/sns/EditorFace.js"></script>-->
-<!--<script type="text/javascript"-->
-<!--src="http://s.thsi.cn/cb?/js/apps/comment/sns/;sns_share.js;FaceData.js;main_v2.1.min.js"></script>-->
+<script type="text/javascript" src="http://s.thsi.cn/cb?js/home/;ths_index_v2.js"></script>
+<script type="text/javascript" src="http://s.thsi.cn/cb?js/ucenter/showChartNum.js"></script>
+<script type="text/javascript" src="http://s.thsi.cn/js/special/temperature/provider.js"></script>
+<script type="text/javascript" src="http://s.thsi.cn/js/special/temperature/drawHuice.js"></script>
+<script type="text/javascript" src="http://s.thsi.cn/cb?/js/apps/comment/sns/;FaceData.js"></script>
+<script type="text/javascript" src="http://s.thsi.cn/js/apps/comment/sns/EditorFace.js"></script>
+<script type="text/javascript"
+src="http://s.thsi.cn/cb?/js/apps/comment/sns/;sns_share.js;FaceData.js;main_v2.1.min.js"></script>
 <script type="text/javascript" src="http://s.thsi.cn/js/special/temperature/tips.20160921.js"></script>
 <!--上面这个标签控制顶部图片和温度计-->
 <script type="text/javascript" src="http://s.thsi.cn/js/special/temperature/drawSpringFest.js"></script>
 <!--控制各个图表-->
 <script type="text/javascript" src="http://s.thsi.cn/js/special/temperature/drawEarnLose.js"></script>
 <!--控制柱状图和饼状图-->
-<!--<script type="text/javascript" src="http://s.thsi.cn/js/special/temperature/drawLine.js"></script>-->
-<!--<script type="text/javascript" src="http://s.thsi.cn//js/common/customizeTaLog.js"></script>-->
+<script type="text/javascript" src="http://s.thsi.cn/js/special/temperature/drawLine.js"></script>
+<script type="text/javascript" src="http://s.thsi.cn//js/common/customizeTaLog.js"></script>
 
 <script type="text/javascript">
     var newsid = $('#lxart').attr('seq');
@@ -1933,7 +1940,7 @@
         //调用JQuery提供的Ajax方法
         var url="http://";
         $.ajax({
-            type:"POST",
+            type:"GET",
             url:url,
 //            data:user,
             dataType: "jason",//此处要设置成jason
@@ -1943,6 +1950,11 @@
     {
         var str = jasonObj;
         var obj = JSON.parse(str);//调用Json2.js中提供的JSON解析器来解析成JSONObject
+        //下面这些尚未实现
+        datas = obj.datas;
+        rates = obj.rates;
+        upNum = obj.upNum;
+        downNum = obj.downNum;
         alert(obj.errNum);
     }
 </script>
