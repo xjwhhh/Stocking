@@ -5,30 +5,40 @@
     <title>Stocking量化交易</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="https://cdn.bootcss.com/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet">
 
     <style type="text/css">
-        #input{
+        #input {
             margin-top: 20px;
         }
-        ul {
-            text-align: center;
 
-        }
         .nav-tabs > li {
             width: 20%;
             background-color: #0099ff;
         }
+
         a {
             color: #333333
         }
+
         /*a:hover {*/
         /*color: #000000*/
         /*}*/
 
-        .nav > li:hover .dropdown-menu {display: block;}
+        ul {
+            text-align: center;
+        }
+
+        .nav > li:hover .dropdown-menu {
+            display: block;
+        }
+
     </style>
+
+    <!--以下是日期选择器相关的引用-->
+    <!--<link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">-->
+    <link href="bootstrap-datetimepicker.css" rel="stylesheet" media="screen">
 
     <script type="text/javascript" src="json2-min.js"></script>
 </head>
@@ -70,12 +80,54 @@
 </div>
 <div class="collapse navbar-collapse" id="navbar-collapse-6">
     <ul class="nav nav-tabs">
-        <li><a href="index.html">首页</a></li>
+        <li class="active"><a href="#">首页</a></li>
         <li><a href="singleSearch.html">股票数据</a></li>
         <li><a href="market_2.html">行情信息</a></li>
-        <li class="active"><a href="#">回测</a></li>
+        <li><a href="regressionSetting.html">回测</a></li>
         <li><a href="news.html">新闻</a></li>
     </ul>
 </div>
+
+<div class="container">
+    <h3>市场温度计</h3>
+    <div class="col-md-6">
+        <label>选择日期：</label>
+        <form action="" class="form-horizontal"  role="form">
+            <fieldset>
+                <div class="form-group">
+                    <div class="input-group date form_datetime col-md-5" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                        <input class="form-control" size="16" type="text" value="" readonly>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                    </div>
+                    <input type="hidden" id="dtp_input1" value="" /><br/>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="col-md-6">
+
+    </div>
+</div>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<script src="http://cdn.static.runoob.com/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="http://cdn.static.runoob.com/libs/jquery/1.12.4/jquery.min.js"><\/script>')</script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!--以下是日期选择器相关的引用-->
+<script type="text/javascript">
+    $('.form_datetime').datetimepicker({
+        //language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1
+    });
+</script>
 </body>
 </html>
