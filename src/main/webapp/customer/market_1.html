@@ -37,8 +37,7 @@
     </style>
 
     <!--以下是日期选择器相关的引用-->
-    <!--<link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">-->
-    <link href="bootstrap-datetimepicker.css" rel="stylesheet" media="screen">
+    <link href="bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 
     <script type="text/javascript" src="json2-min.js"></script>
 </head>
@@ -80,9 +79,9 @@
 </div>
 <div class="collapse navbar-collapse" id="navbar-collapse-6">
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#">首页</a></li>
+        <li><a href="index.html">首页</a></li>
         <li><a href="singleSearch.html">股票数据</a></li>
-        <li><a href="market_2.html">行情信息</a></li>
+        <li class="active"><a href="#">行情信息</a></li>
         <li><a href="regressionSetting.html">回测</a></li>
         <li><a href="news.html">新闻</a></li>
     </ul>
@@ -90,33 +89,81 @@
 
 <div class="container">
     <h3>市场温度计</h3>
-    <div class="col-md-6">
-        <label>选择日期：</label>
-        <form action="" class="form-horizontal"  role="form">
-            <fieldset>
-                <div class="form-group">
-                    <div class="input-group date form_datetime col-md-5" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
-                        <input class="form-control" size="16" type="text" value="" readonly>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+    <div class="col-md-12">
+        <div class="col-md-6">
+            <form action="" class="form-horizontal"  role="form">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="dtp_input1" class="control-label">选择日期</label>
+                        <div class="input-group date form_datetime col-md-6" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                            <input class="form-control" size="16" type="text" value="" readonly>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                        </div>
+                        <input type="hidden" id="dtp_input1" value="" /><br/>
                     </div>
-                    <input type="hidden" id="dtp_input1" value="" /><br/>
-                </div>
-            </fieldset>
-        </form>
+                </fieldset>
+            </form>
+            <button id="search" onclick="search()">查询</button>
+        </div>
+        <div class="col-md-6">
+            <label class="col-md-12">今日交易量：</label>
+            <label id="volumn" style="font-size: 3em; color: #cb2028">300000</label>
+        </div>
     </div>
-    <div class="col-md-6">
 
+    <div class="col-md-12">
+        <div class="col-md-6" style="height: 600px">
+            <div id="container-piechart" style="height: 100%"></div>
+            <hr />
+        </div>
+        <div class="col-md-6" style="height: 600px;">
+            <div id="container-barchart" style="height: 100%"></div>
+            <hr />
+        </div>
+
+    </div>
+
+    <div class="col-md-12">
+        <div class="col-md-6" style="height: 400px">
+            <div id="container-uplimited" style="height: 100%"></div>
+            <hr />
+        </div>
+        <div class="col-md-6" style="height: 400px">
+            <div id="container-downlimited" style="height: 100%"></div>
+            <hr />
+        </div>
+
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-3" style="height: 300px">
+            <div id="container-upfivepercent" style="height: 100%"></div>
+        </div>
+        <div class="col-md-3" style="height: 300px">
+            <div id="container-downfivepercent" style="height: 100%"></div>
+        </div>
+
+
+        <div class="col-md-3" style="height: 300px">
+            <div id="container-minusupfivepercent" style="height: 100%"></div>
+        </div>
+        <div class="col-md-3" style="height: 300px">
+            <div id="container-minusdownfivepercent" style="height: 100%"></div>
+        </div>
     </div>
 </div>
 
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
-<script src="http://cdn.static.runoob.com/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/jquery/1.12.4/jquery.min.js" charset="UTF-8"></script>
 <script>window.jQuery || document.write('<script src="http://cdn.static.runoob.com/libs/jquery/1.12.4/jquery.min.js"><\/script>')</script>
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!--以下是日期选择器相关的引用-->
+<!--<script type="text/javascript" src="./jquery/jquery-1.8.3.min.js" charset="UTF-8"></script>-->
+<!--<script type="text/javascript" src="js/bootstrap.min.js"></script>-->
+<script type="text/javascript" src="bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
 <script type="text/javascript">
     $('.form_datetime').datetimepicker({
         //language:  'fr',
@@ -128,6 +175,348 @@
         forceParse: 0,
         showMeridian: 1
     });
+</script>
+
+<!--以下是查询方法-->
+<script type="text/javascript">
+    function getdate(){
+        this.str = dtp_input1.value()
+    }
+    function search() {
+        var url="http://";
+        var datetime = JSON.stringify(new getdate())
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:datetime,
+            dataType: "jason",//此处要设置成jason
+            success: callback});//回调函数
+    }
+    function callback(jasonObj)
+    {
+        var str = jasonObj;
+        var obj = JSON.parse(str);//调用Json2.js中提供的JSON解析器来解析成JSONObject
+        alert(obj.errNum);
+    }
+</script>
+
+<!--以下是饼图相关引用-->
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+<script type="text/javascript">
+    var dom = document.getElementById("container-piechart");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    option = {
+        title : {
+            text: '某站点用户访问来源',
+            subtext: '纯属虚构',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['涨停股票','跌停股票','涨幅超过5%股票','跌幅超过5%股票','涨跌幅小于5%股票']
+        },
+        series : [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius : '55%',
+                center: ['50%', '60%'],
+                data:[
+                    {value:335, name:'涨停股票'},
+                    {value:310, name:'跌停股票'},
+                    {value:234, name:'涨幅超过5%股票'},
+                    {value:135, name:'跌幅超过5%股票'},
+                    {value:1548, name:'涨跌幅小于5%股票'}
+                ],
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+    ;
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+
+<!--以下是柱状图-->
+<div id="container" style="height: 100%"></div>
+<script type="text/javascript">
+    var dom = document.getElementById("container-barchart");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    app.title = '世界人口总量 - 条形图';
+
+    option = {
+        title: {
+            text: '今日股票情况',
+            subtext: '数据来自网络'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            }
+        },
+        legend: {
+            data: ['涨股票数', '跌股票数']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '10%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'category',
+            data: ['涨/跌停股票','涨/跌幅超过5%股票','开盘-收盘大于/小于5%股票']
+        },
+        yAxis: {
+            type: 'value',
+            boundaryGap: [0, 0.01]
+        },
+        series: [
+            {
+                name: '涨股票数',
+                type: 'bar',
+                data: [18203, 23489, 29034]
+            },
+            {
+                name: '跌股票数',
+                type: 'bar',
+                data: [19325, 23438, 31000]
+            }
+        ]
+    };
+    ;
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+
+<!--以下是引擎图-->
+<script type="text/javascript">
+    var dom = document.getElementById("container-uplimited");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    option = {
+        tooltip : {
+            formatter: "{a} <br/>{b} : {c}%"
+        },
+        toolbox: {
+            feature: {
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        series: [
+            {
+                name: '业务指标',
+                type: 'gauge',
+                detail: {formatter:'{value}%'},
+                data: [{value: 50, name: '涨停股票数'}]
+            }
+        ]
+    };
+
+    setInterval(function () {
+        option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
+        myChart.setOption(option, true);
+    },2000);
+    ;
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+<script type="text/javascript">
+    var dom = document.getElementById("container-downlimited");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    option = {
+        tooltip : {
+            formatter: "{a} <br/>{b} : {c}%"
+        },
+        toolbox: {
+            feature: {
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        series: [
+            {
+                name: '业务指标',
+                type: 'gauge',
+                detail: {formatter:'{value}%'},
+                data: [{value: 50, name: '跌停股票数'}]
+            }
+        ]
+    };
+
+    setInterval(function () {
+        option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
+        myChart.setOption(option, true);
+    },2000);
+    ;
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+<script type="text/javascript">
+    var dom = document.getElementById("container-upfivepercent");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    option = {
+        tooltip : {
+            formatter: "{a} <br/>{b} : {c}%"
+        },
+        toolbox: {
+            feature: {
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        series: [
+            {
+                name: '业务指标',
+                type: 'gauge',
+                detail: {formatter:'{value}%'},
+                data: [{value: 50, name: '涨幅超过5%股票数'}]
+            }
+        ]
+    };
+
+    setInterval(function () {
+        option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
+        myChart.setOption(option, true);
+    },2000);
+    ;
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+<script type="text/javascript">
+    var dom = document.getElementById("container-downfivepercent");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    option = {
+        tooltip : {
+            formatter: "{a} <br/>{b} : {c}%"
+        },
+        toolbox: {
+            feature: {
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        series: [
+            {
+                name: '业务指标',
+                type: 'gauge',
+                detail: {formatter:'{value}%'},
+                data: [{value: 50, name: '涨幅小于5%股票数'}]
+            }
+        ]
+    };
+
+    setInterval(function () {
+        option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
+        myChart.setOption(option, true);
+    },2000);
+    ;
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+<script type="text/javascript">
+    var dom = document.getElementById("container-minusupfivepercent");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    option = {
+        tooltip : {
+            formatter: "{a} <br/>{b} : {c}%"
+        },
+        toolbox: {
+            feature: {
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        series: [
+            {
+                name: '业务指标',
+                type: 'gauge',
+                detail: {formatter:'{value}%'},
+                data: [{value: 50, name: '开盘-收盘大于5%股票数'}]
+            }
+        ]
+    };
+
+    setInterval(function () {
+        option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
+        myChart.setOption(option, true);
+    },2000);
+    ;
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+<script type="text/javascript">
+    var dom = document.getElementById("container-minusdownfivepercent");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    option = {
+        tooltip : {
+            formatter: "{a} <br/>{b} : {c}%"
+        },
+        toolbox: {
+            feature: {
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        series: [
+            {
+                name: '业务指标',
+                type: 'gauge',
+                detail: {formatter:'{value}%'},
+                data: [{value: 50, name: '开盘-收盘小于5%股票数'}]
+            }
+        ]
+    };
+
+    setInterval(function () {
+        option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
+        myChart.setOption(option, true);
+    },2000);
+    ;
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
 </script>
 </body>
 </html>
