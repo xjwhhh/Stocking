@@ -95,7 +95,7 @@
                 <fieldset>
                     <div class="form-group">
                         <label for="dtp_input1" class="control-label">选择日期</label>
-                        <div class="input-group date form_datetime col-md-6" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                        <div class="input-group date form_datetime col-md-6" data-date="2017-05-10T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
                             <input class="form-control" size="16" type="text" value="" readonly>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
@@ -179,19 +179,22 @@
 
 <!--以下是查询方法-->
 <script type="text/javascript">
-    function getdate(str){
-        this.str = str
-        alert(str)
+    function getdate(datestr){
+        this.datestr = datestr
     }
     function search() {
-        var url="localhost:8080/stocking/customer/market";
-        var datetime = JSON.stringify(new getdate(dtp_input1.value))
+        var url="http://localhost:8080/market";
+        //var datetimestr = JSON.stringify(dtp_input1.value);
+
+        var datetimeobj = JSON.stringify(new getdate(dtp_input1.value));
+        alert(datetimeobj);
         $.ajax({
             type:"POST",
             url:url,
-            data:datetime,
-            dataType: "jason",//此处要设置成jason
+            data:datetimeobj,
+            dataType: "json",//此处要设置成json
             success: function (data) {
+                alert(data);
                 alert(data.errNum)
             }});//回调函数
     }
@@ -254,7 +257,6 @@
             }
         ]
     };
-    ;
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
     }
@@ -310,7 +312,6 @@
             }
         ]
     };
-    ;
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
     }
@@ -346,7 +347,6 @@
         option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
         myChart.setOption(option, true);
     },2000);
-    ;
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
     }
@@ -380,7 +380,6 @@
         option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
         myChart.setOption(option, true);
     },2000);
-    ;
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
     }
@@ -414,7 +413,6 @@
         option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
         myChart.setOption(option, true);
     },2000);
-    ;
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
     }
@@ -448,7 +446,6 @@
         option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
         myChart.setOption(option, true);
     },2000);
-    ;
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
     }
@@ -482,7 +479,6 @@
         option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
         myChart.setOption(option, true);
     },2000);
-    ;
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
     }
@@ -516,7 +512,6 @@
         option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
         myChart.setOption(option, true);
     },2000);
-    ;
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
     }
