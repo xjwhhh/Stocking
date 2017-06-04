@@ -12,7 +12,16 @@ import java.io.PrintWriter;
 class Send {
     private PrintWriter pw;
 
-    void doSend(HttpServletResponse response, Object po) {
+    void doSend(HttpServletResponse response, Object po) throws IOException {
+        if (po == "null") {
+            try {
+                this.pw = response.getWriter();
+                pw.write("wrong");
+                pw.flush();
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+        }
         JSONArray jsonArray = JSONArray.fromObject(po);
         try {
             this.pw = response.getWriter();
