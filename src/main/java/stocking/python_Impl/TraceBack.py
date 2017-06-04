@@ -111,37 +111,41 @@ if __name__ == "__main__":
 
     # stockLists=["000001", "000002", "000004","300001","300002","300003"]
 
-
+    #板块
     if isPla == 1:
         isPla = True
         plaName = stockLists[0]
+
+    #非板块
     else:
         isPla = False
         plaName = " "
+        code = stockLists[0]
+        finalDF = getStockInfo(code=code, startDate=startDate, endDate=endDate)
 
-    ff.write("\n")
-    ff.write(str(strategyType))
-    ff.write(startDate)
-    ff.write(endDate)
-    ff.write(str(form))
-    ff.write(str(hold))
-    ff.write(str(isPla))
-    ff.write(stocks)
-    ff.write("\n")
+        for i in range(1, len(stockLists)):
+            code = stockLists[i]
+            df = getStockInfo(code=code, startDate=startDate, endDate=endDate)
+            finalDF = finalDF.join(df)
+        finalDF.dropna(axis=1, how="any", inplace=True)  # 去除有nan值的列
 
-    ff.write("a")
-    ff.write("\n")
-    code = stockLists[0]
-    finalDF = getStockInfo(code=code, startDate=startDate, endDate=endDate)
 
-    for i in range(1, len(stockLists)):
-        code = stockLists[i]
-        df = getStockInfo(code=code, startDate=startDate, endDate=endDate)
-        finalDF = finalDF.join(df)
-    finalDF.dropna(axis=1, how="any", inplace=True)  # 去除有nan值的列
-
-    ff.write("b")
-    ff.write("\n")
+    # ff.write("\n")
+    # ff.write(str(strategyType))
+    # ff.write(startDate)
+    # ff.write(endDate)
+    # ff.write(str(form))
+    # ff.write(str(hold))
+    # ff.write(str(isPla))
+    # ff.write(stocks)
+    # ff.write("\n")
+    #
+    # ff.write("a")
+    # ff.write("\n")
+    #
+    #
+    # ff.write("b")
+    # ff.write("\n")
     if strategyType == 1:
         strategy = momStrategy.MomentumStrategy(form, hold)
         ff.write("mom")

@@ -85,12 +85,12 @@ if __name__ == "__main__":
     strategyType = 1  # 策略类型
     startDate = "2016-03-01"  # 开始日期
     endDate = "2016-05-01"  # 结束日期
-    isHold=1
+    isHold = 1
 
-    interval=20
+    interval = 20
     isPla = 1  # 是否为板块
     plaName = " "
-    stockLists=['沪深300']
+    stockLists = ['沪深300']
     # # stocks = sys.argv[7]
     # stockLists = ["000001",
     #               "000002",
@@ -115,15 +115,28 @@ if __name__ == "__main__":
     #               "000025",
     #               "000026"]  # 股票代码列表
 
+    # 板块
     if isPla == 1:
         isPla = True
         plaName = stockLists[0]
+
+    # 非板块
     else:
         isPla = False
         plaName = " "
+        code = stockLists[0]
+        finalDF = getStockInfo(code=code, startDate=startDate, endDate=endDate)
 
+        for i in range(1, len(stockLists)):
+            code = stockLists[i]
+            df = getStockInfo(code=code, startDate=startDate, endDate=endDate)
+            finalDF = finalDF.join(df)
+        finalDF.dropna(axis=1, how="any", inplace=True)  # 去除有nan值的列
+
+    # 持有期
     if isHold == 1:
         isHold = True
+    # 形成期
     else:
         isHold = False
 
@@ -137,14 +150,7 @@ if __name__ == "__main__":
     # ff.write(stocks)
     ff.write("\n")
 
-    code = stockLists[0]
-    finalDF = getStockInfo(code=code, startDate=startDate, endDate=endDate)
 
-    for i in range(1, len(stockLists)):
-        code = stockLists[i]
-        df = getStockInfo(code=code, startDate=startDate, endDate=endDate)
-        finalDF = finalDF.join(df)
-    finalDF.dropna(axis=1, how="any", inplace=True)  # 去除有nan值的列
 
     bgraph = bGraph.BGraph()
     bgraph.count(finalDF, isPla, plaName, strategyType, isHold, interval)
