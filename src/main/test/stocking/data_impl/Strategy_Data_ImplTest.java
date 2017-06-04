@@ -60,48 +60,44 @@ public class Strategy_Data_ImplTest {
         StrategyPO strategyPO=strategy_data_service.traceBack("2",startDate,endDate,10,20,"0",jsonArray);
         JSONObject json = JSONObject.fromObject(strategyPO);//将java对象转换为json对象
         String str = json.toString();//将json对象转换为字符串
-        System.out.print(str);
         String needStr="{\"alpha\":0.48922279149,\"annualReturn\":-0.0896817085889,\"basicAnnualReturn\":0.0225572477724,\"basicProfits\":[0.0675033735612,-0.0914331935903,0.0293435594944],\"beta\":1.40709648272,\"dates\":[{\"date\":12,\"day\":2,\"hours\":0,\"minutes\":0,\"month\":3,\"seconds\":0,\"time\":1460390400000,\"timezoneOffset\":-480,\"year\":116},{\"date\":11,\"day\":3,\"hours\":0,\"minutes\":0,\"month\":4,\"seconds\":0,\"time\":1462896000000,\"timezoneOffset\":-480,\"year\":116},{\"date\":1,\"day\":3,\"hours\":0,\"minutes\":0,\"month\":5,\"seconds\":0,\"time\":1464710400000,\"timezoneOffset\":-480,\"year\":116}],\"maxDrawDown\":0.248135532989,\"profits\":[0.121081081081,-0.127054451908,-0.0155502392344],\"sets\":[{\"codes\":[\"000008\",\"000025\",\"000019\"],\"names\":[\"神州高铁\",\"特力A\",\"深深宝A\"],\"profits\":[0.121081,0.059963,0.033363]},{\"codes\":[\"000025\",\"000018\",\"000014\"],\"names\":[\"特力A\",\"神州长城\",\"沙河股份\"],\"profits\":[-0.127054,-0.058214,-0.087946]},{\"codes\":[\"000025\",\"000014\",\"000020\"],\"names\":[\"特力A\",\"沙河股份\",\"深华发A\"],\"profits\":[-0.01555,0.036426,0.001487]}],\"sharpeRatio\":-14.8158455423}";
         assertEquals(needStr,str);
     }
 
-    //TODO 板块，数据有异常，太大了
 
+    /**
+     * 动量策略，板块
+     * @throws Exception
+     */
+    @Test
+    public void traceBack3() throws Exception {
+        Date startDate=dateFormat.parse("2016-03-01");
+        Date endDate=dateFormat.parse("2016-06-01");
+        String[] array = new String[]{"深市B股"};
+        JSONArray jsonArray = JSONArray.fromObject(array);
+        StrategyPO strategyPO=strategy_data_service.traceBack("1",startDate,endDate,10,20,"1",jsonArray);
+        JSONObject json = JSONObject.fromObject(strategyPO);//将java对象转换为json对象
+        String str = json.toString();//将json对象转换为字符串
+        String needStr="{\"alpha\":-0.222587085062,\"annualReturn\":-0.746799744705,\"basicAnnualReturn\":0.0201954130084,\"basicProfits\":[0.0534353174328,-0.0726209647743,0.0240325464635],\"beta\":1.36789186724,\"dates\":[{\"date\":12,\"day\":2,\"hours\":0,\"minutes\":0,\"month\":3,\"seconds\":0,\"time\":1460390400000,\"timezoneOffset\":-480,\"year\":116},{\"date\":11,\"day\":3,\"hours\":0,\"minutes\":0,\"month\":4,\"seconds\":0,\"time\":1462896000000,\"timezoneOffset\":-480,\"year\":116},{\"date\":1,\"day\":3,\"hours\":0,\"minutes\":0,\"month\":5,\"seconds\":0,\"time\":1464710400000,\"timezoneOffset\":-480,\"year\":116}],\"maxDrawDown\":0.147505804809,\"profits\":[-0.0246835443038,-0.172189349112,0.017640954687],\"sets\":[{\"codes\":[\"200581\",\"200045\"],\"names\":[\"苏威孚B\",\"深纺织B\"],\"profits\":[-0.024684,0.052174]},{\"codes\":[\"200054\",\"200055\"],\"names\":[\"建摩B\",\"方大B\"],\"profits\":[-0.172189,0.011848]},{\"codes\":[\"200596\",\"200418\"],\"names\":[\"古井贡B\",\"小天鹅B\"],\"profits\":[0.017641,0.116954]}],\"sharpeRatio\":-15.451430534}";
+        assertEquals(needStr,str);
+    }
 
-//    /**
-//     * 动量策略，板块
-//     * @throws Exception
-//     */
-//    @Test
-//    public void traceBack3() throws Exception {
-//        Date startDate=dateFormat.parse("2016-03-01");
-//        Date endDate=dateFormat.parse("2016-06-01");
-//        String[] array = new String[]{"沪深300"};
-//        JSONArray jsonArray = JSONArray.fromObject(array);
-//        StrategyPO strategyPO=strategy_data_service.traceBack("1",startDate,endDate,10,20,"1",jsonArray);
-//        JSONObject json = JSONObject.fromObject(strategyPO);//将java对象转换为json对象
-//        String str = json.toString();//将json对象转换为字符串
-//        String needStr="{\"alpha\":0.159857520195,\"annualReturn\":0.168935087899,\"basicAnnualReturn\":0.152521115692,\"basicProfits\":[0.0751225394078,-0.0830999305554,0.0445824589138],\"beta\":1.10645328076,\"dates\":[{\"date\":12,\"day\":2,\"hours\":0,\"minutes\":0,\"month\":3,\"seconds\":0,\"time\":1460390400000,\"timezoneOffset\":-480,\"year\":116},{\"date\":11,\"day\":3,\"hours\":0,\"minutes\":0,\"month\":4,\"seconds\":0,\"time\":1462896000000,\"timezoneOffset\":-480,\"year\":116},{\"date\":1,\"day\":3,\"hours\":0,\"minutes\":0,\"month\":5,\"seconds\":0,\"time\":1464710400000,\"timezoneOffset\":-480,\"year\":116}],\"maxDrawDown\":0.198874680579,\"profits\":[0.114427860697,-0.0844468198824,0.0105633802817],\"sets\":[{\"codes\":[\"300002\",\"000001\"],\"names\":[\"神州泰岳\",\"平安银行\"],\"profits\":[0.114428,0.034238]},{\"codes\":[\"300003\",\"300002\"],\"names\":[\"乐普医疗\",\"神州泰岳\"],\"profits\":[-0.084447,-0.124312]},{\"codes\":[\"000001\",\"300003\"],\"names\":[\"平安银行\",\"乐普医疗\"],\"profits\":[0.010563,0.036501]}],\"sharpeRatio\":-18.0543640065}";
-//        assertEquals(needStr,str);
-//    }
-//
-//    /**
-//     * 均值策略，板块
-//     * @throws Exception
-//     */
-//    @Test
-//    public void traceBack4() throws Exception {
-//        Date startDate=dateFormat.parse("2016-03-01");
-//        Date endDate=dateFormat.parse("2016-06-01");
-//        String[] array = new String[]{ "沪深300"};
-//        JSONArray jsonArray = JSONArray.fromObject(array);
-//        StrategyPO strategyPO=strategy_data_service.traceBack("2",startDate,endDate,10,20,"1",jsonArray);
-//        JSONObject json = JSONObject.fromObject(strategyPO);//将java对象转换为json对象
-//        String str = json.toString();//将json对象转换为字符串
-//        System.out.print(str);
-//        String needStr="{\"alpha\":0.48922279149,\"annualReturn\":-0.0896817085889,\"basicAnnualReturn\":0.0225572477724,\"basicProfits\":[0.0675033735612,-0.0914331935903,0.0293435594944],\"beta\":1.40709648272,\"dates\":[{\"date\":12,\"day\":2,\"hours\":0,\"minutes\":0,\"month\":3,\"seconds\":0,\"time\":1460390400000,\"timezoneOffset\":-480,\"year\":116},{\"date\":11,\"day\":3,\"hours\":0,\"minutes\":0,\"month\":4,\"seconds\":0,\"time\":1462896000000,\"timezoneOffset\":-480,\"year\":116},{\"date\":1,\"day\":3,\"hours\":0,\"minutes\":0,\"month\":5,\"seconds\":0,\"time\":1464710400000,\"timezoneOffset\":-480,\"year\":116}],\"maxDrawDown\":0.248135532989,\"profits\":[0.121081081081,-0.127054451908,-0.0155502392344],\"sets\":[{\"codes\":[\"000008\",\"000025\",\"000019\"],\"names\":[\"神州高铁\",\"特力A\",\"深深宝A\"],\"profits\":[0.121081,0.059963,0.033363]},{\"codes\":[\"000025\",\"000018\",\"000014\"],\"names\":[\"特力A\",\"神州长城\",\"沙河股份\"],\"profits\":[-0.127054,-0.058214,-0.087946]},{\"codes\":[\"000025\",\"000014\",\"000020\"],\"names\":[\"特力A\",\"沙河股份\",\"深华发A\"],\"profits\":[-0.01555,0.036426,0.001487]}],\"sharpeRatio\":-14.8158455423}";
-//        assertEquals(needStr,str);
-//    }
+    /**
+     * 均值策略，板块
+     * @throws Exception
+     */
+    @Test
+    public void traceBack4() throws Exception {
+        Date startDate=dateFormat.parse("2016-03-01");
+        Date endDate=dateFormat.parse("2016-06-01");
+        String[] array = new String[]{ "深市B股"};
+        JSONArray jsonArray = JSONArray.fromObject(array);
+        StrategyPO strategyPO=strategy_data_service.traceBack("2",startDate,endDate,10,20,"1",jsonArray);
+        JSONObject json = JSONObject.fromObject(strategyPO);//将java对象转换为json对象
+        String str = json.toString();//将json对象转换为字符串
+        String needStr="{\"alpha\":2.5977301193,\"annualReturn\":-0.434738056804,\"basicAnnualReturn\":0.0201954130084,\"basicProfits\":[0.0534353174328,-0.0726209647743,0.0240325464635],\"beta\":3.06288290762,\"dates\":[{\"date\":12,\"day\":2,\"hours\":0,\"minutes\":0,\"month\":3,\"seconds\":0,\"time\":1460390400000,\"timezoneOffset\":-480,\"year\":116},{\"date\":11,\"day\":3,\"hours\":0,\"minutes\":0,\"month\":4,\"seconds\":0,\"time\":1462896000000,\"timezoneOffset\":-480,\"year\":116},{\"date\":1,\"day\":3,\"hours\":0,\"minutes\":0,\"month\":5,\"seconds\":0,\"time\":1464710400000,\"timezoneOffset\":-480,\"year\":116}],\"maxDrawDown\":0.352652561177,\"profits\":[0.075873827792,-0.276778733385,0.0965677719604],\"sets\":[{\"codes\":[\"200025\",\"200581\",\"200869\",\"200152\",\"200596\",\"200058\"],\"names\":[\"特力B\",\"苏威孚B\",\"张裕B\",\"山航B\",\"古井贡B\",\"深赛格B\"],\"profits\":[0.075874,-0.024684,0.044993,0.103203,0.071248,0.156746]},{\"codes\":[\"200025\",\"200054\",\"200418\",\"200018\",\"200152\",\"200550\"],\"names\":[\"特力B\",\"建摩B\",\"小天鹅B\",\"神州B\",\"山航B\",\"江铃B\"],\"profits\":[-0.276779,-0.172189,0.176413,-0.071845,-0.033191,-0.127751]},{\"codes\":[\"200025\",\"200596\",\"200054\",\"200550\",\"200152\",\"200020\"],\"names\":[\"特力B\",\"古井贡B\",\"建摩B\",\"江铃B\",\"山航B\",\"深华发B\"],\"profits\":[0.096568,0.017641,-0.015032,-0.018303,-0.029197,-0.01]}],\"sharpeRatio\":-8.7790742816}";
+        assertEquals(needStr,str);
+    }
 
 
 }

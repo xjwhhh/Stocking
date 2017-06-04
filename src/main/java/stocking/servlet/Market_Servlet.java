@@ -26,7 +26,9 @@ public class Market_Servlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //response.getWriter().print("hello");
         JSONObject jsonObject = new ToJSON().toJSONObject(request);
+        System.out.print(jsonObject.toString());
         if (jsonObject == null) {
             return;
         }

@@ -1,10 +1,10 @@
 import pymysql
 import sys
 import pandas as pd
+import random
 
 
-def getStockInfo(code, startDate, endDate):
-    section = getSectionByCode(code)
+def getStockInfo(code, section, startDate, endDate):
     sql = "select distinct date,adjclose from kdata_" + section + " where date>='%s' and date<='%s' and code='%s' order by date" % (
         startDate, endDate, code)
     try:
@@ -46,9 +46,24 @@ def getSectionByCode(code):
     return section
 
 
+def getCodeBySection(plaName):
+    sql = "select distinct code from basicinfo where section='%s'" % (plaName)
+    # print(sql)
+    try:
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        re = []
+        for row in results:
+            code = row[0]
+            re.append(code)
+    except:
+        print('get data fail')
+    return re
+
+
 if __name__ == "__main__":
     db = pymysql.connect("localhost", "root", "123456", "stock", charset="utf8")
-    cursor = db.cursor();
+    cursor = db.cursor()
     paths = sys.argv[0].split("/")
     newPath = ""
     for i in range(0, len(paths) - 2):
@@ -59,97 +74,52 @@ if __name__ == "__main__":
         "C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\Stock_Analyzing_System\\src\\main\\java\\stocking\\calculation")
     import bGraph
 
-    ff = open("C:\\Users\\xjwhh\\Desktop\\t.txt", 'a')
-    # value = sys.argv[1]
-    #
-    # values = value.split("?")
-    #
-    # strategyType = int(values[0])  # 策略类型
-    # startDate = values[1]  # 开始日期
-    # endDate = values[2]  # 结束日期
-    # isHold = int(values[3])  # s是否是形成期
-    # interval = int(values[4])  # 已知时间
-    # isPla = int(values[5])  # 是否为板块
-    # stocks = values[6]
-    # stockLists = stocks.split("/")  # 股票代码列表
+    value = sys.argv[1]
+    values = value.split("?")
+    strategyType = int(values[0])  # 策略类型
+    startDate = values[1]  # 开始日期
+    endDate = values[2]  # 结束日期
+    isHold = int(values[3])  # s是否是形成期
+    interval = int(values[4])  # 已知时间
+    isPla = int(values[5])  # 是否为板块
+    stocks = values[6]
+    stockLists = stocks.split("/")  # 股票代码列表
 
-    # strategyType = sys.argv[1]  # 策略类型
-    # startDate = sys.argv[2]  # 开始日期
-    # endDate = sys.argv[3]  # 结束日期
-    # isHold = sys.argv[4]
-    # interval = sys.argv[5]
-    # isPla = sys.argv[6]  # 是否为板块
-    # stocks = sys.argv[7]
-    # stockLists = stocks.split("/")  # 股票代码列表
-
-    strategyType = 1  # 策略类型
-    startDate = "2016-03-01"  # 开始日期
-    endDate = "2016-05-01"  # 结束日期
-    isHold=1
-
-    interval=20
-    isPla = 1  # 是否为板块
-    plaName = " "
-    stockLists=['沪深300']
-    # # stocks = sys.argv[7]
-    # stockLists = ["000001",
-    #               "000002",
-    #               "000004",
-    #               "000005",
-    #               "000006",
-    #               "000007",
-    #               "000008",
-    #               "000009",
-    #               "000010",
-    #               "000011",
-    #               "000012",
-    #               "000014",
-    #               "000016",
-    #               "000017",
-    #               "000018",
-    #               "000019",
-    #               "000020",
-    #               "000021",
-    #               "000022",
-    #               "000023",
-    #               "000025",
-    #               "000026"]  # 股票代码列表
-
+    # 板块
     if isPla == 1:
-        isPla = True
+        isPla = False
         plaName = stockLists[0]
+        stockLists = getCodeBySection(plaName)
+        if len(stockLists) > 200:
+            # stockLists = stockLists[:int(len(stockLists) / 2)]
+            stockLists = random.sample(stockLists, int(len(stockLists) / 2))
+
+    # 非板块
     else:
         isPla = False
         plaName = " "
 
-    if isHold == 1:
-        isHold = True
-    else:
-        isHold = False
-
-    ff.write("\n")
-    ff.write(str(strategyType))
-    ff.write(startDate)
-    ff.write(endDate)
-    # ff.write(str(form))
-    # ff.write(str(hold))
-    ff.write(str(isPla))
-    # ff.write(stocks)
-    ff.write("\n")
-
     code = stockLists[0]
-    finalDF = getStockInfo(code=code, startDate=startDate, endDate=endDate)
+    section = getSectionByCode(code)
+    finalDF = getStockInfo(code=code, section=section, startDate=startDate, endDate=endDate)
 
     for i in range(1, len(stockLists)):
         code = stockLists[i]
-        df = getStockInfo(code=code, startDate=startDate, endDate=endDate)
-        finalDF = finalDF.join(df)
+        section = getSectionByCode(code)
+        df = getStockInfo(code=code, section=section, startDate=startDate, endDate=endDate)
+        finalDF = finalDF.join(df, how='outer')
     finalDF.dropna(axis=1, how="any", inplace=True)  # 去除有nan值的列
+
+    # 持有期
+    if isHold == 1:
+        isHold = True
+    # 形成期
+    else:
+        isHold = False
 
     bgraph = bGraph.BGraph()
     bgraph.count(finalDF, isPla, plaName, strategyType, isHold, interval)
     profits = bgraph.profits
-    # print(type(profits))
     print(len(profits))
     for value in profits:
         print(value)

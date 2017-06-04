@@ -1,10 +1,10 @@
 import sys
 import pymysql
 import pandas as pd
+import random
 
 
-def getStockInfo(code, startDate, endDate):
-    section = getSectionByCode(code)
+def getStockInfo(code, section, startDate, endDate):
     sql = "select distinct date,adjclose from kdata_" + section + " where date>='%s' and date<='%s' and code='%s' order by date" % (
         startDate, endDate, code)
     try:
@@ -46,6 +46,21 @@ def getSectionByCode(code):
     return section
 
 
+def getCodeBySection(plaName):
+    sql = "select distinct code from basicinfo where section='%s'" % (plaName)
+    # print(sql)
+    try:
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        re = []
+        for row in results:
+            code = row[0]
+            re.append(code)
+    except:
+        print('get data fail')
+    return re
+
+
 if __name__ == "__main__":
     db = pymysql.connect("localhost", "root", "123456", "stock", charset="utf8")
     cursor = db.cursor()
@@ -62,123 +77,71 @@ if __name__ == "__main__":
     import momStrategy
     import strategyCal
 
-    ff = open("C:\\Users\\xjwhh\\Desktop\\t.txt", 'a')
-    # value = sys.argv[1]
-    # # ff.write(value)
-    #
-    # values = value.split("?")
-    #
-    # strategyType = int(values[0])  # 策略类型
-    # startDate = values[1]  # 开始日期
-    # endDate = values[2]  # 结束日期
-    # form = int(values[3])  # 形成期
-    # hold = int(values[4])  # 持有期
-    # isPla = int(values[5])  # 是否为板块
-    # stocks = values[6]
-    # stockLists = stocks.split("/")  # 股票代码列表
+    value = sys.argv[1]
+    values = value.split("?")
+    strategyType = int(values[0])  # 策略类型
+    startDate = values[1]  # 开始日期
+    endDate = values[2]  # 结束日期
+    form = int(values[3])  # 形成期
+    hold = int(values[4])  # 持有期
+    isPla = int(values[5])  # 是否为板块
+    stocks = values[6]
+    stockLists = stocks.split("/")  # 股票代码列表
 
-    strategyType = 0  # 策略类型
-    startDate = "2016-03-01"  # 开始日期
-    endDate = "2016-06-01"  # 结束日期
-    form = 10  # 形成期
-    hold = 20  # 持有期
-    isPla = 1  # 是否为板块
-    stocks = "沪深300"
-    stockLists = stocks.split("/")
-
-    # stockLists = ["000001",
-    #               "000002",
-    #               "000004",
-    #               "000005",
-    #               "000006",
-    #               "000007",
-    #               "000008",
-    #               "000009",
-    #               "000010",
-    #               "000011",
-    #               "000012",
-    #               "000014",
-    #               "000016",
-    #               "000017",
-    #               "000018",
-    #               "000019",
-    #               "000020",
-    #               "000021",
-    #               "000022",
-    #               "000023",
-    #               "000025",
-    #               "000026"]  # 股票代码列表
-
-    # stockLists=["000001", "000002", "000004","300001","300002","300003"]
-
-
+    # 板块
     if isPla == 1:
-        isPla = True
+        isPla = False
         plaName = stockLists[0]
+        stockLists = getCodeBySection(plaName)
+        if len(stockLists) > 200:
+            # stockLists = stockLists[:int(len(stockLists) / 2)]
+            stockLists = random.sample(stockLists, int(len(stockLists) / 2))
+
+    # 非板块
     else:
         isPla = False
         plaName = " "
 
-    ff.write("\n")
-    ff.write(str(strategyType))
-    ff.write(startDate)
-    ff.write(endDate)
-    ff.write(str(form))
-    ff.write(str(hold))
-    ff.write(str(isPla))
-    ff.write(stocks)
-    ff.write("\n")
-
-    ff.write("a")
-    ff.write("\n")
     code = stockLists[0]
-    finalDF = getStockInfo(code=code, startDate=startDate, endDate=endDate)
+    section = getSectionByCode(code)
+    finalDF = getStockInfo(code=code, section=section, startDate=startDate, endDate=endDate)
 
     for i in range(1, len(stockLists)):
         code = stockLists[i]
-        df = getStockInfo(code=code, startDate=startDate, endDate=endDate)
-        finalDF = finalDF.join(df)
+        section = getSectionByCode(code)
+        df = getStockInfo(code=code, section=section, startDate=startDate, endDate=endDate)
+        finalDF = finalDF.join(df, how='outer')
     finalDF.dropna(axis=1, how="any", inplace=True)  # 去除有nan值的列
 
-    ff.write("b")
-    ff.write("\n")
     if strategyType == 1:
         strategy = momStrategy.MomentumStrategy(form, hold)
-        ff.write("mom")
     else:
         strategy = averStrategy.AverageStrategy(form, hold)
-        ff.write("aver")
-
-    ff.write("c")
-    ff.write("\n")
 
     strategyCalculator = strategyCal.StrategyCalculator(strategy)
-    ff.write(str(finalDF))
-    ff.write(str(isPla))
-    ff.write(plaName)
-    ff.write("\n")
     strategyCalculator.count(finalDF, isPla, plaName)
+
     annualReturns = strategyCalculator.annualPro  # 年化收益率
     print(str(annualReturns))
-    ff.write(str(annualReturns))
+
     basicAnnualReturn = strategyCalculator.basicPro  # 基准年化收益率
     print(str(basicAnnualReturn))
-    ff.write(str(basicAnnualReturn))
+
     alpha = strategyCalculator.alpha
     print(str(alpha))
-    ff.write(str(alpha))
+
     beta = strategyCalculator.beta
     print(str(beta))
-    ff.write(str(beta))
+
     sharpeRatio = strategyCalculator.sharpe  # 夏普比率
     print(str(sharpeRatio))
-    ff.write(str(sharpeRatio))
 
     maxDrawDown = strategyCalculator.maxDraw
     print(str(maxDrawDown))  # 最大回撤
 
     profits = strategyCalculator.pros
     print(len(profits))
+
     for k, v in profits.items():
         key = k
         date = str(k).split(" ")[0]

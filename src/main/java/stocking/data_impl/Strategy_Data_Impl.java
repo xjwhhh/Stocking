@@ -63,7 +63,6 @@ public class Strategy_Data_Impl implements Strategy_Data_Service {
                 else{
                     data[i]="0";
                 }
-                System.out.print(data[i]);
             }
             double annualReturn = Double.parseDouble(data[0]);//年化收益率
             double basicAnnualReturn = Double.parseDouble(data[1]);//基准年化收益率
