@@ -44,6 +44,6 @@ class BGraph:
                     total = total + 1
 
             self.profits.append(avr)
-            self.winChance.append(total)
+            self.winChance.append(float(total / len(over)))
 
         pass
