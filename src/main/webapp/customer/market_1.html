@@ -179,25 +179,28 @@
 
 <!--以下是查询方法-->
 <script type="text/javascript">
-    function getdate(){
-        this.str = dtp_input1.value()
+    function getdate(str){
+        this.str = str
+        alert(str)
     }
     function search() {
-        var url="http://";
-        var datetime = JSON.stringify(new getdate())
+        var url="localhost:8080/stocking/customer/market";
+        var datetime = JSON.stringify(new getdate(dtp_input1.value))
         $.ajax({
             type:"POST",
             url:url,
             data:datetime,
             dataType: "jason",//此处要设置成jason
-            success: callback});//回调函数
+            success: function (data) {
+                alert(data.errNum)
+            }});//回调函数
     }
-    function callback(jasonObj)
-    {
-        var str = jasonObj;
-        var obj = JSON.parse(str);//调用Json2.js中提供的JSON解析器来解析成JSONObject
-        alert(obj.errNum);
-    }
+//    function callback(jasonArr)
+//    {
+//        var str = jasonArr;
+//        var arr = JSON.parse(str);//调用Json2.js中提供的JSON解析器来解析成JSONObject
+//        alert(arr.errNum);
+//    }
 </script>
 
 <!--以下是饼图相关引用-->
