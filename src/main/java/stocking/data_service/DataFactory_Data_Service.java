@@ -1,5 +1,6 @@
 package stocking.data_service;
 
+import stocking.po.CollectionPO;
 import stocking.po.CustomerPO;
 import stocking.po.StockPO;
 import stocking.po.MarketPO;
@@ -17,4 +18,6 @@ public interface DataFactory_Data_Service {
     Strategy_Data_Service strategy();
 
     BGraph_Data_Service bGraph();
+
+    CustomerCollection_Data_Service customerCollection();
 }

@@ -18,8 +18,8 @@ import java.util.Date;
 /**
  * Created by dell on 2017/5/31.
  */
-@WebServlet(name = "BGraphServlet")
-public class BGraphServlet extends HttpServlet {
+@WebServlet(name = "bgraph")
+public class BGraph_Servlet extends HttpServlet {
     private BGraph_Data_Service bds;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

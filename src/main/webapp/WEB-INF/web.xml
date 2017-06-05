@@ -21,6 +21,14 @@
         <servlet-name>strategy</servlet-name>
         <servlet-class>stocking.servlet.Strategy_Servlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>bgraph</servlet-name>
+        <servlet-class>stocking.servlet.BGraph_Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>collection</servlet-name>
+        <servlet-class>stocking.servlet.CustomerCollection_Servlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>customer</servlet-name>
@@ -37,6 +45,14 @@
     <servlet-mapping>
         <servlet-name>strategy</servlet-name>
         <url-pattern>/strategy</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>bgraph</servlet-name>
+        <url-pattern>/bgraph</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>collection</servlet-name>
+        <url-pattern>/collection</url-pattern>
     </servlet-mapping>
 
 </web-app>

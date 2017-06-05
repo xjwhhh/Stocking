@@ -43,4 +43,8 @@ public class DataFactory_Data_Impl implements DataFactory_Data_Service {
         return new BGraph_Data_Impl();
     }
 
+    public CustomerCollection_Data_Service customerCollection() {
+        return null;
+    }
+
 }
