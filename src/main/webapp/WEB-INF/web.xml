@@ -33,6 +33,10 @@
         <servlet-name>news</servlet-name>
         <servlet-class>stocking.servlet.News_Servlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>codename</servlet-name>
+        <servlet-class>stocking.servlet.CodeName_Servlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>customer</servlet-name>
@@ -61,6 +65,10 @@
     <servlet-mapping>
         <servlet-name>news</servlet-name>
         <url-pattern>/news</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>codename</servlet-name>
+        <url-pattern>/codename</url-pattern>
     </servlet-mapping>
 
 </web-app>
