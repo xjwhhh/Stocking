@@ -28,20 +28,30 @@
             color: #333333
         }
     </style>
-    
+
 
     <script>
 
+        var thisURL = document.URL;
+        var  getval1 =thisURL.split('?')[1];
+        var stockName= getval1.split("=")[1];
+        var getval2 = thisURL.split('?')[2];
+        var startDate = getval2.split("=")[1];
+        var getval3 = thisURL.split('?')[3];
+        var endDate = getval3.split("=")[1];
+//        alert(startDate);s
 
 
+//document.getElementById(startDate).value = startDate;
+//document.getElementById(endDate).value = endDate;
 
-        //        document.getElementById("quote-high").value=100000;
+
     </script>
 
-    <!--<script type="text/javascript" src="http://hq.sinajs.cn/list=sh601006" charset="gb2312"></script>-->
 
 </head>
 <body >
+
 <div class="container-fluid">
     <div class="navbar-header">
         <img src="stock2.jpg" class="img-rounded">
@@ -97,35 +107,28 @@
         <span class="stockName"><strong style="height: 20px;width: 30px"
                                         class="stockName"><script>document.write(stockName)</script></strong>
         </span>
-        <span class="stockOp" style="display: inline;">
-            <span
-                    class="stockFollowRelation"><span id="addStock" class="addFriendBtn op"><b>＋</b>加关注</span>
-            </span>
-        </span>
+
     </div>
-    <table style="margin-top: 20px" class="topTable">
-        <tbody>
-        <tr>
-            <td>今开：<span><script>document.write(openToday)</script></span></td>
-            <td>昨收：<span id="quote-high"><script>document.write(highToday)</script></span></td>
-            <!--<td>52周最高：<span>8.83</span></td>-->
-            <td>当前价格：<span ><script>document.write(priceNow)</script></span></td>
-        </tr>
-        <tr class="seperateTop">
-            <td>今日最高价：<span><script>document.write(highToday)</script></span></td>
-            <td>今日最低价：<span id="quote-low"><script>document.write(lowToday)</script></span></td>
-            <td>成交金额:<span><script>document.write(elements[9])</script></span></td>
 
-        </tr>
-        <!--<tr class="seperateBottom">-->
-        <!--<td>涨停价：<span>8.66</span></td>-->
-        <!--<td>总市值：<span>14275.64亿</span></td>-->
-        <!--<td title="最近报告期每股收益，单位：人民币">每股收益：<span>0.03</span></td>-->
-        <!--<td>市盈率(静)/(动)：<span>180.70/52.13</span></td>-->
-        <!--</tr>-->
 
-        </tbody>
-    </table>
+    <div class="time_search">
+        <h>时间</h>
+        <div style="display: inline;">From: <input id="startDate" type="date" > to: <input id="endDate" type="date" >
+
+        </div>
+        <script>
+            document.getElementById("startDate").value=startDate;
+            document.getElementById("endDate").value=endDate;
+
+        </script>
+        <div style="margin-top: -25px;margin-left: 500px">
+            <form>
+                <input style="background: rgba(44,100,191,0.72)" type="button" value="查看" onclick="msg()" />
+            </form>
+        </div>
+    </div>
+
+
 
     <div id="candleStick" style="height: 100%;margin-top: 15px">
         <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
@@ -154,18 +157,7 @@
         <script type="text/javascript" src="barChart.js"></script>
 
     </div>
-    <div class="history_search">
-        <h>历史行情</h>
-        <div style="display: inline;">From: <input type="date" value="2015-09-24"/> to: <input type="date" value="2015-09-24"
-        >
 
-        </div>
-        <div style="margin-top: -25px;margin-left: 500px">
-            <form>
-                <input style="background: rgba(44,100,191,0.72)" type="button" value="点击查看" onclick="msg()" />
-            </form>
-        </div>
-    </div>
     <div style="height: 50px">
     </div>
 
