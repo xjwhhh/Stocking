@@ -22,4 +22,6 @@ public interface DataFactory_Data_Service {
     CustomerCollection_Data_Service customerCollection();
 
     GetNews_Data_Service getNews();
+
+    CodeName_Data_Service codeName();
 }

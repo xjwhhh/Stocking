@@ -52,4 +52,9 @@ public class DataFactory_Data_Impl implements DataFactory_Data_Service {
         return null;
     }
 
+    @Override
+    public CodeName_Data_Service codeName() {
+        return null;
+    }
+
 }
