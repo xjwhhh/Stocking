@@ -6,7 +6,7 @@ import pymysql
 
 
 def getallkdata(sectioname, date):
-    sql = "select distinct date,adjopen,adjclose,adjhigh,adjlow,volume,  code from kdata_" + sectioname + " where date='%s' " % (
+    sql = "select distinct date,adjopen,adjclose,adjhigh,adjlow,volume,code from kdata_" + sectioname + " where date='%s' " % (
         date)
     try:
         cursor.execute(sql)

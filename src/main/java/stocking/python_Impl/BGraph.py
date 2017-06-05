@@ -14,8 +14,8 @@ def getStockInfo(code, section, startDate, endDate):
         for row in results:
             date = row[0]
             close = row[1]
-            resultlist = [date, close]
-            re.append(resultlist)
+            resultList = [date, close]
+            re.append(resultList)
         df = pd.DataFrame(re, columns=['date', code])
         df = df.set_index('date')
     except:

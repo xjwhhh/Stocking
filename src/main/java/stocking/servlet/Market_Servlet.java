@@ -34,7 +34,7 @@ public class Market_Servlet extends HttpServlet {
         }
 
         ods = DataFactory_Data_Impl.getInstance().overall();
-        String dateStr = jsonObject.getString("datestr");
+        String dateStr = jsonObject.getString("date");
         System.out.print(dateStr);
         Date date = null;
         try {
@@ -45,6 +45,7 @@ public class Market_Servlet extends HttpServlet {
         }
 
         MarketPO marketPO = ods.getMarketInfo(date);
+
         new Send().doSend(response, marketPO);
     }
 }

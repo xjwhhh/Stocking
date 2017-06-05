@@ -23,6 +23,7 @@ public class GetNews_Data_Impl implements GetNews_Data_Service {
 
     /**
      * 获取股票相关新闻
+     *
      * @return
      */
     @Override
@@ -63,6 +64,7 @@ public class GetNews_Data_Impl implements GetNews_Data_Service {
 
     /**
      * 信息地雷，获取单只股票相关新闻
+     *
      * @param code
      * @return
      */
@@ -102,19 +104,4 @@ public class GetNews_Data_Impl implements GetNews_Data_Service {
         }
         return null;
     }
-
-
-//    public static void main(String[] args) {
-//        GetNews_Data_Impl getNews = new GetNews_Data_Impl();
-//        NewsPO newsPO=getNews.getMarketNews();
-//        JSONObject json = JSONObject.fromObject(newsPO);//将java对象转换为json对象
-//        String str = json.toString();//将json对象转换为字符串
-//        System.out.print(str);
-//
-//        NewsPO newsPO1=getNews.getSingleNews("000001");
-//        JSONObject json1 = JSONObject.fromObject(newsPO1);//将java对象转换为json对象
-//        String str1 = json.toString();//将json对象转换为字符串
-//        System.out.print(str1);
-//    }
-
 }

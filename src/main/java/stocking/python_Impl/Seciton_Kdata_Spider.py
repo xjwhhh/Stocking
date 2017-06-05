@@ -7,7 +7,6 @@ engine = create_engine('mysql+pymysql://root:123456@127.0.0.1/stock?charset=utf8
 
 startDate = datetime.datetime.now().strftime('%Y-%m-%d')
 endDate = datetime.datetime.now().strftime('%Y-%m-%d')
-
 # 上证指数
 df = ts.get_h_data('000001', index=True, start=startDate, end=endDate)
 df['code'] = '上证指数'
