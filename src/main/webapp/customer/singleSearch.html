@@ -45,6 +45,8 @@
         document.location.href&&(document.location.href="singleStockCurrent.html?stockNameInput="+stockName);
 
     }
+    var stockNames = ["a","b","c"];
+    var stockNums = [1,2,3];
     
 
 
@@ -135,7 +137,7 @@
         <div style="padding-left:40px;margin-left: 40px;margin-top:40px;width:70%;float:left" class="stockScreener-range">
             <div class="stockScreener-title">选择范围</div>
             <div class="stockScreener-range-wrapper">
-                <div class="stockScreener-range-industry" style="width:50%;float:left"><span>行业：</span><select>
+                <div class="stockScreener-range-industry" style="width:50%;display:inline;float:left"><span>行业：</span><select>
                     <option value="">全部</option>
                     <option value="J68">保险业</option>
                     <option value="G59">仓储业</option>
@@ -216,59 +218,63 @@
                     <option value="C35">专用设备制造业</option>
                     <option value="C22">造纸和纸制品业</option>
                 </select></div>
-                <div  class="stockScreener-range-area" style="width:40%;float:left">
+                <div  class="stockScreener-range-area" style="width:40%;float:left;margin-top: 4%">
                     <span>板块：</span><select>
                     <option value="">全部</option>
                     <option value="CN340000">创业板</option>
 
                 </select></div>
 
+
+                <div >
+
+                    <button  style="margin-left: -20%;margin-top: 4%" type="button" class="btn btn-default btn-sm" type="submit" onclick="stockSearch()">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </div>
             </div>
 
             <div style="margin-top: 50px;margin-left: 0px" class="stockScreener-search-result new-portfolio">
-                <div class="stockScreener-search-result-share"><span class="result">符合条件股票<strong>0</strong>只</span>
+                <div ><span class="result">符合条件股票<span id="numberOfSearch">0</span>只</span>
 
                 </div>
                 <div class="stockScreener-search-result-table-container">
-                    <div class="stockScreener-search-result-table mainTable overflowx">
-                        <table style="width:690px;" cellspacing="0" cellpadding="0" class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th class="sortable desc" data-key="symbol" style="min-width:80px"><s></s>股票</th>
-                                <th class="sortable" data-key="current" style="min-width:45px"><s></s>当前价</th>
-                                <th class="" data-key="hasExist" style="min-width:30px"><s></s>收藏</th>
-                            </tr>
-                            </thead>
+                    <div  class="stockScreener-search-result-table mainTable overflowx">
+                        <table id="stockTable" style="width:690px;" cellspacing="0" cellpadding="0" class="table table-striped">
+
                             <tbody>
-                            <tr class="odd ">
-                                <td><a target="_blank" title="弘信电子 (SZ300657)" href="/S/SZ300657">弘信电子</a></td>
-                                <td><script>document.write(namee)</script></td>
 
-                                <td><a href="#" class="followStock" target="_blank" data-stockid="SZ300657"
-                                       data-stockname="弘信电子" data-stockcurrent="14.89"><span></span>关注</a></td>
-                            </tr>
-                            <tr class="even ">
-                                <td><a target="_blank" title="正丹股份 (SZ300641)" href="/S/SZ300641">正丹股份</a></td>
-                                <td><span class="hot-colorup">20.59</span></td>
-
-                                <td><a href="#" class="followStock" target="_blank" data-stockid="SZ300641"
-                                       data-stockname="正丹股份" data-stockcurrent="20.59"><span></span>关注</a></td>
-                            </tr>
-                            <tr class="odd ">
-                                <td><a target="_blank" title="同和药业 (SZ300636)" href="/S/SZ300636">同和药业</a></td>
-                                <td><span class="hot-colorup">35.34</span></td>
-                                <td><a href="#" class="followStock" target="_blank" data-stockid="SZ300636"
-                                       data-stockname="同和药业" data-stockcurrent="35.34"><span></span>关注</a></td>
-                            </tr>
+                            
 
                             </tbody>
                         </table>
-                        <div class="topScrollbarWrapper">
-                            <div class="topScrollbar" style="width: 695.1470588235294px; left: 0px;"></div>
-                        </div>
+
                     </div>
 
                 </div>
+                <script>
+                    function stockSearch() {
+                        for(var i=0;i<3;i++){
+                            var x = document.getElementById("stockTable").insertRow(i);
+                            var y = x.insertCell(0);
+                            var z = x.insertCell(1);
+                            y.innerHTML ="<a href='singleStockCurrent.html?stockNameInput="+stockNames[i]+"'>"+stockNames[i]+"</a>";
+                            z.innerHTML = stockNums[i];
+
+                        }
+                        var x = document.getElementById("stockTable").insertRow(0);
+                        var y = x.insertCell(0);
+                        var z = x.insertCell(1);
+                        var zz = x.insertCell(2);
+                        y.innerHTML = "股票名称";
+                        z.innerHTML = "股票编号";
+                        zz.innerHTML = "收藏"
+                        document.getElementById('numberOfSearch').innerHTML=stockNames.length;
+
+
+                    }
+                </script>
+                
             </div>
 
 
