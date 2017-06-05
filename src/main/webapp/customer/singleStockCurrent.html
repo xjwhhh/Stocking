@@ -48,6 +48,8 @@
         var highToday = elements[4];
         var lowToday = elements[5];
 
+        var time = ["1:00","1:01","1:02"];
+        var price = [1,2,3];
         function historyCheck() {
 //            alert("success");
             var startDate =  $("#startDate").val();
@@ -154,7 +156,80 @@
         </tbody>
     </table>
 
+    <div >
+        <div id="fenshi" style="height:350px;width: 600px"></div>
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+        <script type="text/javascript">
 
+            var myChart = echarts.init(document.getElementById("fenshi"));
+            var option = {
+                title : {
+                    text: '分时图',
+
+                },
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:['A','B']
+                },
+                //右上角工具条
+                toolbox: {
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                calculable : true,
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : false,
+                        data : time,
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+
+                    }
+                ],
+                series : [
+                    {
+                        name:'a',
+                        type:'line',
+                        data:price,
+                        markPoint : {
+                            data : [
+                                {type : 'max', name: '最大值'},
+                                {type : 'min', name: '最小值'}
+                            ]
+                        },
+
+                    },
+
+                ]
+            };
+
+            // 为echarts对象加载数据
+            myChart.setOption(option);
+
+
+
+        </script>
+
+
+    </div>
 
 
 
