@@ -43,4 +43,18 @@ public class DataFactory_Data_Impl implements DataFactory_Data_Service {
         return new BGraph_Data_Impl();
     }
 
+    public CustomerCollection_Data_Service customerCollection() {
+        return null;
+    }
+
+    @Override
+    public GetNews_Data_Service getNews() {
+        return null;
+    }
+
+    @Override
+    public CodeName_Data_Service codeName() {
+        return null;
+    }
+
 }
