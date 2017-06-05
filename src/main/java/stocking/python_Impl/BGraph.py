@@ -5,7 +5,7 @@ import random
 
 
 def getStockInfo(code, section, startDate, endDate):
-    sql = "select distinct date,adjclose from kdata_" + section + " where date>='%s' and date<='%s' and code='%s' order by date" % (
+    sql = "select distinct date,adjclose from kdata_" + section + " where date>='%s' and date<='%s' and code='%s' order by date " % (
         startDate, endDate, code)
     try:
         cursor.execute(sql)

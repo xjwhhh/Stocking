@@ -15,5 +15,6 @@ public class DBStart {
         DBConnectionManager connectionManager = DBConnectionManager.getInstance();
         Hashtable pools = connectionManager.getPools();
         DBConnectionPool pool = (DBConnectionPool) pools.get("stock");
+        Tools tool=Tools.getInstance();
     }
 }

@@ -8,7 +8,7 @@ import java.io.*;
  * Created by xjwhhh on 2017/6/4.
  */
 public class MinuteData {
-    Tools tools=new Tools();
+    Tools tools=Tools.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
     public void getMinuteData(String code) {

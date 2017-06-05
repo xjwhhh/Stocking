@@ -18,7 +18,7 @@ import net.sf.json.JSONObject;
  * Created by xjwhhh on 2017/5/29.
  */
 public class GetNews {
-    Tools tools = new Tools();
+    Tools tools = Tools.getInstance();
 
     /**
      * 获取股票相关新闻

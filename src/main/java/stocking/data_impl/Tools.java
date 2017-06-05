@@ -16,9 +16,25 @@ import java.util.List;
  * Created by xjwhhh on 2017/5/31.
  */
 public class Tools {
+    static private Tools tool;
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     Cache cache=Cache.getInstance();
     Hashtable<String,String> code_name=cache.getCode_Name();
+
+    private Tools(){}
+
+
+    /**
+     * 获取唯一实例
+     *
+     * @return
+     */
+    static synchronized public Tools getInstance() {
+        if (tool == null) {
+            tool = new Tools();
+        }
+        return tool;
+    }
 
     /**
      * 获取项目地址
@@ -26,12 +42,13 @@ public class Tools {
      * @return
      */
     public String getProjectPath(String path) {
-        String rpath = this.getClass().getResource("").getPath().substring(1);
-        String[] pathList = rpath.split("/");
-        String newPath = "";
-        for (int i = 0; i < pathList.length - 4; i++) {
-            newPath += (pathList[i] + "\\");
-        }
+//        String rpath = this.getClass().getResource("").getPath().substring(1);
+//        String[] pathList = rpath.split("/");
+//        String newPath = "";
+//        for (int i = 0; i < pathList.length - 6; i++) {
+//            newPath += (pathList[i] + "\\");
+//        }
+        String newPath="C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\Stock_Analyzing_System\\";
         newPath += path;
         return newPath;
     }

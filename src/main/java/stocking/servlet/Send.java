@@ -27,6 +27,7 @@ class Send {
             this.pw = response.getWriter();
             pw.write(jsonArray.toString());
             pw.flush();
+            System.out.print("success");
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }

@@ -19,7 +19,7 @@ import java.util.List;
  * Created by xjwhhh on 2017/5/31.
  */
 public class Strategy_Data_Impl implements Strategy_Data_Service {
-    Tools tools = new Tools();
+    Tools tools = Tools.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
