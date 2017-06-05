@@ -44,17 +44,17 @@ public class DataFactory_Data_Impl implements DataFactory_Data_Service {
     }
 
     public CustomerCollection_Data_Service customerCollection() {
-        return null;
+        return new CustomerCollection_Data_Impl();
     }
 
     @Override
     public GetNews_Data_Service getNews() {
-        return null;
+        return new GetNews_Data_Impl();
     }
 
     @Override
     public CodeName_Data_Service codeName() {
-        return null;
+        return new CodeName_Data_Impl();
     }
 
 }

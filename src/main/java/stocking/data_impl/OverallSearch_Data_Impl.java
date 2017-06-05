@@ -66,17 +66,4 @@ public class OverallSearch_Data_Impl implements OverallSearch_Data_Service {
         }
         return null;
     }
-
-
-    public static void main(String[] args) throws Exception {
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//        OverallSearch_Data_Impl overallSearch_data_ = new OverallSearch_Data_Impl();
-//        Date d=formatter.parse("2017-03-13");
-//        MarketPO marketPO=overallSearch_data_.getMarketInfo(d);
-//        SimpleDateFormat dateFm = new SimpleDateFormat("EEEE");
-//        String str = dateFm.format(new Date());
-//        System.out.print(str);
-
-    }
-
 }

@@ -21,6 +21,7 @@ public class Cache {
     private Hashtable<String, String> code_name = new Hashtable<String, String>();
     private Hashtable<String, String> name_code = new Hashtable<String, String>();
 
+
     private Cache() {
         this.setCode_Name();
         this.setName_Code();
