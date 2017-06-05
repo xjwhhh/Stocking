@@ -1,6 +1,7 @@
 package stocking.data_impl;
 
 
+import stocking.data_service.GetNews_Data_Service;
 import stocking.po.NewsPO;
 
 import java.io.BufferedReader;
@@ -17,13 +18,14 @@ import net.sf.json.JSONObject;
 /**
  * Created by xjwhhh on 2017/5/29.
  */
-public class GetNews {
-    Tools tools = Tools.getInstance();
+public class GetNews_Data_Impl implements GetNews_Data_Service {
+    private Tools tools = Tools.getInstance();
 
     /**
      * 获取股票相关新闻
      * @return
      */
+    @Override
     public NewsPO getMarketNews() {
         try {
             List<String> commands = new LinkedList<String>();
@@ -64,6 +66,7 @@ public class GetNews {
      * @param code
      * @return
      */
+    @Override
     public NewsPO getSingleNews(String code) {
         try {
             List<String> commands = new LinkedList<String>();
@@ -102,7 +105,7 @@ public class GetNews {
 
 
 //    public static void main(String[] args) {
-//        GetNews getNews = new GetNews();
+//        GetNews_Data_Impl getNews = new GetNews_Data_Impl();
 //        NewsPO newsPO=getNews.getMarketNews();
 //        JSONObject json = JSONObject.fromObject(newsPO);//将java对象转换为json对象
 //        String str = json.toString();//将json对象转换为字符串

@@ -47,4 +47,9 @@ public class DataFactory_Data_Impl implements DataFactory_Data_Service {
         return null;
     }
 
+    @Override
+    public GetNews_Data_Service getNews() {
+        return null;
+    }
+
 }

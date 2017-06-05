@@ -20,4 +20,6 @@ public interface DataFactory_Data_Service {
     BGraph_Data_Service bGraph();
 
     CustomerCollection_Data_Service customerCollection();
+
+    GetNews_Data_Service getNews();
 }
