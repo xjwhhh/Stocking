@@ -14,7 +14,7 @@ public class ToolsTest {
 
     @Before
     public void init() {
-        tools = new Tools();
+        tools = Tools.getInstance();
     }
 
     /**

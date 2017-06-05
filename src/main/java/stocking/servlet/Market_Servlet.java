@@ -28,13 +28,14 @@ public class Market_Servlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //response.getWriter().print("hello");
         JSONObject jsonObject = new ToJSON().toJSONObject(request);
-        System.out.print(jsonObject.toString());
+        System.out.println(jsonObject.toString());
         if (jsonObject == null) {
             return;
         }
 
         ods = DataFactory_Data_Impl.getInstance().overall();
-        String dateStr = jsonObject.getString("date");
+        String dateStr = jsonObject.getString("datestr");
+        System.out.print(dateStr);
         Date date = null;
         try {
             date = new ParseDate().parse(dateStr);

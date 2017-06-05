@@ -20,7 +20,7 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
     Cache cache = Cache.getInstance();
     Hashtable<String, String> code_name = cache.getCode_Name();
     Hashtable<String, String> name_code = cache.getName_Code();
-    Tools tools = new Tools();
+    Tools tools = Tools.getInstance();
 
     /**
      * 判断字符串是否完全由数字构成

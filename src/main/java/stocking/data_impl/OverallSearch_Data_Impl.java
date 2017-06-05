@@ -13,7 +13,7 @@ import java.text.*;
  * Created by xjwhhh on 2017/5/23.
  */
 public class OverallSearch_Data_Impl implements OverallSearch_Data_Service {
-    Tools tools = new Tools();
+    Tools tools = Tools.getInstance();
 
     /**
      * 获取某日市场信息
@@ -37,6 +37,7 @@ public class OverallSearch_Data_Impl implements OverallSearch_Data_Service {
         try {
             List<String> commands = new LinkedList<String>();
             commands.add("python");
+            System.out.println(tools.getProjectPath("src\\main\\java\\stocking\\python_Impl\\OverallSearch.py"));
             commands.add(tools.getProjectPath("src\\main\\java\\stocking\\python_Impl\\OverallSearch.py"));
             commands.add(todayStr);
             commands.add(yesterdayStr);
