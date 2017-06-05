@@ -1,3 +1,6 @@
+
+<!--股票历史数据，k线图-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,8 +28,20 @@
             color: #333333
         }
     </style>
+    
+
+    <script>
+
+
+
+
+        //        document.getElementById("quote-high").value=100000;
+    </script>
+
+    <!--<script type="text/javascript" src="http://hq.sinajs.cn/list=sh601006" charset="gb2312"></script>-->
+
 </head>
-<body>
+<body >
 <div class="container-fluid">
     <div class="navbar-header">
         <img src="stock2.jpg" class="img-rounded">
@@ -79,8 +94,8 @@
 
 <div style="margin-top: 20px" class="main">
     <div class="stockTile">
-        <span class="stockName"><strong style="height: 20px;width: 30px" title="Chunghsin Technology Group Co.,Ltd."
-                                        class="stockName">中新科技(SH:603996)</strong>
+        <span class="stockName"><strong style="height: 20px;width: 30px"
+                                        class="stockName"><script>document.write(stockName)</script></strong>
         </span>
         <span class="stockOp" style="display: inline;">
             <span
@@ -91,23 +106,23 @@
     <table style="margin-top: 20px" class="topTable">
         <tbody>
         <tr>
-            <td>今开：<span>7.79</span></td>
-            <td>最高：<span id="quote-high">7.85</span></td>
-            <td>52周最高：<span>8.83</span></td>
-            <td title="当日成交量，单位：股">成交量：<span id="quote-volume">4116.30万股</span></td>
+            <td>今开：<span><script>document.write(openToday)</script></span></td>
+            <td>昨收：<span id="quote-high"><script>document.write(highToday)</script></span></td>
+            <!--<td>52周最高：<span>8.83</span></td>-->
+            <td>当前价格：<span ><script>document.write(priceNow)</script></span></td>
         </tr>
         <tr class="seperateTop">
-            <td>昨收：<span>7.87</span></td>
-            <td>最低：<span id="quote-low">7.77</span></td>
-            <td>52周最低：<span>7.06</span></td>
-            <td>成交额：<span>3.21亿</span></td>
+            <td>今日最高价：<span><script>document.write(highToday)</script></span></td>
+            <td>今日最低价：<span id="quote-low"><script>document.write(lowToday)</script></span></td>
+            <td>成交金额:<span><script>document.write(elements[9])</script></span></td>
+
         </tr>
-        <tr class="seperateBottom">
-            <td>涨停价：<span>8.66</span></td>
-            <td>总市值：<span>14275.64亿</span></td>
-            <td title="最近报告期每股收益，单位：人民币">每股收益：<span>0.03</span></td>
-            <td>市盈率(静)/(动)：<span>180.70/52.13</span></td>
-        </tr>
+        <!--<tr class="seperateBottom">-->
+        <!--<td>涨停价：<span>8.66</span></td>-->
+        <!--<td>总市值：<span>14275.64亿</span></td>-->
+        <!--<td title="最近报告期每股收益，单位：人民币">每股收益：<span>0.03</span></td>-->
+        <!--<td>市盈率(静)/(动)：<span>180.70/52.13</span></td>-->
+        <!--</tr>-->
 
         </tbody>
     </table>
@@ -142,13 +157,13 @@
     <div class="history_search">
         <h>历史行情</h>
         <div style="display: inline;">From: <input type="date" value="2015-09-24"/> to: <input type="date" value="2015-09-24"
-                >
+        >
 
         </div>
         <div style="margin-top: -25px;margin-left: 500px">
-        <form>
-            <input style="background: rgba(44,100,191,0.72)" type="button" value="点击查看" onclick="msg()" />
-        </form>
+            <form>
+                <input style="background: rgba(44,100,191,0.72)" type="button" value="点击查看" onclick="msg()" />
+            </form>
         </div>
     </div>
     <div style="height: 50px">

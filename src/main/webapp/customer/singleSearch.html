@@ -32,8 +32,23 @@
             display: block;
         }
     </style>
+
+
 </head>
 <body>
+
+<script>
+    var stockName
+    function sendName() {
+        stockName = document.getElementById("stockNameInput").value;
+//        alert(stockName);
+        document.location.href&&(document.location.href="singleStock.html?stockNameInput="+stockName);
+
+    }
+    
+
+
+</script>
 
 <div class="container-fluid">
     <div class="navbar-header">
@@ -97,12 +112,15 @@
 
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade in active" id="stockContent">
-        <form action="singleStock.html" method="POST">
+        <form action="singleStockCurrent.html" method="POST">
             <div style="padding-left:40px;margin-top: 40px ;margin-left: 40px" class="nav__search">
-                <input type="text" placeholder="输入股票名或股票编号">
+                <input  type="text" id="stockNameInput" placeholder="输入股票名或股票编号">
                 <span class="nav__search__addon">
-           <input style="background: rgba(0,0,0,0)" type="submit">
-                <button type="button" class="btn btn-default btn-sm" type="submit">
+           <!--<input style="background: rgba(0,0,0,0)" type="submit">-->
+                    <!--<script>-->
+<!--//                        stockName = document.getEl-->
+                    <!--</script>-->
+                <button type="button" class="btn btn-default btn-sm" type="submit" onclick="sendName()">
 
              <!--<a href="singleSearch.html"></a>-->
           <span class="glyphicon glyphicon-search"></span>
@@ -224,7 +242,7 @@
                             <tbody>
                             <tr class="odd ">
                                 <td><a target="_blank" title="弘信电子 (SZ300657)" href="/S/SZ300657">弘信电子</a></td>
-                                <td><span class="hot-colorup">14.89</span></td>
+                                <td><script>document.write(namee)</script></td>
 
                                 <td><a href="#" class="followStock" target="_blank" data-stockid="SZ300657"
                                        data-stockname="弘信电子" data-stockcurrent="14.89"><span></span>关注</a></td>
