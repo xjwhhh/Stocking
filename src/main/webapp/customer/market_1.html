@@ -186,12 +186,12 @@
         var url="http://localhost:8080/market";
         //var datetimestr = JSON.stringify(dtp_input1.value);
 
-        var datetimeobj = JSON.stringify(new getdate(dtp_input1.value));
-        alert(datetimeobj);
+        var datetime = JSON.stringify(new getdate(dtp_input1.value));
+        alert(datetime);
         $.ajax({
             type:"POST",
             url:url,
-            data:datetimeobj,
+            data:datetime,
             dataType: "json",//此处要设置成json
             success: function (data) {
                 alert(data);
