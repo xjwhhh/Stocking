@@ -11,9 +11,10 @@ public class MarketPO {
     private int belowFivePerNum;//跌幅超过5%的股票数
     private int oc_overPFivePerNum;//开盘-收盘大于5%*上一个交易日收盘价的股票个数
     private int oc_belowMFivePerNum;//开盘-收盘小于-5%*上一个交易日收盘价的股票个数
+    private int numOfStock;
 
     public MarketPO(double totalDeal, int limitUpNum, int limitDownNum, int overFivePerNum,
-                    int belowFivePerNum, int oc_overPFivePerNum, int oc_belowMFivePerNum) {
+                    int belowFivePerNum, int oc_overPFivePerNum, int oc_belowMFivePerNum, int numOfStock) {
         this.totalDeal = totalDeal;
         this.limitUpNum = limitUpNum;
         this.limitDownNum = limitDownNum;
@@ -21,9 +22,13 @@ public class MarketPO {
         this.belowFivePerNum = belowFivePerNum;
         this.oc_overPFivePerNum = oc_overPFivePerNum;
         this.oc_belowMFivePerNum = oc_belowMFivePerNum;
+        this.numOfStock = numOfStock;
     }
 
-    public MarketPO(){};
+    public MarketPO() {
+    }
+
+    ;
 
     public double getTotalDeal() {
         return totalDeal;
@@ -79,5 +84,13 @@ public class MarketPO {
 
     public void setOc_belowMFivePerNum(int oc_belowMFivePerNum) {
         this.oc_belowMFivePerNum = oc_belowMFivePerNum;
+    }
+
+    public int getNumOfStock() {
+        return numOfStock;
+    }
+
+    public void setNumOfStock(int numOfStock) {
+        this.numOfStock = numOfStock;
     }
 }

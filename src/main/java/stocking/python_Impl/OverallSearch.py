@@ -52,6 +52,7 @@ if __name__ == "__main__":
     belowFivePerNum = 0  # 跌幅超过5%的股票数
     oc_overPFivePerNum = 0  # 开盘-收盘大于5%*上一个交易日收盘价的股票个数
     oc_belowMFivePerNum = 0  # 开盘-收盘小于-5%*上一个交易日收盘价的股票个数
+    numOfStocks = 0
     for i in {"sha0", "sha1", "sha3", "shb", "sza", "szb", "cyb", "zxb"}:
         todaydf = getallkdata(i, sys.argv[1])
         yesterdaydf = getallkdata(i, sys.argv[2])
@@ -70,7 +71,8 @@ if __name__ == "__main__":
         overFivePerNum += incAbove.incAbove(closey, closex, 0.05)
         belowFivePerNum += decBelow.decBelow(closey, closex, -0.05)
         oc_overPFivePerNum += incGre.incGre(closey, todaynewdf, 0.05)
-        oc_belowMFivePerNum += decGre.decGre(closey, todaynewdf, 0.05)
+        oc_belowMFivePerNum += decGre.decGre(closey, todaynewdf, -0.05)
+        numOfStocks += len(todaynewdf)
     print(totalDeal)
     print(limitUpNum)
     print(limitDownNum)
@@ -78,3 +80,4 @@ if __name__ == "__main__":
     print(belowFivePerNum)
     print(oc_overPFivePerNum)
     print(oc_belowMFivePerNum)
+    print(numOfStocks)

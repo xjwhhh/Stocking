@@ -22,7 +22,7 @@ public class OverallSearch_Data_Impl implements OverallSearch_Data_Service {
      * @return
      */
     public MarketPO getMarketInfo(Date date) {
-        String[] data = new String[7];
+        String[] data = new String[8];
         int i = 0;
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat dateFm = new SimpleDateFormat("EEEE");
@@ -59,7 +59,8 @@ public class OverallSearch_Data_Impl implements OverallSearch_Data_Service {
             int belowFivePerNum = Integer.parseInt(data[4]);//跌幅超过5%的股票数
             int oc_overPFivePerNum = Integer.parseInt(data[5]);//开盘-收盘大于5%*上一个交易日收盘价的股票个数
             int oc_belowMFivePerNum = Integer.parseInt(data[6]);//开盘-收盘小于-5%*上一个交易日收盘价的股票个数
-            MarketPO marketPO = new MarketPO(totalDeal, limitUpNum, limitDownNum, overFivePerNum, belowFivePerNum, oc_overPFivePerNum, oc_belowMFivePerNum);
+            int numOfStock = Integer.parseInt(data[7]);
+            MarketPO marketPO = new MarketPO(totalDeal, limitUpNum, limitDownNum, overFivePerNum, belowFivePerNum, oc_overPFivePerNum, oc_belowMFivePerNum, numOfStock);
             return marketPO;
         } catch (IOException e) {
             e.printStackTrace();
