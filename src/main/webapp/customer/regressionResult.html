@@ -9,25 +9,31 @@
     <link href="https://cdn.bootcss.com/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet">
 
     <style type="text/css">
-        #input{
+        #input {
             margin-top: 20px;
         }
+
         ul {
             text-align: center;
 
         }
+
         .nav-tabs > li {
             width: 20%;
             background-color: #0099ff;
         }
+
         a {
             color: #333333
         }
+
         /*a:hover {*/
         /*color: #000000*/
         /*}*/
 
-        .nav > li:hover .dropdown-menu {display: block;}
+        .nav > li:hover .dropdown-menu {
+            display: block;
+        }
     </style>
 
     <script type="text/javascript" src="json2-min.js"></script>
@@ -87,24 +93,24 @@
         </select>
     </div>
     <div style="margin-top: -3%">
-    <table class="table table-hover">
-        <caption>周期股票排名</caption>
-        <thead>
-        <tr>
-            <th>排名</th>
-            <th>股票名</th>
-            <th>股票编号</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>1</td>
-            <td>a</td>
-            <td>0001</td>
-        </tr>
+        <table class="table table-hover">
+            <caption>周期股票排名</caption>
+            <thead>
+            <tr>
+                <th>排名</th>
+                <th>股票名</th>
+                <th>股票编号</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>a</td>
+                <td>0001</td>
+            </tr>
 
-        </tbody>
-    </table>
+            </tbody>
+        </table>
     </div>
 
 </div>
@@ -112,29 +118,13 @@
 <!--累计收益率比较这线图-->
 <div style="width:75%;background: white;margin-top: 2%;margin-left: 12%">
     <div id="accumReturnRate" style="height:350px;width: 600px"></div>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
-    <script type="text/javascript" src="accumReturnRate.js"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
-    <!--<script type="text/javascript" src="closePrice.js"></script>-->
+
 
 </div>
 
 <!--收益率分布直方图-->
 <div style="width:75%;background: white;margin-top: 2%;margin-left: 12%">
     <div id="varianceChart" style="height:350px;width: 600px"></div>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
-    <script type="text/javascript" src="varianceChart.js"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
 
 
 </div>
@@ -149,25 +139,237 @@
             <option>形成期</option>
 
         </select>
-        <input style="width: 16%" type="text" ><span>天</span>
+        <input style="width: 16%" type="text"><span>天</span>
 
 
     </div>
     <div>
-    <a style=" margin-left:50%;background-color: #32619e" class="btn btn-default" href="superVariance.html" role="button">确认</a>
+        <a style=" margin-left:50%;background-color: #32619e" class="btn btn-default" href="superVariance.html"
+           role="button">确认</a>
     </div>
-
 
 
 </div>
 
 
+<!--<script type="text/javascript" src="accumReturnRate.js"></script>-->
+<!--<script type="text/javascript" src="varianceChart.js"></script>-->
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+<script type="text/javascript"
+        src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+<script type="text/javascript">
+    var annualReturn;//年化收益率
+    var basicAnnualReturn;//基准年化收益率
+    var alpha;
+    var beta;
+    var sharpeRatio;
+    var maxDrawDown;//最大回撤
+    var dates;
+    var profits;
+    var basicProfits;//基准收益
+    var sets;//获胜股票，mom为前百分之二十，avr为持股数
+    //    var strategy
+    //    var startdate
+    //    var enddate
+    //    var holtTime
+    //    var shapeTime
+    //    var numberOfStock
+    //    var search
+    //    var industry
+    var thisURL = document.URL;
+    var getval = thisURL.split("?")[1]
+    var message = getval.split("=")[1]
+    //    var message = new Array(8)
+    //    for(var i = 0;i<8;i++){
+    //        message[i] = getval.split("&")[i]
+    //    }
+    //    strategy = message[0].split("=")[1]
+    //    startdate = message[1].split("=")[1]
+    //    enddate = message[2].split("=")[1]
+    //    holtTime = message[3].split("=")[1]
+    //    shapeTime = message[4].split("=")[1]
+    //    numberOfStock = message[5].split("=")[1]
+    //    search = message[6].split("=")[1]
+    //    industry = message[7].split("=")[1]
+
+    function start() {
+        var url = "http://localhost:8080/strategy";
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: message,
+            datatype: json,
+            success: function (data) {
+                alert(data[0].totalDeal)
+                annualReturn = data[0].annualReturn;//年化收益率
+                basicAnnualReturn = data[0].basicAnnualReturn;//基准年化收益率
+                alpha = data[0].alpha;
+                beta = data[0].beta;
+                sharpeRatio = data[0].sharpeRatio;
+                maxDrawDown = data[0].maxDrawDown;//最大回撤
+                dates = data[0].dates;
+                profits = data[0].profits;
+                basicProfits = data[0].basicProfits;//基准收益
+                sets = data[0].sets//获胜股票，mom为前百分之二十，avr为持股数
+            }
+        })
+    }
+
+</script>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById("accumReturnRate"));
+    var option = {
+        title: {
+            text: '累计收益率',
+
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['策略', '基准']
+        },
+        //右上角工具条
+        toolbox: {
+            show: true,
+            feature: {
+                mark: {show: true},
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        calculable: true,
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: false,
+                data: ['1', '2', '3', '4', '5', '6', '7']
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                axisLabel: {
+                    formatter: '{value} °C'
+                }
+            }
+        ],
+        series: [
+            {
+                name: '策略',
+                type: 'line',
+                data: [11, 11, 15, 13, 12, 13, 10],
+                markPoint: {
+                    data: [
+                        {type: 'max', name: '最大值'},
+                        {type: 'min', name: '最小值'}
+                    ]
+                },
+
+            },
+            {
+                name: '基准',
+                type: 'line',
+                data: [1, -2, 2, 5, 3, 2, 0],
+                markPoint: {
+                    data: [
+//                        {name : '周最低', value : -2, xAxis: 1, yAxis: -1.5}
+                        {type: 'min', name: '周最低'}
+                    ]
+                },
+
+            }
+        ]
+    };
+
+    // 为echarts对象加载数据
+    myChart.setOption(option);
 
 
+</script>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById("varianceChart"));
+
+    // myChart.hideLoading();
+    var option = {
+        title: {
+            text: '收益率分布直方图',
+            // subtext: '纯属虚构'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['正收益', '负收益']
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        calculable: true,
+        xAxis: [
+            {
+                type: 'category',
+                data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                name: '正收益',
+                type: 'bar',
+                data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+                markPoint: {
+                    data: [
+                        {type: 'max', name: '最大值'},
+                        {type: 'min', name: '最小值'}
+                    ]
+                },
+                markLine: {
+                    data: [
+                        {type: 'average', name: '平均值'}
+                    ]
+                }
+            },
+            {
+                name: '负收益',
+                type: 'bar',
+                data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+                markPoint: {
+                    data: [
+                        {name: '年最高', value: 182.2, xAxis: 7, yAxis: 183},
+                        {name: '年最低', value: 2.3, xAxis: 11, yAxis: 3}
+                    ]
+                },
+                markLine: {
+                    data: [
+                        {type: 'average', name: '平均值'}
+                    ]
+                }
+            }
+        ]
+    };
 
 
+    myChart.setOption(option);
 
 
-
+</script>
 </body>
 </html>
