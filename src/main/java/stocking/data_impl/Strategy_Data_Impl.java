@@ -10,10 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by xjwhhh on 2017/5/31.
@@ -21,6 +18,8 @@ import java.util.List;
 public class Strategy_Data_Impl implements Strategy_Data_Service {
     Tools tools = Tools.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    Cache cache=Cache.getInstance();
+    Hashtable<String,String> code_name=cache.getCode_Name();
 
     /**
      * 回测
@@ -41,15 +40,7 @@ public class Strategy_Data_Impl implements Strategy_Data_Service {
             commands.add("python");
             commands.add(tools.getProjectPath("src\\main\\java\\stocking\\python_Impl\\TraceBack.py"));
             String value=type+"?"+startDate+"?"+endDate+"?"+String.valueOf(form)+"?"+String.valueOf(hold)+"?"+isPla+"?"+tools.jsonArrayToString(stocks);
-//            commands.add(type);//策略类型
-//            commands.add(startDate);//开始日期
-//            commands.add(endDate);//结束日期
-//            commands.add(String.valueOf(form));//形成期
-//            commands.add(String.valueOf(hold));//持有期
-//            commands.add(isPla);//是否为板块
-//            commands.add(tools.jsonArrayToString(stocks));//股票列表转成的string
             commands.add(value);
-
             ProcessBuilder processBuilder = new ProcessBuilder(commands);
             Process pr = processBuilder.start();
             BufferedReader in = new BufferedReader(new
@@ -85,7 +76,7 @@ public class Strategy_Data_Impl implements Strategy_Data_Service {
                 basicProfits.add(Double.parseDouble(in.readLine()));
             }
             int seriesNum = Integer.parseInt(in.readLine());
-            sets = tools.getStockWinnerSets(in, sets, num, seriesNum);
+            sets = getStockWinnerSets(in, sets, num, seriesNum);
             in.close();
             StrategyPO strategyPO = new StrategyPO(annualReturn, basicAnnualReturn, alpha, beta, sharpeRatio, maxDrawDown, dates, profits, basicProfits, sets);
             return strategyPO;
@@ -95,6 +86,35 @@ public class Strategy_Data_Impl implements Strategy_Data_Service {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    private List<StockWinnerSet> getStockWinnerSets(BufferedReader in, List<StockWinnerSet> stockWinnerSets, int num,int seriesNum) {
+        for(int j=0;j<num;j++) {
+            String line = "";
+            List<String> codes = new ArrayList<String>();
+            List<String> names = new ArrayList<String>();
+            List<Double> profits = new ArrayList<Double>();
+            try {
+                for (int i = 0; i < seriesNum; i++) {
+                    line = in.readLine();
+                    String[] t = line.split("\\s+");
+                    String code = t[0];
+                    Double profit = Double.parseDouble(t[1]);
+                    String name = code_name.get(code);
+                    codes.add(code);
+                    names.add(name);
+                    profits.add(profit);
+                }
+                StockWinnerSet stockWinnerSet = new StockWinnerSet(codes, names, profits);
+                stockWinnerSets.add(stockWinnerSet);
+                in.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return stockWinnerSets;
     }
 
 //    public static void main(String[] args) {

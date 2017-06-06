@@ -41,13 +41,6 @@ public class BGraph_Data_Impl implements BGraph_Data_Service {
             commands.add("python");
             commands.add(tools.getProjectPath("src\\main\\java\\stocking\\python_Impl\\BGraph.py"));
             String value=type+"?"+startDate+"?"+endDate+"?"+isHold+"?"+String.valueOf(interval)+"?"+isPla+"?"+tools.jsonArrayToString(stocks);
-//            commands.add(type);//策略类型
-//            commands.add(startDate);//开始日期
-//            commands.add(endDate);//结束日期
-//            commands.add(isHold);//是否是形成期
-//            commands.add(String.valueOf(interval));//已知时间
-//            commands.add(isPla);//是否为板块
-//            commands.add(tools.jsonArrayToString(stocks));//股票列表转成的string
             commands.add(value);
 
             ProcessBuilder processBuilder = new ProcessBuilder(commands);
@@ -60,7 +53,6 @@ public class BGraph_Data_Impl implements BGraph_Data_Service {
             List<Double> winChance = new ArrayList<Double>();
             for (int i = 0; i < num; i++) {
                 profits.add(Double.parseDouble(in.readLine()));
-//                System.out.print(profits.get(i));
             }
             for (int i = 0; i < num; i++) {
                 winChance.add(Double.parseDouble(in.readLine()));

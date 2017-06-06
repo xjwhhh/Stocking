@@ -4,27 +4,6 @@ import sys
 import pandas as pd
 import pymysql
 
-
-# def getstockinfobycode(code):
-#     sql = "select * from basicinfo where code='%s'" % code
-#     try:
-#         cursor.execute(sql)
-#         results = cursor.fetchall()
-#         re = []
-#         for row in results:
-#             name = row[0]
-#             code = row[1]
-#             industry = row[2]
-#             section = row[3]
-#             resultlist = [name, code, industry, section]
-#             re.append(resultlist)
-#         print(re)
-#         df = pd.DataFrame(re, columns=['name', 'code', 'industry', 'section'])
-#     except:
-#         print("get data fail")
-#     return df
-
-
 def getkdata(sectionName, code, startDate, endDate):
     sql = "select distinct date,adjopen,adjhigh,adjlow,adjclose,volume,code from kdata_" + sectionName + " where code='%s' and date>='%s' and date<='%s' order by date" % (
         code, startDate, endDate)
@@ -66,12 +45,25 @@ if __name__ == "__main__":
 
     print(len(df))
 
-    print(df['open'])
-    print(df['high'])
-    print(df['low'])
-    print(df['volume'])
-    print(df['close'])
-    print(df['date'])
+    openList = list(df['open'])
+    highList = list(df['high'])
+    lowList = list(df['low'])
+    volumeList = list(df['volume'])
+    closeList = list(df['close'])
+    dateList = list(df['date'])
+
+    for i in openList:
+        print(i)
+    for i in highList:
+        print(i)
+    for i in lowList:
+        print(i)
+    for i in volumeList:
+        print(i)
+    for i in closeList:
+        print(i)
+    for i in dateList:
+        print(i)
 
     df = df.set_index('date')
     ss = df['close']
@@ -79,7 +71,9 @@ if __name__ == "__main__":
     # 平均值
     for i in {5, 10, 20, 30, 60}:
         tt = smaCal.smaCal(ss, i)
-        print(tt)
+        averageList = list(tt)
+        for t in averageList:
+            print(t)
 
     # 收益率
     profit = []
@@ -88,8 +82,8 @@ if __name__ == "__main__":
     for i in range(1, len(ttt)):
         t = (ttt[i] - ttt[i - 1]) / ttt[i - 1]
         profit.append(t)
-    profitSeries = pd.Series(profit)
-    print(profitSeries)
+    for i in profit:
+        print(i)
 
     # 相对方差
     variance = relDev.relDev(ss)
