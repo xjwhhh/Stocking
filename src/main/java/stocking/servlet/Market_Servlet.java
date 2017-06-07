@@ -46,6 +46,6 @@ public class Market_Servlet extends HttpServlet {
 
         MarketPO marketPO = ods.getMarketInfo(date);
 
-        new Send().doSend(response, marketPO);
+        new SendByServlet().doSend(response, marketPO);
     }
 }

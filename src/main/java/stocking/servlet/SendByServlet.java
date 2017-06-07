@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 /**
  * Created by dell on 2017/5/23.
  */
-class Send {
+class SendByServlet {
     private PrintWriter pw;
 
     void doSend(HttpServletResponse response, Object po) throws IOException {

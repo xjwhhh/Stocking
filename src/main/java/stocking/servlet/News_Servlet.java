@@ -34,11 +34,11 @@ public class News_Servlet extends HttpServlet {
 
         if (op.equals("all")) {
             NewsPO result = gds.getMarketNews();
-            new Send().doSend(response, result);
+            new SendByServlet().doSend(response, result);
         } else {
             String code = jsonObject.getString("code");
             NewsPO result = gds.getSingleNews(code);
-            new Send().doSend(response, result);
+            new SendByServlet().doSend(response, result);
         }
     }
 }

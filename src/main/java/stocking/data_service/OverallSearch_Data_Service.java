@@ -1,5 +1,6 @@
 package stocking.data_service;
 
+import stocking.po.ImMarketPO;
 import stocking.po.MarketPO;
 
 import java.util.Date;
@@ -9,4 +10,6 @@ import java.util.Date;
  */
 public interface OverallSearch_Data_Service {
     MarketPO getMarketInfo(Date date);
+
+    ImMarketPO getImMarketInfo();
 }

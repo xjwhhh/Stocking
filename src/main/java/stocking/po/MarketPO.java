@@ -28,7 +28,6 @@ public class MarketPO {
     public MarketPO() {
     }
 
-    ;
 
     public double getTotalDeal() {
         return totalDeal;

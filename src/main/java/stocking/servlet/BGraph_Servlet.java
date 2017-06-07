@@ -51,6 +51,6 @@ public class BGraph_Servlet extends HttpServlet {
         JSONArray stocks = JSONArray.fromObject(jsonObject.getString("stocks"));
         BGraphPO result = bds.get(type, start, end, isHold, interval, isPla, stocks);
 
-        new Send().doSend(response, result);
+        new SendByServlet().doSend(response, result);
     }
 }
