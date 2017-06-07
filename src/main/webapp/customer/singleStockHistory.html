@@ -39,11 +39,21 @@
         var startDate = getval2.split("=")[1];
         var getval3 = thisURL.split('?')[3];
         var endDate = getval3.split("=")[1];
-        var open;
-        var clos;
-        var high;
-        var low;
-        
+        var dates=[];
+        var open=[];
+        var close=[];
+        var high=[];
+        var low=[];
+        var MA5=[];
+        var MA10=[];
+        var MA20=[];
+        var MA30=[];
+        var MA60=[];
+        var volumes = [];
+        var dataTodo;
+        alert("aaaa");
+        search();
+
 
 
         function getIdentifier(stockNamestr) {
@@ -56,31 +66,45 @@
             this.end=datestr;
         }
         function search(){
+//            alert("to search");
 
                 var url="http://localhost:8080/singleStock";
                 var key = JSON.stringify(new getIdentifier(stockName),new getStart(startDate),new getEnd(endDate));
 //                alert(date);
+//            alert("success");
                 $.ajax({
+
                     type:"POST",
                     url:url,
                     data:key,
                     dataType: "json",//此处要设置成json
                     success: function (data) {
-//                        alert(data[0].totalDeal)
+
 
                         open = data[0].open;
                         close = data[0].adjClose;
                         high = data[0].high;
                         low = data[0].low;
+                        MA5 = data[0].average5;
+                        MA10 = data[0].average10;
+                        MA20 = data[0].average20;
+                        MA30 = data[0].average30;
+                        MA60 = data[0].average60;
+                        dates = data[0].dates;
+                        volumes = data[0].volume;
+                        for(var i =0;i<open.length;i++){
+                            var temp=[];
+                            temp.push(dates[i]);
+                            temp.push(open[i]);
+                            temp.push(close[i]);
+                            temp.push(low[i]);
+                            temp.push(high[i]);
+                            dataTodo.push(temp);
+                        }
+
+
                         kChart();
-                        piechart()
-                        barchart()
-                        enginechart_1()
-                        enginechart_2()
-                        enginechart_3()
-                        enginechart_4()
-                        enginechart_5()
-                        enginechart_6()
+//
                     }});//回调函数
 
 
@@ -201,21 +225,6 @@
                 };
             }
 
-            function calculateMA(dayCount) {
-                var result = [];
-                for (var i = 0, len = data0.values.length; i < len; i++) {
-                    if (i < dayCount) {
-                        result.push('-');
-                        continue;
-                    }
-                    var sum = 0;
-                    for (var j = 0; j < dayCount; j++) {
-                        sum += data0.values[i - j][1];
-                    }
-                    result.push(sum / dayCount);
-                }
-                return result;
-            }
 
 
 
@@ -355,7 +364,7 @@
                     {
                         name: 'MA5',
                         type: 'line',
-                        data: calculateMA(5),
+                        data: MA5,
                         smooth: true,
                         lineStyle: {
                             normal: {opacity: 0.5}
@@ -364,7 +373,7 @@
                     {
                         name: 'MA10',
                         type: 'line',
-                        data: calculateMA(10),
+                        data: MA10,
                         smooth: true,
                         lineStyle: {
                             normal: {opacity: 0.5}
@@ -373,7 +382,7 @@
                     {
                         name: 'MA20',
                         type: 'line',
-                        data: calculateMA(20),
+                        data:MA20,
                         smooth: true,
                         lineStyle: {
                             normal: {opacity: 0.5}
@@ -382,7 +391,7 @@
                     {
                         name: 'MA30',
                         type: 'line',
-                        data: calculateMA(30),
+                        data: MA30,
                         smooth: true,
                         lineStyle: {
                             normal: {opacity: 0.5}
@@ -400,24 +409,64 @@
             }
         }
 
+//直方图
+       function barChart() {
+           var dom = document.getElementById("barChart");
+           var myChart = echarts.init(dom);
+           var app = {};
+           option = null;
+           option = {
+               xAxis: {
+                   data: ['a', 'b', 'c', 'd'],
+                   axisTick: {show: false},
+                   axisLabel: {
+                       formatter: 'barGap: \'-100%\''
+                   }
+               },
+               yAxis: {
+                   splitLine: {show: false}
+               },
+               animationDurationUpdate: 1200,
+               series: [ {
+                   type: 'bar',
+                   barWidth: 40,
+                   z: 10,
+                   data: [45, 60, 13, 25]
+               }]
+           };
 
-//        alert(startDate);s
 
 
-//document.getElementById(startDate).value = startDate;
-//document.getElementById(endDate).value = endDate;
+           var barGaps = ['30%', '-100%'];
+           var loopIndex = 0;
 
+           setInterval(function () {
+               var barGap = barGaps[loopIndex];
 
+               myChart.setOption({
+                   xAxis: {
+                       axisLabel: {
+                           formatter: 'barGap: \'' + barGap + '\''
+                       }
+                   },
+                   series: [{
+                       barGap: barGap
+                   }]
+               });
+               loopIndex = (loopIndex + 1) % barGaps.length;
+
+           }, 2000);;
+           if (option && typeof option === "object") {
+               myChart.setOption(option, true);
+           }
+       } 
+
+//查看刷新页面
         function checkHistory() {
 //            alert("success");
                 var startDate =  $("#startDate").val();
                 var endDate =  $("#endDate").val();
-//alert(startDate+" "+endDate);
 
-//            var startDate = document.getElementById("startDate").valueAsDate;
-//            var startDate = document.getElementById("startDate").valueAsDate;
-//
-//            alert("success");
                 document.location.href&&(document.location.href="singleStockHistory.html?stockName="+stockName+"?startDate="+startDate+"?endDate="+endDate);
 
 
@@ -427,7 +476,7 @@
 
 
 </head>
-<body >
+<body onload="search()" >
 
 <div class="container-fluid">
     <div class="navbar-header">
@@ -518,7 +567,7 @@
         <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
         <script type="text/javascript"
                 src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
-        <script type="text/javascript" src="candleStick.js"></script>
+        <!--<script type="text/javascript" src="candleStick.js"></script>-->
 
 
 
@@ -537,18 +586,7 @@
         <script type="text/javascript"
                 src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
 
-
-
-
-        <script type="text/javascript" src="barChart.js"></script>
-
-
-
-
-
-
-
-
+        <!--<script type="text/javascript" src="barChart.js"></script>-->
 
     </div>
 
