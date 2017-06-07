@@ -95,7 +95,7 @@
                 <fieldset>
                     <div class="form-group">
                         <label for="dtp_input1" class="control-label">选择日期</label>
-                        <div class="input-group date form_datetime col-md-6" data-date="2017-05-10T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                        <div class="input-group date form_datetime col-md-6" data-date="2017-05-10" data-date-format="dd MM yyyy" data-link-field="dtp_input1">
                             <input class="form-control" size="16" type="text" value="" readonly>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
@@ -180,16 +180,18 @@
     var belowFivePerNum//跌幅超过5%的股票数
     var oc_overPFivePerNum//开盘-收盘大于5%*上一个交易日收盘价的股票个数
     var oc_belowMFivePerNum
+    var numOfStock
     //以下是日期选择器相关的引用
     $('.form_datetime').datetimepicker({
         //language:  'fr',
         weekStart: 1,
-        todayBtn:  1,
+        minView: 2,
+//        todayBtn:  1,
         autoclose: 1,
         todayHighlight: 1,
         startView: 2,
-        forceParse: 0,
-        showMeridian: 1
+        forceParse: 1,
+        showMeridian: 0
     });
 
     //以下是查询方法
@@ -214,6 +216,7 @@
                 belowFivePerNum = data[0].belowFivePerNum;//跌幅超过5%的股票数
                 oc_overPFivePerNum = data[0].oc_overPFivePerNum;//开盘-收盘大于5%*上一个交易日收盘价的股票个数
                 oc_belowMFivePerNum = data[0].oc_belowMFivePerNum;
+                numOfStock = data[0].numOfStock
                 document.getElementById("totalDeal").innerHTML = totalDeal
                 piechart()
                 barchart()
@@ -256,7 +259,7 @@
                         {value:limitDownNum, name:'跌停股票'},
                         {value:overFivePerNum, name:'涨幅超过5%股票'},
                         {value:belowFivePerNum, name:'跌幅超过5%股票'},
-                        {value:3472-overFivePerNum-belowFivePerNum, name:'涨跌幅小于5%股票'}
+                        {value:numOfStock-overFivePerNum-belowFivePerNum, name:'涨跌幅小于5%股票'}
                     ],
                     itemStyle: {
                         emphasis: {
@@ -335,7 +338,7 @@
         option = null;
         option = {
             tooltip : {
-                formatter: "{a} <br/>{b} : {c}"
+                formatter: "{a} <br/>{b} : {c}%"
             },
             toolbox: {
                 feature: {
@@ -347,8 +350,8 @@
                 {
                     name: '业务指标',
                     type: 'gauge',
-                    detail: {formatter:'{value}'},
-                    data: [{value: limitUpNum, name: '涨停股票数'}]
+                    detail: {formatter:'{value}%'},
+                    data: [{value: limitUpNum/numOfStock, name: '涨停股票数'}]
                 }
             ]
         };

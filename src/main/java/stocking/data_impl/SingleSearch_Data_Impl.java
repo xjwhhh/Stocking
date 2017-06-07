@@ -3,6 +3,7 @@ package stocking.data_impl;
 import stocking.data_service.SingleSearch_Data_Service;
 import stocking.po.StockPO;
 
+import javax.swing.text.Document;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -83,18 +84,14 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
             //判断该股票代码是否存在
             if (code_name.containsKey(identifier)) {
                 section = getSectionByCode(identifier);
-                System.out.print(1);
             } else {
-                System.out.print(2);
                 return null;
             }
         } else {
             if (name_code.containsKey(identifier)) {
-                System.out.print(3);
                 identifier = name_code.get(identifier);
                 section = getSectionByCode(identifier);
             } else {
-                System.out.print(4);
                 return null;
             }
         }
@@ -132,35 +129,42 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
                     double[] average60 = new double[num];
                     double[] profit = new double[num];
                     double variance = 0;
-                    open = tools.getdouble(in, open, num);
-                    in.readLine();
-                    high = tools.getdouble(in, high, num);
-                    in.readLine();
-                    low = tools.getdouble(in, low, num);
-                    in.readLine();
-                    volume = tools.getint(in, volume, num);
-                    in.readLine();
-                    adjClose = tools.getdouble(in, adjClose, num);
-                    in.readLine();
-                    dates = tools.getdate(in, dates, num);
-                    in.readLine();
-                    in.readLine();
-                    average5 = tools.getdouble(in, average5, num);
-                    in.readLine();
-                    in.readLine();
-                    average10 = tools.getdouble(in, average10, num);
-                    in.readLine();
-                    in.readLine();
-                    average20 = tools.getdouble(in, average20, num);
-                    in.readLine();
-                    in.readLine();
-                    average30 = tools.getdouble(in, average30, num);
-                    in.readLine();
-                    in.readLine();
-                    average60 = tools.getdouble(in, average60, num);
-                    in.readLine();
-                    profit = tools.getdouble(in, profit, num);
-                    in.readLine();
+                    for(int i=0;i<num;i++){
+                        open[i]= Double.parseDouble(in.readLine());
+                    }
+                    for(int i=0;i<num;i++){
+                        high[i]= Double.parseDouble(in.readLine());
+                    }
+                    for(int i=0;i<num;i++){
+                        low[i]= Double.parseDouble(in.readLine());
+                    }
+                    for(int i=0;i<num;i++){
+                        volume[i]= (int)Double.parseDouble(in.readLine());
+                    }
+                    for(int i=0;i<num;i++){
+                        adjClose[i]= Double.parseDouble(in.readLine());
+                    }
+                    for(int i=0;i<num;i++){
+                        dates[i]= formatter.parse(in.readLine());
+                    }
+                    for(int i=0;i<num;i++){
+                        average5[i]= Double.parseDouble(in.readLine());
+                    }
+                    for(int i=0;i<num;i++){
+                        average10[i]= Double.parseDouble(in.readLine());
+                    }
+                    for(int i=0;i<num;i++){
+                        average20[i]= Double.parseDouble(in.readLine());
+                    }
+                    for(int i=0;i<num;i++){
+                       average30[i]= Double.parseDouble(in.readLine());
+                    }
+                    for(int i=0;i<num;i++){
+                        average60[i]= Double.parseDouble(in.readLine());
+                    }
+                    for(int i=0;i<num;i++){
+                        profit[i]= Double.parseDouble(in.readLine());
+                    }
                     BigDecimal bd = new BigDecimal(in.readLine());
                     String varianceStr = bd.toPlainString();
                     variance = Double.parseDouble(varianceStr);
