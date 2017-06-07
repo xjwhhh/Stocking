@@ -19,12 +19,13 @@ public class Cache {
     DBConnectionPool pool = (DBConnectionPool) pools.get("stock");
 
     private Hashtable<String, String> code_name = new Hashtable<String, String>();
+    private Hashtable<String, String> code_section = new Hashtable<String, String>();
+    private Hashtable<String, String> code_industry = new Hashtable<String, String>();
     private Hashtable<String, String> name_code = new Hashtable<String, String>();
 
 
     private Cache() {
-        this.setCode_Name();
-        this.setName_Code();
+        this.setStockInfo();
     }
 
     /**
@@ -40,35 +41,19 @@ public class Cache {
     }
 
     /**
-     * 读取code_name键值对
+     * 读取股票信息键值对
      */
-    private void setCode_Name() {
+    private void setStockInfo() {
         Connection connection = connectionManager.getConnection("stock");
-        String sql = "select name,code from basicinfo";
+        String sql = "select name,code,industry,section from basicinfo";
         PreparedStatement pstmt;
         try {
             pstmt = (PreparedStatement) connection.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 code_name.put(rs.getString("code"), rs.getString("name"));
-            }
-            pool.freeConnection(connection);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 读取name_code键值对
-     */
-    private void setName_Code() {
-        Connection connection = connectionManager.getConnection("stock");
-        String sql = "select name,code from basicinfo";
-        PreparedStatement pstmt;
-        try {
-            pstmt = (PreparedStatement) connection.prepareStatement(sql);
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next()) {
+                code_industry.put(rs.getString("code"), rs.getString("industry"));
+                code_section.put(rs.getString("code"), rs.getString("section"));
                 name_code.put(rs.getString("name"), rs.getString("code"));
             }
             pool.freeConnection(connection);
@@ -77,8 +62,17 @@ public class Cache {
         }
     }
 
+
     public Hashtable<String, String> getCode_Name() {
         return code_name;
+    }
+
+    public Hashtable<String, String> getCode_Section() {
+        return code_section;
+    }
+
+    public Hashtable<String, String> getCode_Industry() {
+        return code_industry;
     }
 
     public Hashtable<String, String> getName_Code() {
