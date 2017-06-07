@@ -7,4 +7,6 @@ import stocking.po.StockInfoPO;
  */
 public interface CodeName_Data_Service {
     StockInfoPO get();
+
+    StockInfoPO getPlate(String name);
 }

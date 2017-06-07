@@ -20,17 +20,17 @@ public class Stock_WebSocket {
 
     private Session session;
 
+    //code==0，代表关闭会话
     @OnMessage
     public void onMessage(String code, Session session) {
+        if (code.equals("0")) {
+            subOnlineCount(code);
+            webSocketSet.get(code).remove(this);
+            return;
+        }
         this.session = session;
         addOnlineCount(code);
         webSocketSet.get(code).add(this);
-    }
-
-    @OnClose
-    public void onClose(String code) {
-        subOnlineCount(code);
-        webSocketSet.get(code).remove(this);
     }
 
     void sendMessage(String s) throws IOException {

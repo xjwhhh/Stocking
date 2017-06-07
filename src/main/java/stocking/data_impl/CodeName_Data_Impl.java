@@ -16,14 +16,17 @@ public class CodeName_Data_Impl implements CodeName_Data_Service {
         String[] codes = new String[code_name.size()];
         String[] names = new String[code_name.size()];
         int i = 0;
-        for (Iterator<String> iterator = code_name.keySet().iterator(); iterator.hasNext(); ) {
-            String key = iterator.next();
+        for (String key : code_name.keySet()) {
             codes[i] = key;
             names[i] = code_name.get(key);
             i++;
         }
-        StockInfoPO stockInfoPO = new StockInfoPO(codes, names);
-        return stockInfoPO;
+        return new StockInfoPO(codes, names);
+    }
+
+    @Override
+    public StockInfoPO getPlate(String name) {
+        return null;
     }
 
 }
