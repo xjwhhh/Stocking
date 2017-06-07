@@ -2,45 +2,60 @@ package stocking.websocket;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
-import javax.websocket.server.ServerEndpointConfig;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * Created by dell on 2017/6/6.
  */
 
-@ServerEndpoint("/imstock")
+@ServerEndpoint("/stocksocket")
 public class Stock_WebSocket {
-    private Session session;
-    private ServerEndpointConfig endpointConfig;
+    private static Map<String, Integer> onlineCount = new HashMap<String, Integer>();
 
-    @OnOpen
-    public void onOpen(EndpointConfig config, Session session) {
-        this.endpointConfig = (ServerEndpointConfig) config;
-        this.session = session;
-    }
+    static Map<String, CopyOnWriteArraySet<Stock_WebSocket>> webSocketSet =
+            new HashMap<String, CopyOnWriteArraySet<Stock_WebSocket>>();
+
+    private Session session;
 
     @OnMessage
-    /**
-     * @param:message代表股票代码
-     */
-    public void onMessage(String message, Session session) {
-
+    public void onMessage(String code, Session session) {
+        this.session = session;
+        addOnlineCount(code);
+        webSocketSet.get(code).add(this);
     }
 
     @OnClose
-    public void onClose() {
-
+    public void onClose(String code) {
+        subOnlineCount(code);
+        webSocketSet.get(code).remove(this);
     }
 
-    @OnError
-    public void onError(Session session, Throwable error) {
-
+    void sendMessage(String s) throws IOException {
+        this.session.getBasicRemote().sendText(s);
     }
 
-    public void sendMessage(String message) throws IOException {
-        this.session.getBasicRemote().sendText(message);
-        //this.session.getAsyncRemote().sendText(message);
+    public static synchronized int getOnlineCount(String code) {
+        return onlineCount.get(code);
+    }
+
+    private static synchronized void addOnlineCount(String code) {
+        if (!onlineCount.containsKey(code)) {
+            onlineCount.put(code, 1);
+            CopyOnWriteArraySet<Stock_WebSocket> webSockets = new CopyOnWriteArraySet<Stock_WebSocket>();
+            webSocketSet.put(code, webSockets);
+        } else {
+            int temp = onlineCount.get(code);
+            temp++;
+            onlineCount.put(code, temp);
+        }
+    }
+
+    private static synchronized void subOnlineCount(String code) {
+        int temp = onlineCount.get(code);
+        temp--;
+        onlineCount.put(code, temp);
     }
 }

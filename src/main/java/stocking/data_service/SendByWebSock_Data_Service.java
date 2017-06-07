@@ -8,5 +8,5 @@ import java.io.IOException;
 public interface SendByWebSock_Data_Service {
     void sendMarketMessage(Object po) throws IOException;
 
-    void sendStockMessage(String code, Object po);
+    void sendStockMessage(String code, Object po) throws IOException;
 }

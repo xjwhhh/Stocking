@@ -4,6 +4,7 @@ import net.sf.json.JSONArray;
 import stocking.data_service.SendByWebSock_Data_Service;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
@@ -12,9 +13,11 @@ import java.util.concurrent.CopyOnWriteArraySet;
  */
 public class SendByWebSocket implements SendByWebSock_Data_Service {
     private CopyOnWriteArraySet<Market_WebSocket> market_webSockets;
+    private Map<String, CopyOnWriteArraySet<Stock_WebSocket>> stock_webSockets;
 
     public SendByWebSocket() {
         this.market_webSockets = Market_WebSocket.webSockets;
+        this.stock_webSockets = Stock_WebSocket.webSocketSet;
     }
 
     private String toJsonString(Object po) {
@@ -31,7 +34,11 @@ public class SendByWebSocket implements SendByWebSock_Data_Service {
     }
 
     @Override
-    public void sendStockMessage(String code, Object po) {
-
+    public void sendStockMessage(String code, Object po) throws IOException {
+        String s = toJsonString(po);
+        CopyOnWriteArraySet<Stock_WebSocket> temp = stock_webSockets.get(code);
+        for (Stock_WebSocket stockSocket : temp) {
+            stockSocket.sendMessage(s);
+        }
     }
 }
