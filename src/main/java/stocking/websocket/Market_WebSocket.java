@@ -21,6 +21,11 @@ public class Market_WebSocket {
         this.session = session;
         webSockets.add(this);     //加入set中
         addOnlineCount();           //在线数加1
+//        try {
+//            sendMessage("hello");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         System.out.println("有新连接加入！当前在线人数为");
     }
 
