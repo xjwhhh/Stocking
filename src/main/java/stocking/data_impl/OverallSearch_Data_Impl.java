@@ -1,6 +1,7 @@
 package stocking.data_impl;
 
 import stocking.data_service.OverallSearch_Data_Service;
+import stocking.po.ImMarketPO;
 import stocking.po.MarketPO;
 
 import java.io.BufferedReader;
@@ -13,7 +14,7 @@ import java.text.*;
  * Created by xjwhhh on 2017/5/23.
  */
 public class OverallSearch_Data_Impl implements OverallSearch_Data_Service {
-    Tools tools = Tools.getInstance();
+    private Tools tools = Tools.getInstance();
 
     /**
      * 获取某日市场信息
@@ -65,6 +66,11 @@ public class OverallSearch_Data_Impl implements OverallSearch_Data_Service {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    @Override
+    public ImMarketPO getImMarketInfo() {
         return null;
     }
 }

@@ -25,6 +25,6 @@ public class CodeName_Servlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         cds = DataFactory_Data_Impl.getInstance().codeName();
         StockInfoPO result = cds.get();
-        new Send().doSend(response, result);
+        new SendByServlet().doSend(response, result);
     }
 }
