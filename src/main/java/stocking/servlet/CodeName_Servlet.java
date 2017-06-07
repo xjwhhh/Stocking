@@ -1,5 +1,6 @@
 package stocking.servlet;
 
+import net.sf.json.JSONObject;
 import stocking.data_impl.DataFactory_Data_Impl;
 import stocking.data_service.CodeName_Data_Service;
 import stocking.po.StockInfoPO;
@@ -23,8 +24,19 @@ public class CodeName_Servlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        JSONObject jsonObject = new ToJSON().toJSONObject(request);
+        if (jsonObject == null) {
+            return;
+        }
+
         cds = DataFactory_Data_Impl.getInstance().codeName();
-        StockInfoPO result = cds.get();
+        String type = jsonObject.getString("type");//若为all则传所有名称和代码，若传板块名称则返回板块名称和代码
+        StockInfoPO result = null;
+        if (type.equals("all")) {
+            result = cds.get();
+        } else {
+            result = cds.getPlate(type);
+        }
         new SendByServlet().doSend(response, result);
     }
 }
