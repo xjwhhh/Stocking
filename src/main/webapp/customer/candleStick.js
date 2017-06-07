@@ -1,3 +1,7 @@
+
+// k线图
+
+
 var dom = document.getElementById("candleStick");
 var myChart = echarts.init(dom);
 var app = {};
