@@ -37,7 +37,7 @@ public class Customer_Servlet extends HttpServlet {
 
         result = cds.execute(opType, customerPO);
 
-        new Send().doSend(response, result);
+        new SendByServlet().doSend(response, result);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

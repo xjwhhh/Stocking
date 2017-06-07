@@ -3,7 +3,6 @@ package stocking.servlet;
 import net.sf.json.JSONObject;
 import stocking.data_impl.DataFactory_Data_Impl;
 import stocking.data_service.CustomerCollection_Data_Service;
-import stocking.data_service.Customer_Data_Service;
 import stocking.po.CollectionPO;
 
 import javax.servlet.ServletException;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  * Created by dell on 2017/6/5.
@@ -38,11 +36,11 @@ public class CustomerCollection_Servlet extends HttpServlet {
 
         if (op.equals("get")) {
             CollectionPO result = cds.getCollection(id);
-            new Send().doSend(response, result);
+            new SendByServlet().doSend(response, result);
         } else {
             String code = jsonObject.getString("code");
             boolean success = cds.execute(op, id, code);
-            new Send().doSend(response, success);
+            new SendByServlet().doSend(response, success);
         }
     }
 }

@@ -52,6 +52,6 @@ public class SingleStock_Servlet extends HttpServlet {
             return;
         }
 
-        new Send().doSend(response, stockPO);
+        new SendByServlet().doSend(response, stockPO);
     }
 }

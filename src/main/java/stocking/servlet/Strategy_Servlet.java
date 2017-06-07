@@ -4,7 +4,6 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import stocking.data_impl.DataFactory_Data_Impl;
 import stocking.data_service.Strategy_Data_Service;
-import stocking.po.CustomerPO;
 import stocking.po.StrategyPO;
 
 import javax.servlet.ServletException;
@@ -54,6 +53,6 @@ public class Strategy_Servlet extends HttpServlet {
 
         result = sds.traceBack(type, start, end, form, hold, isPla, stocks);
 
-        new Send().doSend(response, result);
+        new SendByServlet().doSend(response, result);
     }
 }
