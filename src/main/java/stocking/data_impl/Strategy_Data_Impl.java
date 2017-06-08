@@ -1,5 +1,6 @@
 package stocking.data_impl;
 
+import com.sun.java.browser.plugin2.DOM;
 import net.sf.json.JSONArray;
 import stocking.data_service.Strategy_Data_Service;
 import stocking.po.StockWinnerSet;
@@ -91,25 +92,22 @@ public class Strategy_Data_Impl implements Strategy_Data_Service {
 
     private List<StockWinnerSet> getStockWinnerSets(BufferedReader in, List<StockWinnerSet> stockWinnerSets, int num,int seriesNum) {
         for(int j=0;j<num;j++) {
-            String line = "";
             List<String> codes = new ArrayList<String>();
             List<String> names = new ArrayList<String>();
             List<Double> profits = new ArrayList<Double>();
             try {
                 for (int i = 0; i < seriesNum; i++) {
-                    line = in.readLine();
-                    String[] t = line.split("\\s+");
-                    String code = t[0];
-                    //TODO multiple points异常
-                    Double profit = Double.parseDouble(t[1]);
-                    String name = code_name.get(code);
+                    String code=in.readLine();
                     codes.add(code);
+                    String name=code_name.get(code);
                     names.add(name);
-                    profits.add(profit);
+                }
+                for(int i=0;i<seriesNum;i++){
+                    String profit=in.readLine();
+                    profits.add(Double.parseDouble(profit));
                 }
                 StockWinnerSet stockWinnerSet = new StockWinnerSet(codes, names, profits);
                 stockWinnerSets.add(stockWinnerSet);
-                in.readLine();
             } catch (IOException e) {
                 e.printStackTrace();
             }

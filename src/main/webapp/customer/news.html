@@ -139,10 +139,10 @@
         <br>
         <div style="height: 100px;line-height: 100px;background: white;">
             <a href="url" id="url7">
-            <div class="col-md-2" id="classify7">分类</div>
-            <div class="col-md-8" id="title7">新闻标题</div>
-            <div class="col-md-2" id="time7">时间</div>
-        </a>
+                <div class="col-md-2" id="classify7">分类</div>
+                <div class="col-md-8" id="title7">新闻标题</div>
+                <div class="col-md-2" id="time7">时间</div>
+            </a>
         </div>
         <br>
         <div style="height: 100px;line-height: 100px;background: white;">
@@ -175,7 +175,7 @@
                 OLDER
             </a>
             <ul class="pagination pagination-info">
-                <li><a href="news.html">1</a></li>
+                <li class="active"><a href="news.html">1</a></li>
                 <li><a href="news2.html">2</a></li>
                 <li><a href="news3.html">3</a></li>
                 <li><a href="news4.html">4</a></li>
@@ -198,16 +198,17 @@
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 
-    function getnews(){
-        var url="http://localhost:8080/news";
-        var op = "all"
+    function getnews() {
+        var url = "http://localhost:8080/news";
+        var op = JSON.stringify("all");
         $.ajax({
-            type:"POST",
-            url:url,
-            data:op,
-            datatype:"json",
-            success:function(data){
+            type: "POST",
+            url: url,
+            data: op,
+            dataType: "json",
+            success: function (data) {
                 alert(data[0])
+
             }
         })
     }
