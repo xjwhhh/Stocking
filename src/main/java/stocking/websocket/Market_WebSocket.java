@@ -12,7 +12,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 public class Market_WebSocket {
     private static int onlineCount = 0;
 
-    static CopyOnWriteArraySet<Market_WebSocket> webSockets = new CopyOnWriteArraySet<Market_WebSocket>();
+    public static CopyOnWriteArraySet<Market_WebSocket> webSockets = new CopyOnWriteArraySet<Market_WebSocket>();
 
     private Session session;
 
@@ -20,6 +20,7 @@ public class Market_WebSocket {
     public void onOpen(Session session) {
         this.session = session;
         webSockets.add(this);     //加入set中
+        System.out.println(webSockets.hashCode());
         addOnlineCount();           //在线数加1
 //        try {
 //            sendMessage("hello");
@@ -27,6 +28,11 @@ public class Market_WebSocket {
 //            e.printStackTrace();
 //        }
         System.out.println("有新连接加入！当前在线人数为");
+    }
+
+    @OnMessage
+    public void onMessage(String message, Session session) throws IOException {
+        sendMessage(message);
     }
 
     @OnClose
@@ -42,8 +48,19 @@ public class Market_WebSocket {
         error.printStackTrace();
     }
 
-    void sendMessage(String s) throws IOException {
-        this.session.getBasicRemote().sendText(s);
+    private void sendMessage(String s) throws IOException {
+        System.out.println("来自客户端的消息:" + s + session.getId().toString());
+        //群发消息
+        for (Market_WebSocket item : webSockets) {
+            try {
+                item.sendMessage(item.session.getId().toString() + s + webSockets.size());
+                System.out.println("ok");
+            } catch (IOException e) {
+                // e.printStackTrace();
+                System.out.println("err");
+                continue;
+            }
+        }
     }
 
     public static synchronized int getOnlineCount() {
@@ -57,4 +74,5 @@ public class Market_WebSocket {
     private static synchronized void subOnlineCount() {
         onlineCount--;
     }
+
 }

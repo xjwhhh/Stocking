@@ -1,6 +1,8 @@
 package stocking.websocket;
 
-import stocking.data_service.SendByWebSock_Data_Service;
+import com.neovisionaries.ws.client.WebSocket;
+import com.neovisionaries.ws.client.WebSocketAdapter;
+import com.neovisionaries.ws.client.WebSocketFactory;
 
 import java.io.IOException;
 
@@ -8,11 +10,23 @@ import java.io.IOException;
  * Created by dell on 2017/6/7.
  */
 public class Main {
-    public static void main(String[] args) throws IOException {
-        SendByWebSock_Data_Service sendByWebSocket = new SendByWebSocket();
-        String s = "hello";
-        while (true) {
-            sendByWebSocket.sendMarketMessage(s);
+    public static void main(String[] args) throws IOException, InterruptedException {
+        WebSocket websocket = null;
+        try {
+            websocket = new WebSocketFactory().createSocket("ws://localhost:8080/marketsocket").
+                    addListener(new WebSocketAdapter() {
+                        @Override
+                        public void onTextMessage(WebSocket ws, String message) {
+                            System.out.println("Received msg: " + message);
+                        }
+                    }).connect();
+
+        } catch (Exception e) {
+            websocket.disconnect();
+            e.printStackTrace();
         }
+        //这里写爬虫
+        if (websocket != null)
+            websocket.sendText("hello!");
     }
 }
