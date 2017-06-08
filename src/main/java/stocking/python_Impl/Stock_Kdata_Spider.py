@@ -45,7 +45,7 @@ for i in range(0, len(list_of_all_the_lines)):
         newdf2.rename(columns={'close': "adjclose", 'open': 'adjopen', 'high': 'adjhigh', 'low': 'adjlow'},
                       inplace=True)
         newdf2['code'] = j
-        newdf2.to_sql('kdata_szb', engine, if_exists='append')
+        newdf2.to_sql('kdata_shb', engine, if_exists='append')
         print(j)
 print('沪市B股成功')
 
@@ -59,7 +59,7 @@ for i in range(0, len(list_of_all_the_lines)):
         newdf2.rename(columns={'close': "adjclose", 'open': 'adjopen', 'high': 'adjhigh', 'low': 'adjlow'},
                       inplace=True)
         newdf2['code'] = j
-        newdf2.to_sql('kdata_szb', engine, if_exists='append')
+        newdf2.to_sql('kdata_sha0', engine, if_exists='append')
         print(j)
 print('沪市A股0成功')
 
@@ -76,7 +76,7 @@ for i in range(0, len(list_of_all_the_lines)):
         newdf2.rename(columns={'close': "adjclose", 'open': 'adjopen', 'high': 'adjhigh', 'low': 'adjlow'},
                       inplace=True)
         newdf2['code'] = j
-        newdf2.to_sql('kdata_szb', engine, if_exists='append')
+        newdf2.to_sql('kdata_sha1', engine, if_exists='append')
         print(j)
 print('沪市A股1成功')
 
@@ -93,7 +93,7 @@ for i in range(0, len(list_of_all_the_lines)):
         newdf2.rename(columns={'close': "adjclose", 'open': 'adjopen', 'high': 'adjhigh', 'low': 'adjlow'},
                       inplace=True)
         newdf2['code'] = j
-        newdf2.to_sql('kdata_szb', engine, if_exists='append')
+        newdf2.to_sql('kdata_sha3', engine, if_exists='append')
         print(j)
 print('沪市A股3成功')
 #
@@ -110,7 +110,7 @@ for i in range(0, len(list_of_all_the_lines)):
         newdf2.rename(columns={'close': "adjclose", 'open': 'adjopen', 'high': 'adjhigh', 'low': 'adjlow'},
                       inplace=True)
         newdf2['code'] = j
-        newdf2.to_sql('kdata_szb', engine, if_exists='append')
+        newdf2.to_sql('kdata_sza', engine, if_exists='append')
         print(j)
 print('深市A股成功')
 
@@ -127,7 +127,7 @@ for i in range(0, len(list_of_all_the_lines)):
         newdf2.rename(columns={'close': "adjclose", 'open': 'adjopen', 'high': 'adjhigh', 'low': 'adjlow'},
                       inplace=True)
         newdf2['code'] = j
-        newdf2.to_sql('kdata_szb', engine, if_exists='append')
+        newdf2.to_sql('kdata_cyb', engine, if_exists='append')
         print(j)
 print('创业板成功')
 
@@ -144,6 +144,6 @@ for i in range(0, len(list_of_all_the_lines)):
         newdf2.rename(columns={'close': "adjclose", 'open': 'adjopen', 'high': 'adjhigh', 'low': 'adjlow'},
                       inplace=True)
         newdf2['code'] = j
-        newdf2.to_sql('kdata_szb', engine, if_exists='append')
+        newdf2.to_sql('kdata_zxb', engine, if_exists='append')
         print(j)
 print('中小板成功')

@@ -4,9 +4,10 @@ import sys
 import pandas as pd
 import pymysql
 
+
 def getkdata(sectionName, code, startDate, endDate):
     sql = "select distinct date,adjopen,adjhigh,adjlow,adjclose,volume,code from kdata_" + sectionName + " where date>='%s' and date<='%s' and code='%s' order by date" % (
-         startDate, endDate, code)
+        startDate, endDate, code)
     try:
         cursor.execute(sql)
         results = cursor.fetchall()

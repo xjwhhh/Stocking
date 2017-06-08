@@ -62,25 +62,28 @@ public class Strategy_Data_Impl implements Strategy_Data_Service {
             double beta = Double.parseDouble(data[3]);
             double sharpeRatio = Double.parseDouble(data[4]);
             double maxDrawDown = Double.parseDouble(data[5]);//最大回撤
-            int num = Integer.parseInt(in.readLine());
-            Date[] dates = new Date[num];
-            Double[] profits=new Double[num];
-            Double[] basicProfits=new Double[num];
-            StockWinnerSet[] sets=new StockWinnerSet[num];
-            for (int i = 0; i < num; i++) {
-                dates[i] = formatter.parse(in.readLine());
+            String line=in.readLine();
+            if(tools.isInteger(line)) {
+                int num = Integer.parseInt(line);
+                Date[] dates = new Date[num];
+                Double[] profits = new Double[num];
+                Double[] basicProfits = new Double[num];
+                StockWinnerSet[] sets = new StockWinnerSet[num];
+                for (int i = 0; i < num; i++) {
+                    dates[i] = formatter.parse(in.readLine());
+                }
+                for (int i = 0; i < num; i++) {
+                    profits[i] = Double.parseDouble(in.readLine());
+                }
+                for (int i = 0; i < num; i++) {
+                    basicProfits[i] = Double.parseDouble(in.readLine());
+                }
+                int seriesNum = Integer.parseInt(in.readLine());
+                sets = getStockWinnerSets(in, sets, num, seriesNum);
+                in.close();
+                StrategyPO strategyPO = new StrategyPO(annualReturn, basicAnnualReturn, alpha, beta, sharpeRatio, maxDrawDown, dates, profits, basicProfits, sets);
+                return strategyPO;
             }
-            for (int i = 0; i < num; i++) {
-                profits[i]=Double.parseDouble(in.readLine());
-            }
-            for (int i = 0; i < num; i++) {
-                basicProfits[i]=Double.parseDouble(in.readLine());
-            }
-            int seriesNum = Integer.parseInt(in.readLine());
-            sets = getStockWinnerSets(in, sets, num, seriesNum);
-            in.close();
-            StrategyPO strategyPO = new StrategyPO(annualReturn, basicAnnualReturn, alpha, beta, sharpeRatio, maxDrawDown, dates, profits, basicProfits, sets);
-            return strategyPO;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
