@@ -20,8 +20,8 @@ def getallkdata(sectioname, date):
             low = row[4]
             volume = row[5]
             code = row[6]
-            resultlist = [date, open, close, high, low, volume, code]
-            re.append(resultlist)
+            resultList = [date, open, close, high, low, volume, code]
+            re.append(resultList)
         df = pd.DataFrame(re, columns=['date', 'open', 'close', 'high', 'low', 'volume', 'code'])
     except:
         print('get data fail')
@@ -33,11 +33,11 @@ if __name__ == "__main__":
     cursor = db.cursor()
 
     paths = sys.argv[0].split("\\")
-    newpath = ""
+    newPath = ""
     for i in range(0, len(paths) - 2):
-        newpath += (paths[i] + "\\")
-    newpath += "calculation"
-    sys.path.append(newpath)
+        newPath += (paths[i] + "\\")
+    newPath += "calculation"
+    sys.path.append(newPath)
     sys.path.append(
         "C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\Stock_Analyzing_System\\src\\main\\java\\stocking\\calculation")
     import decBelow
@@ -54,25 +54,25 @@ if __name__ == "__main__":
     oc_belowMFivePerNum = 0  # 开盘-收盘小于-5%*上一个交易日收盘价的股票个数
     numOfStocks = 0
     for i in {"sha0", "sha1", "sha3", "shb", "sza", "szb", "cyb", "zxb"}:
-        todaydf = getallkdata(i, sys.argv[1])
-        yesterdaydf = getallkdata(i, sys.argv[2])
-        newdf = pd.merge(todaydf, yesterdaydf, on=['code'], how='inner')  # 两天都有的股票
-        closex = newdf['close_x']  # 当天close
-        highx = newdf['high_x']  # 当天high
-        lowx = newdf['low_x']  # 当天low
-        volumex = newdf['volume_x']  # 当天交易量
-        closey = newdf['close_y']  # 前一天close
-        todaynewdf = newdf.iloc[:, 0:3]  # 当天date,open与close
-        todaynewdf.rename(columns={'open_x': 'open', 'close_x': 'close', 'date_x': 'date'}, inplace=True)  # 更改列名
-        todaynewdf = todaynewdf.set_index('date')
-        totalDeal += volumex.sum()
-        limitUpNum += incAbove.incAbove(closey, highx, 0.1)
-        limitDownNum += decBelow.decBelow(closey, lowx, -0.1)
-        overFivePerNum += incAbove.incAbove(closey, closex, 0.05)
-        belowFivePerNum += decBelow.decBelow(closey, closex, -0.05)
-        oc_overPFivePerNum += incGre.incGre(closey, todaynewdf, 0.05)
-        oc_belowMFivePerNum += decGre.decGre(closey, todaynewdf, -0.05)
-        numOfStocks += len(todaynewdf)
+        todayDF = getallkdata(i, sys.argv[1])
+        yesterdayDF = getallkdata(i, sys.argv[2])
+        newDF = pd.merge(todayDF, yesterdayDF, on=['code'], how='inner')  # 两天都有的股票
+        closeX = newDF['close_x']  # 当天close
+        highX = newDF['high_x']  # 当天high
+        lowX = newDF['low_x']  # 当天low
+        volumeX = newDF['volume_x']  # 当天交易量
+        closeY = newDF['close_y']  # 前一天close
+        todayNewDF = newDF.iloc[:, 0:3]  # 当天date,open与close
+        todayNewDF.rename(columns={'open_x': 'open', 'close_x': 'close', 'date_x': 'date'}, inplace=True)  # 更改列名
+        todayNewDF = todayNewDF.set_index('date')
+        totalDeal += volumeX.sum()
+        limitUpNum += incAbove.incAbove(closeY, highX, 0.1)
+        limitDownNum += decBelow.decBelow(closeY, lowX, -0.1)
+        overFivePerNum += incAbove.incAbove(closeY, closeX, 0.05)
+        belowFivePerNum += decBelow.decBelow(closeY, closeX, -0.05)
+        oc_overPFivePerNum += incGre.incGre(closeY, todayNewDF, 0.05)
+        oc_belowMFivePerNum += decGre.decGre(closeY, todayNewDF, -0.05)
+        numOfStocks += len(todayNewDF)
     print(totalDeal)
     print(limitUpNum)
     print(limitDownNum)

@@ -24,22 +24,22 @@ def getStockInfo(code, section, startDate, endDate):
 
 
 def getSectionByCode(code):
-    subcode = code[:3]
-    if subcode == "600":
+    subCode = code[:3]
+    if subCode == "600":
         section = "sha0"
-    elif subcode == "601":
+    elif subCode == "601":
         section = "sha1"
-    elif subcode == "603":
+    elif subCode == "603":
         section = "sha3"
-    elif subcode == "900":
+    elif subCode == "900":
         section = "shb"
-    elif subcode == "000":
+    elif subCode == "000":
         section = "sza"
-    elif subcode == "200":
+    elif subCode == "200":
         section = "szb"
-    elif subcode == "300":
+    elif subCode == "300":
         section = "cyb"
-    elif subcode == "002":
+    elif subCode == "002":
         section = "zxb"
     else:
         section = "无"

@@ -27,7 +27,9 @@ public class MinuteData {
             Process pr = processBuilder.start();
             BufferedReader in = new BufferedReader(new
                     InputStreamReader(pr.getInputStream(), "gbk"));
-            int num=Integer.parseInt(in.readLine());
+//            int num=Integer.parseInt(in.readLine());
+            System.out.print(in.readLine());
+            int num=3;
             //num位3说明没数据
             if(num!=3) {
                 for (int i = 0; i < num; i++) {

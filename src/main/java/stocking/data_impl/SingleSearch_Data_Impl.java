@@ -129,46 +129,59 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
                     double[] average60 = new double[num];
                     double[] profit = new double[num];
                     double variance = 0;
-                    for(int i=0;i<num;i++){
-                        open[i]= Double.parseDouble(in.readLine());
+                    for (int i = 0; i < num; i++) {
+                        open[i] = Double.parseDouble(in.readLine());
                     }
-                    for(int i=0;i<num;i++){
-                        high[i]= Double.parseDouble(in.readLine());
+                    for (int i = 0; i < num; i++) {
+                        high[i] = Double.parseDouble(in.readLine());
                     }
-                    for(int i=0;i<num;i++){
-                        low[i]= Double.parseDouble(in.readLine());
+                    for (int i = 0; i < num; i++) {
+                        low[i] = Double.parseDouble(in.readLine());
                     }
-                    for(int i=0;i<num;i++){
-                        volume[i]= (int)Double.parseDouble(in.readLine());
+                    for (int i = 0; i < num; i++) {
+                        volume[i] = (int) Double.parseDouble(in.readLine());
                     }
-                    for(int i=0;i<num;i++){
-                        adjClose[i]= Double.parseDouble(in.readLine());
+                    for (int i = 0; i < num; i++) {
+                        adjClose[i] = Double.parseDouble(in.readLine());
                     }
-                    for(int i=0;i<num;i++){
-                        dates[i]= formatter.parse(in.readLine());
+                    for (int i = 0; i < num; i++) {
+                        dates[i] = formatter.parse(in.readLine());
                     }
-                    for(int i=0;i<num;i++){
-                        average5[i]= Double.parseDouble(in.readLine());
+                    for (int i = 0; i < num; i++) {
+                        average5[i] = Double.parseDouble(in.readLine());
                     }
-                    for(int i=0;i<num;i++){
-                        average10[i]= Double.parseDouble(in.readLine());
+                    for (int i = 0; i < num; i++) {
+                        average10[i] = Double.parseDouble(in.readLine());
                     }
-                    for(int i=0;i<num;i++){
-                        average20[i]= Double.parseDouble(in.readLine());
+                    for (int i = 0; i < num; i++) {
+                        average20[i] = Double.parseDouble(in.readLine());
                     }
-                    for(int i=0;i<num;i++){
-                       average30[i]= Double.parseDouble(in.readLine());
+                    for (int i = 0; i < num; i++) {
+                        average30[i] = Double.parseDouble(in.readLine());
                     }
-                    for(int i=0;i<num;i++){
-                        average60[i]= Double.parseDouble(in.readLine());
+                    for (int i = 0; i < num; i++) {
+                        average60[i] = Double.parseDouble(in.readLine());
                     }
-                    for(int i=0;i<num;i++){
-                        profit[i]= Double.parseDouble(in.readLine());
+                    for (int i = 0; i < num; i++) {
+                        profit[i] = Double.parseDouble(in.readLine());
                     }
                     BigDecimal bd = new BigDecimal(in.readLine());
                     String varianceStr = bd.toPlainString();
                     variance = Double.parseDouble(varianceStr);
-                    StockPO stockPO = new StockPO(name, code, start, over, open, high, low, volume, adjClose, dates, average5, average10, average20, average30, average60, profit, variance);
+                    double highest=high[0];
+                    for(int i=0;i<num;i++){
+                        if(highest<high[i]){
+                            highest=high[i];
+                        }
+                    }
+                    double lowest=low[0];
+                    for(int i=0;i<num;i++){
+                        if(lowest>low[i]){
+                            lowest=low[i];
+                        }
+                    }
+                    double up=(low[num-1]-low[0])/low[num-1];
+                    StockPO stockPO = new StockPO(name, code, start, over, open, high, low, volume, adjClose, dates, average5, average10, average20, average30, average60, profit, variance,highest,lowest,up);
                     return stockPO;
                 }
                 in.close();

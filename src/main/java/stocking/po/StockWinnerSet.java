@@ -7,37 +7,37 @@ import java.util.List;
  */
 public class StockWinnerSet {
     //以下三项一一对应
-    private List<String> codes;//编号
-    private List<String> names;//名字
-    private List<Double> profits;//收益率
+    private String[] codes;//编号
+    private String[] names;//名字
+    private Double[] profits;//收益率
 
-    public StockWinnerSet(List<String> codes, List<String> names, List<Double> profits) {
+    public StockWinnerSet(String[] codes,String[] names, Double[] profits) {
         this.codes = codes;
         this.names = names;
         this.profits = profits;
     }
 
-    public List<String> getCodes() {
+    public String[] getCodes() {
         return codes;
     }
 
-    public void setCodes(List<String> codes) {
+    public void setCodes(String[] codes) {
         this.codes = codes;
     }
 
-    public List<String> getNames() {
+    public String[] getNames() {
         return names;
     }
 
-    public void setNames(List<String> names) {
+    public void setNames(String[] names) {
         this.names = names;
     }
 
-    public List<Double> getProfits() {
+    public Double[] getProfits() {
         return profits;
     }
 
-    public void setProfits(List<Double> profits) {
+    public void setProfits(Double[] profits) {
         this.profits = profits;
     }
 }

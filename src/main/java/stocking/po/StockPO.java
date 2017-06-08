@@ -26,10 +26,15 @@ public class StockPO {
     private double[] average60;
     private double[] profit;//每日收益率
     private double variance;//相对方差
+    private double highest;
+    private double lowest;
+    private double up;
+
 
     public StockPO(String name, String code, Date start, Date over, double[] open, double[] high, double[] low,
                    int[] volume, double[] adjClose, Date[] dates, double[] average5, double[] average10,
-                   double[] average20, double[] average30, double[] average60, double[] profit, double variance) {
+                   double[] average20, double[] average30, double[] average60, double[] profit, double variance,
+                   double highest, double lowest, double up) {
         this.name = name;
         this.code = code;
         this.start = start;
@@ -47,6 +52,9 @@ public class StockPO {
         this.average60 = average60;
         this.profit = profit;
         this.variance = variance;
+        this.highest = highest;
+        this.lowest = lowest;
+        this.up = up;
     }
 
     public String getName() {
@@ -177,5 +185,28 @@ public class StockPO {
         this.variance = variance;
     }
 
+    public double getHighest() {
+        return highest;
+    }
+
+    public void setHighest(double highest) {
+        this.highest = highest;
+    }
+
+    public double getLowest() {
+        return lowest;
+    }
+
+    public void setLowest(double lowest) {
+        this.lowest = lowest;
+    }
+
+    public double getUp() {
+        return up;
+    }
+
+    public void setUp(double up) {
+        this.up = up;
+    }
 
 }

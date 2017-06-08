@@ -19,8 +19,8 @@ def getkdata(sectionName, code, startDate, endDate):
             close = row[4]
             volume = row[5]
             code = row[6]
-            resultlist = [date, open, high, close, low, volume, code]
-            re.append(resultlist)
+            resultList = [date, open, high, close, low, volume, code]
+            re.append(resultList)
         df = pd.DataFrame(re, columns=['date', 'open', 'high', 'close', 'low', 'volume', 'code'])
     except:
         print('get data fail')

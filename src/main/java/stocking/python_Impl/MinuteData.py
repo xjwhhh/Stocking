@@ -42,4 +42,4 @@ def getMinuteData(code, date):
 if __name__ == "__main__":
     # code=sys.argv[1]
     # date=sys.argv[2]
-    getMinuteData('0', 'p')
+    getMinuteData('0yh', 'p')

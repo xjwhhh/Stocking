@@ -6,47 +6,47 @@ import java.util.*;
  * Created by xjwhhh on 2017/6/3.
  */
 public class NewsPO {
-    private List<String> classify;//类别
-    private List<String> title;
-    private List<String> time;
-    private List<String> url;
+    private String[] classify;//类别
+    private String[] title;
+    private String[] time;
+    private String[] url;
 
-    public NewsPO(List<String> classify, List<String> title, List<String> time, List<String> url) {
+    public NewsPO(String[] classify, String[] title,String[] time, String[] url) {
         this.classify = classify;
         this.title = title;
         this.time = time;
         this.url = url;
     }
 
-    public List<String> getClassify() {
+    public String[] getClassify() {
         return this.classify;
     }
 
-    public void setClassify(List<String> classify) {
+    public void setClassify(String[] classify) {
         this.classify = classify;
     }
 
-    public List<String> getTitle() {
+    public String[] getTitle() {
         return this.title;
     }
 
-    public void setTitle(List<String> title) {
+    public void setTitle(String[] title) {
         this.title = title;
     }
 
-    public List<String> getTime() {
+    public String[] getTime() {
         return this.time;
     }
 
-    public void setTime(List<String> time) {
+    public void setTime(String[] time) {
         this.time = time;
     }
 
-    public List<String> getUrl() {
+    public String[] getUrl() {
         return this.url;
     }
 
-    public void setUrl(List<String> url) {
+    public void setUrl(String[] url) {
         this.url = url;
     }
 

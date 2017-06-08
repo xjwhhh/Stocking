@@ -40,6 +40,7 @@ public class BGraph_Data_Impl implements BGraph_Data_Service {
             List<String> commands = new LinkedList<String>();
             commands.add("python");
             commands.add(tools.getProjectPath("src\\main\\java\\stocking\\python_Impl\\BGraph.py"));
+
             String value=type+"?"+startDate+"?"+endDate+"?"+isHold+"?"+String.valueOf(interval)+"?"+isPla+"?"+tools.jsonArrayToString(stocks);
             commands.add(value);
 
@@ -49,13 +50,13 @@ public class BGraph_Data_Impl implements BGraph_Data_Service {
                     InputStreamReader(pr.getInputStream(), "gbk"));
             String line = in.readLine();
             int num = Integer.parseInt(line);
-            List<Double> profits = new ArrayList<Double>();
-            List<Double> winChance = new ArrayList<Double>();
+            Double[] profits=new Double[num];
+            Double[] winChance=new Double[num];
             for (int i = 0; i < num; i++) {
-                profits.add(Double.parseDouble(in.readLine()));
+                profits[i]=Double.parseDouble(in.readLine());
             }
             for (int i = 0; i < num; i++) {
-                winChance.add(Double.parseDouble(in.readLine()));
+                winChance[i]=Double.parseDouble(in.readLine());
             }
             BGraphPO bGraphPO = new BGraphPO(profits, winChance);
             in.close();

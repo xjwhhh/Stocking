@@ -37,21 +37,22 @@ public class GetNews_Data_Impl implements GetNews_Data_Service {
             BufferedReader in = new BufferedReader(new
                     InputStreamReader(pr.getInputStream(), "gbk"));
             int num = Integer.parseInt(in.readLine());
-            List<String> classify = new ArrayList<String>();
-            List<String> title = new ArrayList<String>();
-            List<String> time = new ArrayList<String>();
-            List<String> url = new ArrayList<String>();
+            String[] classify = new String[num];
+            String[] title = new String[num];
+            String[] time = new String[num];
+            String[] url = new String[num];
+
             for (int i = 0; i < num; i++) {
-                classify.add(in.readLine());
+                classify[i]=in.readLine();
             }
             for (int i = 0; i < num; i++) {
-                title.add(in.readLine());
+                title[i]=in.readLine();
             }
             for (int i = 0; i < num; i++) {
-                time.add(in.readLine());
+                time[i]=in.readLine();
             }
             for (int i = 0; i < num; i++) {
-                url.add(in.readLine());
+                url[i]=in.readLine();
             }
             in.close();
             NewsPO newsPO = new NewsPO(classify, title, time, url);
@@ -80,21 +81,22 @@ public class GetNews_Data_Impl implements GetNews_Data_Service {
             BufferedReader in = new BufferedReader(new
                     InputStreamReader(pr.getInputStream(), "gbk"));
             int num = Integer.parseInt(in.readLine());
-            List<String> classify = new ArrayList<String>();
-            List<String> title = new ArrayList<String>();
-            List<String> time = new ArrayList<String>();
-            List<String> url = new ArrayList<String>();
+            String[] classify = new String[num];
+            String[] title = new String[num];
+            String[] time = new String[num];
+            String[] url = new String[num];
+
             for (int i = 0; i < num; i++) {
-                classify.add(in.readLine());
+                classify[i]=in.readLine();
             }
             for (int i = 0; i < num; i++) {
-                title.add(in.readLine());
+                title[i]=in.readLine();
             }
             for (int i = 0; i < num; i++) {
-                time.add(in.readLine());
+                time[i]=in.readLine();
             }
             for (int i = 0; i < num; i++) {
-                url.add(in.readLine());
+                url[i]=in.readLine();
             }
             in.close();
             NewsPO newsPO = new NewsPO(classify, title, time, url);

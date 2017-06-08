@@ -19,19 +19,22 @@ import java.util.Date;
  */
 @WebServlet(name = "singleStock")
 public class SingleStock_Servlet extends HttpServlet {
-//    private SingleSearch_Data_Service ssds;
+    private SingleSearch_Data_Service ssds;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        System.out.println();
         JSONObject jsonObject = new ToJSON().toJSONObject(request);
+
         if (jsonObject == null) {
             return;
         }
         System.out.print(jsonObject.toString());
-//        ssds = DataFactory_Data_Impl.getInstance().singleSearch();
+
+        ssds = DataFactory_Data_Impl.getInstance().singleSearch();
         String identifier = jsonObject.getString("identifier");//code或name
 
         ParseDate pd = new ParseDate();
@@ -45,28 +48,30 @@ public class SingleStock_Servlet extends HttpServlet {
             return;
         }
         StockPO stockPO = null;
-//        try {
-            double[] open = {1,2};
-            double [] high={2,3};
-            double [] low={0,1};
-            int [] volume={1,2};
-            double [] adjClose = {1,2};
-            Date[] dates = {new Date(2015,1,1),new Date(2015,1,2)};
-            double[] average5 = {1,2};
-            double[] average10 = {1,2};
-            double[] average20 = {1,2};
-            double[] average30 = {1,2};
-            double[] average60 = {1,2};
-            double[]profit = {1,2};
+        try {
+            double[] open = {1, 2};
+            double[] high = {2, 3};
+            double[] low = {0, 1};
+            int[] volume = {1, 2};
+            double[] adjClose = {1, 2};
+            Date[] dates = {new Date(2015, 1, 1), new Date(2015, 1, 2)};
+            double[] average5 = {1, 2};
+            double[] average10 = {1, 2};
+            double[] average20 = {1, 2};
+            double[] average30 = {1, 2};
+            double[] average60 = {1, 2};
+            double[] profit = {1, 2};
             double variance = 1;
 
-            stockPO = new StockPO("a","",new Date(2015,1,1),new Date(2015,1,2),
-                    open,high,low,volume,adjClose,dates,average5,average10,average20,average30,average60,profit,variance);
-//            stockPO = ssds.getStockList(identifier, start, end);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//            return;
-//        }
+//            stockPO = new StockPO("a", "", new Date(2015, 1, 1), new Date(2015, 1, 2),
+//                    open, high, low, volume, adjClose, dates, average5, average10, average20, average30, average60, profit, variance);
+            stockPO = ssds.getStockList(identifier, start, end);
+//            stockPO = new StockPO();
+        } catch (ParseException e) {
+
+            e.printStackTrace();
+            return;
+        }
 
         new SendByServlet().doSend(response, stockPO);
     }

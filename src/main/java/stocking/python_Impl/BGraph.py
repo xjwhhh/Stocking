@@ -48,7 +48,6 @@ def getSectionByCode(code):
 
 def getCodeBySection(plaName):
     sql = "select distinct code from basicinfo where section='%s'" % (plaName)
-    # print(sql)
     try:
         cursor.execute(sql)
         results = cursor.fetchall()
@@ -90,9 +89,9 @@ if __name__ == "__main__":
         isPla = False
         plaName = stockLists[0]
         stockLists = getCodeBySection(plaName)
-        if len(stockLists) > 200:
-            # stockLists = stockLists[:int(len(stockLists) / 2)]
-            stockLists = random.sample(stockLists, int(len(stockLists) / 2))
+        # if len(stockLists) > 200:
+        #     # stockLists = stockLists[:int(len(stockLists) / 2)]
+        #     stockLists = random.sample(stockLists, int(len(stockLists) / 2))
 
     # 非板块
     else:
@@ -117,12 +116,12 @@ if __name__ == "__main__":
     else:
         isHold = False
 
-    bgraph = bGraph.BGraph()
-    bgraph.count(finalDF, isPla, plaName, strategyType, isHold, interval)
-    profits = bgraph.profits
+    bGraph1 = bGraph.BGraph()
+    bGraph1.count(finalDF, isPla, plaName, strategyType, isHold, interval)
+    profits = bGraph1.profits
     print(len(profits))
     for value in profits:
         print(value)
-    winChance = bgraph.winChance
+    winChance = bGraph1.winChance
     for value in winChance:
         print(value)

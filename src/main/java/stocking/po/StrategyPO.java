@@ -1,5 +1,6 @@
 package stocking.po;
 
+import javax.xml.crypto.dom.DOMCryptoContext;
 import java.util.Date;
 import java.util.List;
 
@@ -14,13 +15,13 @@ public class StrategyPO {
     private double sharpeRatio;
     private double maxDrawDown;//最大回撤
     private Date[] dates;
-    private List<Double> profits;
-    private List<Double> basicProfits;//基准收益
-    private List<StockWinnerSet> sets;//获胜股票，mom为前百分之二十，avr为持股数
+    private Double[] profits;
+    private Double[] basicProfits;//基准收益
+    private StockWinnerSet[] sets;//获胜股票，mom为前百分之二十，avr为持股数
 
     public StrategyPO(double annualReturn, double basicAnnualReturn, double alpha, double beta,
-                      double sharpeRatio, double maxDrawDown, Date[] dates, List<Double> profits,
-                      List<Double> basicProfits, List<StockWinnerSet> sets) {
+                      double sharpeRatio, double maxDrawDown, Date[] dates, Double[] profits,
+                      Double[] basicProfits, StockWinnerSet[] sets) {
         this.annualReturn = annualReturn;
         this.basicAnnualReturn = basicAnnualReturn;
         this.alpha = alpha;
@@ -89,27 +90,27 @@ public class StrategyPO {
         this.dates = dates;
     }
 
-    public List<Double> getProfits() {
+    public Double[] getProfits() {
         return profits;
     }
 
-    public void setProfits(List<Double> profits) {
+    public void setProfits(Double[] profits) {
         this.profits = profits;
     }
 
-    public List<Double> getBasicProfits() {
+    public Double[] getBasicProfits() {
         return basicProfits;
     }
 
-    public void setBasicProfits(List<Double> basicProfits) {
+    public void setBasicProfits(Double[] basicProfits) {
         this.basicProfits = basicProfits;
     }
 
-    public List<StockWinnerSet> getSets() {
+    public StockWinnerSet[] getSets() {
         return sets;
     }
 
-    public void setSets(List<StockWinnerSet> sets) {
+    public void setSets(StockWinnerSet[] sets) {
         this.sets = sets;
     }
 }

@@ -19,11 +19,12 @@ import java.util.*;
 public class Strategy_Data_Impl implements Strategy_Data_Service {
     Tools tools = Tools.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-    Cache cache=Cache.getInstance();
-    Hashtable<String,String> code_name=cache.getCode_Name();
+    Cache cache = Cache.getInstance();
+    Hashtable<String, String> code_name = cache.getCode_Name();
 
     /**
      * 回测
+     *
      * @param type
      * @param start
      * @param end
@@ -40,7 +41,7 @@ public class Strategy_Data_Impl implements Strategy_Data_Service {
             List<String> commands = new LinkedList<String>();
             commands.add("python");
             commands.add(tools.getProjectPath("src\\main\\java\\stocking\\python_Impl\\TraceBack.py"));
-            String value=type+"?"+startDate+"?"+endDate+"?"+String.valueOf(form)+"?"+String.valueOf(hold)+"?"+isPla+"?"+tools.jsonArrayToString(stocks);
+            String value = type + "?" + startDate + "?" + endDate + "?" + String.valueOf(form) + "?" + String.valueOf(hold) + "?" + isPla + "?" + tools.jsonArrayToString(stocks);
             commands.add(value);
             ProcessBuilder processBuilder = new ProcessBuilder(commands);
             Process pr = processBuilder.start();
@@ -48,12 +49,11 @@ public class Strategy_Data_Impl implements Strategy_Data_Service {
                     InputStreamReader(pr.getInputStream(), "gbk"));
             String[] data = new String[6];
             for (int i = 0; i < data.length; i++) {
-                String line=in.readLine();
-                if(line!="nan") {
+                String line = in.readLine();
+                if (line != "nan") {
                     data[i] = line;
-                }
-                else{
-                    data[i]="0";
+                } else {
+                    data[i] = "0";
                 }
             }
             double annualReturn = Double.parseDouble(data[0]);//年化收益率
@@ -64,17 +64,17 @@ public class Strategy_Data_Impl implements Strategy_Data_Service {
             double maxDrawDown = Double.parseDouble(data[5]);//最大回撤
             int num = Integer.parseInt(in.readLine());
             Date[] dates = new Date[num];
-            List<Double> profits = new ArrayList<Double>();
-            List<Double> basicProfits = new ArrayList<Double>();//基准收益
-            List<StockWinnerSet> sets = new ArrayList<StockWinnerSet>();//获胜股票，mom为前百分之二十，avr为持股数
+            Double[] profits=new Double[num];
+            Double[] basicProfits=new Double[num];
+            StockWinnerSet[] sets=new StockWinnerSet[num];
             for (int i = 0; i < num; i++) {
                 dates[i] = formatter.parse(in.readLine());
             }
             for (int i = 0; i < num; i++) {
-                profits.add(Double.parseDouble(in.readLine()));
+                profits[i]=Double.parseDouble(in.readLine());
             }
             for (int i = 0; i < num; i++) {
-                basicProfits.add(Double.parseDouble(in.readLine()));
+                basicProfits[i]=Double.parseDouble(in.readLine());
             }
             int seriesNum = Integer.parseInt(in.readLine());
             sets = getStockWinnerSets(in, sets, num, seriesNum);
@@ -90,24 +90,24 @@ public class Strategy_Data_Impl implements Strategy_Data_Service {
     }
 
 
-    private List<StockWinnerSet> getStockWinnerSets(BufferedReader in, List<StockWinnerSet> stockWinnerSets, int num,int seriesNum) {
-        for(int j=0;j<num;j++) {
-            List<String> codes = new ArrayList<String>();
-            List<String> names = new ArrayList<String>();
-            List<Double> profits = new ArrayList<Double>();
+    private StockWinnerSet[] getStockWinnerSets(BufferedReader in, StockWinnerSet[] stockWinnerSets, int num, int seriesNum) {
+        for (int j = 0; j < num; j++) {
+            String[] codes = new String[seriesNum];
+            String[] names = new String[seriesNum];
+            Double[] profits = new Double[seriesNum];
             try {
                 for (int i = 0; i < seriesNum; i++) {
-                    String code=in.readLine();
-                    codes.add(code);
-                    String name=code_name.get(code);
-                    names.add(name);
+                    String code = in.readLine();
+                    codes[i]=code;
+                    String name = code_name.get(code);
+                    names[i]=name;
                 }
-                for(int i=0;i<seriesNum;i++){
-                    String profit=in.readLine();
-                    profits.add(Double.parseDouble(profit));
+                for (int i = 0; i < seriesNum; i++) {
+                    String profit = in.readLine();
+                    profits[i]=Double.parseDouble(profit);
                 }
                 StockWinnerSet stockWinnerSet = new StockWinnerSet(codes, names, profits);
-                stockWinnerSets.add(stockWinnerSet);
+                stockWinnerSets[j]=stockWinnerSet;
             } catch (IOException e) {
                 e.printStackTrace();
             }
