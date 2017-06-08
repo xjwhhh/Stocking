@@ -48,7 +48,10 @@
 
     <script>
         //        股票对比
-        function add() {
+        var Number = 0;//记录比较表格个数
+        var stockToCompare = [];
+
+        function Compare() {
 
         }
 
@@ -347,16 +350,16 @@
                                                                                                  value="2015-09-24"
                 >
                     <div class="sc_suggest">
-                        添加对比：<input type="text" value="代码/名称/拼音" id="sc_suggest_key" autocomplete="off">
+                        添加对比：<input type="text" value="代码/名称/拼音" id="stockInput" autocomplete="off">
                         <!-- <a href="" class="sc_sel_btn" id="sc_sel_add">添加对比</a> -->
-                        <button type="button" class="btn btn-default btn-sm" onclick="add()">
+                        <button type="button" class="btn btn-default btn-sm" onclick="Inputadd()">
                             <span class="glyphicon glyphicon-plus"></span>
                         </button>
                         <ol class="sc_sel_results" id="sc_sel_results">
                         </ol>
                         <div class="stockScreener-search-result-table-container">
                             <div class="stockScreener-search-result-table mainTable overflowx">
-                                <table id="compareTable" style="width:690px;" cellspacing="0" cellpadding="0"
+                                <table id="compareTable" style="width:95px;"
                                        class="table table-striped">
 
                                     <tbody>
@@ -368,6 +371,32 @@
                             </div>
 
                         </div>
+                        <script>
+                            function Inputadd() {
+
+                                    var x = document.getElementById("compareTable").insertRow(Number);
+                                    var y = x.insertCell(0);
+                                    var stock = document.getElementById("stockInput");
+                                    y.innerHTML = stock;
+                                    stockToCompare.push(stock);
+//                                document.getElementById('numberOfSearch').innerHTML = stockNames.length;
+                                     Number++;
+                            }
+                            function Chooseadd(obj){
+
+
+                                var c= $(obj).parent().parent().children("td").eq(0).text();
+//                                alert("stockCHose :"+c);
+                                stockToCompare.push(c);
+                                var x = document.getElementById("compareTable").insertRow(Number);
+                                var y = x.insertCell(0);
+
+                                y.innerHTML = c;
+//                                document.getElementById('numberOfSearch').innerHTML = stockNames.length;
+                                Number++;
+
+                            }
+                        </script>
 
                         <div class="sc_sel_btns">
                             <a>开始对比</a>
@@ -384,23 +413,31 @@
                     <table class="sc_common_data">
                         <tbody>
                         <tr>
-                            <td><a href="http://quotes.money.163.com/0000001.html#1b01" target="_blank">上证指数</a></td>
-                            <th>
+                            <td >上证指数</td>
+                            <td >
                                 <button  type="button"
-                                        class="btn btn-default btn-sm" onclick="add()" >
+                                        class="btn btn-default btn-sm" onclick="Chooseadd(this)" >
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </button>
-                            </th>
+                            </td>
                         </tr>
                         <tr>
-                            <td><a href="http://quotes.money.163.com/1399001.html#1b01" target="_blank">深证成指</a></td>
+                            <td >深证成指</td>
+                            <td>
+                                <button type="button" class="btn btn-default btn-sm" onclick="Chooseadd(this)">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td >沪深300</td>
                             <th>
-                                <button type="button" class="btn btn-default btn-sm" onclick="add()">
+                                <button type="button" class="btn btn-default btn-sm" onclick="Chooseadd(this)">
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </button>
                             </th>
                         </tr>
-
                         </tbody>
                     </table>
                 </div>
@@ -415,17 +452,17 @@
                                 <td><a >秦安股份</a>
                                 </td>
 
-                                <th>
-                                    <button type="button" class="btn btn-default btn-sm" onclick="add()">
+                                <td>
+                                    <button type="button" class="btn btn-default btn-sm" onclick="Chooseadd(this)">
                                         <span class="glyphicon glyphicon-plus"></span>
                                     </button>
-                                </th>
+                                </td>
                             </tr>
                             <tr>
-                                <td><a href="http://quotes.money.163.com/1300643.html#12b02" target="_blank">万通智控</a>
+                                <td>万通智控
                                 </td>
 
-                                <th><button type="button" class="btn btn-default btn-sm" onclick="add()">
+                                <th><button type="button" class="btn btn-default btn-sm" onclick="Chooseadd(this)">
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </button></th>
                             </tr>
