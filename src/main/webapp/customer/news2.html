@@ -2,9 +2,216 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <title>Stocking量化交易</title>
 
+    <!-- Bootstrap core CSS -->
+    <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet">
+
+    <style type="text/css">
+        #input {
+            margin-top: 20px;
+        }
+
+        ul {
+            text-align: center;
+        }
+
+        .nav-tabs > li {
+            width: 20%;
+            background-color: #0099ff;
+        }
+
+        a {
+            color: #333333
+        }
+
+        /*a:hover {*/
+        /*color: #000000*/
+        /*}*/
+
+        .nav > li:hover .dropdown-menu {
+            display: block;
+        }
+    </style>
+
+    <script type="text/javascript" src="json2-min.js"></script>
+</head>
+<body onload="getnews()">
+<div class="container-fluid">
+    <div class="navbar-header">
+        <img src="stock2.jpg" class="img-rounded">
+    </div>
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#" style="height: 100px;line-height: 70px; font-size:4em">Stocking</a>
+    </div>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="login.html" target="_blank" style="height: 100px;line-height: 70px; font-size:1.2em">登录</a>
+            </li>
+            <li><a href="#" style="height: 100px;line-height: 70px; font-size:1.2em">注册</a></li>
+        </ul>
+        <form class="navbar-form navbar-right" action="#" role="search">
+            <div class="form-group">
+                <div class="input-group" id="input">
+                    <input class="form-control" id="navbarInput-01" type="search" placeholder="Search"
+                           style="height: 45px;padding: 10px 15px;font-size: 17px;line-height: 1.235; width:300px">
+                    <span class="input-group-btn">
+                  <button type="submit" class="btn"
+                          style="height: 45px;padding: 10px 15px;font-size: 17px;line-height: 1.235"><span
+                          class="fui-search "></span></button>
+                </span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="collapse navbar-collapse" id="navbar-collapse-6">
+    <ul class="nav nav-tabs">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="singleSearch.html">股票数据</a>
+
+        </li>
+        <li><a href="market_1.html">行情信息</a></li>
+        <li><a href="regressionTest.html">回测</a></li>
+        <li class="active"><a href="#">新闻</a></li>
+    </ul>
+</div>
+
+<div class="container">
+    <div class="col-md-10" style="background: #efeff4">
+        <H4>最近新闻</H4>
+        <hr/>
+        <div style="height: 100px;line-height: 100px;background: white;">
+            <a href="url" id="url1">
+                <div class="col-md-2" id="classify1">分类</div>
+                <div class="col-md-8" id="title1">新闻标题</div>
+                <div class="col-md-2" id="time1">时间</div>
+            </a>
+        </div>
+        <br>
+        <div style="height: 100px;line-height: 100px;background: white;">
+            <a href="url" id="url2">
+                <div class="col-md-2" id="classify2">分类</div>
+                <div class="col-md-8" id="title2">新闻标题</div>
+                <div class="col-md-2" id="time2">时间</div>
+            </a>
+        </div>
+        <br>
+        <div style="height: 100px;line-height: 100px;background: white;">
+            <a href="url" id="url3">
+                <div class="col-md-2" id="classify3">分类</div>
+                <div class="col-md-8" id="title3">新闻标题</div>
+                <div class="col-md-2" id="time3">时间</div>
+            </a>
+        </div>
+        <br>
+        <div style="height: 100px;line-height: 100px;background: white;">
+            <a href="url" id="url4">
+                <div class="col-md-2" id="classify4">分类</div>
+                <div class="col-md-8" id="title4">新闻标题</div>
+                <div class="col-md-2" id="time4">时间</div>
+            </a>
+        </div>
+        <br>
+        <div style="height: 100px;line-height: 100px;background: white;">
+            <a href="url" id="url5">
+                <div class="col-md-2" id="classify5">分类</div>
+                <div class="col-md-8" id="title5">新闻标题</div>
+                <div class="col-md-2" id="time5">时间</div>
+            </a>
+        </div>
+        <br>
+        <div style="height: 100px;line-height: 100px;background: white;">
+            <a href="url" id="url6">
+                <div class="col-md-2" id="classify6">分类</div>
+                <div class="col-md-8" id="title6">新闻标题</div>
+                <div class="col-md-2" id="time6">时间</div>
+            </a>
+        </div>
+        <br>
+        <div style="height: 100px;line-height: 100px;background: white;">
+            <a href="url" id="url7">
+                <div class="col-md-2" id="classify7">分类</div>
+                <div class="col-md-8" id="title7">新闻标题</div>
+                <div class="col-md-2" id="time7">时间</div>
+            </a>
+        </div>
+        <br>
+        <div style="height: 100px;line-height: 100px;background: white;">
+            <a href="url" id="url8">
+                <div class="col-md-2" id="classify8">分类</div>
+                <div class="col-md-8" id="title8">新闻标题</div>
+                <div class="col-md-2" id="time8">时间</div>
+            </a>
+        </div>
+        <br>
+        <div style="height: 100px;line-height: 100px;background: white;">
+            <a href="url" id="url9">
+                <div class="col-md-2" id="classify9">分类</div>
+                <div class="col-md-8" id="title9">新闻标题</div>
+                <div class="col-md-2" id="time9">时间</div>
+            </a>
+        </div>
+        <br>
+        <div style="height: 100px;line-height: 100px;background: white;">
+            <a href="url" id="url10">
+                <div class="col-md-2" id="classify10">分类</div>
+                <div class="col-md-8" id="title10">新闻标题</div>
+                <div class="col-md-2" id="time10">时间</div>
+            </a>
+        </div>
+        <br>
+        <div style="background: white;">
+            <a href="#fakelink" class="btn btn-info previous">
+                <i class="fui-arrow-left"></i>
+                OLDER
+            </a>
+            <ul class="pagination pagination-info">
+                <li><a href="news.html">1</a></li>
+                <li class="active"><a href="news2.html">2</a></li>
+                <li><a href="news3.html">3</a></li>
+                <li><a href="news4.html">4</a></li>
+                <li><a href="news5.html">5</a></li>
+            </ul>
+            <a href="#fakelink" class="btn btn-info next">
+                NEWER
+                <i class="fui-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-2" style="background: #efeff4">
+
+    </div>
+</div>
+
+<!---------------------------以下是各种js------------------------------>
+<script src="http://cdn.static.runoob.com/libs/jquery/1.12.4/jquery.min.js" charset="UTF-8"></script>
+<script>window.jQuery || document.write('<script src="http://cdn.static.runoob.com/libs/jquery/1.12.4/jquery.min.js"><\/script>')</script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+    function getnews() {
+        var url = "http://localhost:8080/news";
+        var op = JSON.stringify("all");
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: op,
+            dataType: "json",
+            success: function (data) {
+                alert(data[0])
+
+            }
+        })
+    }
+</script>
 </body>
 </html>

@@ -28,7 +28,7 @@ public class News_Servlet extends HttpServlet {
         if (jsonObject == null) {
             return;
         }
-
+        System.out.print(request);
         gds = DataFactory_Data_Impl.getInstance().getNews();
         String op = jsonObject.getString("op");//分为market和single
 

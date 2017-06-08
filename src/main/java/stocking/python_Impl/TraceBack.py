@@ -48,7 +48,6 @@ def getSectionByCode(code):
 
 def getCodeBySection(plaName):
     sql = "select distinct code from basicinfo where section='%s'" % (plaName)
-    # print(sql)
     try:
         cursor.execute(sql)
         results = cursor.fetchall()
@@ -78,6 +77,7 @@ if __name__ == "__main__":
     import strategyCal
 
     value = sys.argv[1]
+    # value="2?2016-03-01?2016-06-01?10?20?1?深市A股"
     values = value.split("?")
     strategyType = int(values[0])  # 策略类型
     startDate = values[1]  # 开始日期
@@ -93,9 +93,9 @@ if __name__ == "__main__":
         isPla = False
         plaName = stockLists[0]
         stockLists = getCodeBySection(plaName)
-        if len(stockLists) > 200:
-            # stockLists = stockLists[:int(len(stockLists) / 2)]
-            stockLists = random.sample(stockLists, int(len(stockLists) / 2))
+        # if len(stockLists) > 200:
+        #     # stockLists = stockLists[:int(len(stockLists) / 2)]
+        #     stockLists = random.sample(stockLists, int(len(stockLists) / 2))
 
     # 非板块
     else:
@@ -157,4 +157,10 @@ if __name__ == "__main__":
     sets = strategyCalculator.candidates
     print(len(sets.get(key)))
     for k, v in sets.items():
-        print(v)
+        index = v.index
+        value = list(v)
+        for i in index:
+            print(i)
+        for i in value:
+            print(i)
+
