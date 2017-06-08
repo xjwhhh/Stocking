@@ -50,8 +50,124 @@
         //        股票对比
         var Number = 0;//记录比较表格个数
         var stockToCompare = [];
+        var startDate;
+        var endDate;
+        var dates;
+        var closePrice = [];
+        var variance = [];
+        var lowest;//各个股票的最高最低值，填入表中
+        var highest;
+        function getIdentifier(stockNamestr) {
+            this.identifier = stockNamestr;
+        }
+        function getStart(datestr){
+            this.start = datestr;
+        }
+        function getEnd(datestr) {
+            this.end=datestr;
+        }
 
         function Compare() {
+            var url = "http://localhost:8080/singleStock";
+            for (var v = o; v < Number; v++) {
+                var stockName = stockToCompare[v];
+                var key = JSON.stringify(new getIdentifier(stockName), new getStart(startDate), new getEnd(endDate));
+//                alert(date);
+//            alert("success");
+                $.ajax({
+
+                    type: "POST",
+                    url: url,
+                    data: key,
+                    dataType: "json",//此处要设置成json
+                    success: function (data) {
+
+
+                        var open = data[0].open;
+                        var close = data[0].adjClose;
+                        var high = data[0].high;
+                        var low = data[0].low;
+                        var dates = data[0].dates;
+                        var v = data[0].variance;
+                        closePrice.push(close);
+                        variance.push(v);
+
+
+                    }
+
+
+//
+                });//回调函数
+
+
+            }
+            ShowChart();
+        }
+        function Remove(){
+
+        }
+        function ShowChart(){
+            var series1=[];
+            for(var i = 0;i<Number;i++){
+                series.push({
+                    name: stockToCompare[i],
+                    type: 'line',
+//                    stack: '总量',
+                     data:closePrice[i],
+//                    data: arr_sum_long_new[i]
+                });
+            }
+
+//            每日收盘价
+            /**
+             * Created by chenyuyan on 1/6/17.
+             */
+            var myChart = echarts.init(document.getElementById("closePrice"));
+            var option = {
+                title : {
+                    text: '每日收盘价',
+
+                },
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:['A','B']
+                },
+                //右上角工具条
+                toolbox: {
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                calculable : true,
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : false,
+                        data : dates,
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+
+                    }
+                ],
+
+
+                series : series1
+            };
+// 为echarts对象加载数据
+            myChart.setOption(option);
+//相对收益率
+            
+
 
         }
 
@@ -75,6 +191,9 @@
 
 </script>
 
+
+
+<!--固定导航栏-->
 <div class="container-fluid">
     <div class="navbar-header">
         <img src="stock2.jpg" class="img-rounded">
@@ -332,7 +451,6 @@
 
     </div>
 
-
     <!--//股票对比-->
 
     <div class="tab-pane " id="stockCompare">
@@ -399,9 +517,13 @@
                         </script>
 
                         <div class="sc_sel_btns">
-                            <a>开始对比</a>
+                            <button style="font-size: 18px" type="button" class="btn btn-default btn-sm" onclick="Compare()">
+                                <span class="glyphicon glyphicon-search"></span> 开始对比
+                            </button>
                             <!-- _url为对比的跳转链接,只需保证存在{code}存在即可		 -->
-                            <a>清空</a>
+                            <button style="font-size: 18px" type="button" class="btn btn-default btn-sm" onclick="Remove()">
+                                <span class="glyphicon glyphicon-trash"></span> 清空
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -531,7 +653,7 @@
             </div>
 
             <div class="variance">
-                <!--<h6>每日收盘价</h6>-->
+
                 <div>
                     <div id="variance" style="height:350px;width: 600px"></div>
                     <script type="text/javascript"
