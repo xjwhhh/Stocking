@@ -46,6 +46,22 @@ public class SingleStock_Servlet extends HttpServlet {
         }
         StockPO stockPO = null;
         try {
+            double[] open = {1, 2};
+            double[] high = {2, 3};
+            double[] low = {0, 1};
+            int[] volume = {1, 2};
+            double[] adjClose = {1, 2};
+            Date[] dates = {new Date(2015, 1, 1), new Date(2015, 1, 2)};
+            double[] average5 = {1, 2};
+            double[] average10 = {1, 2};
+            double[] average20 = {1, 2};
+            double[] average30 = {1, 2};
+            double[] average60 = {1, 2};
+            double[] profit = {1, 2};
+            double variance = 1;
+
+            stockPO = new StockPO("a", "", new Date(2015, 1, 1), new Date(2015, 1, 2),
+                    open, high, low, volume, adjClose, dates, average5, average10, average20, average30, average60, profit, variance);
             stockPO = ssds.getStockList(identifier, start, end);
         } catch (ParseException e) {
             e.printStackTrace();
