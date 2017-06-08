@@ -26,10 +26,13 @@ public class SingleStock_Servlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        System.out.println();
         JSONObject jsonObject = new ToJSON().toJSONObject(request);
+
         if (jsonObject == null) {
             return;
         }
+        System.out.print(jsonObject.toString());
 
         ssds = DataFactory_Data_Impl.getInstance().singleSearch();
         String identifier = jsonObject.getString("identifier");//code或name
@@ -63,7 +66,9 @@ public class SingleStock_Servlet extends HttpServlet {
             stockPO = new StockPO("a", "", new Date(2015, 1, 1), new Date(2015, 1, 2),
                     open, high, low, volume, adjClose, dates, average5, average10, average20, average30, average60, profit, variance);
             stockPO = ssds.getStockList(identifier, start, end);
+//            stockPO = new StockPO();
         } catch (ParseException e) {
+
             e.printStackTrace();
             return;
         }

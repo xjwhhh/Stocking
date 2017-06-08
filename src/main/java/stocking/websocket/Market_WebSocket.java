@@ -27,12 +27,21 @@ public class Market_WebSocket {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        System.out.println("有新连接加入！当前在线人数为");
+        System.out.println("有新连接加入！当前在线人数为"+onlineCount);
     }
 
     @OnMessage
     public void onMessage(String message, Session session) throws IOException {
-        sendMessage(message);
+        System.out.println("recieved:"+message);
+        for(Market_WebSocket webSocket:webSockets){
+            try{
+                webSocket.sendMessage(message);
+                System.out.println("ok");
+            }catch (IOException ioe){
+                ioe.printStackTrace();
+                System.out.println("err");
+            }
+        }
     }
 
     @OnClose
@@ -49,18 +58,7 @@ public class Market_WebSocket {
     }
 
     private void sendMessage(String s) throws IOException {
-        System.out.println("来自客户端的消息:" + s + session.getId().toString());
-        //群发消息
-        for (Market_WebSocket item : webSockets) {
-            try {
-                item.sendMessage(item.session.getId().toString() + s + webSockets.size());
-                System.out.println("ok");
-            } catch (IOException e) {
-                // e.printStackTrace();
-                System.out.println("err");
-                continue;
-            }
-        }
+        this.session.getBasicRemote().sendText(s);
     }
 
     public static synchronized int getOnlineCount() {

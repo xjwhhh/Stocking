@@ -27,6 +27,9 @@ public class Main {
         }
         //这里写爬虫
         if (websocket != null)
-            websocket.sendText("hello!");
+            while(true) {
+                websocket.sendText("hello!");
+                Thread.sleep(10000);
+            }
     }
 }
