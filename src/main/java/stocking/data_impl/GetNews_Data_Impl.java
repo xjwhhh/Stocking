@@ -36,26 +36,8 @@ public class GetNews_Data_Impl implements GetNews_Data_Service {
             Process pr = processBuilder.start();
             BufferedReader in = new BufferedReader(new
                     InputStreamReader(pr.getInputStream(), "gbk"));
-            int num = Integer.parseInt(in.readLine());
-            String[] classify = new String[num];
-            String[] title = new String[num];
-            String[] time = new String[num];
-            String[] url = new String[num];
-
-            for (int i = 0; i < num; i++) {
-                classify[i]=in.readLine();
-            }
-            for (int i = 0; i < num; i++) {
-                title[i]=in.readLine();
-            }
-            for (int i = 0; i < num; i++) {
-                time[i]=in.readLine();
-            }
-            for (int i = 0; i < num; i++) {
-                url[i]=in.readLine();
-            }
-            in.close();
-            NewsPO newsPO = new NewsPO(classify, title, time, url);
+            String line = in.readLine();
+            NewsPO newsPO = getNewsPO(in, line);
             return newsPO;
         } catch (IOException e) {
             e.printStackTrace();
@@ -80,27 +62,39 @@ public class GetNews_Data_Impl implements GetNews_Data_Service {
             Process pr = processBuilder.start();
             BufferedReader in = new BufferedReader(new
                     InputStreamReader(pr.getInputStream(), "gbk"));
-            int num = Integer.parseInt(in.readLine());
-            String[] classify = new String[num];
-            String[] title = new String[num];
-            String[] time = new String[num];
-            String[] url = new String[num];
-
-            for (int i = 0; i < num; i++) {
-                classify[i]=in.readLine();
-            }
-            for (int i = 0; i < num; i++) {
-                title[i]=in.readLine();
-            }
-            for (int i = 0; i < num; i++) {
-                time[i]=in.readLine();
-            }
-            for (int i = 0; i < num; i++) {
-                url[i]=in.readLine();
-            }
-            in.close();
-            NewsPO newsPO = new NewsPO(classify, title, time, url);
+            String line = in.readLine();
+            NewsPO newsPO = getNewsPO(in, line);
             return newsPO;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private NewsPO getNewsPO(BufferedReader in, String line) {
+        try {
+            if (tools.isInteger(line)) {
+                int num = Integer.parseInt(line);
+                String[] classify = new String[num];
+                String[] title = new String[num];
+                String[] time = new String[num];
+                String[] url = new String[num];
+                for (int i = 0; i < num; i++) {
+                    classify[i] = in.readLine();
+                }
+                for (int i = 0; i < num; i++) {
+                    title[i] = in.readLine();
+                }
+                for (int i = 0; i < num; i++) {
+                    time[i] = in.readLine();
+                }
+                for (int i = 0; i < num; i++) {
+                    url[i] = in.readLine();
+                }
+                in.close();
+                NewsPO newsPO = new NewsPO(classify, title, time, url);
+                return newsPO;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

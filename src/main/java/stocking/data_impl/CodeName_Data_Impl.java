@@ -10,6 +10,11 @@ import java.util.Iterator;
  * Created by xjwhhh on 2017/6/5.
  */
 public class CodeName_Data_Impl implements CodeName_Data_Service {
+
+    /**
+     * 获取所有股票代码，名字
+     * @return
+     */
     public StockInfoPO get() {
         Cache cache = Cache.getInstance();
         Hashtable<String, String> code_name = cache.getCode_Name();
