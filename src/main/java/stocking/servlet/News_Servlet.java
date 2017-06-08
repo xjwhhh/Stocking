@@ -46,7 +46,14 @@ public class News_Servlet extends HttpServlet {
 //            }
 //            NewsPO result = new NewsPO(classify,title,time,url);
 //            System.out.print(result.toString());
-//            new SendByServlet().doSend(response, result);
+            String[] classify = {"啊啊啊"};
+            String[] title = {"啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊"};
+            String[] time = {"啊啊"};
+            String[] url = {"https://www.baidu.com"};
+            NewsPO result = new NewsPO(classify,title,time,url);
+//            response.setContentType("utf-8");
+            response.setCharacterEncoding("utf-8");
+            new SendByServlet().doSend(response, result);
         } else {
             String code = jsonObject.getString("code");
             NewsPO result = gds.getSingleNews(code);
