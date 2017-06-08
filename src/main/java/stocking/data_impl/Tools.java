@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * Created by xjwhhh on 2017/5/31.
@@ -30,6 +31,17 @@ public class Tools {
             tool = new Tools();
         }
         return tool;
+    }
+
+    /**
+     * 判断字符串是否完全由数字构成
+     *
+     * @param str
+     * @return
+     */
+    public boolean isInteger(String str) {
+        Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
+        return pattern.matcher(str).matches();
     }
 
     /**

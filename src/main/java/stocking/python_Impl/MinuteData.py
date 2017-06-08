@@ -34,7 +34,7 @@ def getTodayData(code):
         pr = round(float(price[i]), 2)
         d[minute] = pr
     del (d[0])
-    # print("\n")
+    print("#")
     print(len(d))
     for k, v in d.items():
         print(k)
@@ -44,6 +44,7 @@ def getTodayData(code):
 if __name__ == "__main__":
     code = sys.argv[1]
     date = sys.argv[2]
-    getMinuteData(code, date)
-    # getTodayData(code)
+    # getMinuteData(code, date)
+    # getTodayData('000001')
     # getMinuteData()
+    getTodayData(code)

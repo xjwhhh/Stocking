@@ -57,4 +57,8 @@ public class DataFactory_Data_Impl implements DataFactory_Data_Service {
         return new CodeName_Data_Impl();
     }
 
+    public Minute_Data_Service minutedata(){
+        return new Minute_Data_Impl();
+    }
+
 }

@@ -23,16 +23,7 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
     Hashtable<String, String> name_code = cache.getName_Code();
     Tools tools = Tools.getInstance();
 
-    /**
-     * 判断字符串是否完全由数字构成
-     *
-     * @param str
-     * @return
-     */
-    private boolean isInteger(String str) {
-        Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
-        return pattern.matcher(str).matches();
-    }
+
 
     /**
      * 通过股票代码获取股票板块
@@ -75,7 +66,7 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
      * @throws ParseException
      */
     public StockPO getStockList(String identifier, Date startDate, Date endDate) throws ParseException {
-        boolean isInteger = isInteger(identifier);
+        boolean isInteger = tools.isInteger(identifier);
         String startDateStr = formatter.format(startDate);
         String endDateStr = formatter.format(endDate);
         String section = "";
@@ -110,7 +101,7 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
                         InputStreamReader(pr.getInputStream(), "gbk"));
                 String line;
                 line = in.readLine();//个数
-                if (isInteger(line)) {
+                if (tools.isInteger(line)) {
                     String name = code_name.get(identifier);
                     String code = identifier;
                     Date start = startDate;

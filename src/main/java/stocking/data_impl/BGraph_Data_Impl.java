@@ -49,18 +49,20 @@ public class BGraph_Data_Impl implements BGraph_Data_Service {
             BufferedReader in = new BufferedReader(new
                     InputStreamReader(pr.getInputStream(), "gbk"));
             String line = in.readLine();
-            int num = Integer.parseInt(line);
-            Double[] profits=new Double[num];
-            Double[] winChance=new Double[num];
-            for (int i = 0; i < num; i++) {
-                profits[i]=Double.parseDouble(in.readLine());
+            if(tools.isInteger(line)) {
+                int num = Integer.parseInt(line);
+                Double[] profits = new Double[num];
+                Double[] winChance = new Double[num];
+                for (int i = 0; i < num; i++) {
+                    profits[i] = Double.parseDouble(in.readLine());
+                }
+                for (int i = 0; i < num; i++) {
+                    winChance[i] = Double.parseDouble(in.readLine());
+                }
+                BGraphPO bGraphPO = new BGraphPO(profits, winChance);
+                in.close();
+                return bGraphPO;
             }
-            for (int i = 0; i < num; i++) {
-                winChance[i]=Double.parseDouble(in.readLine());
-            }
-            BGraphPO bGraphPO = new BGraphPO(profits, winChance);
-            in.close();
-            return bGraphPO;
         } catch (IOException e) {
             e.printStackTrace();
         }

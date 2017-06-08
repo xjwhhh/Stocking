@@ -18,6 +18,42 @@ public class ToolsTest {
     }
 
     /**
+     * 纯非数字
+     *
+     * @throws Exception
+     */
+    @Test
+    public void isInteger1() throws Exception {
+        String s = "sss";
+        boolean x = tools.isInteger(s);
+        assertEquals(false, x);
+    }
+
+    /**
+     * 数字与非数字混合
+     *
+     * @throws Exception
+     */
+    @Test
+    public void isInteger2() throws Exception {
+        String s = "sss00";
+        boolean x = tools.isInteger(s);
+        assertEquals(false, x);
+    }
+
+    /**
+     * 纯数字
+     *
+     * @throws Exception
+     */
+    @Test
+    public void isInteger3() throws Exception {
+        String s = "000001";
+        boolean x = tools.isInteger(s);
+        assertEquals(true, x);
+    }
+
+    /**
      * 获取项目路径
      * @throws Exception
      */

@@ -1,6 +1,5 @@
 package stocking.data_impl;
 
-import net.sf.json.JSONObject;
 import stocking.data_service.Minute_Data_Service;
 import stocking.po.MinuteDataPO;
 
@@ -11,13 +10,13 @@ import java.io.*;
 /**
  * Created by xjwhhh on 2017/6/4.
  */
-public class Minute_Data_Impl implements Minute_Data_Service{
-    Tools tools=Tools.getInstance();
+public class Minute_Data_Impl implements Minute_Data_Service {
+    Tools tools = Tools.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
     public MinuteDataPO getMinuteDataPO(String code) {
-        Date date=new Date();
-        String dateStr=formatter.format(date);
+        Date date = new Date();
+        String dateStr = formatter.format(date);
 
         try {
             List<String> commands = new LinkedList<String>();
@@ -29,32 +28,32 @@ public class Minute_Data_Impl implements Minute_Data_Service{
             Process pr = processBuilder.start();
             BufferedReader in = new BufferedReader(new
                     InputStreamReader(pr.getInputStream(), "gbk"));
-//            in.readLine();
-            int num=Integer.parseInt(in.readLine());
-//            System.out.print(in.readLine());
-//            int num=3;
-            //num位3说明没数据
-            if(num!=3) {
-                String[] minute=new String[num];
-                Double[] prices=new Double[num];
-                for (int i = 0; i < num; i++) {
-                    minute[i]=in.readLine();
-                    prices[i]=Double.parseDouble(in.readLine());
+            in.readLine();
+            String line=in.readLine();
+            if(tools.isInteger(line)) {
+                int num = Integer.parseInt(line);
+                //num为3说明没数据
+                if (num != 3) {
+                    String[] minute = new String[num];
+                    Double[] prices = new Double[num];
+                    for (int i = 0; i < num; i++) {
+                        minute[i] = in.readLine();
+                        prices[i] = Double.parseDouble(in.readLine());
+                    }
+                    MinuteDataPO minuteDataPO = new MinuteDataPO(minute, prices);
+                    return minuteDataPO;
                 }
-                MinuteDataPO minuteDataPO=new MinuteDataPO(minute,prices);
-                JSONObject json = JSONObject.fromObject(minuteDataPO);//将java对象转换为json对象
-                String str = json.toString();//将json对象转换为字符串
-                System.out.print(str);
-                return minuteDataPO;
             }
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
 
+
+
     public static void main(String[] args) {
-        Minute_Data_Impl minuteData=new Minute_Data_Impl();
+        Minute_Data_Impl minuteData = new Minute_Data_Impl();
         minuteData.getMinuteDataPO("000001");
     }
 }
