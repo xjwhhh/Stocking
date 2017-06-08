@@ -208,6 +208,7 @@
             data:date,
             dataType: "json",//此处要设置成json
             success: function (data) {
+                alert(data)
                 alert(data[0].totalDeal)
                 totalDeal = data[0].totalDeal
                 limitUpNum = data[0].limitUpNum;
