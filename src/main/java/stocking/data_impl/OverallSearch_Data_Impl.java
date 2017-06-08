@@ -1,7 +1,6 @@
 package stocking.data_impl;
 
 import stocking.data_service.OverallSearch_Data_Service;
-import stocking.po.ImMarketPO;
 import stocking.po.MarketPO;
 
 import java.io.BufferedReader;
@@ -66,11 +65,6 @@ public class OverallSearch_Data_Impl implements OverallSearch_Data_Service {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
-    }
-
-    @Override
-    public ImMarketPO getImMarketInfo() {
         return null;
     }
 }

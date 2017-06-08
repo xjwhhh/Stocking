@@ -24,4 +24,6 @@ public interface DataFactory_Data_Service {
     GetNews_Data_Service getNews();
 
     CodeName_Data_Service codeName();
+
+    Minute_Data_Service minute();
 }
