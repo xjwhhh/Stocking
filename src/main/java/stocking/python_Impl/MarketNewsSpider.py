@@ -21,7 +21,7 @@ import tushare as ts
 
 # 实时更新的股票新闻
 def getMarketNews():
-    num = 20
+    num = 50
     news = ts.get_latest_news(top=num)
     classify = list(news['classify'])
     title = list(news['title'])

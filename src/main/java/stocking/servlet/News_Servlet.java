@@ -34,19 +34,19 @@ public class News_Servlet extends HttpServlet {
         String op = jsonObject.getString("op");//分为market和single
         if (op.equals("all")) {
 //            NewsPO result = gds.getMarketNews();
-            List<String> classify = new ArrayList<String>();
-            List<String> title = new ArrayList<String>();
-            List<String> time = new ArrayList<String>();
-            List<String> url = new ArrayList<String>();
-            for(int i = 0;i<10;i++){
-                classify.add("A");
-                title.add("B");
-                time.add("C");
-                url.add("D");
-            }
-            NewsPO result = new NewsPO(classify,title,time,url);
-            System.out.print(result.toString());
-            new SendByServlet().doSend(response, result);
+//            List<String> classify = new ArrayList<String>();
+//            List<String> title = new ArrayList<String>();
+//            List<String> time = new ArrayList<String>();
+//            List<String> url = new ArrayList<String>();
+//            for(int i = 0;i<10;i++){
+//                classify.add("A");
+//                title.add("B");
+//                time.add("C");
+//                url.add("D");
+//            }
+//            NewsPO result = new NewsPO(classify,title,time,url);
+//            System.out.print(result.toString());
+//            new SendByServlet().doSend(response, result);
         } else {
             String code = jsonObject.getString("code");
             NewsPO result = gds.getSingleNews(code);

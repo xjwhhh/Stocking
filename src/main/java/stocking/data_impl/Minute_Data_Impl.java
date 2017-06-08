@@ -1,5 +1,9 @@
 package stocking.data_impl;
 
+import net.sf.json.JSONObject;
+import stocking.data_service.Minute_Data_Service;
+import stocking.po.MinuteDataPO;
+
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.io.*;
@@ -7,15 +11,13 @@ import java.io.*;
 /**
  * Created by xjwhhh on 2017/6/4.
  */
-public class MinuteData {
+public class Minute_Data_Impl implements Minute_Data_Service{
     Tools tools=Tools.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
-    public void getMinuteData(String code) {
+    public MinuteDataPO getMinuteDataPO(String code) {
         Date date=new Date();
         String dateStr=formatter.format(date);
-        List<String> time=new ArrayList<String>();
-        List<Double> price=new ArrayList<Double>();
 
         try {
             List<String> commands = new LinkedList<String>();
@@ -27,25 +29,32 @@ public class MinuteData {
             Process pr = processBuilder.start();
             BufferedReader in = new BufferedReader(new
                     InputStreamReader(pr.getInputStream(), "gbk"));
-//            int num=Integer.parseInt(in.readLine());
-            System.out.print(in.readLine());
-            int num=3;
+//            in.readLine();
+            int num=Integer.parseInt(in.readLine());
+//            System.out.print(in.readLine());
+//            int num=3;
             //num位3说明没数据
             if(num!=3) {
+                String[] minute=new String[num];
+                Double[] prices=new Double[num];
                 for (int i = 0; i < num; i++) {
-                    time.add(in.readLine());
-                    System.out.println(time.get(i));
-                    price.add(Double.parseDouble(in.readLine()));
-                    System.out.println(price.get(i));
+                    minute[i]=in.readLine();
+                    prices[i]=Double.parseDouble(in.readLine());
                 }
+                MinuteDataPO minuteDataPO=new MinuteDataPO(minute,prices);
+                JSONObject json = JSONObject.fromObject(minuteDataPO);//将java对象转换为json对象
+                String str = json.toString();//将json对象转换为字符串
+                System.out.print(str);
+                return minuteDataPO;
             }
         } catch (IOException e){
             e.printStackTrace();
         }
+        return null;
     }
 
     public static void main(String[] args) {
-        MinuteData minuteData=new MinuteData();
-        minuteData.getMinuteData("000001");
+        Minute_Data_Impl minuteData=new Minute_Data_Impl();
+        minuteData.getMinuteDataPO("000001");
     }
 }
