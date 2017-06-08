@@ -37,8 +37,10 @@
         var stockName= getval1.split("=")[1];
         var getval2 = thisURL.split('?')[2];
         var startDate = getval2.split("=")[1];
+        startDate = startDate+" 00:00:00";
         var getval3 = thisURL.split('?')[3];
         var endDate = getval3.split("=")[1];
+        endDate = endDate+" 00:00:00";
         var dates=[];
         var open=[];
         var close=[];
@@ -52,27 +54,27 @@
         var volumes = [];
         var dataTodo;
         alert("aaaa");
-        search();
+//        search();
 
 
 
-        function getIdentifier(stockNamestr,startdate,enddate) {
+        function getIdentifier(stockNamestr,startstr,endstr) {
             this.identifier = stockNamestr;
-            this.start = startdate;
-            this.end = enddate;
+            this.start = startstr;
+            this.end = endstr;
         }
-//        function getStart(datestr){
-//            this.start = datestr;
-//        }
-//        function getEnd(datestr) {
-//            this.end=datestr;
-//        }
+      /*  function getStart(datestr){
+            this.start = datestr;
+        }
+        function getEnd(datestr) {
+            this.end=datestr;
+        }*/
         function search(){
 //            alert("to search");
 
                 var url="http://localhost:8080/singleStock";
                 var key = JSON.stringify(new getIdentifier(stockName,startDate,endDate));
-//                alert(key);
+//                alert(date);
 //            alert("success");
                 $.ajax({
 
@@ -81,9 +83,8 @@
                     data:key,
                     dataType: "json",//此处要设置成json
                     success: function (data) {
-                        alert(data);
-                        alert(data[0]);
-
+//                        alert("success");
+//                        alert(data);
                         open = data[0].open;
                         close = data[0].adjClose;
                         high = data[0].high;
@@ -95,6 +96,7 @@
                         MA60 = data[0].average60;
                         dates = data[0].dates;
                         volumes = data[0].volume;
+                        alert(volumes[0]);
                         for(var i =0;i<open.length;i++){
                             var temp=[];
                             temp.push(dates[i]);
