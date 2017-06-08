@@ -56,21 +56,23 @@
 
 
 
-        function getIdentifier(stockNamestr) {
+        function getIdentifier(stockNamestr,startdate,enddate) {
             this.identifier = stockNamestr;
+            this.start = startdate;
+            this.end = enddate;
         }
-        function getStart(datestr){
-            this.start = datestr;
-        }
-        function getEnd(datestr) {
-            this.end=datestr;
-        }
+//        function getStart(datestr){
+//            this.start = datestr;
+//        }
+//        function getEnd(datestr) {
+//            this.end=datestr;
+//        }
         function search(){
 //            alert("to search");
 
                 var url="http://localhost:8080/singleStock";
-                var key = JSON.stringify(new getIdentifier(stockName),new getStart(startDate),new getEnd(endDate));
-//                alert(date);
+                var key = JSON.stringify(new getIdentifier(stockName,startDate,endDate));
+//                alert(key);
 //            alert("success");
                 $.ajax({
 
@@ -79,7 +81,8 @@
                     data:key,
                     dataType: "json",//此处要设置成json
                     success: function (data) {
-
+                        alert(data);
+                        alert(data[0]);
 
                         open = data[0].open;
                         close = data[0].adjClose;

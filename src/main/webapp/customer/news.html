@@ -197,10 +197,12 @@
 <script>window.jQuery || document.write('<script src="http://cdn.static.runoob.com/libs/jquery/1.12.4/jquery.min.js"><\/script>')</script>
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-
+    function posttype(op){
+        this.op = op;
+    }
     function getnews() {
         var url = "http://localhost:8080/news";
-        var op = JSON.stringify("all");
+        var op = JSON.stringify(new posttype("all"));
         $.ajax({
             type: "POST",
             url: url,

@@ -9,8 +9,8 @@
         <module name="Stock_Analyzing_System" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Stock_Analyzing_System" target="1.6" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="Stock_Analyzing_System" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.*;
 
 /**
  * Created by dell on 2017/6/5.
@@ -28,12 +29,23 @@ public class News_Servlet extends HttpServlet {
         if (jsonObject == null) {
             return;
         }
-        System.out.print(request);
+        System.out.print(jsonObject.toString());
         gds = DataFactory_Data_Impl.getInstance().getNews();
         String op = jsonObject.getString("op");//分为market和single
-
         if (op.equals("all")) {
-            NewsPO result = gds.getMarketNews();
+//            NewsPO result = gds.getMarketNews();
+            List<String> classify = new ArrayList<String>();
+            List<String> title = new ArrayList<String>();
+            List<String> time = new ArrayList<String>();
+            List<String> url = new ArrayList<String>();
+            for(int i = 0;i<10;i++){
+                classify.add("A");
+                title.add("B");
+                time.add("C");
+                url.add("D");
+            }
+            NewsPO result = new NewsPO(classify,title,time,url);
+            System.out.print(result.toString());
             new SendByServlet().doSend(response, result);
         } else {
             String code = jsonObject.getString("code");

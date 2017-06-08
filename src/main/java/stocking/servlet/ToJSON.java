@@ -34,7 +34,7 @@ class ToJSON {
             ioe.printStackTrace();
             return null;
         }
-        //System.out.print(json.toString());
+        System.out.print(json.toString());
         return JSONObject.fromObject(json.toString());
     }
 }
