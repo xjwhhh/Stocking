@@ -93,9 +93,9 @@ if __name__ == "__main__":
         isPla = False
         plaName = stockLists[0]
         stockLists = getCodeBySection(plaName)
-        if len(stockLists) > 200:
-            # stockLists = stockLists[:int(len(stockLists) / 2)]
-            stockLists = random.sample(stockLists, int(len(stockLists) / 2))
+        # if len(stockLists) > 200:
+        #     # stockLists = stockLists[:int(len(stockLists) / 2)]
+        #     stockLists = random.sample(stockLists, int(len(stockLists) / 2))
 
     # 非板块
     else:

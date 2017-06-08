@@ -100,6 +100,7 @@ public class Strategy_Data_Impl implements Strategy_Data_Service {
                     line = in.readLine();
                     String[] t = line.split("\\s+");
                     String code = t[0];
+                    //TODO multiple points异常
                     Double profit = Double.parseDouble(t[1]);
                     String name = code_name.get(code);
                     codes.add(code);
