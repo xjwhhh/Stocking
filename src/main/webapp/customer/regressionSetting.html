@@ -348,12 +348,12 @@
 </div>
 
 <script type="text/javascript">
-    function getmessage(strategy, startdate, enddate, holtTime, shapeTime, numberOfStock, search, industry) {
-        this.strategy = strategy
-        this.startdate = startdate
-        this.enddate = enddate
-        this.holtTime = holtTime
-        this.shapeTime = shapeTime
+    function getmessage(type, start, end, hold, form, numberOfStock, search, industry) {
+        this.type = type;
+        this.start = start;
+        this.end = end;
+        this.hold = hold;
+        this.form = form
         this.numberOfStock = numberOfStock
         this.search = search
         this.industry = industry
