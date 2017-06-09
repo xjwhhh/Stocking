@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +48,7 @@
 
     <script type="text/javascript" src="json2-min.js"></script>
 </head>
-<body>
+<body onload="gettrs()">
 <div class="container-fluid">
     <div class="navbar-header">
         <img src="stock2.jpg" class="img-rounded">
@@ -147,7 +146,7 @@
 
 
                 <div style="margin-left: 12%;margin-top: 2%">
-                    <input style="width: 16%" type="text" id="search" value="输入股票名／编号">
+                    <input style="width: 16%" type="text" id="search" placeholder="输入股票名／编号">
                     <button type="button"
                             class="btn btn-default btn-sm">
                         <span class="glyphicon glyphicon-plus"></span>
@@ -389,20 +388,32 @@
     </div>
 
     <script type="text/javascript">
-        function getmessage(strategy, startdate, enddate, holtTime, shapeTime, numberOfStock, search, industry) {
-            this.strategy = strategy
-            this.startdate = startdate
-            this.enddate = enddate
-            this.holtTime = holtTime
-            this.shapeTime = shapeTime
-            this.numberOfStock = numberOfStock
-            this.search = search
-            this.industry = industry
+        function gettrs(){
+            var trs = document.getElementsByTagName("tr");
+            var stocks = new Array();
+            alert(trs.length);
+            for(var j=0;j<trs.length;j++) {
+                var tds = trs[j].getElementsByTagName("td");
+                stocks[j] = tds[1];
+                alert(tds[j]);
+            }
+
+        }
+        function getmessage(type, start, end, hold, form, isPla, stocks) {
+            this.type = type;
+            this.start = start;
+            this.end = end;
+            this.hold = hold;
+            this.form = form;
+            this.isPla = isPla;
+            this.stocks = stocks;
         }
 
         function sendMessage() {
             var url = "regressionResult.html"
-            var messageObj = new getmessage(strategy.value, startdate.value, enddate.value, holtTime.value, shapeTime.value, numberOfStock.value, search.value, industry.value)
+            var stocks = new Array();
+
+            var messageObj = new getmessage(strategy.value, startdate.value, enddate.value, holtTime.value, shapeTime.value, search.value, industry.value)
             alert(JSON.stringify(messageObj))
             var messageStr = JSON.stringify(messageObj)
             window.location.href = "regressionResult.html?message=" + messageStr
