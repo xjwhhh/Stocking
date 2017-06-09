@@ -74,6 +74,7 @@
         var variance = [];
         var lowest;//各个股票的最高最低值，填入表中
         var highest;
+
         function getIdentifier(stockNamestr,startstr,endstr) {
             this.identifier = stockNamestr;
             this.start = startstr;
@@ -127,16 +128,16 @@
 
         }
         function ShowTable(){
-            
+
 
         }
         function ShowChart(){
             var series1=[];
             var series2=[];
-            Number=1;
-            stockToCompare=["a"];
-            closePrice=[[1,2]];
-            dates = [1,2];
+//            Number=1;
+//            stockToCompare=["a"];
+//            closePrice=[[1,2]];
+//            dates = [1,2];
 
             for(var i = 0;i<Number;i++){
                 series1.push({
@@ -153,7 +154,7 @@
                     data:variance[i],
                 });
             }
-            alert("success");
+//            alert("success");
 
 //            每日收盘价
 
@@ -197,8 +198,7 @@
 
                 series : series1
             };
-// 为echarts对象加载数据
-            myChart.setOption(option);
+            myChart.setOption(option,true);
 //相对收益率
 
             var myChart = echarts.init(document.getElementById("variance"));
@@ -242,17 +242,46 @@
             };
 
 // 为echarts对象加载数据
-            myChart.setOption(option);
+            myChart.setOption(option,true);
+        }
 
+//         个股详情
+        var stockList;//板块搜索得到股票列表和股票编号
+        var codeList;
+        function getPlate(platestr){
+            this.plate=platestr;
+        }
+//        界面加载时调用函数，得到所有股票名称和代码，初始化图表
+        function Load(){
+            var allNames;
+            var allCodes;
+            stockToCompare=["a"];
+            dates=[1,2];
+            closePrice=[0,0];
+            ShowChart();
+            var url="http://localhost:8080/codename";
+            var key = JSON.stringify(getPlate("all"));
+//                alert(date);
+//            alert("success");
+            $.ajax({
 
+                type:"POST",
+                url:url,
+                data:key,
+                dataType: "json",//此处要设置成json
+                success: function (data) {
 
+                    allNames = data[0].name;
+                    allCodes = data[0].code;
+                }});
         }
 
     </script>
 
 
+
 </head>
-<body>
+<body onload="Load()">
 
 <script>
     var stockName
@@ -262,8 +291,8 @@
         document.location.href && (document.location.href = "singleStockCurrent.html?stockNameInput=" + stockName);
 
     }
-    var stockNames = ["a", "b", "c"];
-    var stockNums = [1, 2, 3];
+//    var stockNames = ["a", "b", "c"];
+//    var stockNums = [1, 2, 3];
 
 
 </script>
@@ -554,12 +583,12 @@
                 </div>
                 <script>
                     function stockSearch() {
-                        for (var i = 0; i < 3; i++) {
+                        for (var i = 0; i < stockList.length; i++) {
                             var x = document.getElementById("stockTable").insertRow(i);
                             var y = x.insertCell(0);
                             var z = x.insertCell(1);
-                            y.innerHTML = "<a href='singleStockCurrent.html?stockNameInput=" + stockNames[i] + "'>" + stockNames[i] + "</a>";
-                            z.innerHTML = stockNums[i];
+                            y.innerHTML = "<a href='singleStockCurrent.html?stockNameInput=" + stockList[i] + "'>" + stockList[i] + "</a>";
+                            z.innerHTML = codeList[i];
 
                         }
                         var x = document.getElementById("stockTable").insertRow(0);
@@ -569,7 +598,7 @@
                         y.innerHTML = "股票名称";
                         z.innerHTML = "股票编号";
 //                        zz.innerHTML = "收藏"
-                        document.getElementById('numberOfSearch').innerHTML = stockNames.length;
+                        document.getElementById('numberOfSearch').innerHTML = stockList.length;
 
 
                     }
