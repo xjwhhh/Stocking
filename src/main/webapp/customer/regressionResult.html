@@ -7,7 +7,9 @@
     <!-- Bootstrap core CSS -->
     <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style type="text/css">
         #input {
             margin-top: 20px;
@@ -38,7 +40,7 @@
 
     <script type="text/javascript" src="json2-min.js"></script>
 </head>
-<body style="background: #efeff4">
+<body style="background: #efeff4" onload="start()">
 <div class="container-fluid">
     <div class="navbar-header">
         <img src="stock2.jpg" class="img-rounded">
@@ -181,31 +183,34 @@
     //    var numberOfStock
     //    var search
     //    var industry
-    var thisURL = document.URL;
-    var getval = thisURL.split("?")[1]
-    var message = getval.split("=")[1]
-    //    var message = new Array(8)
-    //    for(var i = 0;i<8;i++){
-    //        message[i] = getval.split("&")[i]
-    //    }
-    //    strategy = message[0].split("=")[1]
-    //    startdate = message[1].split("=")[1]
-    //    enddate = message[2].split("=")[1]
-    //    holtTime = message[3].split("=")[1]
-    //    shapeTime = message[4].split("=")[1]
-    //    numberOfStock = message[5].split("=")[1]
-    //    search = message[6].split("=")[1]
-    //    industry = message[7].split("=")[1]
 
     function start() {
+        var thisURL = document.URL;
+        var getval = thisURL.split("?")[1];
+        var message = decodeURIComponent(getval.split("=")[1]);
+
+        //    var message = new Array(8)
+        //    for(var i = 0;i<8;i++){
+        //        message[i] = getval.split("&")[i]
+        //    }
+        //    strategy = message[0].split("=")[1]
+        //    startdate = message[1].split("=")[1]
+        //    enddate = message[2].split("=")[1]
+        //    holtTime = message[3].split("=")[1]
+        //    shapeTime = message[4].split("=")[1]
+        //    numberOfStock = message[5].split("=")[1]
+        //    search = message[6].split("=")[1]
+        //    industry = message[7].split("=")[1]
+        alert("message:"+message);
+
         var url = "http://localhost:8080/strategy";
         $.ajax({
             type: "POST",
             url: url,
             data: message,
-            datatype: json,
+            datatype: "json",
             success: function (data) {
-                alert(data[0].totalDeal)
+                alert(data)
                 annualReturn = data[0].annualReturn;//年化收益率
                 basicAnnualReturn = data[0].basicAnnualReturn;//基准年化收益率
                 alpha = data[0].alpha;

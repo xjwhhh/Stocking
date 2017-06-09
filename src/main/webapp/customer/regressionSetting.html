@@ -48,7 +48,8 @@
 
     <script type="text/javascript" src="json2-min.js"></script>
 </head>
-<body onload="gettrs()">
+<!--<body onload="gettrs()">-->
+<body>
 <div class="container-fluid">
     <div class="navbar-header">
         <img src="stock2.jpg" class="img-rounded">
@@ -131,12 +132,12 @@
 
 
         <ul style="background: #0099ff;margin-left: 12%;margin-top:2%;width: 50%" id="myTab" class="nav nav-tabs">
-            <li class="active">
+            <li id="single" class="active">
                 <a href="#singleChoose" data-toggle="tab">
                     个股选择
                 </a>
             </li>
-            <li><a href="#plateChoose" data-toggle="tab">板块选择</a></li>
+            <li id="more"><a href="#plateChoose" data-toggle="tab">板块选择</a></li>
 
         </ul>
 
@@ -345,12 +346,12 @@
                                     <tbody>
                                     <tr class="odd ">
                                         <td><a target="_blank" title="弘信电子 (SZ300657)" href="/S/SZ300657">弘信电子</a></td>
-                                        <td><span class="hot-colorup">14.89</span></td>
+                                        <td>14.89</td>
                                         <td><span class="glyphicon glyphicon-plus"></span></td>
                                     </tr>
                                     <tr class="even ">
                                         <td><a target="_blank" title="正丹股份 (SZ300641)" href="/S/SZ300641">正丹股份</a></td>
-                                        <td><span class="hot-colorup">20.59</span></td>
+                                        <td>20.59</td>
                                         <td><span class="glyphicon glyphicon-plus"></span></td>
                                     </tr>
                                     </tbody>
@@ -364,17 +365,17 @@
                 <div style="margin-left: 12%">
                     <label>选择板块</label>
                     <label class="checkbox">
-                        <input type="checkbox" value="上证指数">上证指数</label>
+                        <input type="checkbox" value="上证指数" id="cb1">上证指数</label>
                     <label class="checkbox">
-                        <input type="checkbox" value="沪深300">沪深300</label>
+                        <input type="checkbox" value="沪深300" id="cb2">沪深300</label>
                     <label class="checkbox">
-                        <input type="checkbox" value="创业板">创业板</label>
+                        <input type="checkbox" value="创业板" id="cb3">创业板</label>
                     <label class="checkbox">
-                        <input type="checkbox" value="中小板">中小板</label>
+                        <input type="checkbox" value="中小板" id="cb4">中小板</label>
                     <label class="checkbox">
-                        <input type="checkbox" value="深圳成指">深圳成指</label>
+                        <input type="checkbox" value="深圳成指" id="cb5">深圳成指</label>
                     <label class="checkbox">
-                        <input type="checkbox" value="上证50">上证50</label>
+                        <input type="checkbox" value="上证50" id="cb6">上证50</label>
 
                 </div>
             </div>
@@ -388,17 +389,18 @@
     </div>
 
     <script type="text/javascript">
-        function gettrs(){
-            var trs = document.getElementsByTagName("tr");
-            var stocks = new Array();
-            alert(trs.length);
-            for(var j=0;j<trs.length;j++) {
-                var tds = trs[j].getElementsByTagName("td");
-                stocks[j] = tds[1];
-                alert(tds[j]);
-            }
-
-        }
+//        function gettrs(){
+//            var trs = document.getElementsByTagName("tr");
+//            var stocks = new Array();
+//            alert(trs.length);
+//            for(var j=1;j<trs.length;j++) {
+//                var tds = trs[j].getElementsByTagName("td");
+//                stocks[j] = tds[1];
+//                alert(tds[1]);
+//                alert(tds[1].innerHTML);
+//            }
+//
+//        }
         function getmessage(type, start, end, hold, form, isPla, stocks) {
             this.type = type;
             this.start = start;
@@ -411,12 +413,49 @@
 
         function sendMessage() {
             var url = "regressionResult.html"
+            var type
+            if(strategy.value == "动量策略"){
+                type = 0;
+            }else{
+                type = 1;
+            }
+            var isPla;
+            var trs = document.getElementsByTagName("tr");
             var stocks = new Array();
+            if(document.getElementById("single").className=="active"){
+                isPla = 0;
+                for(var j=1;j<trs.length;j++) {
+                    var tds = trs[j].getElementsByTagName("td");
+                    stocks.push(tds[1].innerHTML);
+//                alert(tds[1]);
+//                alert(tds[1].innerHTML);
+                }
+            }else{
+                isPla = 1;
+                if(document.getElementById("cb1").checked==true){
+                    stocks.push(document.getElementById("cb1").value);
+                }
+                if(document.getElementById("cb2").checked==true){
+                    stocks.push(document.getElementById("cb2").value);
+                }
+                if(document.getElementById("cb3").checked==true){
+                    stocks.push(document.getElementById("cb3").value);
+                }
+                if(document.getElementById("cb4").checked==true){
+                    stocks.push(document.getElementById("cb4").value);
+                }
+                if(document.getElementById("cb5").checked==true){
+                    stocks.push(document.getElementById("cb5").value);
+                }
+            }
+            alert("type:"+type);
+            alert("isPla:"+isPla);
+            alert("stocks:"+stocks);
 
-            var messageObj = new getmessage(strategy.value, startdate.value, enddate.value, holtTime.value, shapeTime.value, search.value, industry.value)
-            alert(JSON.stringify(messageObj))
-            var messageStr = JSON.stringify(messageObj)
-            window.location.href = "regressionResult.html?message=" + messageStr
+            var messageObj = new getmessage(type, startdate.value, enddate.value, holtTime.value, shapeTime.value, isPla, stocks);
+            alert(JSON.stringify(messageObj));
+            var messageStr = encodeURIComponent(JSON.stringify(messageObj));
+            window.location.href = "regressionResult.html?message=" + messageStr;
 //        window.location.href("regressionResult.html?strategy=" + strategy.value
 //            + "&startdate=" + startdate.value + "&enddate=" + enddate.value
 //            + "&holtTime=" + holtTime.value + "&shapeTime=" + shapeTime.value
