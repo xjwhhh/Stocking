@@ -45,7 +45,7 @@ public class News_Servlet extends HttpServlet {
 //                url.add("D");
 //            }
 //            NewsPO result = new NewsPO(classify,title,time,url);
-////            System.out.print(result.toString());
+//            System.out.print(result.toString());
 //            String[] classify = {"啊啊啊"};
 //            String[] title = {"啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊"};
 //            String[] time = {"啊啊"};
