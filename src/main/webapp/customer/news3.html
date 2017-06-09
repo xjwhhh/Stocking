@@ -90,7 +90,7 @@
         <H4>最近新闻</H4>
         <hr/>
         <div style="height: 100px;line-height: 100px;background: white;">
-            <a href="url" id="url1">
+            <a href="#" id="url1">
                 <div class="col-md-2" id="classify1">分类</div>
                 <div class="col-md-8" id="title1">新闻标题</div>
                 <div class="col-md-2" id="time1">时间</div>
@@ -98,7 +98,7 @@
         </div>
         <br>
         <div style="height: 100px;line-height: 100px;background: white;">
-            <a href="url" id="url2">
+            <a href="#" id="url2">
                 <div class="col-md-2" id="classify2">分类</div>
                 <div class="col-md-8" id="title2">新闻标题</div>
                 <div class="col-md-2" id="time2">时间</div>
@@ -106,7 +106,7 @@
         </div>
         <br>
         <div style="height: 100px;line-height: 100px;background: white;">
-            <a href="url" id="url3">
+            <a href="#" id="url3">
                 <div class="col-md-2" id="classify3">分类</div>
                 <div class="col-md-8" id="title3">新闻标题</div>
                 <div class="col-md-2" id="time3">时间</div>
@@ -114,7 +114,7 @@
         </div>
         <br>
         <div style="height: 100px;line-height: 100px;background: white;">
-            <a href="url" id="url4">
+            <a href="#" id="url4">
                 <div class="col-md-2" id="classify4">分类</div>
                 <div class="col-md-8" id="title4">新闻标题</div>
                 <div class="col-md-2" id="time4">时间</div>
@@ -122,7 +122,7 @@
         </div>
         <br>
         <div style="height: 100px;line-height: 100px;background: white;">
-            <a href="url" id="url5">
+            <a href="#" id="url5">
                 <div class="col-md-2" id="classify5">分类</div>
                 <div class="col-md-8" id="title5">新闻标题</div>
                 <div class="col-md-2" id="time5">时间</div>
@@ -130,7 +130,7 @@
         </div>
         <br>
         <div style="height: 100px;line-height: 100px;background: white;">
-            <a href="url" id="url6">
+            <a href="#" id="url6">
                 <div class="col-md-2" id="classify6">分类</div>
                 <div class="col-md-8" id="title6">新闻标题</div>
                 <div class="col-md-2" id="time6">时间</div>
@@ -138,7 +138,7 @@
         </div>
         <br>
         <div style="height: 100px;line-height: 100px;background: white;">
-            <a href="url" id="url7">
+            <a href="#" id="url7">
                 <div class="col-md-2" id="classify7">分类</div>
                 <div class="col-md-8" id="title7">新闻标题</div>
                 <div class="col-md-2" id="time7">时间</div>
@@ -146,7 +146,7 @@
         </div>
         <br>
         <div style="height: 100px;line-height: 100px;background: white;">
-            <a href="url" id="url8">
+            <a href="#" id="url8">
                 <div class="col-md-2" id="classify8">分类</div>
                 <div class="col-md-8" id="title8">新闻标题</div>
                 <div class="col-md-2" id="time8">时间</div>
@@ -154,7 +154,7 @@
         </div>
         <br>
         <div style="height: 100px;line-height: 100px;background: white;">
-            <a href="url" id="url9">
+            <a href="#" id="url9">
                 <div class="col-md-2" id="classify9">分类</div>
                 <div class="col-md-8" id="title9">新闻标题</div>
                 <div class="col-md-2" id="time9">时间</div>
@@ -162,7 +162,7 @@
         </div>
         <br>
         <div style="height: 100px;line-height: 100px;background: white;">
-            <a href="url" id="url10">
+            <a href="#" id="url10">
                 <div class="col-md-2" id="classify10">分类</div>
                 <div class="col-md-8" id="title10">新闻标题</div>
                 <div class="col-md-2" id="time10">时间</div>
@@ -170,7 +170,7 @@
         </div>
         <br>
         <div style="background: white;">
-            <a href="#fakelink" class="btn btn-info previous">
+            <a href="news2.html" class="btn btn-info previous">
                 <i class="fui-arrow-left"></i>
                 OLDER
             </a>
@@ -181,7 +181,7 @@
                 <li><a href="news4.html">4</a></li>
                 <li><a href="news5.html">5</a></li>
             </ul>
-            <a href="#fakelink" class="btn btn-info next">
+            <a href="news4.html" class="btn btn-info next">
                 NEWER
                 <i class="fui-arrow-right"></i>
             </a>
@@ -197,18 +197,65 @@
 <script>window.jQuery || document.write('<script src="http://cdn.static.runoob.com/libs/jquery/1.12.4/jquery.min.js"><\/script>')</script>
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-
+    function posttype(op) {
+        this.op = op;
+    }
     function getnews() {
         var url = "http://localhost:8080/news";
-        var op = JSON.stringify("all");
+        var op = JSON.stringify(new posttype("all"));
         $.ajax({
             type: "POST",
             url: url,
             data: op,
             dataType: "json",
             success: function (data) {
-                alert(data[0])
+//                alert(data)
+//                alert(data[0].classify)
+//                alert(JSON.stringify(data[0]))
 
+                document.getElementById("classify1").innerHTML = data[0].classify[20];
+                document.getElementById("classify2").innerHTML = data[0].classify[21];
+                document.getElementById("classify3").innerHTML = data[0].classify[22];
+                document.getElementById("classify4").innerHTML = data[0].classify[23];
+                document.getElementById("classify5").innerHTML = data[0].classify[24];
+                document.getElementById("classify6").innerHTML = data[0].classify[25];
+                document.getElementById("classify7").innerHTML = data[0].classify[26];
+                document.getElementById("classify8").innerHTML = data[0].classify[27];
+                document.getElementById("classify9").innerHTML = data[0].classify[28];
+                document.getElementById("classify10").innerHTML = data[0].classify[29];
+
+                document.getElementById("title1").innerHTML = data[0].title[20];
+                document.getElementById("title2").innerHTML = data[0].title[21];
+                document.getElementById("title3").innerHTML = data[0].title[22];
+                document.getElementById("title4").innerHTML = data[0].title[23];
+                document.getElementById("title5").innerHTML = data[0].title[24];
+                document.getElementById("title6").innerHTML = data[0].title[25];
+                document.getElementById("title7").innerHTML = data[0].title[26];
+                document.getElementById("title8").innerHTML = data[0].title[27];
+                document.getElementById("title9").innerHTML = data[0].title[28];
+                document.getElementById("title10").innerHTML = data[0].title[29];
+
+                document.getElementById("time1").innerHTML = data[0].time[20];
+                document.getElementById("time2").innerHTML = data[0].time[21];
+                document.getElementById("time3").innerHTML = data[0].time[22];
+                document.getElementById("time4").innerHTML = data[0].time[23];
+                document.getElementById("time5").innerHTML = data[0].time[24];
+                document.getElementById("time6").innerHTML = data[0].time[25];
+                document.getElementById("time7").innerHTML = data[0].time[26];
+                document.getElementById("time8").innerHTML = data[0].time[27];
+                document.getElementById("time9").innerHTML = data[0].time[28];
+                document.getElementById("time10").innerHTML = data[0].time[29];
+
+                document.getElementById("url1").href = data[0].url[20];
+                document.getElementById("url2").href = data[0].url[21];
+                document.getElementById("url3").href = data[0].url[22];
+                document.getElementById("url4").href = data[0].url[23];
+                document.getElementById("url5").href = data[0].url[24];
+                document.getElementById("url6").href = data[0].url[25];
+                document.getElementById("url7").href = data[0].url[26];
+                document.getElementById("url8").href = data[0].url[27];
+                document.getElementById("url9").href = data[0].url[28];
+                document.getElementById("url10").href = data[0].url[29];
             }
         })
     }

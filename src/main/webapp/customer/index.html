@@ -38,7 +38,7 @@
 
     <script type="text/javascript" src="json2-min.js"></script>
 </head>
-<body>
+<body onload="getnews()">
 <div class="container-fluid">
     <div class="navbar-header">
         <img src="stock2.jpg" class="img-rounded">
@@ -86,57 +86,119 @@
 
 
 <div class="container">
-    <div class="row-fluid">
-        <div class="col-md-8">
-            <div class="container-fluid" id="stock">
-                <h5>市场数据</h5>
-                <hr />
-                <div class="col-md-4">
-                    <p>
-                        上证指数</p>
-                    <div class="current" style="color: #ff4b44; font-size: 1.5em; font-weight: bold;">3110.06</div>
-                    <div class="growth" style="color: #ff4b44;"><i>+</i>0.07%
-                        (<i>+</i>2.23)
-                    </div>
+    <!--<div class="row-fluid">-->
+    <div class="col-md-12">
+        <div class="container-fluid" id="stock">
+            <h5>市场数据</h5>
+            <hr/>
+            <div class="col-md-6">
+                <!--<p>-->
+                <!--上证指数</p>-->
+                <!--<div class="current" style="color: #ff4b44; font-size: 1.5em; font-weight: bold;">3110.06</div>-->
+                <!--<div class="growth" style="color: #ff4b44;"><i>+</i>0.07%-->
+                <!--(<i>+</i>2.23)-->
+                <!--</div>-->
+                <div class="col-md-12">
+                    <div class="col-md-6">指数名称<p id="指数名称1" style="color: #ff4b44; font-size: 1.2em;">a</p></div>
+                    <div class="col-md-6">当前点数<p id="当前点数1" style="color: #ff4b44; font-size: 2em;">a</p></div>
                 </div>
-                <div class="col-md-4">
-                    <p>创业板指</p>
-                    <div class="current" style="color: #00bb00; font-size: 1.5em; font-weight: bold;">1759.63</div>
-                    <div class="growth" style="color: #00bb00;"><i>+</i>-1.02%
-                        (<i>+</i>-18.06)
-                    </div>
+                <div class="col-md-12">
+                    <div class="col-md-6">当前价格<p id="当前价格1" style="color: #ff4b44; font-size: 1.2em;">a</p></div>
+                    <div class="col-md-6">涨跌率<p id="涨跌率1" style="color: #ff4b44; font-size: 2em;">a</p></div>
                 </div>
-                <div class="col-md-4">
-                    <p>恒生指数</p>
-                    <div class="current" style="color: #ff4b44; font-size: 1.5em; font-weight: bold;">25701.63</div>
-                    <div class="growth" style="color: #ff4b44;"><i>+</i>0.24%
-                        (<i>+</i>62.36)
-                    </div>
+                <div class="col-md-12">
+                    <div class="col-md-6">成交量<p id="成交量1" style="color: #ff4b44; font-size: 1.2em;">a</p></div>
+                    <div class="col-md-6">成交额<p id="成交额1" style="color: #ff4b44; font-size: 1.2em;">a</p></div>
                 </div>
             </div>
+            <div class="col-md-6">
+                <!--<p>创业板指</p>-->
+                <!--<div class="current" style="color: #00bb00; font-size: 1.5em; font-weight: bold;">1759.63</div>-->
+                <!--<div class="growth" style="color: #00bb00;"><i>+</i>-1.02%-->
+                <!--(<i>+</i>-18.06)-->
+                <!--</div>-->
+                <div class="col-md-12">
+                    <div class="col-md-6">指数名称<p id="指数名称2" style="color: #ff4b44; font-size: 1.2em;">a</p></div>
+                    <div class="col-md-6">当前点数<p id="当前点数2" style="color: #ff4b44; font-size: 2em;">a</p></div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-6">当前价格<p id="当前价格2" style="color: #ff4b44; font-size: 1.2em;">a</p></div>
+                    <div class="col-md-6">涨跌率<p id="涨跌率2" style="color: #ff4b44; font-size: 2em;">a</p></div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-6">成交量<p id="成交量2" style="color: #ff4b44; font-size: 1.2em;">a</p></div>
+                    <div class="col-md-6">成交额<p id="成交额2" style="color: #ff4b44; font-size: 1.2em;">a</p></div>
+                </div>
+            </div>
+            <!--<div class="col-md-4">-->
+            <!--<p>恒生指数</p>-->
+            <!--<div class="current" style="color: #ff4b44; font-size: 1.5em; font-weight: bold;">25701.63</div>-->
+            <!--<div class="growth" style="color: #ff4b44;"><i>+</i>0.24%-->
+            <!--(<i>+</i>62.36)-->
+            <!--</div>-->
+            </div>
+        </div>
 
-            <div class="container-fluid" id="news">
-                <h5>新闻专栏</h5>
-                <hr />
-                <div class="news_1">
-                    <a href="#">新闻1</a>
-                </div>
-                <hr />
-                <div class="news_2">
-                    <a href="#">新闻2</a>
-                </div>
-                <hr />
-                <div class="news_3">
-                    <a href="#">新闻3</a>
-                </div>
-                <hr />
-                <div class="news_4">
-                    <a href="#">新闻4</a>
-                </div>
-                <hr />
-                <div class="news_5">
-                    <a href="#">新闻5</a>
-                </div>
+        <div class="col-md-8" id="news">
+            <h5>新闻专栏</h5>
+            <hr/>
+            <!--<div class="news_1">-->
+            <!--&lt;!&ndash;<a href="#">新闻1</a>&ndash;&gt;-->
+            <!--</div>-->
+            <!--<hr/>-->
+            <!--<div class="news_2">-->
+            <!--&lt;!&ndash;<a href="#">新闻2</a>&ndash;&gt;-->
+            <!--</div>-->
+            <!--<hr/>-->
+            <!--<div class="news_3">-->
+            <!--&lt;!&ndash;<a href="#">新闻3</a>&ndash;&gt;-->
+            <!--</div>-->
+            <!--<hr/>-->
+            <!--<div class="news_4">-->
+            <!--&lt;!&ndash;<a href="#">新闻4</a>&ndash;&gt;-->
+            <!--</div>-->
+            <!--<hr/>-->
+            <!--<div class="news_5">-->
+            <!--&lt;!&ndash;<a href="#">新闻5</a>&ndash;&gt;-->
+            <!--</div>-->
+            <div style="height: 100px;line-height: 100px;background: white;">
+                <a href="#" id="url1">
+                    <div class="col-md-2" id="classify1">分类</div>
+                    <div class="col-md-8" id="title1">新闻标题</div>
+                    <div class="col-md-2" id="time1" style="font-size: 1em">时间</div>
+                </a>
+            </div>
+            <br>
+            <div style="height: 100px;line-height: 100px;background: white;">
+                <a href="#" id="url2">
+                    <div class="col-md-2" id="classify2">分类</div>
+                    <div class="col-md-8" id="title2">新闻标题</div>
+                    <div class="col-md-2" id="time2" style="font-size: 1em">时间</div>
+                </a>
+            </div>
+            <br>
+            <div style="height: 100px;line-height: 100px;background: white;">
+                <a href="#" id="url3">
+                    <div class="col-md-2" id="classify3">分类</div>
+                    <div class="col-md-8" id="title3">新闻标题</div>
+                    <div class="col-md-2" id="time3" style="font-size: 1em">时间</div>
+                </a>
+            </div>
+            <br>
+            <div style="height: 100px;line-height: 100px;background: white;">
+                <a href="#" id="url4">
+                    <div class="col-md-2" id="classify4">分类</div>
+                    <div class="col-md-8" id="title4">新闻标题</div>
+                    <div class="col-md-2" id="time4" style="font-size: 1em">时间</div>
+                </a>
+            </div>
+            <br>
+            <div style="height: 100px;line-height: 100px;background: white;">
+                <a href="#" id="url5">
+                    <div class="col-md-2" id="classify5">分类</div>
+                    <div class="col-md-8" id="title5">新闻标题</div>
+                    <div class="col-md-2" id="time5" style="font-size: 1em">时间</div>
+                </a>
             </div>
         </div>
         <div class="col-md-4">
@@ -155,6 +217,8 @@
             <div class="container-fluid"></div>
         </div>
     </div>
+
+    <!--</div>-->
 </div>
 
 <!-- Bootstrap core JavaScript
@@ -162,5 +226,97 @@
 <script src="http://cdn.static.runoob.com/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="http://cdn.static.runoob.com/libs/jquery/1.12.4/jquery.min.js"><\/script>')</script>
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://hq.sinajs.cn/list=s_sh000001" charset="utf-8"></script>
+<script type="text/javascript">
+    var sh_elements = hq_str_s_sh000001.split(",");
+    //    document.write("current price:" + elements[3]);
+    if(sh_elements[3]>0){
+        document.getElementById("指数名称1").style.color = "#ff4b44";
+        document.getElementById("当前点数1").style.color = "#ff4b44";
+        document.getElementById("当前价格1").style.color = "#ff4b44";
+        document.getElementById("涨跌率1").style.color = "#ff4b44";
+        document.getElementById("成交量1").style.color = "#ff4b44";
+        document.getElementById("成交额1").style.color = "#ff4b44";
+    }else{
+        document.getElementById("指数名称1").style.color = "#00bb00";
+        document.getElementById("当前点数1").style.color = "#00bb00";
+        document.getElementById("当前价格1").style.color = "#00bb00";
+        document.getElementById("涨跌率1").style.color = "#00bb00";
+        document.getElementById("成交量1").style.color = "#00bb00";
+        document.getElementById("成交额1").style.color = "#00bb00";
+    }
+    document.getElementById("指数名称1").innerHTML = sh_elements[0];
+    document.getElementById("当前点数1").innerHTML = sh_elements[1];
+    document.getElementById("当前价格1").innerHTML = sh_elements[2];
+    document.getElementById("涨跌率1").innerHTML = sh_elements[3] + "%";
+    document.getElementById("成交量1").innerHTML = sh_elements[4] + "手";
+    document.getElementById("成交额1").innerHTML = sh_elements[5] + "万元";
+</script>
+<script type="text/javascript" src="http://hq.sinajs.cn/list=s_sz399001" charset="utf-8"></script>
+<script type="text/javascript">
+    var sz_elements = hq_str_s_sz399001.split(",");
+    //    document.write("current price:" + elements[3]);
+    if(sz_elements[3]>0){
+        document.getElementById("指数名称2").style.color = "#ff4b44";
+        document.getElementById("当前点数2").style.color = "#ff4b44";
+        document.getElementById("当前价格2").style.color = "#ff4b44";
+        document.getElementById("涨跌率2").style.color = "#ff4b44";
+        document.getElementById("成交量2").style.color = "#ff4b44";
+        document.getElementById("成交额2").style.color = "#ff4b44";
+    }else{
+        document.getElementById("指数名称2").style.color = "#00bb00";
+        document.getElementById("当前点数2").style.color = "#00bb00";
+        document.getElementById("当前价格2").style.color = "#00bb00";
+        document.getElementById("涨跌率2").style.color = "#00bb00";
+        document.getElementById("成交量2").style.color = "#00bb00";
+        document.getElementById("成交额2").style.color = "#00bb00";
+    }
+    document.getElementById("指数名称2").innerHTML = sz_elements[0];
+    document.getElementById("当前点数2").innerHTML = sz_elements[1];
+    document.getElementById("当前价格2").innerHTML = sz_elements[2];
+    document.getElementById("涨跌率2").innerHTML = sz_elements[3] + "%";
+    document.getElementById("成交量2").innerHTML = sz_elements[4] + "手";
+    document.getElementById("成交额2").innerHTML = sz_elements[5] + "万元";
+</script>
+<script type="text/javascript">
+    function posttype(op) {
+        this.op = op;
+    }
+    function getnews() {
+        var url = "http://localhost:8080/news";
+        var op = JSON.stringify(new posttype("all"));
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: op,
+            dataType: "json",
+            success: function (data) {
+                document.getElementById("classify1").innerHTML = data[0].classify[0];
+                document.getElementById("classify2").innerHTML = data[0].classify[1];
+                document.getElementById("classify3").innerHTML = data[0].classify[2];
+                document.getElementById("classify4").innerHTML = data[0].classify[3];
+                document.getElementById("classify5").innerHTML = data[0].classify[4];
+
+                document.getElementById("title1").innerHTML = data[0].title[0];
+                document.getElementById("title2").innerHTML = data[0].title[1];
+                document.getElementById("title3").innerHTML = data[0].title[2];
+                document.getElementById("title4").innerHTML = data[0].title[3];
+                document.getElementById("title5").innerHTML = data[0].title[4];
+
+                document.getElementById("time1").innerHTML = data[0].time[0];
+                document.getElementById("time2").innerHTML = data[0].time[1];
+                document.getElementById("time3").innerHTML = data[0].time[2];
+                document.getElementById("time4").innerHTML = data[0].time[3];
+                document.getElementById("time5").innerHTML = data[0].time[4];
+
+                document.getElementById("url1").href = data[0].url[0];
+                document.getElementById("url2").href = data[0].url[1];
+                document.getElementById("url3").href = data[0].url[2];
+                document.getElementById("url4").href = data[0].url[3];
+                document.getElementById("url5").href = data[0].url[4];
+            }
+        })
+    }
+</script>
 </body>
 </html>

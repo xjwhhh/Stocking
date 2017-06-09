@@ -81,7 +81,7 @@ public class Customer_Data_Impl implements Customer_Data_Service {
      * @param customerPO
      * @return
      */
-    private CustomerPO signUp(CustomerPO customerPO) {
+    private synchronized CustomerPO signUp(CustomerPO customerPO) {
         Connection connection = connectionManager.getConnection("stock");
         String name = customerPO.getName();
         String password = customerPO.getPassword();
@@ -114,7 +114,7 @@ public class Customer_Data_Impl implements Customer_Data_Service {
      * @param customerPO
      * @return
      */
-    private CustomerPO modify(CustomerPO customerPO) {
+    private synchronized CustomerPO modify(CustomerPO customerPO) {
         Connection connection = connectionManager.getConnection("stock");
         String id = customerPO.getId();
         String name = customerPO.getName();

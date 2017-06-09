@@ -24,6 +24,12 @@ public class CustomerCollection_Data_Impl implements CustomerCollection_Data_Ser
     Cache cache = Cache.getInstance();
     Hashtable<String, String> code_name = cache.getCode_Name();
 
+    /**
+     * 获取用户收藏的股票
+     *
+     * @param id
+     * @return
+     */
     public CollectionPO getCollection(String id) {
         BasicDBObject basicDBObject = new BasicDBObject();
         basicDBObject.put("id", id);
@@ -44,6 +50,14 @@ public class CustomerCollection_Data_Impl implements CustomerCollection_Data_Ser
         return collectionPO;
     }
 
+    /**
+     * 根据op执行操作
+     *
+     * @param op
+     * @param id
+     * @param code
+     * @return
+     */
     public boolean execute(String op, String id, String code) {
         if (op.equals("add")) {
             return addStock(id, code);
@@ -52,6 +66,13 @@ public class CustomerCollection_Data_Impl implements CustomerCollection_Data_Ser
         }
     }
 
+    /**
+     * 增加用户收藏的股票
+     *
+     * @param id
+     * @param code
+     * @return
+     */
     private boolean addStock(String id, String code) {
         BasicDBObject basicDBObject = new BasicDBObject();
         basicDBObject.put("id", id);
@@ -73,6 +94,13 @@ public class CustomerCollection_Data_Impl implements CustomerCollection_Data_Ser
         return true;
     }
 
+    /**
+     * 删除用户收藏的股票
+     *
+     * @param id
+     * @param code
+     * @return
+     */
     private boolean deleteStock(String id, String code) {
         BasicDBObject basicDBObject = new BasicDBObject();
         basicDBObject.put("id", id);
@@ -98,13 +126,4 @@ public class CustomerCollection_Data_Impl implements CustomerCollection_Data_Ser
         collection.updateMany(Filters.eq("id", id), new Document("$set", new Document("stock", line)));
         return true;
     }
-
-//    public static void main(String[] args) {
-//        CustomerCollection_Data_Impl customer_data_ = new CustomerCollection_Data_Impl();
-//        customer_data_.getCollection("1");
-//
-//        customer_data_.addStock("1", "000001");
-////        customer_data_.getCollection("1");
-//
-//    }
 }

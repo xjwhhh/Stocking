@@ -47,7 +47,6 @@ public class OverallSearch_Data_Impl implements OverallSearch_Data_Service {
                     InputStreamReader(pr.getInputStream(), "gbk"));
             String line;
             while ((line = in.readLine()) != null) {
-                System.out.println(line);
                 data[i] = line;
                 i++;
             }

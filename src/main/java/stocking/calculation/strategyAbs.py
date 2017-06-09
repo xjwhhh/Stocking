@@ -16,9 +16,11 @@ class Strategy(object):
     def count(self, oriDf, isPla, plaName): pass
 
     def getPlaIndex(self, startdate, enddate, plaName):
+        # print(str(startdate)+str(enddate)+plaName)
         db = pymysql.connect("localhost", "root", "123456", "stock", charset="utf8")
         cursor = db.cursor()
         sql = "select distinct close from market_index where date>='%s' and date<='%s' and code='%s'" % (startdate, enddate,plaName)
+        # print(sql)
         try:
             cursor.execute(sql)
             results = cursor.fetchall()
@@ -27,8 +29,10 @@ class Strategy(object):
                 re.append(float(row[0]))
             ss = pd.Series(re)
             index = ss.mean()
+            length=len(ss)
+            index=(ss[ss.index[length-1]]-ss[ss.index[0]])/ss[ss.index[length-1]]
         except:
-            print('get data fail')
+            print('get data fails')
         return index
 
     def getAnnualPro(self):

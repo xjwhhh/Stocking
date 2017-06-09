@@ -26,7 +26,6 @@ public class Market_Servlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //response.getWriter().print("hello");
         JSONObject jsonObject = new ToJSON().toJSONObject(request);
         System.out.println(jsonObject.toString());
         if (jsonObject == null) {
@@ -45,7 +44,7 @@ public class Market_Servlet extends HttpServlet {
         }
 
         MarketPO marketPO = ods.getMarketInfo(date);
-
+//        MarketPO marketPO = new MarketPO(50,50,50,50,50,50,50,50);
         new SendByServlet().doSend(response, marketPO);
     }
 }
