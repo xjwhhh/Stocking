@@ -8,9 +8,6 @@
     <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style type="text/css">
         #input {
             margin-top: 20px;
@@ -37,7 +34,6 @@
         .nav > li:hover .dropdown-menu {
             display: block;
         }
-
         .btn.btn-default.btn-sm {
 
             font-size: 8px;
@@ -128,283 +124,247 @@
 
     <div style="margin-top: 2%" class="stockChoose">
         <h6 style="margin-left: 12%">股票选择</h6>
+        <div style="margin-left: 12%">
+            <input style="width: 16%" type="text" id="search" value="输入股票名／编号">
+            <button  type="button"
+                     class="btn btn-default btn-sm"  >
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </div>
+
+        <div class="stockScreener-range-area" style="width:20%;margin-top:2%;margin-left: 12% ">
+            <span>板块：</span>
+            <select id="plate">
+
+                <option value="全部">全部</option>
+                <option value="创业板">创业板</option>
+                <option value="中小板">中小板</option>
+                <option value="深市A股">深市A股</option>
+                <option value="深市B股">深市B股</option>
+                <option value="沪市A股">沪市A股</option>
+                <option value="沪市B股">沪市B股</option>
+
+            </select>
+            <button  type="button"
+                     class="btn btn-default btn-sm"  >
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </div>
 
 
-        <ul style="background: #0099ff;margin-left: 12%;margin-top:2%;width: 50%" id="myTab" class="nav nav-tabs">
-            <li class="active">
-                <a href="#singleChoose" data-toggle="tab">
-                    个股选择
-                </a>
-            </li>
-            <li><a href="#plateChoose" data-toggle="tab">板块选择</a></li>
-
-        </ul>
-
-        <div id="myTabContent" class="tab-content">
-            <div class="tab-pane fade in active" id="singleChoose">
-                <!--<p>菜鸟教程是一个提供最新的web技术站点，本站免费提供了建站相关的技术文档，帮助广大web技术爱好者快速入门并建立自己的网站。菜鸟先飞早入行——学的不仅是技术，更是梦想。</p>-->
 
 
-                <div style="margin-left: 12%;margin-top: 2%">
-                    <input style="width: 16%" type="text" id="search" value="输入股票名／编号">
-                    <button type="button"
-                            class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </button>
-                </div>
+        <div class="stockScreener-range">
+            <div style="margin-left: 12%;margin-top: 2%" class="stockScreener-range-wrapper">
+                <div class="stockScreener-range-industry" style="width:20%;display: inline"><span>行业：</span><select
+                        id="industry">
+                    <option value="">全部</option>
 
-                <div class="stockScreener-range-area" style="width:20%;margin-top:2%;margin-left: 12% ">
-
-
-                </div>
-
-
-                <div class="stockScreener-range">
-                    <div style="margin-left: 12%;margin-top: 2%" class="stockScreener-range-wrapper">
-                        <div class="stockScreener-range-industry" style="width:20%;display: inline">
-                            <span>行业：</span><select
-                                id="industry">
-                            <option value="">全部</option>
-
-                            <option value="银行业">银行业</option>
-                            <option value="房地产开发与经营业">房地产开发与经营业</option>
-                            <option value="无">无</option>
-                            <option value="制造业">制造业</option>
-                            <option value="旅馆业">旅馆业</option>
-                            <option value="餐饮业">餐饮业</option>
-                            <option value="非金属矿物制品业">非金属矿物制品业</option>
-                            <option value="化工材料批发业">化工材料批发业</option>
-                            <option value="交通运输设备制造业">交通运输设备制造业</option>
-                            <option value="纺织业">纺织业</option>
-                            <option value="饮料制造业">饮料制造业</option>
-                            <option value="电子元器件制造业">电子元器件制造业</option>
-                            <option value="计算机及相关设备制造业">计算机及相关设备制造业</option>
-                            <option value="港口业">港口业</option>
-                            <option value="能源、材料和机械电子设备批发业">能源、材料和机械电子设备批发业</option>
-                            <option value="零售业">零售业</option>
-                            <option value="电力、蒸汽、热水的生产和供应业">电力、蒸汽、热水的生产和供应业</option>
-                            <option value="食品、饮料、烟草和家庭用品批发业">食品、饮料、烟草和家庭用品批发业</option>
-                            <option value="其他电子设备制造业">其他电子设备制造业</option>
-                            <option value="租赁服务业">租赁服务业</option>
-                            <option value="商业经纪与代理业">商业经纪与代理业</option>
-                            <option value="粮食及饲料加工业">粮食及饲料加工业</option>
-                            <option value="金属制品业">金属制品业</option>
-                            <option value="房地产管理业">房地产管理业</option>
-                            <option value="专业、科研服务业">专业、科研服务业</option>
-                            <option value="有色金属冶炼及压延加工业">有色金属冶炼及压延加工业</option>
-                            <option value="通信及相关设备制造业">通信及相关设备制造业</option>
-                            <option value="土木工程建筑业">土木工程建筑业</option>
-                            <option value="药品及医疗器械零售业">药品及医疗器械零售业</option>
-                            <option value="公路运输业">公路运输业</option>
-                            <option value="交通运输辅助业">交通运输辅助业</option>
-                            <option value="能源批发业">能源批发业</option>
-                            <option value="航空运输业">航空运输业</option>
-                            <option value="医药制造业">医药制造业</option>
-                            <option value="化学原料及化学制品制造业">化学原料及化学制品制造业</option>
-                            <option value="信息传播服务业">信息传播服务业</option>
-                            <option value="专用设备制造业">专用设备制造业</option>
-                            <option value="证券、期货业">证券、期货业</option>
-                            <option value="输配电及控制设备制造业">输配电及控制设备制造业</option>
-                            <option value="水泥制造业">水泥制造业</option>
-                            <option value="天然原油开采业">天然原油开采业</option>
-                            <option value="黑色金属矿采选业">黑色金属矿采选业</option>
-                            <option value="普通机械制造业">普通机械制造业</option>
-                            <option value="日用电器制造业">日用电器制造业</option>
-                            <option value="化学纤维制造业">化学纤维制造业</option>
-                            <option value="化学肥料制造业">化学肥料制造业</option>
-                            <option value="中药材及中成药加工业">中药材及中成药加工业</option>
-                            <option value="有色金属矿采选业">有色金属矿采选业</option>
-                            <option value="旅游业">旅游业</option>
-                            <option value="计算机应用服务业">计算机应用服务业</option>
-                            <option value="出版业">出版业</option>
-                            <option value="生物制品业">生物制品业</option>
-                            <option value="水上运输业">水上运输业</option>
-                            <option value="日用化学产品制造业">日用化学产品制造业</option>
-                            <option value="照明器具制造业">照明器具制造业</option>
-                            <option value="公共设施服务业">公共设施服务业</option>
-                            <option value="煤炭采选业">煤炭采选业</option>
-                            <option value="汽车制造业">汽车制造业</option>
-                            <option value="综合类证券公司">综合类证券公司</option>
-                            <option value="金融信托业">金融信托业</option>
-                            <option value="酒精及饮料酒制造业">酒精及饮料酒制造业</option>
-                            <option value="黑色金属冶炼及压延加工业">黑色金属冶炼及压延加工业</option>
-                            <option value="渔业">渔业</option>
-                            <option value="橡胶制造业">橡胶制造业</option>
-                            <option value="轴承、阀门制造业">轴承、阀门制造业</option>
-                            <option value="自来水的生产和供应业">自来水的生产和供应业</option>
-                            <option value="生物药品制造业">生物药品制造业</option>
-                            <option value="食品加工业">食品加工业</option>
-                            <option value="林业">林业</option>
-                            <option value="广播电影电视业">广播电影电视业</option>
-                            <option value="轻纺工业专用设备制造业">轻纺工业专用设备制造业</option>
-                            <option value="管道运输业">管道运输业</option>
-                            <option value="其他传播、文化产业">其他传播、文化产业</option>
-                            <option value="冶金、矿山、机电工业专用设备制造业">冶金、矿山、机电工业专用设备制造业</option>
-                            <option value="造纸及纸制品业">造纸及纸制品业</option>
-                            <option value="农业">农业</option>
-                            <option value="食品制造业">食品制造业</option>
-                            <option value="电力生产业">电力生产业</option>
-                            <option value="石油加工及炼焦业">石油加工及炼焦业</option>
-                            <option value="线路、管道和设备安装业">线路、管道和设备安装业</option>
-                            <option value="畜牧业">畜牧业</option>
-                            <option value="航空航天器制造业">航空航天器制造业</option>
-                            <option value="农、林、牧、渔服务业">农、林、牧、渔服务业</option>
-                            <option value="医药、生物制品">医药、生物制品</option>
-                            <option value="印刷业">印刷业</option>
-                            <option value="毛纺织业">毛纺织业</option>
-                            <option value="其他专用设备制造业">其他专用设备制造业</option>
-                            <option value="通信设备制造业">通信设备制造业</option>
-                            <option value="通信服务业">通信服务业</option>
-                            <option value="软饮料制造业">软饮料制造业</option>
-                            <option value="石化及其他工业专用设备制造业">石化及其他工业专用设备制造业</option>
-                            <option value="塑料制造业">塑料制造业</option>
-                            <option value="通用设备制造业">通用设备制造业</option>
-                            <option value="服装及其他纤维制品制造业">服装及其他纤维制品制造业</option>
-                            <option value="制糖业">制糖业</option>
-                            <option value="摩托车制造业">摩托车制造业</option>
-                            <option value="铁路运输设备制造业">铁路运输设备制造业</option>
-                            <option value="电器机械及器材制造业">电器机械及器材制造业</option>
-                            <option value="石墨及碳素制品业">石墨及碳素制品业</option>
-                            <option value="石油和天然气开采业">石油和天然气开采业</option>
-                            <option value="稀有稀土金属冶炼业">稀有稀土金属冶炼业</option>
-                            <option value="装修装饰业">装修装饰业</option>
-                            <option value="陶瓷制品业">陶瓷制品业</option>
-                            <option value="文教体育用品制造业">文教体育用品制造业</option>
-                            <option value="其他社会服务业">其他社会服务业</option>
-                            <option value="采掘服务业">采掘服务业</option>
-                            <option value="煤气生产和供应业">煤气生产和供应业</option>
-                            <option value="房地产中介服务业">房地产中介服务业</option>
-                            <option value="其他通用零部件制造业">其他通用零部件制造业</option>
-                            <option value="仓储业">仓储业</option>
-                            <option value="沿海运输业">沿海运输业</option>
-                            <option value="锅炉及原动机制造业">锅炉及原动机制造业</option>
-                            <option value="卫生、保健、护理服务业">卫生、保健、护理服务业</option>
-                            <option value="广播电视设备制造业">广播电视设备制造业</option>
-                            <option value="渔业服务业">渔业服务业</option>
-                            <option value="其他批发业">其他批发业</option>
-                            <option value="公路管理及养护业">公路管理及养护业</option>
-                            <option value="电信服务业">电信服务业</option>
-                            <option value="医疗器械制造业">医疗器械制造业</option>
-                            <option value="仪器仪表及文化、办公用机械制造业">仪器仪表及文化、办公用机械制造业</option>
-                            <option value="海洋渔业">海洋渔业</option>
-                            <option value="铁路运输业">铁路运输业</option>
-                            <option value="轮胎制造业">轮胎制造业</option>
-                            <option value="保险业">保险业</option>
-                            <option value="贵金属冶炼业">贵金属冶炼业</option>
-                            <option value="重有色金属冶炼业">重有色金属冶炼业</option>
-                            <option value="钢压延加工业">钢压延加工业</option>
-                            <option value="远洋运输业">远洋运输业</option>
-                            <option value="乳制品制造业">乳制品制造业</option>
-                            <option value="计算机软件开发与咨询">计算机软件开发与咨询</option>
-                            <option value="化学农药制造业">化学农药制造业</option>
-                            <option value="贵金属矿采选业">贵金属矿采选业</option>
-                            <option value="造纸业">造纸业</option>
-                            <option value="炼钢业">炼钢业</option>
-                            <option value="电机制造业">电机制造业</option>
-                            <option value="石油和天然气开采服务业">石油和天然气开采服务业</option>
-                            <option value="玻璃及玻璃制品业">玻璃及玻璃制品业</option>
-                            <option value="市内公共交通业">市内公共交通业</option>
-                            <option value="其他非金属矿物制品业">其他非金属矿物制品业</option>
-                            <option value="自行车制造业">自行车制造业</option>
-                            <option value="铁路、公路、隧道、桥梁建筑业">铁路、公路、隧道、桥梁建筑业</option>
-                            <option value="人寿保险业">人寿保险业</option>
-                            <option value="其他交通运输业">其他交通运输业</option>
+                    <option value="银行业">银行业</option>
+                    <option value="房地产开发与经营业">房地产开发与经营业</option>
+                    <option value="无">无</option>
+                    <option value="制造业">制造业</option>
+                    <option value="旅馆业">旅馆业</option>
+                    <option value="餐饮业">餐饮业</option>
+                    <option value="非金属矿物制品业">非金属矿物制品业</option>
+                    <option value="化工材料批发业">化工材料批发业</option>
+                    <option value="交通运输设备制造业">交通运输设备制造业</option>
+                    <option value="纺织业">纺织业</option>
+                    <option value="饮料制造业">饮料制造业</option>
+                    <option value="电子元器件制造业">电子元器件制造业</option>
+                    <option value="计算机及相关设备制造业">计算机及相关设备制造业</option>
+                    <option value="港口业">港口业</option>
+                    <option value="能源、材料和机械电子设备批发业">能源、材料和机械电子设备批发业</option>
+                    <option value="零售业">零售业</option>
+                    <option value="电力、蒸汽、热水的生产和供应业">电力、蒸汽、热水的生产和供应业</option>
+                    <option value="食品、饮料、烟草和家庭用品批发业">食品、饮料、烟草和家庭用品批发业</option>
+                    <option value="其他电子设备制造业">其他电子设备制造业</option>
+                    <option value="租赁服务业">租赁服务业</option>
+                    <option value="商业经纪与代理业">商业经纪与代理业</option>
+                    <option value="粮食及饲料加工业">粮食及饲料加工业</option>
+                    <option value="金属制品业">金属制品业</option>
+                    <option value="房地产管理业">房地产管理业</option>
+                    <option value="专业、科研服务业">专业、科研服务业</option>
+                    <option value="有色金属冶炼及压延加工业">有色金属冶炼及压延加工业</option>
+                    <option value="通信及相关设备制造业">通信及相关设备制造业</option>
+                    <option value="土木工程建筑业">土木工程建筑业</option>
+                    <option value="药品及医疗器械零售业">药品及医疗器械零售业</option>
+                    <option value="公路运输业">公路运输业</option>
+                    <option value="交通运输辅助业">交通运输辅助业</option>
+                    <option value="能源批发业">能源批发业</option>
+                    <option value="航空运输业">航空运输业</option>
+                    <option value="医药制造业">医药制造业</option>
+                    <option value="化学原料及化学制品制造业">化学原料及化学制品制造业</option>
+                    <option value="信息传播服务业">信息传播服务业</option>
+                    <option value="专用设备制造业">专用设备制造业</option>
+                    <option value="证券、期货业">证券、期货业</option>
+                    <option value="输配电及控制设备制造业">输配电及控制设备制造业</option>
+                    <option value="水泥制造业">水泥制造业</option>
+                    <option value="天然原油开采业">天然原油开采业</option>
+                    <option value="黑色金属矿采选业">黑色金属矿采选业</option>
+                    <option value="普通机械制造业">普通机械制造业</option>
+                    <option value="日用电器制造业">日用电器制造业</option>
+                    <option value="化学纤维制造业">化学纤维制造业</option>
+                    <option value="化学肥料制造业">化学肥料制造业</option>
+                    <option value="中药材及中成药加工业">中药材及中成药加工业</option>
+                    <option value="有色金属矿采选业">有色金属矿采选业</option>
+                    <option value="旅游业">旅游业</option>
+                    <option value="计算机应用服务业">计算机应用服务业</option>
+                    <option value="出版业">出版业</option>
+                    <option value="生物制品业">生物制品业</option>
+                    <option value="水上运输业">水上运输业</option>
+                    <option value="日用化学产品制造业">日用化学产品制造业</option>
+                    <option value="照明器具制造业">照明器具制造业</option>
+                    <option value="公共设施服务业">公共设施服务业</option>
+                    <option value="煤炭采选业">煤炭采选业</option>
+                    <option value="汽车制造业">汽车制造业</option>
+                    <option value="综合类证券公司">综合类证券公司</option>
+                    <option value="金融信托业">金融信托业</option>
+                    <option value="酒精及饮料酒制造业">酒精及饮料酒制造业</option>
+                    <option value="黑色金属冶炼及压延加工业">黑色金属冶炼及压延加工业</option>
+                    <option value="渔业">渔业</option>
+                    <option value="橡胶制造业">橡胶制造业</option>
+                    <option value="轴承、阀门制造业">轴承、阀门制造业</option>
+                    <option value="自来水的生产和供应业">自来水的生产和供应业</option>
+                    <option value="生物药品制造业">生物药品制造业</option>
+                    <option value="食品加工业">食品加工业</option>
+                    <option value="林业">林业</option>
+                    <option value="广播电影电视业">广播电影电视业</option>
+                    <option value="轻纺工业专用设备制造业">轻纺工业专用设备制造业</option>
+                    <option value="管道运输业">管道运输业</option>
+                    <option value="其他传播、文化产业">其他传播、文化产业</option>
+                    <option value="冶金、矿山、机电工业专用设备制造业">冶金、矿山、机电工业专用设备制造业</option>
+                    <option value="造纸及纸制品业">造纸及纸制品业</option>
+                    <option value="农业">农业</option>
+                    <option value="食品制造业">食品制造业</option>
+                    <option value="电力生产业">电力生产业</option>
+                    <option value="石油加工及炼焦业">石油加工及炼焦业</option>
+                    <option value="线路、管道和设备安装业">线路、管道和设备安装业</option>
+                    <option value="畜牧业">畜牧业</option>
+                    <option value="航空航天器制造业">航空航天器制造业</option>
+                    <option value="农、林、牧、渔服务业">农、林、牧、渔服务业</option>
+                    <option value="医药、生物制品">医药、生物制品</option>
+                    <option value="印刷业">印刷业</option>
+                    <option value="毛纺织业">毛纺织业</option>
+                    <option value="其他专用设备制造业">其他专用设备制造业</option>
+                    <option value="通信设备制造业">通信设备制造业</option>
+                    <option value="通信服务业">通信服务业</option>
+                    <option value="软饮料制造业">软饮料制造业</option>
+                    <option value="石化及其他工业专用设备制造业">石化及其他工业专用设备制造业</option>
+                    <option value="塑料制造业">塑料制造业</option>
+                    <option value="通用设备制造业">通用设备制造业</option>
+                    <option value="服装及其他纤维制品制造业">服装及其他纤维制品制造业</option>
+                    <option value="制糖业">制糖业</option>
+                    <option value="摩托车制造业">摩托车制造业</option>
+                    <option value="铁路运输设备制造业">铁路运输设备制造业</option>
+                    <option value="电器机械及器材制造业">电器机械及器材制造业</option>
+                    <option value="石墨及碳素制品业">石墨及碳素制品业</option>
+                    <option value="石油和天然气开采业">石油和天然气开采业</option>
+                    <option value="稀有稀土金属冶炼业">稀有稀土金属冶炼业</option>
+                    <option value="装修装饰业">装修装饰业</option>
+                    <option value="陶瓷制品业">陶瓷制品业</option>
+                    <option value="文教体育用品制造业">文教体育用品制造业</option>
+                    <option value="其他社会服务业">其他社会服务业</option>
+                    <option value="采掘服务业">采掘服务业</option>
+                    <option value="煤气生产和供应业">煤气生产和供应业</option>
+                    <option value="房地产中介服务业">房地产中介服务业</option>
+                    <option value="其他通用零部件制造业">其他通用零部件制造业</option>
+                    <option value="仓储业">仓储业</option>
+                    <option value="沿海运输业">沿海运输业</option>
+                    <option value="锅炉及原动机制造业">锅炉及原动机制造业</option>
+                    <option value="卫生、保健、护理服务业">卫生、保健、护理服务业</option>
+                    <option value="广播电视设备制造业">广播电视设备制造业</option>
+                    <option value="渔业服务业">渔业服务业</option>
+                    <option value="其他批发业">其他批发业</option>
+                    <option value="公路管理及养护业">公路管理及养护业</option>
+                    <option value="电信服务业">电信服务业</option>
+                    <option value="医疗器械制造业">医疗器械制造业</option>
+                    <option value="仪器仪表及文化、办公用机械制造业">仪器仪表及文化、办公用机械制造业</option>
+                    <option value="海洋渔业">海洋渔业</option>
+                    <option value="铁路运输业">铁路运输业</option>
+                    <option value="轮胎制造业">轮胎制造业</option>
+                    <option value="保险业">保险业</option>
+                    <option value="贵金属冶炼业">贵金属冶炼业</option>
+                    <option value="重有色金属冶炼业">重有色金属冶炼业</option>
+                    <option value="钢压延加工业">钢压延加工业</option>
+                    <option value="远洋运输业">远洋运输业</option>
+                    <option value="乳制品制造业">乳制品制造业</option>
+                    <option value="计算机软件开发与咨询">计算机软件开发与咨询</option>
+                    <option value="化学农药制造业">化学农药制造业</option>
+                    <option value="贵金属矿采选业">贵金属矿采选业</option>
+                    <option value="造纸业">造纸业</option>
+                    <option value="炼钢业">炼钢业</option>
+                    <option value="电机制造业">电机制造业</option>
+                    <option value="石油和天然气开采服务业">石油和天然气开采服务业</option>
+                    <option value="玻璃及玻璃制品业">玻璃及玻璃制品业</option>
+                    <option value="市内公共交通业">市内公共交通业</option>
+                    <option value="其他非金属矿物制品业">其他非金属矿物制品业</option>
+                    <option value="自行车制造业">自行车制造业</option>
+                    <option value="铁路、公路、隧道、桥梁建筑业">铁路、公路、隧道、桥梁建筑业</option>
+                    <option value="人寿保险业">人寿保险业</option>
+                    <option value="其他交通运输业">其他交通运输业</option>
 
 
-                        </select></div>
-                        <span>板块：</span>
-                        <select id="plate">
+                </select></div>
+                <button type="button" class="btn btn-default btn-sm" type="submit" >
 
-                            <option value="全部">全部</option>
-                            <option value="创业板">创业板</option>
-                            <option value="中小板">中小板</option>
-                            <option value="深市A股">深市A股</option>
-                            <option value="深市B股">深市B股</option>
-                            <option value="沪市A股">沪市A股</option>
-                            <option value="沪市B股">沪市B股</option>
-
-                        </select>
-                        <button type="button" class="btn btn-default btn-sm" type="submit">
-
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                        <button style="background: white;color: #666666" class="btn btn-primary">全选</button>
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+                <button style="background: white;color: #666666" class="btn btn-primary">全选</button>
 
 
-                        <div class="stockScreener-search-result-table-container">
-                            <div class="stockScreener-search-result-table mainTable overflowx">
-                                <table style="width:690px;" cellspacing="0" cellpadding="0" class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th class="sortable desc" data-key="symbol" style="min-width:80px"><s></s>股票
-                                        </th>
-                                        <th class="sortable" data-key="current" style="min-width:45px"><s></s>股票编号</th>
-                                        <th class="" data-key="hasExist" style="min-width:30px"><s></s>添加对比</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr class="odd ">
-                                        <td><a target="_blank" title="弘信电子 (SZ300657)" href="/S/SZ300657">弘信电子</a></td>
-                                        <td><span class="hot-colorup">14.89</span></td>
-                                        <td><span class="glyphicon glyphicon-plus"></span></td>
-                                    </tr>
-                                    <tr class="even ">
-                                        <td><a target="_blank" title="正丹股份 (SZ300641)" href="/S/SZ300641">正丹股份</a></td>
-                                        <td><span class="hot-colorup">20.59</span></td>
-                                        <td><span class="glyphicon glyphicon-plus"></span></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                <div class="stockScreener-search-result-table-container">
+                    <div class="stockScreener-search-result-table mainTable overflowx">
+                        <table style="width:690px;" cellspacing="0" cellpadding="0" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="sortable desc" data-key="symbol" style="min-width:80px"><s></s>股票</th>
+                                    <th class="sortable" data-key="current" style="min-width:45px"><s></s>股票编号</th>
+                                    <th class="" data-key="hasExist" style="min-width:30px"><s></s>添加对比</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="odd ">
+                                    <td><a target="_blank" title="弘信电子 (SZ300657)" href="/S/SZ300657">弘信电子</a></td>
+                                    <td><span class="hot-colorup">14.89</span></td>
+                                    <td><span class="glyphicon glyphicon-plus"></span></td>
+                                </tr>
+                                <tr class="even ">
+                                    <td><a target="_blank" title="正丹股份 (SZ300641)" href="/S/SZ300641">正丹股份</a></td>
+                                    <td><span class="hot-colorup">20.59</span></td>
+                                    <td><span class="glyphicon glyphicon-plus"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="plateChoose">
-                <div style="margin-left: 12%">
-                    <label>选择板块</label>
-                    <label class="checkbox">
-                        <input type="checkbox" value="上证指数">上证指数</label>
-                    <label class="checkbox">
-                        <input type="checkbox" value="沪深300">沪深300</label>
-                    <label class="checkbox">
-                        <input type="checkbox" value="创业板">创业板</label>
-                    <label class="checkbox">
-                        <input type="checkbox" value="中小板">中小板</label>
-                    <label class="checkbox">
-                        <input type="checkbox" value="深圳成指">深圳成指</label>
-                    <label class="checkbox">
-                        <input type="checkbox" value="上证50">上证50</label>
-
                 </div>
             </div>
         </div>
     </div>
+</div>
 
+<div>
+    <a style=" margin-left:50%;background-color: #32619e" class="btn btn-default" onclick="sendMessage()" role="button">开始回测</a>
+</div>
 
-    <div>
-        <a style=" margin-left:50%;background-color: #32619e" class="btn btn-default" onclick="sendMessage()"
-           role="button">开始回测</a>
-    </div>
+<script type="text/javascript">
+    function getmessage(strategy, startdate, enddate, holtTime, shapeTime, numberOfStock, search, industry) {
+        this.strategy = strategy
+        this.startdate = startdate
+        this.enddate = enddate
+        this.holtTime = holtTime
+        this.shapeTime = shapeTime
+        this.numberOfStock = numberOfStock
+        this.search = search
+        this.industry = industry
+    }
 
-    <script type="text/javascript">
-        function getmessage(strategy, startdate, enddate, holtTime, shapeTime, numberOfStock, search, industry) {
-            this.strategy = strategy
-            this.startdate = startdate
-            this.enddate = enddate
-            this.holtTime = holtTime
-            this.shapeTime = shapeTime
-            this.numberOfStock = numberOfStock
-            this.search = search
-            this.industry = industry
-        }
-
-        function sendMessage() {
-            var url = "regressionResult.html"
-            var messageObj = new getmessage(strategy.value, startdate.value, enddate.value, holtTime.value, shapeTime.value, numberOfStock.value, search.value, industry.value)
-            alert(JSON.stringify(messageObj))
-            var messageStr = JSON.stringify(messageObj)
-            window.location.href = "regressionResult.html?message=" + messageStr
+    function sendMessage() {
+        var url = "regressionResult.html"
+        var messageObj = new getmessage(strategy.value, startdate.value, enddate.value, holtTime.value, shapeTime.value, numberOfStock.value, search.value, industry.value)
+        alert(JSON.stringify(messageObj))
+        var messageStr = JSON.stringify(messageObj)
+        window.location.href = "regressionResult.html?message=" + messageStr
 //        window.location.href("regressionResult.html?strategy=" + strategy.value
 //            + "&startdate=" + startdate.value + "&enddate=" + enddate.value
 //            + "&holtTime=" + holtTime.value + "&shapeTime=" + shapeTime.value
@@ -419,7 +379,7 @@
 //
 //            }
 //        })
-        }
-    </script>
+    }
+</script>
 </body>
 </html>

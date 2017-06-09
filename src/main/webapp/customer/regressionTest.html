@@ -9,25 +9,41 @@
     <link href="https://cdn.bootcss.com/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet">
 
     <style type="text/css">
-        #input{
+        #input {
             margin-top: 20px;
         }
+
         ul {
             text-align: center;
 
         }
+
         .nav-tabs > li {
             width: 20%;
             background-color: #0099ff;
         }
+
         a {
             color: #333333
+        }
+        .col-md-2 {
+            background: #efeff4;
+            height: 400px;
+        }
+        .col-md-5 {
+            text-align: center;
+            background: white;
+            height: 400px;
+            line-height: 400px;
+
         }
         /*a:hover {*/
         /*color: #000000*/
         /*}*/
 
-        .nav > li:hover .dropdown-menu {display: block;}
+        .nav > li:hover .dropdown-menu {
+            display: block;
+        }
     </style>
 
     <script type="text/javascript" src="json2-min.js"></script>
@@ -77,5 +93,24 @@
         <li><a href="news.html">新闻</a></li>
     </ul>
 </div>
+
+<div class="container-fluid" style="background: #efeff4;">
+    <div class="container">
+        <div class="col-md-12" style="background: #efeff4;height:150px;"></div>
+        <div class="col-md-12" style="height:500px">
+            <div class="col-md-5">
+                <p style="font-size: 3em; line-height: 400px;"><a href="">动量策略</a></p>
+            </div>
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-5">
+                <p style="font-size: 3em; line-height: 400px;"><a href="">均值回归</a></p>
+            </div>
+        </div>
+        <div class="col-md-12" style="background: #efeff4;height:150px;"></div>
+    </div>
+</div>
+
 </body>
 </html>
