@@ -61,4 +61,9 @@ public class DataFactory_Data_Impl implements DataFactory_Data_Service {
         return new Minute_Data_Impl();
     }
 
+    @Override
+    public Ranking_Data_Service ranking() {
+        return null;
+    }
+
 }

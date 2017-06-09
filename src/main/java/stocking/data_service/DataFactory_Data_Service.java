@@ -26,4 +26,6 @@ public interface DataFactory_Data_Service {
     CodeName_Data_Service codeName();
 
     Minute_Data_Service minute();
+
+    Ranking_Data_Service ranking();
 }
