@@ -28,20 +28,32 @@
         }
     </style>
 
-    <script type="text/javascript" src="http://hq.sinajs.cn/list=sh601006" charset="gb2312"></script>
+    <!--<script type="text/javascript" src="http://hq.sinajs.cn/list=sh601006" charset="gb2312"></script>-->
+    <script type="text/javascript" id="firstscript" charset="gb2312" ></script>
+
 
     <script>
 
 
         var thisURL = document.URL;
         var  getval =thisURL.split('?')[1];
-        var stockName= getval.split("=")[1];
+        var stockName= getval.split("=")[1]
+        var getval1 = thisURL.split('?')[2];
+        var stockCode = getval1.split("=")[1];
+//        alert(stockCode);
+        var url="http://hq.sinajs.cn/list=sh"+"601005";
+        $("#firstscript").attr("src", url);
+        var ele = ("hq_str_sh"+stockCode).split()
+//        alert()
+
+        var temp = eval("hq_str_sh"+stockCode);
+
         function  showvalf(){
 //            alert(showval);
 //            document.getElementById('ee').value=showval;
         }
 //        通过新浪数据借口得到值
-        var elements=hq_str_sh601006.split(",");
+        var elements=temp.split(",");
         var openToday = elements[1];
         var closeYesterday = elements[2];
         var priceNow = elements[3];
