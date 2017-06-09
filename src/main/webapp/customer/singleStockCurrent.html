@@ -1,4 +1,3 @@
-
 <!--股票当前数据。一些数值及分时线价格图-->
 <!DOCTYPE html>
 <html lang="en">
@@ -13,76 +12,96 @@
     <link href="https://cdn.bootcss.com/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet">
     <link href="singleSearch.css" rel="stylesheet">
     <style type="text/css">
-        #input{
+        #input {
             margin-top: 20px;
         }
+
         ul {
             text-align: center;
         }
+
         .nav-tabs > li {
             width: 20%;
             background-color: #0099ff;
         }
+
         a {
             color: #333333
         }
     </style>
 
     <!--<script type="text/javascript" src="http://hq.sinajs.cn/list=sh601006" charset="gb2312"></script>-->
-    <script type="text/javascript" id="firstscript" charset="gb2312" ></script>
+    <script type="text/javascript" id="firstscript" charset="gb2312"></script>
 
 
     <script>
-
-
+        //        全局变量
+        var stockName;
+        var stockCode;
         var thisURL = document.URL;
-        var  getval =thisURL.split('?')[1];
-        var stockName= getval.split("=")[1]
+        var getval = thisURL.split('?')[1];
+        stockName = getval.split("=")[1]
         var getval1 = thisURL.split('?')[2];
-        var stockCode = getval1.split("=")[1];
-//        alert(stockCode);
-        var url="http://hq.sinajs.cn/list=sh"+"601005";
+        stockCode = getval1.split("=")[1];
+
+        stockName = decodeURIComponent(stockName);
+
+        alert("sss");
+
+        alert(stockName);
+        document.getElementById("stockName").value = stockName;
+
+
+        var url = "http://hq.sinajs.cn/list=sh" + "601005";
         $("#firstscript").attr("src", url);
-        var ele = ("hq_str_sh"+stockCode).split()
-//        alert()
+        var ele = ("hq_str_sh" + stockCode).split()
+        //        alert()
 
-        var temp = eval("hq_str_sh"+stockCode);
+        var temp = eval("hq_str_sh" + stockCode);
 
-        function  showvalf(){
+
+        function showvalf() {
 //            alert(showval);
 //            document.getElementById('ee').value=showval;
         }
-//        通过新浪数据借口得到值
-        var elements=temp.split(",");
+        //        通过新浪数据借口得到值
+        var elements = temp.split(",");
         var openToday = elements[1];
         var closeYesterday = elements[2];
         var priceNow = elements[3];
         var highToday = elements[4];
         var lowToday = elements[5];
 
-        var time = ["1:00","1:01","1:02"];
-        var price = [1,2,3];
+
+        var time = ["1:00", "1:01", "1:02"];
+        var price = [1, 2, 3];
         function historyCheck() {
 //            alert("success");
-            var startDate =  $("#startDate").val();
-            var endDate =  $("#endDate").val();
+            var startDate = $("#startDate").val();
+            var endDate = $("#endDate").val();
+
+            stockName=encodeURIComponent(stockName);
 //alert(startDate+" "+endDate);
 
 //            var startDate = document.getElementById("startDate").valueAsDate;
 //            var startDate = document.getElementById("startDate").valueAsDate;
 //
 //            alert("success");
-            document.location.href&&(document.location.href="singleStockHistory.html?stockName="+stockName+"?startDate="+startDate+"?endDate="+endDate);
+            document.location.href && (document.location.href = "singleStockHistory.html?stockName=" + stockName + "?startDate=" + startDate + "?endDate=" + endDate);
+        }
+        function CurrentLoad() {
+
+            alert("load");
         }
 
 
-//        document.getElementById("quote-high").value=100000;
+        //        document.getElementById("quote-high").value=100000;
     </script>
 
     <!--<script type="text/javascript" src="http://hq.sinajs.cn/list=sh601006" charset="gb2312"></script>-->
 
 </head>
-<body >
+<body onload="CurrentLoad()">
 <div class="container-fluid">
     <div class="navbar-header">
         <img src="stock2.jpg" class="img-rounded">
@@ -150,7 +169,7 @@
             <td>今开：<span><script>document.write(openToday)</script></span></td>
             <td>昨收：<span id="quote-high"><script>document.write(highToday)</script></span></td>
             <!--<td>52周最高：<span>8.83</span></td>-->
-            <td>当前价格：<span ><script>document.write(priceNow)</script></span></td>
+            <td>当前价格：<span><script>document.write(priceNow)</script></span></td>
         </tr>
         <tr class="seperateTop">
             <td>今日最高价：<span><script>document.write(highToday)</script></span></td>
@@ -159,72 +178,75 @@
 
         </tr>
         <!--<tr class="seperateBottom">-->
-            <!--<td>涨停价：<span>8.66</span></td>-->
-            <!--<td>总市值：<span>14275.64亿</span></td>-->
-            <!--<td title="最近报告期每股收益，单位：人民币">每股收益：<span>0.03</span></td>-->
-            <!--<td>市盈率(静)/(动)：<span>180.70/52.13</span></td>-->
+        <!--<td>涨停价：<span>8.66</span></td>-->
+        <!--<td>总市值：<span>14275.64亿</span></td>-->
+        <!--<td title="最近报告期每股收益，单位：人民币">每股收益：<span>0.03</span></td>-->
+        <!--<td>市盈率(静)/(动)：<span>180.70/52.13</span></td>-->
         <!--</tr>-->
 
         </tbody>
     </table>
 
-    <div >
+    <div>
         <div id="fenshi" style="height:350px;width: 600px"></div>
         <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
-        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
-        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+        <script type="text/javascript"
+                src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+        <script type="text/javascript"
+                src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
         <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
         <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
         <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
-        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+        <script type="text/javascript"
+                src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
         <script type="text/javascript">
 
             var myChart = echarts.init(document.getElementById("fenshi"));
             var option = {
-                title : {
+                title: {
                     text: '分时图',
 
                 },
-                tooltip : {
+                tooltip: {
                     trigger: 'axis'
                 },
                 legend: {
-                    data:['A','B']
+                    data: ['A', 'B']
                 },
                 //右上角工具条
                 toolbox: {
-                    show : true,
-                    feature : {
-                        mark : {show: true},
-                        dataView : {show: true, readOnly: false},
-                        magicType : {show: true, type: ['line', 'bar']},
-                        restore : {show: true},
-                        saveAsImage : {show: true}
+                    show: true,
+                    feature: {
+                        mark: {show: true},
+                        dataView: {show: true, readOnly: false},
+                        magicType: {show: true, type: ['line', 'bar']},
+                        restore: {show: true},
+                        saveAsImage: {show: true}
                     }
                 },
-                calculable : true,
-                xAxis : [
+                calculable: true,
+                xAxis: [
                     {
-                        type : 'category',
-                        boundaryGap : false,
-                        data : time,
+                        type: 'category',
+                        boundaryGap: false,
+                        data: time,
                     }
                 ],
-                yAxis : [
+                yAxis: [
                     {
-                        type : 'value',
+                        type: 'value',
 
                     }
                 ],
-                series : [
+                series: [
                     {
-                        name:'a',
-                        type:'line',
-                        data:price,
-                        markPoint : {
-                            data : [
-                                {type : 'max', name: '最大值'},
-                                {type : 'min', name: '最小值'}
+                        name: 'a',
+                        type: 'line',
+                        data: price,
+                        markPoint: {
+                            data: [
+                                {type: 'max', name: '最大值'},
+                                {type: 'min', name: '最小值'}
                             ]
                         },
 
@@ -237,28 +259,25 @@
             myChart.setOption(option);
 
 
-
         </script>
 
 
     </div>
 
 
-
-
-
-
-
     <div class="history_search">
         <h>历史行情</h>
-        <div style="display: inline;"><input id="startDate" type="date" value="2015-09-24"/>- <input id="endDate"type="date" value="2015-09-24"
-                >
+        <div style="display: inline;"><input id="startDate" type="date" value="2015-09-24"/>- <input id="endDate"
+                                                                                                     type="date"
+                                                                                                     value="2015-09-24"
+        >
 
         </div>
         <div style="margin-top: -25px;margin-left: 500px">
-        <form>
-            <input style="background: rgba(44,100,191,0.72);margin-left: 7%;margin-top: -6%" type="button" value="点击查看" onclick="historyCheck()" />
-        </form>
+            <form>
+                <input style="background: rgba(44,100,191,0.72);margin-left: 7%;margin-top: -6%" type="button"
+                       value="点击查看" onclick="historyCheck()"/>
+            </form>
         </div>
     </div>
     <div style="height: 50px">

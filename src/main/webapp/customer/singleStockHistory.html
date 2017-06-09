@@ -31,10 +31,14 @@
 
 
     <script>
-
+//        alert("a");
         var thisURL = document.URL;
         var  getval1 =thisURL.split('?')[1];
+//        alert("a");
         var stockName= getval1.split("=")[1];
+        stockName = decodeURIComponent(stockName);
+//        alert("b");
+
         var getval2 = thisURL.split('?')[2];
         var startDate = getval2.split("=")[1];
 //        startDate = startDate+" 00:00:00";
@@ -53,7 +57,7 @@
         var MA60=[];
         var volumes = [];
         var dataTodo;
-        alert("aaaa");
+
 //        search();
 
 
@@ -70,7 +74,9 @@
             this.end=datestr;
         }*/
         function search(){
-//            alert("to search");
+            alert("to search");
+
+
 
                 var url="http://localhost:8080/singleStock";
                 var key = JSON.stringify(new getIdentifier(stockName,startDate+" 00:00:00",endDate+" 00:00:00"));

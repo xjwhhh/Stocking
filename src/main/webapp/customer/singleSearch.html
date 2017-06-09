@@ -268,6 +268,8 @@
         var exit=0;
         var stockCode;
         stockName = document.getElementById("stockNameInput").value;
+//        alert(stockName);
+//        判断是否存在
         for(var v=0;v<allNames.length;v++){
             if(allNames[v]==stockName){
                 stockCode = allCodes[v];
@@ -276,6 +278,7 @@
             }
         }
         if(exit==1) {
+            stockName=encodeURIComponent(stockName);
 
             document.location.href && (document.location.href = "singleStockCurrent.html?stockNameInput=" + stockName+"?stockCodeInput="+stockCode);
         }else{
@@ -287,7 +290,9 @@
                     break;
                 }
             }
-            if(exit==1){            document.location.href && (document.location.href = "singleStockCurrent.html?stockNameInput=" + stockName+"?stockCodeInput="+stockCode);
+            if(exit==1){
+                stockName=encodeURIComponent(stockName);
+                document.location.href && (document.location.href = "singleStockCurrent.html?stockNameInput=" + stockName+"?stockCodeInput="+stockCode);
             }else{alert("股票不存在");}
         }
     }
@@ -304,7 +309,7 @@
         ShowChart();
         var url="http://localhost:8080/codename";
         var key = JSON.stringify(new getPlate("all"));
-        alert(key);
+//        alert(key);
 //                alert(date);
 //            alert("success");
         $.ajax({
@@ -317,7 +322,7 @@
 
                 allNames = data[0].name;
                 allCodes = data[0].code;
-                alert(allNames.length);
+//                alert(allNames.length);
             }});
     }
 
@@ -421,7 +426,7 @@
             <div class="stockScreener-title">选择范围</div>
             <div class="stockScreener-range-wrapper">
                 <div class="stockScreener-range-industry" style="width:50%;display:inline;float:left">
-                    <span>行业：</span><select>
+                    <span>行业：</span><select id="hangye">
                     <option value="全部">全部</option>
 
 
@@ -572,7 +577,7 @@
 
                 </select></div>
                 <div class="stockScreener-range-area" style="width:40%;float:left;margin-top: 4%">
-                    <span>板块：</span><select>
+                    <span>板块：</span><select id="bankuai">
                     <option value="全部">全部</option>
                     <option value="创业板">创业板</option>
                     <option value="中小板">中小板</option>
@@ -614,6 +619,17 @@
                 </div>
                 <script>
                     function stockSearch() {
+                        var myselect1 = document.getElementById("hangye");
+                        var myselect2 = document.getElementById("bankuai");
+                        var index1=myselect1.selectedIndex ;
+                        var index2=myselect2.selectedIndex ;
+                       var hangye=myselect1.options[index1].value;
+                       var bankuai =myselect2.options[index2].value;
+                       //调用ajax得到codelist和stocklist
+
+
+
+
                         for (var i = 0; i < stockList.length; i++) {
                             var x = document.getElementById("stockTable").insertRow(i);
                             var y = x.insertCell(0);
@@ -704,14 +720,47 @@
                         <script>
                             function Inputadd() {
 
+//                                判断输入是否存在
+                                var stockName = document.getElementById("stockInput").value;
+
+
+                                for(var v=0;v<allNames.length;v++){
+                                    if(allNames[v]==stockName){
+                                        stockCode = allCodes[v];
+                                        exit=1;
+                                        break;
+                                    }
+                                }
+                                if(exit==1) {
                                     var x = document.getElementById("compareTable").insertRow(Number);
                                     var y = x.insertCell(0);
-                                    var stock = document.getElementById("stockInput").value;
-                                    alert(stock);
+
+
                                     y.innerHTML = stock;
                                     stockToCompare.push(stock);
-//                                document.getElementById('numberOfSearch').innerHTML = stockNames.length;
-                                     Number++;
+                                    Number++;
+                                }else{
+                                    for(var v=0;v<allNames.length;v++){
+                                        if(allCodes[v]==stockName){
+                                            exit=1;
+                                            stockCode=stockName;
+                                            stockName = allNames[v];
+                                            break;
+                                        }
+                                    }
+                                    if(exit==1){
+                                        var x = document.getElementById("compareTable").insertRow(Number);
+                                        var y = x.insertCell(0);
+
+
+                                        y.innerHTML = stock;
+                                        stockToCompare.push(stock);
+                                        Number++;
+                                    }else{alert("股票不存在");}
+                                }
+
+
+
                             }
                             function Chooseadd(obj){
 
