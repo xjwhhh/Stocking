@@ -99,16 +99,16 @@
                 <!--(<i>+</i>2.23)-->
                 <!--</div>-->
                 <div class="col-md-12">
-                    <div class="col-md-6">指数名称<p id="指数名称1">a</p></div>
-                    <div class="col-md-6">当前点数<p id="当前点数1">a</p></div>
+                    <div class="col-md-6">指数名称<p id="指数名称1" style="color: #ff4b44; font-size: 1.2em;">a</p></div>
+                    <div class="col-md-6">当前点数<p id="当前点数1" style="color: #ff4b44; font-size: 2em;">a</p></div>
                 </div>
                 <div class="col-md-12">
-                    <div class="col-md-6">当前价格<p id="当前价格1">a</p></div>
-                    <div class="col-md-6">涨跌率<p id="涨跌率1">a</p></div>
+                    <div class="col-md-6">当前价格<p id="当前价格1" style="color: #ff4b44; font-size: 1.2em;">a</p></div>
+                    <div class="col-md-6">涨跌率<p id="涨跌率1" style="color: #ff4b44; font-size: 2em;">a</p></div>
                 </div>
                 <div class="col-md-12">
-                    <div class="col-md-6">成交量<p id="成交量1">a</p></div>
-                    <div class="col-md-6">成交额<p id="成交额1">a</p></div>
+                    <div class="col-md-6">成交量<p id="成交量1" style="color: #ff4b44; font-size: 1.2em;">a</p></div>
+                    <div class="col-md-6">成交额<p id="成交额1" style="color: #ff4b44; font-size: 1.2em;">a</p></div>
                 </div>
             </div>
             <div class="col-md-6">
@@ -118,16 +118,16 @@
                 <!--(<i>+</i>-18.06)-->
                 <!--</div>-->
                 <div class="col-md-12">
-                    <div class="col-md-6">指数名称<p id="指数名称2">a</p></div>
-                    <div class="col-md-6">当前点数<p id="当前点数2">a</p></div>
+                    <div class="col-md-6">指数名称<p id="指数名称2" style="color: #ff4b44; font-size: 1.2em;">a</p></div>
+                    <div class="col-md-6">当前点数<p id="当前点数2" style="color: #ff4b44; font-size: 2em;">a</p></div>
                 </div>
                 <div class="col-md-12">
-                    <div class="col-md-6">当前价格<p id="当前价格2">a</p></div>
-                    <div class="col-md-6">涨跌率<p id="涨跌率2">a</p></div>
+                    <div class="col-md-6">当前价格<p id="当前价格2" style="color: #ff4b44; font-size: 1.2em;">a</p></div>
+                    <div class="col-md-6">涨跌率<p id="涨跌率2" style="color: #ff4b44; font-size: 2em;">a</p></div>
                 </div>
                 <div class="col-md-12">
-                    <div class="col-md-6">成交量<p id="成交量2">a</p></div>
-                    <div class="col-md-6">成交额<p id="成交额2">a</p></div>
+                    <div class="col-md-6">成交量<p id="成交量2" style="color: #ff4b44; font-size: 1.2em;">a</p></div>
+                    <div class="col-md-6">成交额<p id="成交额2" style="color: #ff4b44; font-size: 1.2em;">a</p></div>
                 </div>
             </div>
             <!--<div class="col-md-4">-->
@@ -136,7 +136,7 @@
             <!--<div class="growth" style="color: #ff4b44;"><i>+</i>0.24%-->
             <!--(<i>+</i>62.36)-->
             <!--</div>-->
-            <!--</div>-->
+            </div>
         </div>
 
         <div class="col-md-8" id="news">
@@ -229,24 +229,54 @@
 <script type="text/javascript" src="http://hq.sinajs.cn/list=s_sh000001" charset="utf-8"></script>
 <script type="text/javascript">
     var sh_elements = hq_str_s_sh000001.split(",");
-//    document.write("current price:" + elements[3]);
+    //    document.write("current price:" + elements[3]);
+    if(sh_elements[3]>0){
+        document.getElementById("指数名称1").style.color = "#ff4b44";
+        document.getElementById("当前点数1").style.color = "#ff4b44";
+        document.getElementById("当前价格1").style.color = "#ff4b44";
+        document.getElementById("涨跌率1").style.color = "#ff4b44";
+        document.getElementById("成交量1").style.color = "#ff4b44";
+        document.getElementById("成交额1").style.color = "#ff4b44";
+    }else{
+        document.getElementById("指数名称1").style.color = "#00bb00";
+        document.getElementById("当前点数1").style.color = "#00bb00";
+        document.getElementById("当前价格1").style.color = "#00bb00";
+        document.getElementById("涨跌率1").style.color = "#00bb00";
+        document.getElementById("成交量1").style.color = "#00bb00";
+        document.getElementById("成交额1").style.color = "#00bb00";
+    }
     document.getElementById("指数名称1").innerHTML = sh_elements[0];
     document.getElementById("当前点数1").innerHTML = sh_elements[1];
     document.getElementById("当前价格1").innerHTML = sh_elements[2];
-    document.getElementById("涨跌率1").innerHTML = sh_elements[3];
-    document.getElementById("成交量1").innerHTML = sh_elements[4];
-    document.getElementById("成交额1").innerHTML = sh_elements[5];
+    document.getElementById("涨跌率1").innerHTML = sh_elements[3] + "%";
+    document.getElementById("成交量1").innerHTML = sh_elements[4] + "手";
+    document.getElementById("成交额1").innerHTML = sh_elements[5] + "万元";
 </script>
 <script type="text/javascript" src="http://hq.sinajs.cn/list=s_sz399001" charset="utf-8"></script>
 <script type="text/javascript">
     var sz_elements = hq_str_s_sz399001.split(",");
     //    document.write("current price:" + elements[3]);
+    if(sz_elements[3]>0){
+        document.getElementById("指数名称2").style.color = "#ff4b44";
+        document.getElementById("当前点数2").style.color = "#ff4b44";
+        document.getElementById("当前价格2").style.color = "#ff4b44";
+        document.getElementById("涨跌率2").style.color = "#ff4b44";
+        document.getElementById("成交量2").style.color = "#ff4b44";
+        document.getElementById("成交额2").style.color = "#ff4b44";
+    }else{
+        document.getElementById("指数名称2").style.color = "#00bb00";
+        document.getElementById("当前点数2").style.color = "#00bb00";
+        document.getElementById("当前价格2").style.color = "#00bb00";
+        document.getElementById("涨跌率2").style.color = "#00bb00";
+        document.getElementById("成交量2").style.color = "#00bb00";
+        document.getElementById("成交额2").style.color = "#00bb00";
+    }
     document.getElementById("指数名称2").innerHTML = sz_elements[0];
     document.getElementById("当前点数2").innerHTML = sz_elements[1];
     document.getElementById("当前价格2").innerHTML = sz_elements[2];
-    document.getElementById("涨跌率2").innerHTML = sz_elements[3];
-    document.getElementById("成交量2").innerHTML = sz_elements[4];
-    document.getElementById("成交额2").innerHTML = sz_elements[5];
+    document.getElementById("涨跌率2").innerHTML = sz_elements[3] + "%";
+    document.getElementById("成交量2").innerHTML = sz_elements[4] + "手";
+    document.getElementById("成交额2").innerHTML = sz_elements[5] + "万元";
 </script>
 <script type="text/javascript">
     function posttype(op) {

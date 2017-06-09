@@ -4,16 +4,18 @@
 dataframe,是否是板块，板块名，策略类型(1:M,2:A),仓内持有股票数，给出的是否是持有期，如果是则给出持有期，否则给出形成期
 '''
 
-from strategyAbs import Strategy
-from momStrategy import MomentumStrategy
-from averStrategy import AverageStrategy
+from calculation.strategyAbs import Strategy
+from calculation.momStrategy import MomentumStrategy
+from calculation.averStrategy import AverageStrategy
+
 
 class BGraph:
     def count(self, oriDf, isPla, plaName, type, isHold, interval):
         self.profits = []
         self.winChance = []
         self.strategy = Strategy()
-        for i in range(2, 31):
+        i = 30
+        while i <= 180:
             if i + interval > len(oriDf.index):
                 break
             form = 0
@@ -42,6 +44,7 @@ class BGraph:
             for j in range(0, len(over)):
                 if over[j] > 0:
                     total = total + 1
+            i = i + 15
 
             self.profits.append(avr)
             self.winChance.append(float(total / len(over)))
