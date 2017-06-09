@@ -136,17 +136,17 @@
     <h7>超额收益及胜率计算</h7>
     <div class="timeSelect">
         <span>选择定量:</span>
-        <select>
+        <select id="opt">
             <option>持有期</option>
             <option>形成期</option>
 
         </select>
-        <input style="width: 16%" type="text"><span>天</span>
+        <input style="width: 16%" type="text" id="interval" value="">天
 
 
     </div>
     <div>
-        <a style=" margin-left:50%;background-color: #32619e" class="btn btn-default" href="superVariance.html"
+        <a style=" margin-left:50%;background-color: #32619e" class="btn btn-default" onclick="sendtobgraph()"
            role="button">确认</a>
     </div>
 
@@ -183,11 +183,16 @@
     //    var numberOfStock
     //    var search
     //    var industry
+    var isHold;
+    var interval;
+    var thisURL;
+    var getval;
+    var message;
 
     function start() {
-        var thisURL = document.URL;
-        var getval = thisURL.split("?")[1];
-        var message = decodeURIComponent(getval.split("=")[1]);
+        thisURL = document.URL;
+        getval = thisURL.split("?")[1];
+        message = decodeURIComponent(getval.split("=")[1]);
 
         //    var message = new Array(8)
         //    for(var i = 0;i<8;i++){
@@ -223,6 +228,34 @@
                 sets = data[0].sets//获胜股票，mom为前百分之二十，avr为持股数
             }
         })
+    }
+
+    function getmessage(type, start, end,isHold,interval,  isPla, stocks) {
+        this.type = type;
+        this.start = start;
+        this.end = end;
+//        this.hold = hold;
+//        this.form = form;
+
+        this.isHold = isHold;
+        this.interval = interval;
+        this.isPla = isPla;
+        this.stocks = stocks;
+    }
+
+    function sendtobgraph() {
+//        var url = "http://localhost:8080/bgraph";
+        if(document.getElementById("opt").option[0].selected==true){
+            isHold = 0;
+        }else{
+            isHold = 1;
+        }[0].sets//获胜股
+        interval = document.getElementById("interval").value;
+        var messageobj = JSON.parse(message);
+        var newMessage = JSON.stringify(new getmessage(messageobj.type,messageobj.start,messageobj.end,isHold,interval,messageobj.stocks));
+        var messageStr = encodeURIComponent(newMessage)
+        window.location.href = "superVariance.html?message="+messageStr;
+
     }
 
 </script>
