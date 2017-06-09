@@ -2,12 +2,21 @@ package stocking.data_impl;
 
 import stocking.data_impl.dbconnector.DBConnectionManager;
 import stocking.data_impl.dbconnector.DBConnectionPool;
+import stocking.data_service.DataFactory_Data_Service;
+import stocking.po.MarketPO;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Hashtable;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by xjwhhh on 2017/5/24.
@@ -22,10 +31,12 @@ public class Cache {
     private Hashtable<String, String> code_section = new Hashtable<String, String>();
     private Hashtable<String, String> code_industry = new Hashtable<String, String>();
     private Hashtable<String, String> name_code = new Hashtable<String, String>();
+    private MarketPO marketPO;
 
 
     private Cache() {
         this.setStockInfo();
+        this.setYesterdayMarketPO();
     }
 
     /**
@@ -37,6 +48,7 @@ public class Cache {
         if (cache == null) {
             cache = new Cache();
         }
+//        System.out.println("ttttt");
         return cache;
     }
 
@@ -62,6 +74,61 @@ public class Cache {
         }
     }
 
+    /**
+     * 获取市场界面默认值，15:00之前昨日市场情况，之后今日
+     */
+    private void setYesterdayMarketPO() {
+        Tools tools = Tools.getInstance();
+        String[] data = new String[8];
+        int i = 0;
+        DataFactory_Data_Service dataFactory_data_service = DataFactory_Data_Impl.getInstance();
+        Date date = new Date();
+        SimpleDateFormat hourFormatter = new SimpleDateFormat("HH");
+        int hour = Integer.parseInt(hourFormatter.format(date));
+        Date yesterday = new Date();
+        if (hour < 15) {
+            yesterday = new Date(date.getTime() - 24 * 60 * 60 * 1000);
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFm = new SimpleDateFormat("EEEE");
+        String ofWeek = dateFm.format(yesterday);
+        String todayStr = formatter.format(yesterday);
+        String yesterday2Str = "";
+        if (ofWeek.equals("星期一")) {
+            yesterday2Str = formatter.format(new Date(yesterday.getTime() - 3 * 24 * 60 * 60 * 1000));
+        } else {
+            yesterday2Str = formatter.format(new Date(yesterday.getTime() - 24 * 60 * 60 * 1000));
+        }
+        try {
+            List<String> commands = new LinkedList<String>();
+            commands.add("python");
+            commands.add(tools.getProjectPath("src\\main\\java\\stocking\\python_Impl\\OverallSearch.py"));
+            commands.add(todayStr);
+            commands.add(yesterday2Str);
+            ProcessBuilder processBuilder = new ProcessBuilder(commands);
+            Process pr = processBuilder.start();
+            BufferedReader in = new BufferedReader(new
+                    InputStreamReader(pr.getInputStream(), "gbk"));
+            String line;
+            while ((line = in.readLine()) != null) {
+                data[i] = line;
+                i++;
+            }
+            in.close();
+            double totalDeal = Double.parseDouble(data[0]);
+            int limitUpNum = Integer.parseInt(data[1]);
+            int limitDownNum = Integer.parseInt(data[2]);
+            int overFivePerNum = Integer.parseInt(data[3]);//涨幅超过5%的股票数
+            int belowFivePerNum = Integer.parseInt(data[4]);//跌幅超过5%的股票数
+            int oc_overPFivePerNum = Integer.parseInt(data[5]);//开盘-收盘大于5%*上一个交易日收盘价的股票个数
+            int oc_belowMFivePerNum = Integer.parseInt(data[6]);//开盘-收盘小于-5%*上一个交易日收盘价的股票个数
+            int numOfStock = Integer.parseInt(data[7]);
+            marketPO = new MarketPO(totalDeal, limitUpNum, limitDownNum, overFivePerNum, belowFivePerNum, oc_overPFivePerNum, oc_belowMFivePerNum, numOfStock);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public Hashtable<String, String> getCode_Name() {
         return code_name;
@@ -77,5 +144,21 @@ public class Cache {
 
     public Hashtable<String, String> getName_Code() {
         return name_code;
+    }
+
+    public MarketPO getYesterdayMarketPO() {
+        return marketPO;
+    }
+
+
+    public static void main(String[] args) {
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("HH");
+        String str = formatter.format(date);
+        System.out.print(str);
+        int hour = Integer.parseInt(str);
+        if (hour > 13) {
+            System.out.print("123456");
+        }
     }
 }

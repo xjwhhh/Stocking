@@ -5,10 +5,10 @@ import pandas as pd
 
 engine = create_engine('mysql+pymysql://root:123456@127.0.0.1/stock?charset=utf8')
 
-# startdate=datetime.datetime.now().strftime('%Y-%m-%d');
-# enddate=datetime.datetime.now().strftime('%Y-%m-%d');
-startdate = '2017-06-06'
-enddate = '2017-06-07'
+startdate = datetime.datetime.now().strftime('%Y-%m-%d')
+enddate = datetime.datetime.now().strftime('%Y-%m-%d')
+# startdate = '2017-06-06'
+# enddate = '2017-06-07'
 
 ff1 = open("C:\\Users\\xjwhh\\Desktop\\stock1\沪市A股0-855.txt")
 ff2 = open("C:\\Users\\xjwhh\\Desktop\\stock1\沪市A股1-167.txt")

@@ -14,6 +14,7 @@ import java.text.*;
  */
 public class OverallSearch_Data_Impl implements OverallSearch_Data_Service {
     private Tools tools = Tools.getInstance();
+    Cache cache = Cache.getInstance();
 
     /**
      * 获取某日市场信息
@@ -24,12 +25,17 @@ public class OverallSearch_Data_Impl implements OverallSearch_Data_Service {
     public MarketPO getMarketInfo(Date date) {
         String[] data = new String[8];
         int i = 0;
+        Date today = new Date();
+        Date yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat dateFm = new SimpleDateFormat("EEEE");
+        if (formatter.format(date).equals(formatter.format(yesterday))) {
+            return cache.getYesterdayMarketPO();
+        }
         String ofWeek = dateFm.format(date);
         String todayStr = formatter.format(date);
         String yesterdayStr = "";
-        if (ofWeek.equals("星期一")) {
+        if (ofWeek.equals("星期一")) {//与星期五比较
             yesterdayStr = formatter.format(new Date(date.getTime() - 3 * 24 * 60 * 60 * 1000));
         } else {
             yesterdayStr = formatter.format(new Date(date.getTime() - 24 * 60 * 60 * 1000));
@@ -37,7 +43,6 @@ public class OverallSearch_Data_Impl implements OverallSearch_Data_Service {
         try {
             List<String> commands = new LinkedList<String>();
             commands.add("python");
-            System.out.println(tools.getProjectPath("src\\main\\java\\stocking\\python_Impl\\OverallSearch.py"));
             commands.add(tools.getProjectPath("src\\main\\java\\stocking\\python_Impl\\OverallSearch.py"));
             commands.add(todayStr);
             commands.add(yesterdayStr);

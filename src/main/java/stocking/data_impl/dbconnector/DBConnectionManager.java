@@ -1,5 +1,7 @@
 package stocking.data_impl.dbconnector;
 
+import stocking.data_impl.Cache;
+
 import java.sql.Connection;
 import java.util.Enumeration;
 import java.util.Hashtable;
