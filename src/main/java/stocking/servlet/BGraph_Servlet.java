@@ -33,7 +33,7 @@ public class BGraph_Servlet extends HttpServlet {
         }
 
         bds = DataFactory_Data_Impl.getInstance().bGraph();
-        String type = jsonObject.getString("type");//策略类型(M,A)
+        String type = jsonObject.getString("type");//策略类型(M,A),动量策略传1，均值策略传2
 
         ParseDate pd = new ParseDate();
         Date start = null;

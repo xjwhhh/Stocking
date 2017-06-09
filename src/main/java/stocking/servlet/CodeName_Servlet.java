@@ -30,7 +30,7 @@ public class CodeName_Servlet extends HttpServlet {
         }
 
         cds = DataFactory_Data_Impl.getInstance().codeName();
-        String type = jsonObject.getString("type");//若为all则传所有名称和代码，若传板块名称则返回板块名称和代码
+        String type = jsonObject.getString("type");//若为all则传所有名称和代码，否则type为“行业名/板块名”
         StockInfoPO result = null;
         if (type.equals("all")) {
             result = cds.get();
