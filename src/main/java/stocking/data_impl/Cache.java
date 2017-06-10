@@ -4,6 +4,7 @@ import stocking.data_impl.dbconnector.DBConnectionManager;
 import stocking.data_impl.dbconnector.DBConnectionPool;
 import stocking.data_service.DataFactory_Data_Service;
 import stocking.po.MarketPO;
+import stocking.po.RankingPO;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,17 +27,25 @@ public class Cache {
     DBConnectionManager connectionManager = DBConnectionManager.getInstance();
     Hashtable pools = connectionManager.getPools();
     DBConnectionPool pool = (DBConnectionPool) pools.get("stock");
+    Tools tools = Tools.getInstance();
 
     private Hashtable<String, String> code_name = new Hashtable<String, String>();
     private Hashtable<String, String> code_section = new Hashtable<String, String>();
     private Hashtable<String, String> code_industry = new Hashtable<String, String>();
     private Hashtable<String, String> name_code = new Hashtable<String, String>();
     private MarketPO marketPO;
+    private RankingPO rankingPO1;//日换手率达到20%的前五只证券
+    private RankingPO rankingPO2;//日涨幅偏离值达到7%的前五只证券
+    private RankingPO rankingPO3;//日跌幅偏离值达到7%的前五只证券
 
 
     private Cache() {
         this.setStockInfo();
-        this.setYesterdayMarketPO();
+//        this.setYesterdayMarketPO();
+//        rankingPO1 = setRankingPO("日换手率达到20%的前五只证券");
+//        rankingPO2 = setRankingPO("日涨幅偏离值达到7%的前五只证券");
+//        rankingPO3 = setRankingPO("日跌幅偏离值达到7%的前五只证券");
+
     }
 
     /**
@@ -48,7 +57,7 @@ public class Cache {
         if (cache == null) {
             cache = new Cache();
         }
-//        System.out.println("ttttt");
+        System.out.println("ttttt");
         return cache;
     }
 
@@ -78,7 +87,7 @@ public class Cache {
      * 获取市场界面默认值，15:00之前昨日市场情况，之后今日
      */
     private void setYesterdayMarketPO() {
-        Tools tools = Tools.getInstance();
+
         String[] data = new String[8];
         int i = 0;
         DataFactory_Data_Service dataFactory_data_service = DataFactory_Data_Impl.getInstance();
@@ -129,6 +138,41 @@ public class Cache {
         }
     }
 
+    private RankingPO setRankingPO(String reason) {
+        Date today = new Date();
+        Date yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000 * 2);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String yesterdayStr = formatter.format(yesterday);
+        try {
+            List<String> commands = new LinkedList<String>();
+            commands.add("python");
+            commands.add(tools.getProjectPath("src\\main\\java\\stocking\\python_Impl\\DragonAndTigerSpider.py"));
+            commands.add(yesterdayStr);
+            commands.add(reason);
+            ProcessBuilder processBuilder = new ProcessBuilder(commands);
+            Process pr = processBuilder.start();
+            BufferedReader in = new BufferedReader(new
+                    InputStreamReader(pr.getInputStream(), "gbk"));
+            String line = in.readLine();
+            if (tools.isInteger(line)) {
+                int num = Integer.parseInt(line);
+                String[] names = new String[num];
+                Double[] up = new Double[num];
+                for (int i = 0; i < num; i++) {
+                    names[i] = in.readLine();
+                }
+                for (int i = 0; i < num; i++) {
+                    up[i] = Double.parseDouble(in.readLine());
+                }
+                RankingPO rankingPO = new RankingPO(names, up);
+                return rankingPO;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     public Hashtable<String, String> getCode_Name() {
         return code_name;
@@ -148,6 +192,18 @@ public class Cache {
 
     public MarketPO getYesterdayMarketPO() {
         return marketPO;
+    }
+
+    public RankingPO getRankingPO1() {
+        return rankingPO1;
+    }
+
+    public RankingPO getRankingPO2() {
+        return rankingPO2;
+    }
+
+    public RankingPO getRankingPO3() {
+        return rankingPO3;
     }
 
 

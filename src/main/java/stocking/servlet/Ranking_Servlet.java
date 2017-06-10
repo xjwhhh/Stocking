@@ -24,7 +24,7 @@ public class Ranking_Servlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         rds = DataFactory_Data_Impl.getInstance().ranking();
-        RankingPO result = rds.getRanking();
+        RankingPO result = rds.getRanking(" ");
         new SendByServlet().doSend(response, result);
     }
 }

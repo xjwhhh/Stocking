@@ -11,14 +11,14 @@ import java.util.List;
 public class StockPO {
     private String name;
     private String code;
-    private Date start;
-    private Date over;
+    private String start;
+    private String over;
     private double[] open;
     private double[] high;
     private double[] low;
     private int[] volume;//交易数
     private double[] adjClose;//复权后
-    private Date[] dates;
+    private String[] dates;
     private double[] average5;
     private double[] average10;
     private double[] average20;
@@ -31,8 +31,8 @@ public class StockPO {
     private double up;
 
 
-    public StockPO(String name, String code, Date start, Date over, double[] open, double[] high, double[] low,
-                   int[] volume, double[] adjClose, Date[] dates, double[] average5, double[] average10,
+    public StockPO(String name, String code, String start, String over, double[] open, double[] high, double[] low,
+                   int[] volume, double[] adjClose, String[] dates, double[] average5, double[] average10,
                    double[] average20, double[] average30, double[] average60, double[] profit, double variance,
                    double highest, double lowest, double up) {
         this.name = name;
@@ -73,19 +73,19 @@ public class StockPO {
         this.code = code;
     }
 
-    public Date getStart() {
+    public String getStart() {
         return start;
     }
 
-    public void setStart(Date date) {
+    public void setStart(String date) {
         this.start = date;
     }
 
-    public Date getOver() {
+    public String getOver() {
         return over;
     }
 
-    public void setOver(Date date) {
+    public void setOver(String date) {
         this.over = date;
     }
 
@@ -129,11 +129,11 @@ public class StockPO {
         this.adjClose = adjClose;
     }
 
-    public Date[] getDates() {
+    public String[] getDates() {
         return dates;
     }
 
-    public void setDates(Date[] dates) {
+    public void setDates(String[] dates) {
         this.dates = dates;
     }
 

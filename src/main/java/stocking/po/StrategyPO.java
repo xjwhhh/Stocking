@@ -14,13 +14,13 @@ public class StrategyPO {
     private double beta;
     private double sharpeRatio;
     private double maxDrawDown;//最大回撤
-    private Date[] dates;
+    private String[] dates;
     private Double[] profits;
     private Double[] basicProfits;//基准收益
     private StockWinnerSet[] sets;//获胜股票，mom为前百分之二十，avr为持股数
 
     public StrategyPO(double annualReturn, double basicAnnualReturn, double alpha, double beta,
-                      double sharpeRatio, double maxDrawDown, Date[] dates, Double[] profits,
+                      double sharpeRatio, double maxDrawDown, String[] dates, Double[] profits,
                       Double[] basicProfits, StockWinnerSet[] sets) {
         this.annualReturn = annualReturn;
         this.basicAnnualReturn = basicAnnualReturn;
@@ -82,11 +82,11 @@ public class StrategyPO {
         this.maxDrawDown = maxDrawDown;
     }
 
-    public Date[] getDates() {
+    public String[] getDates() {
         return dates;
     }
 
-    public void setDates(Date[] dates) {
+    public void setDates(String[] dates) {
         this.dates = dates;
     }
 

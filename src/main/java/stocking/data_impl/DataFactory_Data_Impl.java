@@ -63,7 +63,7 @@ public class DataFactory_Data_Impl implements DataFactory_Data_Service {
 
     @Override
     public Ranking_Data_Service ranking() {
-        return null;
+        return new Ranking_Data_Impl();
     }
 
 }

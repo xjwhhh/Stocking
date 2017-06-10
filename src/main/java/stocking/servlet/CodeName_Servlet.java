@@ -37,6 +37,7 @@ public class CodeName_Servlet extends HttpServlet {
         } else {
             result = cds.getPlate(type);
         }
+        response.setCharacterEncoding("utf-8");
         new SendByServlet().doSend(response, result);
     }
 }

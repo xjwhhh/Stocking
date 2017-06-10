@@ -37,9 +37,11 @@ if __name__ == "__main__":
     for i in range(0, len(paths) - 2):
         newPath += (paths[i] + "\\")
     newPath += "calculation"
+    # newPath='C:\\Users\\朱晨乾\\IdeaProjects\\Stock_Analyzing_System\\src\\main\\java\\stocking\\calculation'
     sys.path.append(newPath)
-    sys.path.append(
-        "C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\Stock_Analyzing_System\\src\\main\\java\\stocking\\calculation")
+    print(newPath)
+    # sys.path.append(
+    #     "C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\Stock_Analyzing_System\\src\\main\\java\\stocking\\calculation")
     import decBelow
     import decGre
     import incAbove
@@ -56,6 +58,8 @@ if __name__ == "__main__":
     for i in {"sha0", "sha1", "sha3", "shb", "sza", "szb", "cyb", "zxb"}:
         todayDF = getallkdata(i, sys.argv[1])
         yesterdayDF = getallkdata(i, sys.argv[2])
+        # todayDF = getallkdata(i, '2017-05-24')
+        # yesterdayDF = getallkdata(i, '2017-05-23')
         newDF = pd.merge(todayDF, yesterdayDF, on=['code'], how='inner')  # 两天都有的股票
         closeX = newDF['close_x']  # 当天close
         highX = newDF['high_x']  # 当天high
