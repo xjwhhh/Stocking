@@ -1,7 +1,6 @@
 package stocking.servlet;
 
 import net.sf.json.JSONObject;
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import stocking.data_impl.DataFactory_Data_Impl;
 import stocking.data_service.Minute_Data_Service;
 import stocking.data_service.SingleSearch_Data_Service;
@@ -37,7 +36,7 @@ public class SingleStock_Servlet extends HttpServlet {
         }
 
         ssds = DataFactory_Data_Impl.getInstance().singleSearch();
-        mds=DataFactory_Data_Impl.getInstance().minute();
+        mds = DataFactory_Data_Impl.getInstance().minute();
         String type = jsonObject.getString("type");//minute或normal
         String identifier = jsonObject.getString("identifier");//code或name
 

@@ -9,11 +9,11 @@ public class MinuteDataPO {
     private double prediction;
     private double relativity;
 
-    public MinuteDataPO(String[] minute, Double[] prices,double prediction,double relativity) {
+    public MinuteDataPO(String[] minute, Double[] prices, double prediction, double relativity) {
         this.minute = minute;
         this.prices = prices;
-        this.prediction=prediction;
-        this.relativity=relativity;
+        this.prediction = prediction;
+        this.relativity = relativity;
     }
 
     public String[] getMinute() {
@@ -32,20 +32,20 @@ public class MinuteDataPO {
         this.prices = prices;
     }
 
-    public double getPrediction(){
+    public double getPrediction() {
         return prediction;
     }
 
-    public void setPrediction(double prediction){
-        this.prediction=prediction;
+    public void setPrediction(double prediction) {
+        this.prediction = prediction;
     }
 
-    public double getRelativity(){
+    public double getRelativity() {
         return relativity;
     }
 
-    public void setRelativity(double relativity){
-        this.relativity=relativity;
+    public void setRelativity(double relativity) {
+        this.relativity = relativity;
     }
 
 }

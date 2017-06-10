@@ -8,9 +8,9 @@ import stocking.data_service.OverallSearch_Data_Service;
 import stocking.po.MarketPO;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by xjwhhh on 2017/5/31.

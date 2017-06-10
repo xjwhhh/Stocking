@@ -1,17 +1,6 @@
 package stocking.data_impl.dbconnector;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.List;
 import java.util.Vector;
-import java.util.Iterator;
-
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.input.SAXBuilder;
-import stocking.data_impl.Tools;
 
 /**
  * Created by xjwhhh on 2017/5/23.
@@ -74,7 +63,7 @@ public class ParseDBConfig {
 //                e.printStackTrace();
 //            }
 //        }
-        dsConfig=new Vector();
+        dsConfig = new Vector();
         DBConfigBean dscBean = new DBConfigBean();
         dscBean.setType("mysql");
         dscBean.setName("stock");

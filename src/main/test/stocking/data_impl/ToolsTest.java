@@ -4,7 +4,7 @@ import net.sf.json.JSONArray;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by xjwhhh on 2017/5/31.
@@ -55,6 +55,7 @@ public class ToolsTest {
 
     /**
      * 获取项目路径
+     *
      * @throws Exception
      */
     @Test
@@ -66,15 +67,16 @@ public class ToolsTest {
 
     /**
      * JsonArray转String
+     *
      * @throws Exception
      */
     @Test
     public void jsonArrayToString() throws Exception {
         String[] array = new String[]{"JSON", "3", "test"};
         JSONArray jsonArray = JSONArray.fromObject(array);
-        String str=tools.jsonArrayToString(jsonArray);
-        String needStr="JSON/3/test";
-        assertEquals(needStr,str);
+        String str = tools.jsonArrayToString(jsonArray);
+        String needStr = "JSON/3/test";
+        assertEquals(needStr, str);
     }
 
 }

@@ -1,6 +1,6 @@
-from sqlalchemy import create_engine
-import tushare as ts
 import datetime
+import tushare as ts
+from sqlalchemy import create_engine
 
 # 获取大盘指数k线数据
 engine = create_engine('mysql+pymysql://root:123456@127.0.0.1/stock?charset=utf8')

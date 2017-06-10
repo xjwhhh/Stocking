@@ -5,10 +5,9 @@ oriDf为Dataframe类型只要open,close（adjclose）,volume,high,low,index为da
 '''
 
 import pandas as pd
-import numpy as np
-from sklearn import svm
-from sklearn import naive_bayes
 from sklearn import ensemble
+from sklearn import naive_bayes
+from sklearn import svm
 
 
 def svmPredict(oriDf):

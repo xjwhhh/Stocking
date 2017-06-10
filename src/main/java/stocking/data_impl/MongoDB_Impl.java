@@ -1,13 +1,12 @@
 package stocking.data_impl;
 
 import com.mongodb.BasicDBObject;
-import org.bson.Document;
-
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import org.bson.Document;
 import stocking.data_impl.dbconnector.MongoDBConnector;
 import stocking.po.CustomerPO;
 

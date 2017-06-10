@@ -1,9 +1,5 @@
 package stocking.po;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 /**
  * 只用于历史查询，实时查询需要
  * Created by dell on 2017/5/21.

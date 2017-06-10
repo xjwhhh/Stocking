@@ -5,13 +5,9 @@ import stocking.data_impl.dbconnector.DBConnectionPool;
 import stocking.data_service.Customer_Data_Service;
 import stocking.po.CustomerPO;
 
-import java.sql.Connection;
-import java.sql.Blob;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.*;
 import java.util.Hashtable;
 
 /**
@@ -127,10 +123,10 @@ public class Customer_Data_Impl implements Customer_Data_Service {
             pstmt.setString(1, name);
             pstmt.setString(2, newPassword);
             pstmt.setString(3, oldPassword);
-            int rows=pstmt.executeUpdate();
+            int rows = pstmt.executeUpdate();
             pstmt.close();
             pool.freeConnection(connection);
-            if(rows>0) {
+            if (rows > 0) {
                 customerPO.setPassword(newPassword);
                 return customerPO;
             }

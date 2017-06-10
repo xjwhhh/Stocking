@@ -49,8 +49,8 @@ public class CustomerPO {
     }
 
     @Override
-    public boolean equals(Object customerPO){
-        if(customerPO instanceof CustomerPO) {
+    public boolean equals(Object customerPO) {
+        if (customerPO instanceof CustomerPO) {
             return id.equals(((CustomerPO) customerPO).getId()) && name.equals(((CustomerPO) customerPO).getName()) && password.equals(((CustomerPO) customerPO).getPassword()) && newPassword.equals(((CustomerPO) customerPO).getNewPassword());
         }
         return false;

@@ -1,16 +1,7 @@
 package stocking.data_impl;
 
 import net.sf.json.JSONArray;
-import stocking.po.StockWinnerSet;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Hashtable;
-import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -19,7 +10,8 @@ import java.util.regex.Pattern;
 public class Tools {
     static private Tools tool;
 
-    private Tools(){}
+    private Tools() {
+    }
 
     /**
      * 获取唯一实例
@@ -46,6 +38,7 @@ public class Tools {
 
     /**
      * 获取项目地址
+     *
      * @param path
      * @return
      */
@@ -56,7 +49,7 @@ public class Tools {
 //        for (int i = 0; i < pathList.length - 6; i++) {
 //            newPath += (pathList[i] + "\\");
 //        }
-        String newPath="C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\Stock_Analyzing_System\\";
+        String newPath = "C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\Stock_Analyzing_System\\";
         newPath += path;
         return newPath;
     }
@@ -69,7 +62,7 @@ public class Tools {
      */
     public String jsonArrayToString(JSONArray jsonArray) {
         String arr = "";
-        if(jsonArray.size()>0) {
+        if (jsonArray.size() > 0) {
             for (int i = 0; i < jsonArray.size() - 1; i++) {
                 arr += (jsonArray.getString(i) + "/");
             }

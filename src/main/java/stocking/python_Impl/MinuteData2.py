@@ -1,20 +1,11 @@
-import tushare as ts
-import sys
-import pymysql
 import pandas as pd
-
-
-# from sklearn import svm
-# from sklearn import naive_bayes
-# from sklearn import ensemble
-
+import pymysql
+import sys
+import tushare as ts
 
 
 def svmPredict(oriDf):
     sys.path.append("C:\\Users\\xjwhh\\Anaconda3\\Lib\\site-packages")
-    # import svm
-    # import naive_bayes
-    # import ensemble
     from sklearn import svm
     from sklearn import naive_bayes
     from sklearn import ensemble
@@ -159,15 +150,9 @@ if __name__ == "__main__":
         "C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\Stock_Analyzing_System\\src\\main\\java\\stocking\\calculation")
 
     # print(newPath)
-
-
-    #
-    import corCal
-
-    #
     code = sys.argv[1]
     date = sys.argv[2]
-    before=sys.argv[3]
+    before = sys.argv[3]
 
     getMinuteData(code, date)
     # getMinuteData('000001', '2017-06-08')
@@ -184,62 +169,57 @@ if __name__ == "__main__":
     sectionName = getSectionByCode(code)
     df = getstockinfo(code, before, date, sectionName)
     # print(len(df))
-    # prediction=svmPredict(df)
-    # print(prediction)
+    prediction = svmPredict(df)
+    print(prediction)
 
-    # print(df)
-    # adjdf = df['close']
-    # indexList = list(adjdf.index)
-    #
-    # # 获取行业
-    # sql = "select industry from basicinfo where  code='%s' " % (code)
-    # try:
-    #     cursor.execute(sql)
-    #     results = cursor.fetchall()
-    #     for row in results:
-    #         industry = row[0]
-    # except:
-    #     print('fail')
-    #
-    # # 获取同行业股票
-    # sql = "select code from basicinfo where  industry='%s' " % (industry)
-    # try:
-    #     cursor.execute(sql)
-    #     results = cursor.fetchall()
-    #     codes = []
-    #     for row in results:
-    #         codes.append(row[0])
-    # except:
-    #     print('fail')
-    #
-    # re = []
-    # for i in codes:
-    #     sectionName = getSectionByCode(i)
-    #     df = getStockInfo2(i, sectionName, before, date)
-    #     if (len(df) > 82):
-    #         df = df[-82:]
-    #         profit = []
-    #         ttt = list(df['close'])
-    #         profit.append(0)
-    #         for i in range(1, len(ttt)):
-    #             t = (ttt[i] - ttt[i - 1]) / ttt[i - 1]
-    #             profit.append(t)
-    #         re.append(profit)
-    #
-    # meanvalue = []
-    # for i in range(0, 82):
-    #     m = 0
-    #     for t in re:
-    #         m += t[i]
-    #     meanvalue.append(m / len(re))
-    #
-    # seriess = []
-    # for i in range(0, 82):
-    #     res = [indexList[i], meanvalue[i]]
-    #     seriess.append(res)
-    # marketDF = pd.DataFrame(seriess, columns=['date', 'rate'])
-    # marketDF = marketDF.set_index('date')
-    #
-    # relativity = smCorCal(adjdf, marketDF)
-    # print(relativity)
-    # # print(adjdf[0])
+    closeList = list(df['close'])
+    indexList = list(df.index)
+
+    adjDF = pd.DataFrame(closeList, index=indexList)
+
+    # 获取行业
+    sql = "select industry from basicinfo where  code='%s' " % (code)
+    try:
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        for row in results:
+            industry = row[0]
+    except:
+        print('fail')
+
+    # 获取同行业股票
+    sql = "select code from basicinfo where  industry='%s' " % (industry)
+    try:
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        codes = []
+        for row in results:
+            codes.append(row[0])
+    except:
+        print('fail')
+
+    re = []
+    for i in codes:
+        sectionName = getSectionByCode(i)
+        df = getStockInfo2(i, sectionName, before, date)
+        if len(df) > 82:
+            df = df[-82:]
+            profit = []
+            ttt = list(df['close'])
+            profit.append(0)
+            for i in range(1, len(ttt)):
+                t = (ttt[i] - ttt[i - 1]) / ttt[i - 1]
+                profit.append(t)
+            re.append(profit)
+
+    meanvalue = []
+    for i in range(0, 82):
+        m = 0
+        for t in re:
+            m += t[i]
+        meanvalue.append(m / len(re))
+
+    marketDF = pd.DataFrame(meanvalue, index=indexList)
+
+    relativity = smCorCal(adjDF, marketDF)
+    print(relativity)

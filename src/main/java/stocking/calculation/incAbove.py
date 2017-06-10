@@ -7,7 +7,6 @@
 
 
 def incAbove(previous, present, percent):
-    import pandas as pd
     result = list(map(lambda x, y: (y - x) * 100 / x + 0.01 * 100 / x, previous, present))
     count = len(list(filter(lambda x: x >= percent * 100, result)))
     return count

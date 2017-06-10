@@ -4,6 +4,7 @@
 adjClose(series)，interval
 '''
 
+
 def smaCal(tsPrice, k):
     import pandas as pd
     sma = pd.Series(0.0, index=tsPrice.index)

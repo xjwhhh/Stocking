@@ -1,7 +1,6 @@
-import sys
-import pymysql
 import pandas as pd
-import random
+import pymysql
+import sys
 import tushare as ts
 
 

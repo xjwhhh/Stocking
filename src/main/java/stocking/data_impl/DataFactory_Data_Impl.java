@@ -1,9 +1,6 @@
 package stocking.data_impl;
 
 import stocking.data_service.*;
-import stocking.po.CustomerPO;
-import stocking.po.StockPO;
-import stocking.po.MarketPO;
 
 /**
  * Created by dell on 2017/5/21.

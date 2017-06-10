@@ -11,7 +11,7 @@ public class NewsPO {
     private String[] time;
     private String[] url;
 
-    public NewsPO(String[] classify, String[] title,String[] time, String[] url) {
+    public NewsPO(String[] classify, String[] title, String[] time, String[] url) {
         this.classify = classify;
         this.title = title;
         this.time = time;

@@ -1,13 +1,16 @@
 package stocking.data_impl;
 
-import net.sf.json.JSONObject;
 import stocking.data_service.Minute_Data_Service;
 import stocking.po.MinuteDataPO;
 
-import java.text.ParseException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
-import java.util.*;
-import java.io.*;
+import java.util.Date;
+import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by xjwhhh on 2017/6/4.
@@ -57,23 +60,9 @@ public class Minute_Data_Impl implements Minute_Data_Service {
                 Process pr = processBuilder.start();
                 BufferedReader in = new BufferedReader(new
                         InputStreamReader(pr.getInputStream(), "gbk"));
-                in.readLine();
-                String line = in.readLine();
-                double prediction = 0;
-                double relativity = 0;
-                if (tools.isInteger(line)) {
-                    int num = Integer.parseInt(line);
-                    String[] minute = new String[num];
-                    Double[] prices = new Double[num];
-                    for (int i = 0; i < num; i++) {
-                        minute[i] = in.readLine();
-                        prices[i] = Double.parseDouble(in.readLine());
-                    }
-//                    prediction=Double.parseDouble(in.readLine());
-//                    relativity=Double.parseDouble(in.readLine());
-                    MinuteDataPO minuteDataPO = new MinuteDataPO(minute, prices, prediction, relativity);
-                    return minuteDataPO;
-                }
+                MinuteDataPO minuteDataPO = getMinuteDataPO(in);
+                return minuteDataPO;
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -84,16 +73,12 @@ public class Minute_Data_Impl implements Minute_Data_Service {
                 date = new Date(date.getTime() - 24 * 60 * 60 * 1000);
             }
             String dateStr = formatter.format(date);
-            System.out.println(dateStr);
-//            }
-//            System.out.print(date.toString());
 
             Date before = new Date(date.getTime() - 24 * 60 * 60 * 1000);
             for (int i = 0; i < 160; i++) {
                 before = new Date(before.getTime() - 24 * 60 * 60 * 1000);
             }
             String beforeStr = formatter.format(before);
-            System.out.println(beforeStr);
             try {
                 List<String> commands = new LinkedList<String>();
                 commands.add("python");
@@ -105,27 +90,8 @@ public class Minute_Data_Impl implements Minute_Data_Service {
                 Process pr = processBuilder.start();
                 BufferedReader in = new BufferedReader(new
                         InputStreamReader(pr.getInputStream(), "gbk"));
-//                int t=0;
-//                while(t<100){
-//                    System.out.println(in.readLine());
-//                    t++;
-//                }
-                String line = in.readLine();
-                double prediction = 0;
-                double relativity = 0;
-                if (tools.isInteger(line)) {
-                    int num = Integer.parseInt(line);
-                    String[] minute = new String[num];
-                    Double[] prices = new Double[num];
-                    for (int i = 0; i < num; i++) {
-                        minute[i] = in.readLine();
-                        prices[i] = Double.parseDouble(in.readLine());
-                    }
-//                    prediction=Double.parseDouble(in.readLine());
-//                    relativity=Double.parseDouble(in.readLine());
-                    MinuteDataPO minuteDataPO = new MinuteDataPO(minute, prices, prediction, relativity);
-                    return minuteDataPO;
-                }
+                MinuteDataPO minuteDataPO = getMinuteDataPO(in);
+                return minuteDataPO;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -133,12 +99,28 @@ public class Minute_Data_Impl implements Minute_Data_Service {
         return null;
     }
 
+    private MinuteDataPO getMinuteDataPO(BufferedReader in) {
+        try {
+            String line = in.readLine();
+            double prediction = 0;
+            double relativity = 0;
+            if (tools.isInteger(line)) {
+                int num = Integer.parseInt(line);
+                String[] minute = new String[num];
+                Double[] prices = new Double[num];
+                for (int i = 0; i < num; i++) {
+                    minute[i] = in.readLine();
+                    prices[i] = Double.parseDouble(in.readLine());
+                }
+                prediction = Double.parseDouble(in.readLine());
+                relativity = Double.parseDouble(in.readLine());
+                MinuteDataPO minuteDataPO = new MinuteDataPO(minute, prices, prediction, relativity);
+                return minuteDataPO;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-//    public static void main(String[] args) {
-//        Minute_Data_Impl minuteData = new Minute_Data_Impl();
-//        MinuteDataPO minuteDataPO=minuteData.getMinuteDataPO("000001");
-//        JSONObject json = JSONObject.fromObject(minuteDataPO);//将java对象转换为json对象
-//        String str = json.toString();//将json对象转换为字符串
-//        System.out.print(str);
-//    }
 }

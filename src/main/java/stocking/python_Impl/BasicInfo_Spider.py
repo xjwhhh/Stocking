@@ -1,11 +1,11 @@
 # coding=utf-8
+import pymysql
 import urllib.request
 from bs4 import BeautifulSoup
-import pymysql
 
 # 通过股票代码爬取股票名称，证监会行业分类，沪深等板块分类
 db = pymysql.connect("localhost", "root", "123456", "stock", use_unicode=True, charset="utf8")
-cursor = db.cursor();
+cursor = db.cursor()
 ff = open("C:\\Users\\xjwhh\\Desktop\\newstock2.txt")
 f = open("C:\\Users\\xjwhh\\Desktop\\failstock.txt", 'a')
 list_of_all_the_lines = ff.readlines()

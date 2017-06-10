@@ -1,7 +1,5 @@
 package stocking.po;
 
-import java.util.List;
-
 /**
  * Created by dell on 2017/5/30.
  */
@@ -11,7 +9,7 @@ public class StockWinnerSet {
     private String[] names;//名字
     private Double[] profits;//收益率
 
-    public StockWinnerSet(String[] codes,String[] names, Double[] profits) {
+    public StockWinnerSet(String[] codes, String[] names, Double[] profits) {
         this.codes = codes;
         this.names = names;
         this.profits = profits;

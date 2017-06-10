@@ -6,18 +6,18 @@ import stocking.data_service.Customer_Data_Service;
 import stocking.data_service.DataFactory_Data_Service;
 import stocking.po.CustomerPO;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by xjwhhh on 2017/5/23.
  */
 public class Customer_Data_ImplTest {
-    DataFactory_Data_Service dataFactory_data_service ;
+    DataFactory_Data_Service dataFactory_data_service;
     Customer_Data_Service customer_data_service;
 
     @Before
-    public void init(){
-        dataFactory_data_service= DataFactory_Data_Impl.getInstance();
+    public void init() {
+        dataFactory_data_service = DataFactory_Data_Impl.getInstance();
         customer_data_service = dataFactory_data_service.customer();
     }
 
@@ -40,7 +40,7 @@ public class Customer_Data_ImplTest {
         CustomerPO customerPO = new CustomerPO("1", "456", "234567", "");
         CustomerPO newCustomer = customer_data_service.execute("login", customerPO);
         CustomerPO newCustomer1 = new CustomerPO("1", "456", "23456", "");
-        assertEquals(true, newCustomer==null);
+        assertEquals(true, newCustomer == null);
     }
 
     /**
@@ -73,6 +73,6 @@ public class Customer_Data_ImplTest {
         CustomerPO customerPO = new CustomerPO("1", "456", "234567", "23456");
         CustomerPO newCustomer = customer_data_service.execute("modify", customerPO);
         CustomerPO newCustomer1 = new CustomerPO("1", "456", "23456", "23456");
-        assertEquals(true,newCustomer==null);
+        assertEquals(true, newCustomer == null);
     }
 }

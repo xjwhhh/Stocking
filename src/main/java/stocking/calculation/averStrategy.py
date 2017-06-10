@@ -3,7 +3,6 @@
 '''
 
 from strategyAbs import Strategy
-import pandas as pd
 
 
 class AverageStrategy(Strategy):
@@ -12,6 +11,7 @@ class AverageStrategy(Strategy):
         self.basic = {}  # 市场基本收益率
         self.form = form
         self.hold = hold
+
     pass
 
     def count(self, oriDf, isPla, plaName):

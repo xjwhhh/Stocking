@@ -1,8 +1,7 @@
+import pandas as pd
 import pymysql
 import sys
-import pandas as pd
 import tushare as ts
-import random
 
 
 def getStockInfo(code, section, startDate, endDate):
@@ -57,7 +56,7 @@ def getCodeBySection(plaName):
             for row in results:
                 code = row[0]
                 re.append(code)
-            # print(re)
+                # print(re)
         except:
             print('get data fail')
     elif plaName == '上证指数':
@@ -69,7 +68,7 @@ def getCodeBySection(plaName):
             for row in results:
                 code = row[0]
                 re.append(code)
-            # print(re)
+                # print(re)
         except:
             print('get data fail')
     elif (plaName == '创业板' or plaName == '中小板'):
@@ -81,7 +80,7 @@ def getCodeBySection(plaName):
             for row in results:
                 code = row[0]
                 re.append(code)
-            # print(re)
+                # print(re)
         except:
             print('get data fail')
     elif plaName == '上证50':

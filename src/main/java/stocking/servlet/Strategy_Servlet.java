@@ -2,8 +2,6 @@ package stocking.servlet;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import stocking.data_impl.DataFactory_Data_Impl;
-import stocking.data_service.Strategy_Data_Service;
 import stocking.po.StockWinnerSet;
 import stocking.po.StrategyPO;
 

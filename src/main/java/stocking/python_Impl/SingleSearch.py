@@ -1,8 +1,7 @@
 # coding=utf8
-import sys
-
 import pandas as pd
 import pymysql
+import sys
 
 
 def getkdata(sectionName, code, startDate, endDate):

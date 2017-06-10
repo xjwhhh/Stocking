@@ -25,9 +25,6 @@ public class MarketPO {
         this.numOfStock = numOfStock;
     }
 
-//    public MarketPO(int i, int i1, int i2, int i3, int i4, int i5, int i6) {
-//    }
-
 
     public double getTotalDeal() {
         return totalDeal;

@@ -5,14 +5,15 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import stocking.data_impl.dbconnector.MongoDBConnector;
 import stocking.data_service.CustomerCollection_Data_Service;
 import stocking.po.CollectionPO;
-import com.mongodb.client.model.Filters;
 
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
 
 /**
  * Created by xjwhhh on 2017/6/5.

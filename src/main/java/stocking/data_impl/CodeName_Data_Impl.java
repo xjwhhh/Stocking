@@ -5,7 +5,6 @@ import stocking.po.StockInfoPO;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.Iterator;
 
 /**
  * Created by xjwhhh on 2017/6/5.

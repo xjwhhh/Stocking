@@ -1,5 +1,5 @@
-import tushare as ts
 import sys
+import tushare as ts
 
 
 # 信息地雷

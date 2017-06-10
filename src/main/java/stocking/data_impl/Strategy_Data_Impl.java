@@ -1,6 +1,5 @@
 package stocking.data_impl;
 
-import com.sun.java.browser.plugin2.DOM;
 import net.sf.json.JSONArray;
 import stocking.data_service.Strategy_Data_Service;
 import stocking.po.StockWinnerSet;
@@ -9,9 +8,11 @@ import stocking.po.StrategyPO;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by xjwhhh on 2017/5/31.
@@ -62,8 +63,8 @@ public class Strategy_Data_Impl implements Strategy_Data_Service {
             double beta = Double.parseDouble(data[3]);
             double sharpeRatio = Double.parseDouble(data[4]);
             double maxDrawDown = Double.parseDouble(data[5]);//最大回撤
-            String line=in.readLine();
-            if(tools.isInteger(line)) {
+            String line = in.readLine();
+            if (tools.isInteger(line)) {
                 int num = Integer.parseInt(line);
                 String[] dates = new String[num];
                 Double[] profits = new Double[num];
@@ -99,16 +100,16 @@ public class Strategy_Data_Impl implements Strategy_Data_Service {
             try {
                 for (int i = 0; i < seriesNum; i++) {
                     String code = in.readLine();
-                    codes[i]=code;
+                    codes[i] = code;
                     String name = code_name.get(code);
-                    names[i]=name;
+                    names[i] = name;
                 }
                 for (int i = 0; i < seriesNum; i++) {
                     String profit = in.readLine();
-                    profits[i]=Double.parseDouble(profit);
+                    profits[i] = Double.parseDouble(profit);
                 }
                 StockWinnerSet stockWinnerSet = new StockWinnerSet(codes, names, profits);
-                stockWinnerSets[j]=stockWinnerSet;
+                stockWinnerSets[j] = stockWinnerSet;
             } catch (IOException e) {
                 e.printStackTrace();
             }

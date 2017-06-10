@@ -1,16 +1,13 @@
 package stocking.data_impl;
 
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import stocking.data_service.BGraph_Data_Service;
 import stocking.po.BGraphPO;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,6 +21,7 @@ public class BGraph_Data_Impl implements BGraph_Data_Service {
 
     /**
      * 获取不同持有期/形成期下超额收益率与策略胜率
+     *
      * @param type
      * @param start
      * @param end
@@ -41,7 +39,7 @@ public class BGraph_Data_Impl implements BGraph_Data_Service {
             commands.add("python");
             commands.add(tools.getProjectPath("src\\main\\java\\stocking\\python_Impl\\BGraph.py"));
 
-            String value=type+"?"+startDate+"?"+endDate+"?"+isHold+"?"+String.valueOf(interval)+"?"+isPla+"?"+tools.jsonArrayToString(stocks);
+            String value = type + "?" + startDate + "?" + endDate + "?" + isHold + "?" + String.valueOf(interval) + "?" + isPla + "?" + tools.jsonArrayToString(stocks);
             commands.add(value);
 
             ProcessBuilder processBuilder = new ProcessBuilder(commands);
@@ -49,7 +47,7 @@ public class BGraph_Data_Impl implements BGraph_Data_Service {
             BufferedReader in = new BufferedReader(new
                     InputStreamReader(pr.getInputStream(), "gbk"));
             String line = in.readLine();
-            if(tools.isInteger(line)) {
+            if (tools.isInteger(line)) {
                 int num = Integer.parseInt(line);
                 Double[] profits = new Double[num];
                 Double[] winChance = new Double[num];

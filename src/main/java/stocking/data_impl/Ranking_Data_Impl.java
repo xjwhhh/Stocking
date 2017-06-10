@@ -1,27 +1,25 @@
 package stocking.data_impl;
 
-import net.sf.json.JSONObject;
 import stocking.data_service.Ranking_Data_Service;
-import stocking.po.NewsPO;
 import stocking.po.RankingPO;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Date;
 
 /**
  * Created by xjwhhh on 2017/6/9.
  */
 public class Ranking_Data_Impl implements Ranking_Data_Service {
     Tools tools = Tools.getInstance();
-    Cache cache=Cache.getInstance();
+    Cache cache = Cache.getInstance();
 
     public RankingPO getRanking(String reason) {
-        if(reason.equals(" ")){
+        if (reason.equals(" ")) {
             return cache.getRankingPO1();
         }
         Date today = new Date();

@@ -11,7 +11,7 @@ import stocking.po.BGraphPO;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by xjwhhh on 2017/6/2.
@@ -43,7 +43,7 @@ public class BGraph_Data_ImplTest {
         BGraphPO bGraphPO = bGraph_data_service.get("1", startDate, endDate, "1", 20, "0", jsonArray);
         JSONObject json = JSONObject.fromObject(bGraphPO);//将java对象转换为json对象
         String str = json.toString();//将json对象转换为字符串
-        String needStr="{\"overProfit\":[-0.0246471901136,-4.81389349549E-4],\"winChance\":[0,0]}";
+        String needStr = "{\"overProfit\":[-0.0246471901136,-4.81389349549E-4],\"winChance\":[0,0]}";
         assertEquals(needStr, str);
     }
 
@@ -61,7 +61,7 @@ public class BGraph_Data_ImplTest {
         BGraphPO bGraphPO = bGraph_data_service.get("1", startDate, endDate, "0", 20, "0", jsonArray);
         JSONObject json = JSONObject.fromObject(bGraphPO);//将java对象转换为json对象
         String str = json.toString();//将json对象转换为字符串
-        String needStr="{\"overProfit\":[-0.0353030439144,-3.56821928468E-4],\"winChance\":[0,0]}";
+        String needStr = "{\"overProfit\":[-0.0353030439144,-3.56821928468E-4],\"winChance\":[0,0]}";
         assertEquals(needStr, str);
     }
 
@@ -80,7 +80,7 @@ public class BGraph_Data_ImplTest {
         BGraphPO bGraphPO = bGraph_data_service.get("2", startDate, endDate, "1", 20, "0", jsonArray);
         JSONObject json = JSONObject.fromObject(bGraphPO);//将java对象转换为json对象
         String str = json.toString();//将json对象转换为字符串
-        String needStr="{\"overProfit\":[-0.0207034013794,-0.0452059151346],\"winChance\":[0.5,0]}";
+        String needStr = "{\"overProfit\":[-0.0207034013794,-0.0452059151346],\"winChance\":[0.5,0]}";
         assertEquals(needStr, str);
     }
 
@@ -98,7 +98,7 @@ public class BGraph_Data_ImplTest {
         BGraphPO bGraphPO = bGraph_data_service.get("2", startDate, endDate, "0", 20, "0", jsonArray);
         JSONObject json = JSONObject.fromObject(bGraphPO);//将java对象转换为json对象
         String str = json.toString();//将json对象转换为字符串
-        String needStr="{\"overProfit\":[-0.0563341507851,-0.130881257786],\"winChance\":[0,0]}";
+        String needStr = "{\"overProfit\":[-0.0563341507851,-0.130881257786],\"winChance\":[0,0]}";
         assertEquals(needStr, str);
     }
 
@@ -117,7 +117,7 @@ public class BGraph_Data_ImplTest {
         BGraphPO bGraphPO = bGraph_data_service.get("1", startDate, endDate, "1", 20, "1", jsonArray);
         JSONObject json = JSONObject.fromObject(bGraphPO);//将java对象转换为json对象
         String str = json.toString();//将json对象转换为字符串
-        String needStr="{\"overProfit\":[-0.117022595042,0.105352957785],\"winChance\":[0,1]}";
+        String needStr = "{\"overProfit\":[-0.117022595042,0.105352957785],\"winChance\":[0,1]}";
         assertEquals(needStr, str);
     }
 
@@ -135,7 +135,7 @@ public class BGraph_Data_ImplTest {
         BGraphPO bGraphPO = bGraph_data_service.get("1", startDate, endDate, "0", 20, "1", jsonArray);
         JSONObject json = JSONObject.fromObject(bGraphPO);//将java对象转换为json对象
         String str = json.toString();//将json对象转换为字符串
-        String needStr="{\"overProfit\":[-0.107111543147,-0.0694730981619],\"winChance\":[0,0]}";
+        String needStr = "{\"overProfit\":[-0.107111543147,-0.0694730981619],\"winChance\":[0,0]}";
         assertEquals(needStr, str);
     }
 
@@ -154,7 +154,7 @@ public class BGraph_Data_ImplTest {
         BGraphPO bGraphPO = bGraph_data_service.get("2", startDate, endDate, "1", 20, "1", jsonArray);
         JSONObject json = JSONObject.fromObject(bGraphPO);//将java对象转换为json对象
         String str = json.toString();//将json对象转换为字符串
-        String needStr="{\"overProfit\":[0.0551772726117,0.0298498073209],\"winChance\":[1,1]}";
+        String needStr = "{\"overProfit\":[0.0551772726117,0.0298498073209],\"winChance\":[1,1]}";
         assertEquals(needStr, str);
     }
 
@@ -172,7 +172,7 @@ public class BGraph_Data_ImplTest {
         BGraphPO bGraphPO = bGraph_data_service.get("2", startDate, endDate, "0", 20, "1", jsonArray);
         JSONObject json = JSONObject.fromObject(bGraphPO);//将java对象转换为json对象
         String str = json.toString();//将json对象转换为字符串
-        String needStr="{\"overProfit\":[0.0271412953311,0.0481947966045],\"winChance\":[1,1]}";
+        String needStr = "{\"overProfit\":[0.0271412953311,0.0481947966045],\"winChance\":[1,1]}";
         assertEquals(needStr, str);
     }
 }

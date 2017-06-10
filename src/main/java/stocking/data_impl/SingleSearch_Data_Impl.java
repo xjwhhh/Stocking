@@ -3,15 +3,16 @@ package stocking.data_impl;
 import stocking.data_service.SingleSearch_Data_Service;
 import stocking.po.StockPO;
 
-import javax.swing.text.Document;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.regex.Pattern;
+import java.util.Date;
+import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by xjwhhh on 2017/5/23.
@@ -22,7 +23,6 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
     Hashtable<String, String> code_name = cache.getCode_Name();
     Hashtable<String, String> name_code = cache.getName_Code();
     Tools tools = Tools.getInstance();
-
 
 
     /**
@@ -159,20 +159,20 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
                     BigDecimal bd = new BigDecimal(in.readLine());
                     String varianceStr = bd.toPlainString();
                     variance = Double.parseDouble(varianceStr);
-                    double highest=high[0];
-                    for(int i=0;i<num;i++){
-                        if(highest<high[i]){
-                            highest=high[i];
+                    double highest = high[0];
+                    for (int i = 0; i < num; i++) {
+                        if (highest < high[i]) {
+                            highest = high[i];
                         }
                     }
-                    double lowest=low[0];
-                    for(int i=0;i<num;i++){
-                        if(lowest>low[i]){
-                            lowest=low[i];
+                    double lowest = low[0];
+                    for (int i = 0; i < num; i++) {
+                        if (lowest > low[i]) {
+                            lowest = low[i];
                         }
                     }
-                    double up=(low[num-1]-low[0])/low[num-1];
-                    StockPO stockPO = new StockPO(name, code, start, over, open, high, low, volume, adjClose, dates, average5, average10, average20, average30, average60, profit, variance,highest,lowest,up);
+                    double up = (low[num - 1] - low[0]) / low[num - 1];
+                    StockPO stockPO = new StockPO(name, code, start, over, open, high, low, volume, adjClose, dates, average5, average10, average20, average30, average60, profit, variance, highest, lowest, up);
                     return stockPO;
                 }
                 in.close();

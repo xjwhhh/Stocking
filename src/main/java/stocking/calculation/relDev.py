@@ -6,7 +6,6 @@ adjClose(series)
 
 
 def relDev(tsPrice):
-    import pandas as pd
     import math
 
     lagtsPrice = tsPrice.shift(1)

@@ -5,8 +5,8 @@
 '''
 
 import math
-import pymysql
 import pandas as pd
+import pymysql
 
 
 class StrategyCalculator:

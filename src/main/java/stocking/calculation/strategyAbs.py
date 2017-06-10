@@ -7,19 +7,22 @@
 其它：若使用到了某个版块的指数，则具体由调用者进行更改（getBasic方法）
 '''
 
-from abc import abstractmethod
 import pandas as pd
 import pymysql
+from abc import abstractmethod
+
 
 class Strategy(object):
     @abstractmethod
-    def count(self, oriDf, isPla, plaName): pass
+    def count(self, oriDf, isPla, plaName):
+        pass
 
     def getPlaIndex(self, startdate, enddate, plaName):
         # print(str(startdate)+str(enddate)+plaName)
         db = pymysql.connect("localhost", "root", "123456", "stock", charset="utf8")
         cursor = db.cursor()
-        sql = "select distinct close from market_index where date>='%s' and date<='%s' and code='%s'" % (startdate, enddate,plaName)
+        sql = "select distinct close from market_index where date>='%s' and date<='%s' and code='%s'" % (
+        startdate, enddate, plaName)
         # print(sql)
         try:
             cursor.execute(sql)
@@ -29,8 +32,8 @@ class Strategy(object):
                 re.append(float(row[0]))
             ss = pd.Series(re)
             index = ss.mean()
-            length=len(ss)
-            index=(ss[ss.index[length-1]]-ss[ss.index[0]])/ss[ss.index[length-1]]
+            length = len(ss)
+            index = (ss[ss.index[length - 1]] - ss[ss.index[0]]) / ss[ss.index[length - 1]]
         except:
             print('get data fails')
         return index
@@ -49,6 +52,7 @@ class Strategy(object):
     def getBasicAnnualPro(self):
         self.basicAvr = sum(self.basic.values()) / len(self.basic)
         return (self.basicAvr / self.hold) * 250
+
     pass
 
     def getBeta(self):
@@ -56,6 +60,7 @@ class Strategy(object):
         cov = total / len(self.select) - self.avr * self.basicAvr
         basicDev = self.getDev(self.basic) - self.basicAvr * self.basicAvr
         return cov / basicDev
+
     pass
 
     def getDev(self, dictionary):
@@ -70,4 +75,5 @@ class Strategy(object):
         for i in range(0, len(self.select)):
             lst.append(temp[i] - min(temp[i:len(self.select)]))
         return max(lst)
+
     pass

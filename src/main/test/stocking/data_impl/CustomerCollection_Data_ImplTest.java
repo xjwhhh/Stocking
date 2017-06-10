@@ -7,7 +7,7 @@ import stocking.data_service.CustomerCollection_Data_Service;
 import stocking.data_service.DataFactory_Data_Service;
 import stocking.po.CollectionPO;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by xjwhhh on 2017/6/5.
@@ -17,19 +17,19 @@ public class CustomerCollection_Data_ImplTest {
     CustomerCollection_Data_Service customerCollection_data_service;
 
     @Before
-    public void init(){
-        dataFactory_data_service=DataFactory_Data_Impl.getInstance();
-        customerCollection_data_service=dataFactory_data_service.customerCollection();
+    public void init() {
+        dataFactory_data_service = DataFactory_Data_Impl.getInstance();
+        customerCollection_data_service = dataFactory_data_service.customerCollection();
     }
 
 
     @Test
     public void getCollection() throws Exception {
-        CollectionPO collectionPO=customerCollection_data_service.getCollection("1");
+        CollectionPO collectionPO = customerCollection_data_service.getCollection("1");
         JSONObject json = JSONObject.fromObject(collectionPO);//将java对象转换为json对象
         String str = json.toString();//将json对象转换为字符串
-        String needStr="{\"code\":[\"000001\"],\"name\":[\"平安银行\"]}";
-        assertEquals(needStr,str);
+        String needStr = "{\"code\":[\"000001\"],\"name\":[\"平安银行\"]}";
+        assertEquals(needStr, str);
     }
 
 }

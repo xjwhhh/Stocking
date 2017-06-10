@@ -1,6 +1,4 @@
 # 爬取股票相关新闻
-import urllib.request
-from bs4 import BeautifulSoup
 import tushare as ts
 
 
