@@ -7,7 +7,9 @@
     <!-- Bootstrap core CSS -->
     <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style type="text/css">
         #input {
             margin-top: 20px;
@@ -38,7 +40,7 @@
 
     <script type="text/javascript" src="json2-min.js"></script>
 </head>
-<body style="background: #efeff4">
+<body style="background: #efeff4" onload="start()">
 <div class="container-fluid">
     <div class="navbar-header">
         <img src="stock2.jpg" class="img-rounded">
@@ -134,17 +136,17 @@
     <h7>超额收益及胜率计算</h7>
     <div class="timeSelect">
         <span>选择定量:</span>
-        <select>
+        <select id="opt">
             <option>持有期</option>
             <option>形成期</option>
 
         </select>
-        <input style="width: 16%" type="text"><span>天</span>
+        <input style="width: 16%" type="text" id="interval" value="">天
 
 
     </div>
     <div>
-        <a style=" margin-left:50%;background-color: #32619e" class="btn btn-default" href="superVariance.html"
+        <a style=" margin-left:50%;background-color: #32619e" class="btn btn-default" onclick="sendtobgraph()"
            role="button">确认</a>
     </div>
 
@@ -181,31 +183,39 @@
     //    var numberOfStock
     //    var search
     //    var industry
-    var thisURL = document.URL;
-    var getval = thisURL.split("?")[1]
-    var message = getval.split("=")[1]
-    //    var message = new Array(8)
-    //    for(var i = 0;i<8;i++){
-    //        message[i] = getval.split("&")[i]
-    //    }
-    //    strategy = message[0].split("=")[1]
-    //    startdate = message[1].split("=")[1]
-    //    enddate = message[2].split("=")[1]
-    //    holtTime = message[3].split("=")[1]
-    //    shapeTime = message[4].split("=")[1]
-    //    numberOfStock = message[5].split("=")[1]
-    //    search = message[6].split("=")[1]
-    //    industry = message[7].split("=")[1]
+    var isHold;
+    var interval;
+    var thisURL;
+    var getval;
+    var message;
 
     function start() {
+        thisURL = document.URL;
+        getval = thisURL.split("?")[1];
+        message = decodeURIComponent(getval.split("=")[1]);
+
+        //    var message = new Array(8)
+        //    for(var i = 0;i<8;i++){
+        //        message[i] = getval.split("&")[i]
+        //    }
+        //    strategy = message[0].split("=")[1]
+        //    startdate = message[1].split("=")[1]
+        //    enddate = message[2].split("=")[1]
+        //    holtTime = message[3].split("=")[1]
+        //    shapeTime = message[4].split("=")[1]
+        //    numberOfStock = message[5].split("=")[1]
+        //    search = message[6].split("=")[1]
+        //    industry = message[7].split("=")[1]
+        alert("message:"+message);
+
         var url = "http://localhost:8080/strategy";
         $.ajax({
             type: "POST",
             url: url,
             data: message,
-            datatype: json,
+            datatype: "json",
             success: function (data) {
-                alert(data[0].totalDeal)
+                alert(data)
                 annualReturn = data[0].annualReturn;//年化收益率
                 basicAnnualReturn = data[0].basicAnnualReturn;//基准年化收益率
                 alpha = data[0].alpha;
@@ -218,6 +228,34 @@
                 sets = data[0].sets//获胜股票，mom为前百分之二十，avr为持股数
             }
         })
+    }
+
+    function getmessage(type, start, end,isHold,interval,  isPla, stocks) {
+        this.type = type;
+        this.start = start;
+        this.end = end;
+//        this.hold = hold;
+//        this.form = form;
+
+        this.isHold = isHold;
+        this.interval = interval;
+        this.isPla = isPla;
+        this.stocks = stocks;
+    }
+
+    function sendtobgraph() {
+//        var url = "http://localhost:8080/bgraph";
+        if(document.getElementById("opt").option[0].selected==true){
+            isHold = 0;
+        }else{
+            isHold = 1;
+        }[0].sets//获胜股
+        interval = document.getElementById("interval").value;
+        var messageobj = JSON.parse(message);
+        var newMessage = JSON.stringify(new getmessage(messageobj.type,messageobj.start,messageobj.end,isHold,interval,messageobj.stocks));
+        var messageStr = encodeURIComponent(newMessage)
+        window.location.href = "superVariance.html?message="+messageStr;
+
     }
 
 </script>

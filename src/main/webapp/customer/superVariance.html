@@ -7,27 +7,35 @@
     <!-- Bootstrap core CSS -->
     <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style type="text/css">
-        #input{
+        #input {
             margin-top: 20px;
         }
+
         ul {
             text-align: center;
 
         }
+
         .nav-tabs > li {
             width: 20%;
             background-color: #0099ff;
         }
+
         a {
             color: #333333
         }
+
         /*a:hover {*/
         /*color: #000000*/
         /*}*/
 
-        .nav > li:hover .dropdown-menu {display: block;}
+        .nav > li:hover .dropdown-menu {
+            display: block;
+        }
     </style>
 
     <script type="text/javascript" src="json2-min.js"></script>
@@ -103,111 +111,7 @@
 </div>
 
 <div style="background: white;width:60%;margin-left: 41%;margin-top: -10%" class="superVar">
-        <div id="superVar" style="height: 350px;width: 600px"></div>
-        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
-        <script type="text/javascript" >
-            var dom = document.getElementById("superVar");
-            var myChart = echarts.init(dom);
-            var base = +new Date(1968, 9, 3);
-            var oneDay = 24 * 3600 * 1000;
-            var date = [];
-
-            var data = [Math.random() * 300];
-
-            for (var i = 1; i < 20000; i++) {
-                var now = new Date(base += oneDay);
-                date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
-                data.push(Math.round((Math.random() - 0.5) * 20 + data[i - 1]));
-            }
-
-            option = {
-                tooltip: {
-                    trigger: 'axis',
-                    position: function (pt) {
-                        return [pt[0], '10%'];
-                    }
-                },
-                title: {
-                    left: 'center',
-                    text: '大数据量面积图',
-                },
-                toolbox: {
-                    feature: {
-                        dataZoom: {
-                            yAxisIndex: 'none'
-                        },
-                        restore: {},
-                        saveAsImage: {}
-                    }
-                },
-                xAxis: {
-                    type: 'category',
-                    boundaryGap: false,
-                    data: date
-                },
-                yAxis: {
-                    type: 'value',
-                    boundaryGap: [0, '100%']
-                },
-                dataZoom: [{
-                    type: 'inside',
-                    start: 0,
-                    end: 10
-                }, {
-                    start: 0,
-                    end: 10,
-                    handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
-                    handleSize: '80%',
-                    handleStyle: {
-                        color: '#fff',
-                        shadowBlur: 3,
-                        shadowColor: 'rgba(0, 0, 0, 0.6)',
-                        shadowOffsetX: 2,
-                        shadowOffsetY: 2
-                    }
-                }],
-                series: [
-                    {
-                        name:'模拟数据',
-                        type:'line',
-                        smooth:true,
-                        symbol: 'none',
-                        sampling: 'average',
-                        itemStyle: {
-                            normal: {
-                                color: 'rgb(255, 70, 131)'
-                            }
-                        },
-                        areaStyle: {
-                            normal: {
-                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                    offset: 0,
-                                    color: 'rgb(255, 158, 68)'
-                                }, {
-                                    offset: 1,
-                                    color: 'rgb(255, 70, 131)'
-                                }])
-                            }
-                        },
-                        data: data
-                    }
-                ]
-            };
-            myChart.setOption(option);
-
-
-
-
-
-
-        </script>
-        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
-        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
-        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
-        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
-        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
-        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
-
+    <div id="superVar" style="height: 350px;width: 600px"></div>
 
 
 
@@ -215,8 +119,130 @@
 
 <div style="background: white;width:60%;margin-left: 41%" class="winRate">
     <div id="winRate" style="height: 350px;width: 600px"></div>
+
+    <script type="text/javascript">
+        function start(){
+            var url = "http://localhost:8080/bgraph";
+            var thisURL = document.URL;
+            var getval = thisURL.split("?")[1];
+            var message = decodeURIComponent(getval.split("=")[1]);
+            $.ajax({
+                type:"POST",
+                url:url,
+                data:message,
+                dataType: "json",//此处要设置成json
+                success: function(data){
+                    alert(data[0]);
+
+                }
+            })
+        }
+    </script>
+
     <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
-    <script type="text/javascript" >
+    <script type="text/javascript">
+        var dom = document.getElementById("superVar");
+        var myChart = echarts.init(dom);
+        var base = +new Date(1968, 9, 3);
+        var oneDay = 24 * 3600 * 1000;
+        var date = [];
+
+        var data = [Math.random() * 300];
+
+        for (var i = 1; i < 20000; i++) {
+            var now = new Date(base += oneDay);
+            date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
+            data.push(Math.round((Math.random() - 0.5) * 20 + data[i - 1]));
+        }
+
+        option = {
+            tooltip: {
+                trigger: 'axis',
+                position: function (pt) {
+                    return [pt[0], '10%'];
+                }
+            },
+            title: {
+                left: 'center',
+                text: '大数据量面积图',
+            },
+            toolbox: {
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: 'none'
+                    },
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: date
+            },
+            yAxis: {
+                type: 'value',
+                boundaryGap: [0, '100%']
+            },
+            dataZoom: [{
+                type: 'inside',
+                start: 0,
+                end: 10
+            }, {
+                start: 0,
+                end: 10,
+                handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+                handleSize: '80%',
+                handleStyle: {
+                    color: '#fff',
+                    shadowBlur: 3,
+                    shadowColor: 'rgba(0, 0, 0, 0.6)',
+                    shadowOffsetX: 2,
+                    shadowOffsetY: 2
+                }
+            }],
+            series: [
+                {
+                    name: '模拟数据',
+                    type: 'line',
+                    smooth: true,
+                    symbol: 'none',
+                    sampling: 'average',
+                    itemStyle: {
+                        normal: {
+                            color: 'rgb(255, 70, 131)'
+                        }
+                    },
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: 'rgb(255, 158, 68)'
+                            }, {
+                                offset: 1,
+                                color: 'rgb(255, 70, 131)'
+                            }])
+                        }
+                    },
+                    data: data
+                }
+            ]
+        };
+        myChart.setOption(option);
+
+
+    </script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+    <script type="text/javascript"
+            src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+    <script type="text/javascript"
+            src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+    <script type="text/javascript">
         var dom = document.getElementById("winRate");
         var myChart = echarts.init(dom);
         var base = +new Date(1968, 9, 3);
@@ -279,9 +305,9 @@
             }],
             series: [
                 {
-                    name:'模拟数据',
-                    type:'line',
-                    smooth:true,
+                    name: '模拟数据',
+                    type: 'line',
+                    smooth: true,
                     symbol: 'none',
                     sampling: 'average',
                     itemStyle: {
@@ -307,19 +333,15 @@
         myChart.setOption(option);
 
 
-
-
-
-
     </script>
     <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+    <script type="text/javascript"
+            src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
     <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
     <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
-
-
+    <script type="text/javascript"
+            src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
 
 
 </div>
