@@ -2,7 +2,9 @@ package stocking.servlet;
 
 import net.sf.json.JSONObject;
 import stocking.data_impl.DataFactory_Data_Impl;
+import stocking.data_service.Minute_Data_Service;
 import stocking.data_service.SingleSearch_Data_Service;
+import stocking.po.MinuteDataPO;
 import stocking.po.StockPO;
 
 import javax.servlet.ServletException;
@@ -19,7 +21,8 @@ import java.util.Date;
  */
 @WebServlet(name = "singleStock")
 public class SingleStock_Servlet extends HttpServlet {
-//    private SingleSearch_Data_Service ssds;
+    private SingleSearch_Data_Service ssds;
+    private Minute_Data_Service mds;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
@@ -35,19 +38,32 @@ public class SingleStock_Servlet extends HttpServlet {
         System.out.print(jsonObject.toString());
 
 //        ssds = DataFactory_Data_Impl.getInstance().singleSearch();
+        String type = jsonObject.getString("type");//minute或normal
         String identifier = jsonObject.getString("identifier");//code或name
 
-        ParseDate pd = new ParseDate();
-        Date start = null;
-        Date end = null;
-        try {
-            start = pd.parse(jsonObject.getString("start"));
-            end = pd.parse(jsonObject.getString("end"));
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return;
+        if (type.equals("normal")) {
+            ParseDate pd = new ParseDate();
+            Date start = null;
+            Date end = null;
+            try {
+                start = pd.parse(jsonObject.getString("start"));
+                end = pd.parse(jsonObject.getString("end"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return;
+            }
+            StockPO stockPO = null;
+            try {
+                stockPO = ssds.getStockList(identifier, start, end);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return;
+            }
+            new SendByServlet().doSend(response, stockPO);
+        } else {
+            MinuteDataPO minutePO = mds.getMinuteDataPO(identifier);
+            new SendByServlet().doSend(response, minutePO);
         }
-        StockPO stockPO = null;
 //        try {
             double[] open = {1,2};
             double [] high={2,3};
@@ -63,7 +79,7 @@ public class SingleStock_Servlet extends HttpServlet {
             double[]profit = {1,2};
             double variance = 1;
 
-            stockPO = new StockPO("a","",new Date(2015,1,1),new Date(2015,1,2),
+        StockPO stockPO = new StockPO("a", "", new Date(2015, 1, 1), new Date(2015, 1, 2),
                     open,high,low,volume,adjClose,dates,average5,average10,average20,average30,average60,profit,variance,1,2,2);
 
 //            stockPO = ssds.getStockList(identifier, start, end);
@@ -74,7 +90,5 @@ public class SingleStock_Servlet extends HttpServlet {
 //            e.printStackTrace();
 //            return;
 //        }
-
-        new SendByServlet().doSend(response, stockPO);
     }
 }
