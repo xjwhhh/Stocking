@@ -104,15 +104,15 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
                 if (tools.isInteger(line)) {
                     String name = code_name.get(identifier);
                     String code = identifier;
-                    Date start = startDate;
-                    Date over = endDate;
+                    String start = startDateStr;
+                    String over = endDateStr;
                     int num = Integer.parseInt(line);
                     double[] open = new double[num];
                     double[] high = new double[num];
                     double[] low = new double[num];
                     int[] volume = new int[num];
                     double[] adjClose = new double[num];
-                    Date[] dates = new Date[num];
+                    String[] dates = new String[num];
                     double[] average5 = new double[num];
                     double[] average10 = new double[num];
                     double[] average20 = new double[num];
@@ -136,7 +136,7 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
                         adjClose[i] = Double.parseDouble(in.readLine());
                     }
                     for (int i = 0; i < num; i++) {
-                        dates[i] = formatter.parse(in.readLine());
+                        dates[i] = in.readLine();
                     }
                     for (int i = 0; i < num; i++) {
                         average5[i] = Double.parseDouble(in.readLine());

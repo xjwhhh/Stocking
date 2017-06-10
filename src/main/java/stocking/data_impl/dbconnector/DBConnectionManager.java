@@ -139,7 +139,6 @@ public class DBConnectionManager {
 
         }
         System.out.println("创建连接池完毕。。。");
-
     }
 
     /**
@@ -151,6 +150,7 @@ public class DBConnectionManager {
         drivers = pd.readConfigInfo("db.config.xml");
         System.out.println("加载驱动程序。。。");
     }
+
 
     public Hashtable getPools() {
         return pools;

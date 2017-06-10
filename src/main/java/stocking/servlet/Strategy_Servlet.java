@@ -32,7 +32,8 @@ public class Strategy_Servlet extends HttpServlet {
         if (jsonObject == null) {
             return;
         }
-        System.out.print(request);
+        System.out.println(request);
+        System.out.println(jsonObject.toString());
 
 //        sds = DataFactory_Data_Impl.getInstance().strategy();
         String type = jsonObject.getString("type");//策略类型(M,A),动量策略传1，均值策略传2

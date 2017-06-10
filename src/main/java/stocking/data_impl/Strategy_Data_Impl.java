@@ -65,12 +65,12 @@ public class Strategy_Data_Impl implements Strategy_Data_Service {
             String line=in.readLine();
             if(tools.isInteger(line)) {
                 int num = Integer.parseInt(line);
-                Date[] dates = new Date[num];
+                String[] dates = new String[num];
                 Double[] profits = new Double[num];
                 Double[] basicProfits = new Double[num];
                 StockWinnerSet[] sets = new StockWinnerSet[num];
                 for (int i = 0; i < num; i++) {
-                    dates[i] = formatter.parse(in.readLine());
+                    dates[i] = in.readLine();
                 }
                 for (int i = 0; i < num; i++) {
                     profits[i] = Double.parseDouble(in.readLine());
@@ -85,8 +85,6 @@ public class Strategy_Data_Impl implements Strategy_Data_Service {
                 return strategyPO;
             }
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
             e.printStackTrace();
         }
         return null;
