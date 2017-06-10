@@ -35,12 +35,12 @@
         }
     </style>
 
-    <script type="text/javascript" src="../customer/json2-min.js"></script>
+    <script type="text/javascript" src="json2-min.js"></script>
 </head>
 <body onload="getnews()">
 <div class="container-fluid">
     <div class="navbar-header">
-        <img src="../stock2.jpg" class="img-rounded">
+        <img src="stock2.jpg" class="img-rounded">
     </div>
     <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -54,7 +54,7 @@
     </div>
     <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="../customer/login.html" target="_blank" style="height: 100px;line-height: 70px; font-size:1.2em">登录</a>
+            <li><a href="login.html" target="_blank" style="height: 100px;line-height: 70px; font-size:1.2em">登录</a>
             </li>
             <li><a href="#" style="height: 100px;line-height: 70px; font-size:1.2em">注册</a></li>
         </ul>
@@ -75,12 +75,12 @@
 </div>
 <div class="collapse navbar-collapse" id="navbar-collapse-6">
     <ul class="nav nav-tabs">
-        <li><a href="../index.html">首页</a></li>
-        <li><a href="../customer/singleSearch.html">股票数据</a>
+        <li><a href="index.html">首页</a></li>
+        <li><a href="singleSearch.html">股票数据</a>
 
         </li>
-        <li><a href="../market/market_1.html">行情信息</a></li>
-        <li><a href="../regression/regressionTest.html">回测</a></li>
+        <li><a href="market_1.html">行情信息</a></li>
+        <li><a href="regressionTest.html">回测</a></li>
         <li class="active"><a href="#">新闻</a></li>
     </ul>
 </div>
@@ -170,7 +170,7 @@
         </div>
         <br>
         <div style="background: white;">
-            <a href="news4.html" class="btn btn-info previous">
+            <a href="news3.html" class="btn btn-info previous">
                 <i class="fui-arrow-left"></i>
                 OLDER
             </a>
@@ -178,10 +178,10 @@
                 <li><a href="news.html">1</a></li>
                 <li><a href="news2.html">2</a></li>
                 <li><a href="news3.html">3</a></li>
-                <li><a href="news4.html">4</a></li>
-                <li class="active"><a href="news5.html">5</a></li>
+                <li class="active"><a href="news4.html">4</a></li>
+                <li><a href="news5.html">5</a></li>
             </ul>
-            <a href="#fakelink" class="btn btn-info next">
+            <a href="news5.html" class="btn btn-info next">
                 NEWER
                 <i class="fui-arrow-right"></i>
             </a>
@@ -213,49 +213,49 @@
 //                alert(data[0].classify)
 //                alert(JSON.stringify(data[0]))
 
-                document.getElementById("classify1").innerHTML = data[0].classify[40];
-                document.getElementById("classify2").innerHTML = data[0].classify[41];
-                document.getElementById("classify3").innerHTML = data[0].classify[42];
-                document.getElementById("classify4").innerHTML = data[0].classify[43];
-                document.getElementById("classify5").innerHTML = data[0].classify[44];
-                document.getElementById("classify6").innerHTML = data[0].classify[45];
-                document.getElementById("classify7").innerHTML = data[0].classify[46];
-                document.getElementById("classify8").innerHTML = data[0].classify[47];
-                document.getElementById("classify9").innerHTML = data[0].classify[48];
-                document.getElementById("classify10").innerHTML = data[0].classify[49];
+                document.getElementById("classify1").innerHTML = data[0].classify[30];
+                document.getElementById("classify2").innerHTML = data[0].classify[31];
+                document.getElementById("classify3").innerHTML = data[0].classify[32];
+                document.getElementById("classify4").innerHTML = data[0].classify[33];
+                document.getElementById("classify5").innerHTML = data[0].classify[34];
+                document.getElementById("classify6").innerHTML = data[0].classify[35];
+                document.getElementById("classify7").innerHTML = data[0].classify[36];
+                document.getElementById("classify8").innerHTML = data[0].classify[37];
+                document.getElementById("classify9").innerHTML = data[0].classify[38];
+                document.getElementById("classify10").innerHTML = data[0].classify[39];
 
-                document.getElementById("title1").innerHTML = data[0].title[40];
-                document.getElementById("title2").innerHTML = data[0].title[41];
-                document.getElementById("title3").innerHTML = data[0].title[42];
-                document.getElementById("title4").innerHTML = data[0].title[43];
-                document.getElementById("title5").innerHTML = data[0].title[44];
-                document.getElementById("title6").innerHTML = data[0].title[45];
-                document.getElementById("title7").innerHTML = data[0].title[46];
-                document.getElementById("title8").innerHTML = data[0].title[47];
-                document.getElementById("title9").innerHTML = data[0].title[48];
-                document.getElementById("title10").innerHTML = data[0].title[49];
+                document.getElementById("title1").innerHTML = data[0].title[30];
+                document.getElementById("title2").innerHTML = data[0].title[31];
+                document.getElementById("title3").innerHTML = data[0].title[32];
+                document.getElementById("title4").innerHTML = data[0].title[33];
+                document.getElementById("title5").innerHTML = data[0].title[34];
+                document.getElementById("title6").innerHTML = data[0].title[35];
+                document.getElementById("title7").innerHTML = data[0].title[36];
+                document.getElementById("title8").innerHTML = data[0].title[37];
+                document.getElementById("title9").innerHTML = data[0].title[38];
+                document.getElementById("title10").innerHTML = data[0].title[39];
 
-                document.getElementById("time1").innerHTML = data[0].time[40];
-                document.getElementById("time2").innerHTML = data[0].time[41];
-                document.getElementById("time3").innerHTML = data[0].time[42];
-                document.getElementById("time4").innerHTML = data[0].time[43];
-                document.getElementById("time5").innerHTML = data[0].time[44];
-                document.getElementById("time6").innerHTML = data[0].time[45];
-                document.getElementById("time7").innerHTML = data[0].time[46];
-                document.getElementById("time8").innerHTML = data[0].time[47];
-                document.getElementById("time9").innerHTML = data[0].time[48];
-                document.getElementById("time10").innerHTML = data[0].time[49];
+                document.getElementById("time1").innerHTML = data[0].time[30];
+                document.getElementById("time2").innerHTML = data[0].time[31];
+                document.getElementById("time3").innerHTML = data[0].time[32];
+                document.getElementById("time4").innerHTML = data[0].time[33];
+                document.getElementById("time5").innerHTML = data[0].time[34];
+                document.getElementById("time6").innerHTML = data[0].time[35];
+                document.getElementById("time7").innerHTML = data[0].time[36];
+                document.getElementById("time8").innerHTML = data[0].time[37];
+                document.getElementById("time9").innerHTML = data[0].time[38];
+                document.getElementById("time10").innerHTML = data[0].time[39];
 
-                document.getElementById("url1").href = data[0].url[40];
-                document.getElementById("url2").href = data[0].url[41];
-                document.getElementById("url3").href = data[0].url[42];
-                document.getElementById("url4").href = data[0].url[43];
-                document.getElementById("url5").href = data[0].url[44];
-                document.getElementById("url6").href = data[0].url[45];
-                document.getElementById("url7").href = data[0].url[46];
-                document.getElementById("url8").href = data[0].url[47];
-                document.getElementById("url9").href = data[0].url[48];
-                document.getElementById("url10").href = data[0].url[49];
+                document.getElementById("url1").href = data[0].url[30];
+                document.getElementById("url2").href = data[0].url[31];
+                document.getElementById("url3").href = data[0].url[32];
+                document.getElementById("url4").href = data[0].url[33];
+                document.getElementById("url5").href = data[0].url[34];
+                document.getElementById("url6").href = data[0].url[35];
+                document.getElementById("url7").href = data[0].url[36];
+                document.getElementById("url8").href = data[0].url[37];
+                document.getElementById("url9").href = data[0].url[38];
+                document.getElementById("url10").href = data[0].url[39];
             }
         })
     }

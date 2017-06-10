@@ -79,8 +79,8 @@ public class SingleStock_Servlet extends HttpServlet {
             double[]profit = {1,2};
             double variance = 1;
 
-        StockPO stockPO = new StockPO("a", "", new Date(2015, 1, 1), new Date(2015, 1, 2),
-                    open,high,low,volume,adjClose,dates,average5,average10,average20,average30,average60,profit,variance,1,2,2);
+//        StockPO stockPO = new StockPO("a", "", new Date(2015, 1, 1), new Date(2015, 1, 2),
+//                    open,high,low,volume,adjClose,dates,average5,average10,average20,average30,average60,profit,variance,1,2,2);
 
 //          StockPO  stockPO = ssds.getStockList(identifier, start, end);
 //            stockPO = new StockPO();
