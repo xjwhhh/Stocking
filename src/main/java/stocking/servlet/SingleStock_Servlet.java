@@ -37,6 +37,7 @@ public class SingleStock_Servlet extends HttpServlet {
         }
 
         ssds = DataFactory_Data_Impl.getInstance().singleSearch();
+        mds=DataFactory_Data_Impl.getInstance().minute();
         String type = jsonObject.getString("type");//minute或normal
         String identifier = jsonObject.getString("identifier");//code或name
 

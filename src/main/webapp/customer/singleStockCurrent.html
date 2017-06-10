@@ -92,10 +92,11 @@
 //            alert("success");
             document.location.href && (document.location.href = "singleStockHistory.html?stockName=" + stockName + "?startDate=" + startDate + "?endDate=" + endDate);
         }
-        function CurrentLoad() {
+        function CurrentLoads() {
+//            alert("1234567")
             var url="http://localhost:8080/singleStock";
             var  key=JSON.stringify(new getKey("minute",stockName));
-            alert("aaaaaa");
+//            alert("aaaaaa");
 //        alert(key);
 //                alert(date);
 //            alert("success");
@@ -189,7 +190,8 @@
     <!--<script type="text/javascript" src="http://hq.sinajs.cn/list=sh601006" charset="gb2312"></script>-->
 
 </head>
-<body onload="CurrentLoad()">
+<body onload="CurrentLoads()">
+<!--<body onload="alert(123)">-->
 <div class="container-fluid">
     <div class="navbar-header">
         <img src="stock2.jpg" class="img-rounded">

@@ -14,22 +14,38 @@ import java.io.*;
  */
 public class Minute_Data_Impl implements Minute_Data_Service {
     Tools tools = Tools.getInstance();
+    Cache cache = Cache.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
      * 获取股票分时数据
-     * @param code
+     *
+     * @param identifier
      * @return
      */
-    public MinuteDataPO getMinuteDataPO (String code) {
+    public MinuteDataPO getMinuteDataPO(String identifier) {
+        String code = "";
+        //判断是名字还是代码
+        if (tools.isInteger(identifier)) {
+            code = identifier;
+        } else {
+            Hashtable<String, String> name_code = cache.getName_Code();
+            if (name_code.containsKey(identifier)) {
+                code = cache.getName_Code().get(identifier);
+            } else {
+                return null;
+            }
+        }
+
         Date date = new Date();
         SimpleDateFormat dateFm = new SimpleDateFormat("EEEE");
         String ofWeek = dateFm.format(date);
+
         //非周末，有实时数据
-        if(!ofWeek.equals("星期六")&&!ofWeek.equals("星期日")) {
+        if (!ofWeek.equals("星期六") && !ofWeek.equals("星期日")) {
             String dateStr = formatter.format(date);
-            Date before=new Date(date.getTime()-24*60*60*100*160);
-            String beforeStr=formatter.format(before);
+            Date before = new Date(date.getTime() - 24 * 60 * 60 * 100 * 160);
+            String beforeStr = formatter.format(before);
             try {
                 List<String> commands = new LinkedList<String>();
                 commands.add("python");
@@ -43,19 +59,19 @@ public class Minute_Data_Impl implements Minute_Data_Service {
                         InputStreamReader(pr.getInputStream(), "gbk"));
                 in.readLine();
                 String line = in.readLine();
-                double prediction=0;
-                double relativity=0;
+                double prediction = 0;
+                double relativity = 0;
                 if (tools.isInteger(line)) {
                     int num = Integer.parseInt(line);
-                        String[] minute = new String[num];
-                        Double[] prices = new Double[num];
-                        for (int i = 0; i < num; i++) {
-                            minute[i] = in.readLine();
-                            prices[i] = Double.parseDouble(in.readLine());
+                    String[] minute = new String[num];
+                    Double[] prices = new Double[num];
+                    for (int i = 0; i < num; i++) {
+                        minute[i] = in.readLine();
+                        prices[i] = Double.parseDouble(in.readLine());
                     }
 //                    prediction=Double.parseDouble(in.readLine());
 //                    relativity=Double.parseDouble(in.readLine());
-                    MinuteDataPO minuteDataPO = new MinuteDataPO(minute, prices,prediction,relativity);
+                    MinuteDataPO minuteDataPO = new MinuteDataPO(minute, prices, prediction, relativity);
                     return minuteDataPO;
                 }
             } catch (IOException e) {
@@ -63,8 +79,8 @@ public class Minute_Data_Impl implements Minute_Data_Service {
             }
         }
         //周末，用星期五的数据
-        else{
-            while(!dateFm.format(date).equals("星期五")) {
+        else {
+            while (!dateFm.format(date).equals("星期五")) {
                 date = new Date(date.getTime() - 24 * 60 * 60 * 1000);
             }
             String dateStr = formatter.format(date);
@@ -72,11 +88,11 @@ public class Minute_Data_Impl implements Minute_Data_Service {
 //            }
 //            System.out.print(date.toString());
 
-            Date before=new Date(date.getTime()-24*60*60*1000);
-            for(int i=0;i<160;i++){
-                before=new Date(before.getTime()-24*60*60*1000);
+            Date before = new Date(date.getTime() - 24 * 60 * 60 * 1000);
+            for (int i = 0; i < 160; i++) {
+                before = new Date(before.getTime() - 24 * 60 * 60 * 1000);
             }
-            String beforeStr=formatter.format(before);
+            String beforeStr = formatter.format(before);
             System.out.println(beforeStr);
             try {
                 List<String> commands = new LinkedList<String>();
@@ -95,8 +111,8 @@ public class Minute_Data_Impl implements Minute_Data_Service {
 //                    t++;
 //                }
                 String line = in.readLine();
-                double prediction=0;
-                double relativity=0;
+                double prediction = 0;
+                double relativity = 0;
                 if (tools.isInteger(line)) {
                     int num = Integer.parseInt(line);
                     String[] minute = new String[num];
@@ -107,7 +123,7 @@ public class Minute_Data_Impl implements Minute_Data_Service {
                     }
 //                    prediction=Double.parseDouble(in.readLine());
 //                    relativity=Double.parseDouble(in.readLine());
-                    MinuteDataPO minuteDataPO = new MinuteDataPO(minute, prices,prediction,relativity);
+                    MinuteDataPO minuteDataPO = new MinuteDataPO(minute, prices, prediction, relativity);
                     return minuteDataPO;
                 }
             } catch (IOException e) {
@@ -116,7 +132,6 @@ public class Minute_Data_Impl implements Minute_Data_Service {
         }
         return null;
     }
-
 
 
 //    public static void main(String[] args) {
