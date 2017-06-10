@@ -65,13 +65,14 @@
 
     <script>
         //        股票对比
-        var Number = 0;//记录比较表格个数
+        var Number=0 ;//记录比较表格个数
         var stockToCompare = [];//记录进行比较的股票名
+        var codeList = [];//
         var startTime;
         var endTime;
-        var dates;
-        var closePrice = [];
-        var variance = [];
+        var datesList=[];
+        var closePrice ;
+        var variance ;
         var lowest;//各个股票的最高最低值，填入表中
         var highest;
         var allNames;
@@ -86,13 +87,22 @@
 
 
         function Compare() {
+            closePrice = new Array();
+            variance = new Array();
+
+            startDate = $("#compareStart").val();
+            endDate = $("#compareEnd").val();
+//            alert(startDate);
 //            ShowChart();
+//            alert(stockToCompare[0]);
             var url = "http://localhost:8080/singleStock";
-            for (var v = o; v < Number; v++) {
+            for (var v = 0; v < stockToCompare.length; v++) {
                 var stockName = stockToCompare[v];
-                var key = JSON.stringify(new getIdentifier(stockName), new getStart(startDate), new getEnd(endDate));
-//                alert(date);
-//            alert("successb");
+//                alert(stockName);
+
+                var key = JSON.stringify(new getIdentifier(stockName,startDate+" 00:00:00",endDate+" 00:00:00"));
+//                alert("ss");
+
                 $.ajax({
 
                     type: "POST",
@@ -101,19 +111,29 @@
                     dataType: "json",//此处要设置成json
                     success: function (data) {
 
-
                         var open = data[0].open;
                         var close = data[0].adjClose;
 //                        var high = data[0].high;
 //                        var low = data[0].low;
-                        var dates = data[0].dates;
+                        datesList= data[0].dates;
+//                        alert(datesList.length);
                         var v = data[0].variance;
                         var high = data[0].highest;
                         var low = data[0].lowest;
-                        closePrice.push(close);
-                        variance.push(v);
+                        closePrice[v] = new Array();
+                        closePrice[v] = close;
+//                        alert(closePrice[v][0]+"sss");
+//                        closePrice.push(close);
+                        variance[v] = new Array();
+                        variance[v] = v;
+
+
+//                        variance.push(v);
                         highest.push(high);
                         lowest.push(low);
+
+
+
 
 
                     }
@@ -126,6 +146,8 @@
             }
             ShowChart();
             ShowTable();
+
+
         }
         function Remove(){
 
@@ -133,31 +155,44 @@
         function ShowTable(){
 
 
+
         }
         function ShowChart(){
+            alert("chart");
+            alert(datesList.length);
             var series1=[];
             var series2=[];
-//            Number=1;
+//           Number=1;
 //            stockToCompare=["a"];
 //            closePrice=[[1,2]];
 //            dates = [1,2];
 
-            for(var i = 0;i<Number;i++){
+            for(var i = 0;i<stockToCompare.length;i++){
+                var temp1=[];
+                var temp2=[];
+//                alert(dates.length);
+                for(var v=0;v<dates.length;v++){
+                    temp1.push(closePrice[i][v]);
+                    temp2.push(variance[i][v]);
+                }
+                alert("success!!!");
                 series1.push({
                     name: stockToCompare[i],
                     type: 'line',
 //                    stack: '总量',
-                     data:closePrice[i],
+                     data:temp1,
 //                    data: arr_sum_long_new[i]
                 });
+//                alert("success!!!");
 
+//                alert(closePrice[i][0]);
                 series2.push({
                    name:stockToCompare[i],
                     type:'line',
-                    data:variance[i],
+                    data:temp2,
                 });
             }
-//            alert("success");
+
 
 //            每日收盘价
 
@@ -199,9 +234,10 @@
                     }
                 ],
 
-                series : series1
+                series : series1,
             };
             myChart.setOption(option,true);
+//            alert("success");
 //相对收益率
 
             var myChart = echarts.init(document.getElementById("variance"));
@@ -241,7 +277,7 @@
 
                     }
                 ],
-                series : series2
+                series : series2,
             };
 
 // 为echarts对象加载数据
@@ -302,11 +338,11 @@
     function Load(){
 //        var allNames;
 //        var allCodes;
-        stockToCompare=["a"];
-        dates=[1,2];
-        closePrice=[0,0];
+//        stockToCompare=["a"];
+//        dates=[1,2];
+//        closePrice=[0,0];
 //        alert("load");
-        ShowChart();
+//        ShowChart();
         var url="http://localhost:8080/codename";
         var key = JSON.stringify(new getPlate("all"));
 //        alert(key);
@@ -708,7 +744,7 @@
                         <small style="color: white;font-size: small">提示：最多对比5只股票</small>
                     </h4>
                 </div>
-                <div style="display: inline;width: 95%">时间： <input id="compaeStart" style="width: 40%" type="date"
+                <div style="display: inline;width: 95%">时间： <input id="compareStart" style="width: 40%" type="date"
                                                                    value="2015-09-24"/> - <input id="compareEnd"
                                                                                                  style="width: 40%"
                                                                                                  type="date"
@@ -782,6 +818,7 @@
 
                             }
                             function Chooseadd(obj){
+//                                alert("choose");
 
 
                                 var c= $(obj).parent().parent().children("td").eq(0).text();
@@ -817,7 +854,7 @@
                         <table class="sc_common_data">
                             <tbody>
                             <tr>
-                                <td><a >秦安股份</a>
+                                <td>秦安股份
                                 </td>
 
                                 <td>
