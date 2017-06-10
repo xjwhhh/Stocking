@@ -29,41 +29,6 @@ def svmPredict(oriDf):
 
     data_train = oriDf[0:train - 1]
     value_train = value[0:train - 1]
-
-    # correct1 = 0
-    # correct2 = 0
-    # correct3 = 0
-    # train_original = train
-    # i = 0
-    # L = len(oriDf)
-    # while train < L:
-    #     data_train = oriDf[train - train_original:train]
-    #     value_train = value[train - train_original:train]
-    #     data_predict = oriDf[train:train + 1]
-    #     value_real = value[train:train + 1]
-    #     # print(Data_train)
-    #     # print(value_train)
-    #     forest = ensemble.RandomForestClassifier(n_estimators=10)
-    #     forest.fit(data_train,value_train)
-    #     value_predict3=forest.predict(data_predict)
-    #     classifier = svm.SVC(kernel='poly')
-    #     classifier.fit(data_train, value_train)
-    #     value_predict1 = classifier.predict(data_predict)
-    #     bayes = naive_bayes.GaussianNB()
-    #     bayes.fit(data_train,value_train)
-    #     value_predict2=bayes.predict(data_predict)
-    #     # print("value_real = ",value_real[0])
-    #     # print("value_predict = ",value_predict)
-    #     if (value_real[0] == int(value_predict3)):
-    #         correct3 = correct3 + 1
-    #     if(value_real[0] == int(value_predict2)):
-    #         correct2=correct2+1
-    #     if(value_real[0] == int(value_predict1)):
-    #         correct1=correct1+1
-    #     train = train + 1
-    # print("Correct1 = ", correct1)
-    # print("Correct2 = ", correct2)
-    # print("Correct3 = ",correct3)
     # svm
     classifier = svm.SVC(kernel='poly')
     classifier.fit(data_train, value_train)
