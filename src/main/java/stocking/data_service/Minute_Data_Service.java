@@ -7,5 +7,4 @@ import stocking.po.MinuteDataPO;
  */
 public interface Minute_Data_Service {
     MinuteDataPO getMinuteDataPO(String code);
-
 }

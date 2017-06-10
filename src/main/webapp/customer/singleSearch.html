@@ -618,6 +618,12 @@
 
                 </div>
                 <script>
+
+                    function getType(typestr){
+                        this.type = typestr;
+                    }
+
+//                    根据行业和板块得到股票列表
                     function stockSearch() {
                         var myselect1 = document.getElementById("hangye");
                         var myselect2 = document.getElementById("bankuai");
@@ -626,9 +632,21 @@
                        var hangye=myselect1.options[index1].value;
                        var bankuai =myselect2.options[index2].value;
                        //调用ajax得到codelist和stocklist
+                        var url="http://localhost:8080/codename";
+                        var key = JSON.stringify(new getType(myselect1+"/"+myselect2));
 
+                        $.ajax({
 
+                            type:"POST",
+                            url:url,
+                            data:key,
+                            dataType: "json",//此处要设置成json
+                            success: function (data) {
 
+                                stockList = data[0].name;
+                                codeList = data[0].code;
+
+                            }});
 
                         for (var i = 0; i < stockList.length; i++) {
                             var x = document.getElementById("stockTable").insertRow(i);
