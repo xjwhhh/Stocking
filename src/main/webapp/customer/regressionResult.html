@@ -86,72 +86,75 @@
     </ul>
 </div>
 
-<!--股票排名-->
-<div style="width:75%;background: white;margin-top: 2%;margin-left: 12%" class="ranking">
-    <!--<h6 style="display: inline">周期股票排名</h6>-->
-    <div style="margin-left: 50%" class="timeSelect">
-        <select>
-            <option>第一个周期</option>
-        </select>
+<div class="container">
+    <!--股票排名-->
+    <div style="width:75%;background: white;margin-top: 2%;margin-left: 12%" class="ranking">
+        <!--<h6 style="display: inline">周期股票排名</h6>-->
+        <div style="margin-left: 50%" class="timeSelect">
+            <select>
+                <option>第一个周期</option>
+            </select>
+        </div>
+        <div style="margin-top: -3%">
+            <table class="table table-hover">
+                <caption>周期股票排名</caption>
+                <thead>
+                <tr>
+                    <th>排名</th>
+                    <th>股票名</th>
+                    <th>股票编号</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>a</td>
+                    <td>0001</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
     </div>
-    <div style="margin-top: -3%">
-        <table class="table table-hover">
-            <caption>周期股票排名</caption>
-            <thead>
-            <tr>
-                <th>排名</th>
-                <th>股票名</th>
-                <th>股票编号</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>1</td>
-                <td>a</td>
-                <td>0001</td>
-            </tr>
 
-            </tbody>
-        </table>
-    </div>
-
-</div>
-
-<!--累计收益率比较这线图-->
-<div style="width:75%;background: white;margin-top: 2%;margin-left: 12%">
-    <div id="accumReturnRate" style="height:350px;width: 600px"></div>
-
-
-</div>
-
-<!--收益率分布直方图-->
-<div style="width:75%;background: white;margin-top: 2%;margin-left: 12%">
-    <div id="varianceChart" style="height:350px;width: 600px"></div>
-
-
-</div>
-
-
-<div style="width:75%;background: white;margin-top: 2%;margin-left: 12%">
-    <h7>超额收益及胜率计算</h7>
-    <div class="timeSelect">
-        <span>选择定量:</span>
-        <select id="opt">
-            <option>持有期</option>
-            <option>形成期</option>
-
-        </select>
-        <input style="width: 16%" type="text" id="interval" value="">天
+    <!--累计收益率比较这线图-->
+    <div style="width:75%;background: white;margin-top: 2%;margin-left: 12%">
+        <div id="accumReturnRate" style="height:350px;width: 600px"></div>
 
 
     </div>
-    <div>
-        <a style=" margin-left:50%;background-color: #32619e" class="btn btn-default" onclick="sendtobgraph()"
-           role="button">确认</a>
+
+    <!--收益率分布直方图-->
+    <div style="width:75%;background: white;margin-top: 2%;margin-left: 12%">
+        <div id="varianceChart" style="height:350px;width: 600px"></div>
+
+
     </div>
 
 
+    <div style="width:75%;background: white;margin-top: 2%;margin-left: 12%">
+        <h7>超额收益及胜率计算</h7>
+        <div class="timeSelect">
+            <span>选择定量:</span>
+            <select id="opt">
+                <option>持有期</option>
+                <option>形成期</option>
+
+            </select>
+            <input style="width: 16%" type="text" id="interval" value="">天
+
+
+        </div>
+        <div>
+            <a style=" margin-left:50%;background-color: #32619e" class="btn btn-default" onclick="sendtobgraph()"
+               role="button">确认</a>
+        </div>
+
+
+    </div>
 </div>
+
 
 
 <!--<script type="text/javascript" src="accumReturnRate.js"></script>-->
@@ -215,17 +218,17 @@
             data: message,
             datatype: "json",
             success: function (data) {
-                alert(data)
-                annualReturn = data[0].annualReturn;//年化收益率
-                basicAnnualReturn = data[0].basicAnnualReturn;//基准年化收益率
-                alpha = data[0].alpha;
-                beta = data[0].beta;
-                sharpeRatio = data[0].sharpeRatio;
-                maxDrawDown = data[0].maxDrawDown;//最大回撤
-                dates = data[0].dates;
-                profits = data[0].profits;
-                basicProfits = data[0].basicProfits;//基准收益
-                sets = data[0].sets//获胜股票，mom为前百分之二十，avr为持股数
+                alert(data);
+                annualReturn = data.annualReturn;//年化收益率
+                basicAnnualReturn = data.basicAnnualReturn;//基准年化收益率
+                alpha = data.alpha;
+                beta = data.beta;
+                sharpeRatio = data.sharpeRatio;
+                maxDrawDown = data.maxDrawDown;//最大回撤
+                dates = data.dates;
+                profits = data.profits;
+                basicProfits = data.basicProfits;//基准收益
+                sets = data.sets//获胜股票，mom为前百分之二十，avr为持股数
             }
         })
     }
