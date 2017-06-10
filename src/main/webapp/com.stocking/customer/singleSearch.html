@@ -633,7 +633,7 @@
                        var bankuai =myselect2.options[index2].value;
                        //调用ajax得到codelist和stocklist
                         var url="http://localhost:8080/codename";
-                        var key = JSON.stringify(new getType(hangye+"/"+bankuai));
+                        var key = JSON.stringify(new getType(myselect1+"/"+myselect2));
 
                         $.ajax({
 
@@ -645,26 +645,25 @@
 
                                 stockList = data[0].name;
                                 codeList = data[0].code;
-                                for (var i = 0; i < stockList.length; i++) {
-                                    var x = document.getElementById("stockTable").insertRow(i);
-                                    var y = x.insertCell(0);
-                                    var z = x.insertCell(1);
-                                    y.innerHTML = "<a href='singleStockCurrent.html?stockNameInput=" + stockList[i] + "'>" + stockList[i] + "</a>";
-                                    z.innerHTML = codeList[i];
-
-                                }
-                                var x = document.getElementById("stockTable").insertRow(0);
-                                var y = x.insertCell(0);
-                                var z = x.insertCell(1);
-//                        var zz = x.insertCell(2);
-                                y.innerHTML = "股票名称";
-                                z.innerHTML = "股票编号";
-//                        zz.innerHTML = "收藏"
-                                document.getElementById('numberOfSearch').innerHTML = stockList.length;
-
 
                             }});
 
+                        for (var i = 0; i < stockList.length; i++) {
+                            var x = document.getElementById("stockTable").insertRow(i);
+                            var y = x.insertCell(0);
+                            var z = x.insertCell(1);
+                            y.innerHTML = "<a href='singleStockCurrent.html?stockNameInput=" + stockList[i] + "'>" + stockList[i] + "</a>";
+                            z.innerHTML = codeList[i];
+
+                        }
+                        var x = document.getElementById("stockTable").insertRow(0);
+                        var y = x.insertCell(0);
+                        var z = x.insertCell(1);
+//                        var zz = x.insertCell(2);
+                        y.innerHTML = "股票名称";
+                        z.innerHTML = "股票编号";
+//                        zz.innerHTML = "收藏"
+                        document.getElementById('numberOfSearch').innerHTML = stockList.length;
 
 
                     }
