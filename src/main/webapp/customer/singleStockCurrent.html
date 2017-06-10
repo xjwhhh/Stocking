@@ -43,21 +43,23 @@
         stockName = getval.split("=")[1]
         var getval1 = thisURL.split('?')[2];
         stockCode = getval1.split("=")[1];
+        var minuteList=[];
+        var priceList=[];
 
         stockName = decodeURIComponent(stockName);
 
-        alert("sss");
+//        alert("sss");
 
-        alert(stockName);
+//        alert(stockName);
         document.getElementById("stockName").value = stockName;
 
 
-        var url = "http://hq.sinajs.cn/list=sh" + "601005";
-        $("#firstscript").attr("src", url);
-        var ele = ("hq_str_sh" + stockCode).split()
+//        var url = "http://hq.sinajs.cn/list=sh" + "601005";
+//        $("#firstscript").attr("src", url);
+//        var ele = ("hq_str_sh" + stockCode).split()
         //        alert()
 
-        var temp = eval("hq_str_sh" + stockCode);
+//        var temp = eval("hq_str_sh" + stockCode);
 
 
         function showvalf() {
@@ -65,16 +67,18 @@
 //            document.getElementById('ee').value=showval;
         }
         //        通过新浪数据借口得到值
-        var elements = temp.split(",");
-        var openToday = elements[1];
-        var closeYesterday = elements[2];
-        var priceNow = elements[3];
-        var highToday = elements[4];
-        var lowToday = elements[5];
+//        var elements = temp.split(",");
+//        var openToday = elements[1];
+//        var closeYesterday = elements[2];
+//        var priceNow = elements[3];
+//        var highToday = elements[4];
+//        var lowToday = elements[5];
 
 
-        var time = ["1:00", "1:01", "1:02"];
-        var price = [1, 2, 3];
+        function getKey(typestr,identifier){
+            this.type=typestr;
+            this.identifier=identifier;
+        }
         function historyCheck() {
 //            alert("success");
             var startDate = $("#startDate").val();
@@ -90,7 +94,8 @@
         }
         function CurrentLoad() {
             var url="http://localhost:8080/codename";
-            var key = JSON.stringify(new getPlate("all"));
+            var  key=JSON.stringify(new getKey("minute",stockName));
+            alert("aaaaaa");
 //        alert(key);
 //                alert(date);
 //            alert("success");
@@ -102,14 +107,79 @@
                 dataType: "json",//此处要设置成json
                 success: function (data) {
 
-                    allNames = data[0].name;
-                    allCodes = data[0].code;
+                    minuteList=data[0].minutes;
+                    priceList=data[0].prices;
+                    ShowTimeChart();
 //                alert(allNames.length);
                 }});
 
 
 
-            alert("load");
+
+
+
+
+//            alert("load");
+        }
+        function ShowTimeChart(){
+            var myChart = echarts.init(document.getElementById("fenshi"));
+            var option = {
+                title: {
+                    text: '分时图',
+
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['A', 'B']
+                },
+                //右上角工具条
+                toolbox: {
+                    show: true,
+                    feature: {
+                        mark: {show: true},
+                        dataView: {show: true, readOnly: false},
+                        magicType: {show: true, type: ['line', 'bar']},
+                        restore: {show: true},
+                        saveAsImage: {show: true}
+                    }
+                },
+                calculable: true,
+                xAxis: [
+                    {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: minuteList,
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+
+                    }
+                ],
+                series: [
+                    {
+                        name: 'a',
+                        type: 'line',
+                        data: priceList,
+                        markPoint: {
+                            data: [
+                                {type: 'max', name: '最大值'},
+                                {type: 'min', name: '最小值'}
+                            ]
+                        },
+
+                    },
+
+                ]
+            };
+
+            // 为echarts对象加载数据
+            myChart.setOption(option);
+
+
         }
 
 
@@ -219,62 +289,6 @@
                 src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
         <script type="text/javascript">
 
-            var myChart = echarts.init(document.getElementById("fenshi"));
-            var option = {
-                title: {
-                    text: '分时图',
-
-                },
-                tooltip: {
-                    trigger: 'axis'
-                },
-                legend: {
-                    data: ['A', 'B']
-                },
-                //右上角工具条
-                toolbox: {
-                    show: true,
-                    feature: {
-                        mark: {show: true},
-                        dataView: {show: true, readOnly: false},
-                        magicType: {show: true, type: ['line', 'bar']},
-                        restore: {show: true},
-                        saveAsImage: {show: true}
-                    }
-                },
-                calculable: true,
-                xAxis: [
-                    {
-                        type: 'category',
-                        boundaryGap: false,
-                        data: time,
-                    }
-                ],
-                yAxis: [
-                    {
-                        type: 'value',
-
-                    }
-                ],
-                series: [
-                    {
-                        name: 'a',
-                        type: 'line',
-                        data: price,
-                        markPoint: {
-                            data: [
-                                {type: 'max', name: '最大值'},
-                                {type: 'min', name: '最小值'}
-                            ]
-                        },
-
-                    },
-
-                ]
-            };
-
-            // 为echarts对象加载数据
-            myChart.setOption(option);
 
 
         </script>
