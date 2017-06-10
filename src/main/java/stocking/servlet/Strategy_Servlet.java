@@ -66,7 +66,7 @@ public class Strategy_Servlet extends HttpServlet {
         double2[0] = 1.1;
         StockWinnerSet[] s = new StockWinnerSet[2];
 //        result = sds.traceBack(type, start, end, form, hold, isPla, stocks);
-        result = new StrategyPO(1.1,1.1,1.1,1.1,1.1,1.1,d,double1,double2,s);
-        new SendByServlet().doSend(response, result);
+//        result = new StrategyPO(1.1,1.1,1.1,1.1,1.1,1.1,d,double1,double2,s);
+//        new SendByServlet().doSend(response, result);
     }
 }

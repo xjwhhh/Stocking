@@ -39,9 +39,9 @@ if __name__ == "__main__":
     newPath += "calculation"
     # newPath='C:\\Users\\朱晨乾\\IdeaProjects\\Stock_Analyzing_System\\src\\main\\java\\stocking\\calculation'
     sys.path.append(newPath)
-    print(newPath)
-    # sys.path.append(
-    #     "C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\Stock_Analyzing_System\\src\\main\\java\\stocking\\calculation")
+    # print(newPath)
+    sys.path.append(
+        "C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\Stock_Analyzing_System\\src\\main\\java\\stocking\\calculation")
     import decBelow
     import decGre
     import incAbove

@@ -98,14 +98,14 @@ def getCodeBySection(plaName):
 if __name__ == "__main__":
     db = pymysql.connect("localhost", "root", "123456", "stock", charset="utf8")
     cursor = db.cursor()
-    paths = sys.argv[0].split("/")
+    paths = sys.argv[0].split("\\")
     newPath = ""
     for i in range(0, len(paths) - 2):
         newPath += (paths[i] + "\\")
     newPath += "calculation"
     sys.path.append(newPath)
-    # sys.path.append(
-    #     "C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\Stock_Analyzing_System\\src\\main\\java\\stocking\\calculation")
+    sys.path.append(
+        "C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\Stock_Analyzing_System\\src\\main\\java\\stocking\\calculation")
 
     import averStrategy
     import momStrategy
