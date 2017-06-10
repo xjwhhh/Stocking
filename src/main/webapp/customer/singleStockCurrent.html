@@ -82,7 +82,6 @@
 
             stockName=encodeURIComponent(stockName);
 //alert(startDate+" "+endDate);
-
 //            var startDate = document.getElementById("startDate").valueAsDate;
 //            var startDate = document.getElementById("startDate").valueAsDate;
 //
@@ -90,6 +89,25 @@
             document.location.href && (document.location.href = "singleStockHistory.html?stockName=" + stockName + "?startDate=" + startDate + "?endDate=" + endDate);
         }
         function CurrentLoad() {
+            var url="http://localhost:8080/codename";
+            var key = JSON.stringify(new getPlate("all"));
+//        alert(key);
+//                alert(date);
+//            alert("success");
+            $.ajax({
+
+                type:"POST",
+                url:url,
+                data:key,
+                dataType: "json",//此处要设置成json
+                success: function (data) {
+
+                    allNames = data[0].name;
+                    allCodes = data[0].code;
+//                alert(allNames.length);
+                }});
+
+
 
             alert("load");
         }
