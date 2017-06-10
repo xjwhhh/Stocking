@@ -70,7 +70,7 @@
         var codeList = [];//
         var startTime;
         var endTime;
-        var datesList=[];
+        var datesList=[];//股票比较时间list
         var closePrice ;
         var variance ;
         var lowest;//各个股票的最高最低值，填入表中
@@ -79,7 +79,8 @@
         var allCodes;
 
 
-        function getIdentifier(stockNamestr,startstr,endstr) {
+        function getIdentifier(typestr,stockNamestr,startstr,endstr) {
+            this.type = typestr;
             this.identifier = stockNamestr;
             this.start = startstr;
             this.end = endstr;
@@ -96,41 +97,203 @@
 //            ShowChart();
 //            alert(stockToCompare[0]);
             var url = "http://localhost:8080/singleStock";
+
+
+
+            var key = JSON.stringify(new getIdentifier("normal",stockToCompare[0],startDate+" 00:00:00",endDate+" 00:00:00"));
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: key,
+                dataType: "json",//此处要设置成json
+                success: function (data) {
+
+                     datesList= data[0].dates;
+
+
+
+                }
+            });
+//            alert(datesList.length);
+
+
+
+
             for (var v = 0; v < stockToCompare.length; v++) {
                 var stockName = stockToCompare[v];
-//                alert(stockName);
-
-                var key = JSON.stringify(new getIdentifier(stockName,startDate+" 00:00:00",endDate+" 00:00:00"));
-//                alert("ss");
-
+                var key = JSON.stringify(new getIdentifier("normal",stockName,startDate+" 00:00:00",endDate+" 00:00:00"));
                 $.ajax({
-
                     type: "POST",
                     url: url,
                     data: key,
                     dataType: "json",//此处要设置成json
                     success: function (data) {
-
+//                        alert("chuanle");
                         var open = data[0].open;
                         var close = data[0].adjClose;
 //                        var high = data[0].high;
 //                        var low = data[0].low;
-                        datesList= data[0].dates;
-//                        alert(datesList.length);
-                        var v = data[0].variance;
+//                        datesList= data[0].dates;
+
+                        var v = data[0].profit;
                         var high = data[0].highest;
                         var low = data[0].lowest;
-                        closePrice[v] = new Array();
-                        closePrice[v] = close;
+                        var up = data[0].up;
+                        datesList= data[0].dates;
+                        closePrice = close;
+                        variance = v;
+//                        alert(v[0]);
+                        var myChart = echarts.init(document.getElementById("closePrice"));
+                        var option = {
+                            title : {
+                                text: '每日收盘价',
+
+                            },
+                            tooltip : {
+                                trigger: 'axis'
+                            },
+                            legend: {
+                                data:"a",
+                            },
+                            //右上角工具条
+                            toolbox: {
+                                show : true,
+                                feature : {
+                                    mark : {show: true},
+                                    dataView : {show: true, readOnly: false},
+                                    magicType : {show: true, type: ['line', 'bar']},
+                                    restore : {show: true},
+                                    saveAsImage : {show: true}
+                                }
+                            },
+                            calculable : true,
+                            xAxis : [
+                                {
+                                    type : 'category',
+                                    boundaryGap : false,
+                                    data : datesList,
+                                }
+                            ],
+                            yAxis : [
+                                {
+                                    type : 'value',
+
+                                }
+                            ],
+
+                            series : [
+                                {
+                                    name:"a",
+                                    type:'line',
+                                    data:closePrice,
+                                    markPoint : {
+                                        data : [
+                                            {type : 'max', name: '最大值'},
+                                            {type : 'min', name: '最小值'}
+                                        ]
+                                    },
+
+                                },
+                            ]
+                        };
+                        myChart.setOption(option,true);
+
+
+//                        closePrice[v] = new Array();
+//                        for(var i=0;i<close.length;i++){
+//                            closePrice[v][i]=close[i];
+//                        }
+//                        alert("close"+close[0]);
 //                        alert(closePrice[v][0]+"sss");
 //                        closePrice.push(close);
-                        variance[v] = new Array();
-                        variance[v] = v;
+//                        variance[v] = new Array();
+//                        for(var i=0;i<variance.length;i++){
+//                            variance[v][i]=v[i];
+//                        }
+
+
+
+                      myChart = echarts.init(document.getElementById("variance"));
+                       option = {
+                            title : {
+                                text: '每日对数收益率',
+
+                            },
+                            tooltip : {
+                                trigger: 'axis'
+                            },
+                            legend: {
+                                data:"a",
+                            },
+                            //右上角工具条
+                            toolbox: {
+                                show : true,
+                                feature : {
+                                    mark : {show: true},
+                                    dataView : {show: true, readOnly: false},
+                                    magicType : {show: true, type: ['line', 'bar']},
+                                    restore : {show: true},
+                                    saveAsImage : {show: true}
+                                }
+                            },
+                            calculable : true,
+                            xAxis : [
+                                {
+                                    type : 'category',
+                                    boundaryGap : false,
+                                    data : datesList,
+                                }
+                            ],
+                            yAxis : [
+                                {
+                                    type : 'value',
+
+                                }
+                            ],
+                            series : [
+                                {
+                                    name:"a",
+                                    type:'line',
+                                    data:variance,
+                                    markPoint : {
+                                        data : [
+                                            {type : 'max', name: '最大值'},
+                                            {type : 'min', name: '最小值'}
+                                        ]
+                                    },
+
+                                },
+                            ]
+                        };
+
+                       alert("ssss");
+// 为echarts对象加载数据
+                        myChart.setOption(option,true);
 
 
 //                        variance.push(v);
-                        highest.push(high);
-                        lowest.push(low);
+
+
+//                        highest.push(high);
+//                        lowest.push(low);
+//                        ShowChart();
+//                        ShowTable();
+                        var x = document.getElementById("compareResult").insertRow(v+1);
+                        var y = x.insertCell(0);
+                        var z = x.insertCell(1);
+                        var vv = x.insertCell(2);
+                        var vvv = x.insertCell(3);
+                        var vvvv = x.insertCell(4);
+                        var vvvvv = x.insertCell(5);
+                        y.innerHTML = stockToCompare[v];
+                        z.innerHTML = "1";
+                        vv.innerHTML=high;
+                        vvv.innerHTML=low;
+                        vvvv.innerHTML=up;
+                        vvvvv.innerHTML=up;
+
+
+
 
 
 
@@ -144,8 +307,9 @@
 
 
             }
-            ShowChart();
-            ShowTable();
+//            alert("aaa"+variance[0][0]);
+//            ShowChart();
+//            ShowTable();
 
 
         }
@@ -158,16 +322,12 @@
 
         }
         function ShowChart(){
-            alert("chart");
-            alert(datesList.length);
+//            alert("chart");
+//            alert(closePrice.length);
             var series1=[];
             var series2=[];
-//           Number=1;
-//            stockToCompare=["a"];
-//            closePrice=[[1,2]];
-//            dates = [1,2];
 
-            for(var i = 0;i<stockToCompare.length;i++){
+ /*           for(var i = 0;i<stockToCompare.length;i++){
                 var temp1=[];
                 var temp2=[];
 //                alert(dates.length);
@@ -175,7 +335,7 @@
                     temp1.push(closePrice[i][v]);
                     temp2.push(variance[i][v]);
                 }
-                alert("success!!!");
+
                 series1.push({
                     name: stockToCompare[i],
                     type: 'line',
@@ -192,96 +352,15 @@
                     data:temp2,
                 });
             }
-
+*/
 
 //            每日收盘价
 
-            var myChart = echarts.init(document.getElementById("closePrice"));
-            var option = {
-                title : {
-                    text: '每日收盘价',
 
-                },
-                tooltip : {
-                    trigger: 'axis'
-                },
-                legend: {
-                    data:stockToCompare,
-                },
-                //右上角工具条
-                toolbox: {
-                    show : true,
-                    feature : {
-                        mark : {show: true},
-                        dataView : {show: true, readOnly: false},
-                        magicType : {show: true, type: ['line', 'bar']},
-                        restore : {show: true},
-                        saveAsImage : {show: true}
-                    }
-                },
-                calculable : true,
-                xAxis : [
-                    {
-                        type : 'category',
-                        boundaryGap : false,
-                        data : dates,
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value',
-
-                    }
-                ],
-
-                series : series1,
-            };
-            myChart.setOption(option,true);
 //            alert("success");
 //相对收益率
 
-            var myChart = echarts.init(document.getElementById("variance"));
-            var option = {
-                title : {
-                    text: '每日对数收益率',
 
-                },
-                tooltip : {
-                    trigger: 'axis'
-                },
-                legend: {
-                    data:stockToCompare,
-                },
-                //右上角工具条
-                toolbox: {
-                    show : true,
-                    feature : {
-                        mark : {show: true},
-                        dataView : {show: true, readOnly: false},
-                        magicType : {show: true, type: ['line', 'bar']},
-                        restore : {show: true},
-                        saveAsImage : {show: true}
-                    }
-                },
-                calculable : true,
-                xAxis : [
-                    {
-                        type : 'category',
-                        boundaryGap : false,
-                        data : dates,
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value',
-
-                    }
-                ],
-                series : series2,
-            };
-
-// 为echarts对象加载数据
-            myChart.setOption(option,true);
         }
 
 //         个股详情
@@ -773,6 +852,7 @@
                         </div>
                         <script>
                             function Inputadd() {
+                                var repeat = 0;
 
 //                                判断输入是否存在
                                 var stockName = document.getElementById("stockInput").value;
@@ -786,13 +866,21 @@
                                     }
                                 }
                                 if(exit==1) {
+                                    //存在
+                                    for(var v=0;v<stockToCompare.length;v++){
+                                        if(stockToCompare[v]==stockName){repeat=1;break;}
+                                    }
+                                    if(repeat==0){
+
+
+
                                     var x = document.getElementById("compareTable").insertRow(Number);
                                     var y = x.insertCell(0);
 
 
                                     y.innerHTML = stockName;
                                     stockToCompare.push(stockName);
-                                    Number++;
+                                    Number++;}else {alert("该股票已存在");}
                                 }else{
                                     for(var v=0;v<allNames.length;v++){
                                         if(allCodes[v]==stockName){
@@ -803,13 +891,17 @@
                                         }
                                     }
                                     if(exit==1){
+                                        for(var v=0;v<stockToCompare.length;v++){
+                                            if(stockToCompare[v]==stockName){repeat=1;break;}
+                                        }if(repeat==0){
+
                                         var x = document.getElementById("compareTable").insertRow(Number);
                                         var y = x.insertCell(0);
 
 
                                         y.innerHTML = stockName;
                                         stockToCompare.push(stockName);
-                                        Number++;
+                                        Number++;}else{alert("该股票已存在");}
                                     }else{alert("股票不存在");}
                                 }
 
@@ -817,18 +909,24 @@
 
                             }
                             function Chooseadd(obj){
+                                var repeat=0;
 //                                alert("choose");
 
 
                                 var c= $(obj).parent().parent().children("td").eq(0).text();
 //                                alert("stockCHose :"+c);
+
+                                for(var v=0;v<stockToCompare.length;v++){
+                                    if(stockToCompare[v]==c){repeat=1;break;}
+                                }if(repeat==0){
+
                                 stockToCompare.push(c);
                                 var x = document.getElementById("compareTable").insertRow(Number);
                                 var y = x.insertCell(0);
 
                                 y.innerHTML = c;
 //                                document.getElementById('numberOfSearch').innerHTML = stockNames.length;
-                                Number++;
+                                Number++;}else{alert("该股票已存在");}
 
                             }
                         </script>
@@ -882,7 +980,7 @@
                 <div class="comparetitle">
                     <h6>基本指标对比</h6>
                 </div>
-                <table class="table table-hover">
+                <table id="compareResult" class="table table-hover">
                     <thead>
                     <tr>
                         <th>股票名称</th>
@@ -895,11 +993,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
 
-
-
-                    </tr>
 
                     </tbody>
                 </table>
