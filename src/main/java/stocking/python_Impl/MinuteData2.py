@@ -3,6 +3,7 @@ import sys
 import pymysql
 import pandas as pd
 
+
 # from sklearn import svm
 # from sklearn import naive_bayes
 # from sklearn import ensemble
@@ -17,7 +18,6 @@ def svmPredict(oriDf):
     from sklearn import svm
     from sklearn import naive_bayes
     from sklearn import ensemble
-
 
     train = 80
     value = pd.Series(oriDf['close'].shift(-1) - oriDf['close'], index=oriDf.index)  # 后一天减前一天的
@@ -50,6 +50,7 @@ def svmPredict(oriDf):
     value_predict3 = forest.predict(oriDf.iloc[[train - 1]])
     return 0.1 * int(value_predict1) + 0.2 * int(value_predict2) + 0.7 * int(value_predict3)
 
+
 def smCorCal(stock, market):
     rate = pd.DataFrame(stock[0] - stock[0].shift(1) / stock[0].shift(1))
     df = pd.concat([rate[0], market[0]], axis=1, keys=['closeS', 'closeM'])
@@ -77,6 +78,7 @@ def getMinuteData(code, date):
         print(v)
         # print(df)
 
+
 def getSectionByCode(code):
     subCode = code[:3]
     if subCode == "600":
@@ -99,7 +101,8 @@ def getSectionByCode(code):
         section = "szb"
     return section
 
-def getstockinfo(code,startDate,endDate,sectionName):
+
+def getstockinfo(code, startDate, endDate, sectionName):
     sql = "select distinct date,adjopen,adjhigh,adjlow,adjclose,volume from kdata_" + sectionName + " where date>='%s' and date<='%s' and code='%s' order by date" % (
         startDate, endDate, code)
     try:
@@ -117,10 +120,11 @@ def getstockinfo(code,startDate,endDate,sectionName):
             re.append(resultList)
         df = pd.DataFrame(re, columns=['date', 'open', 'high', 'close', 'low', 'volume'])
         df = df.set_index('date')
-        df=df[-82:]
+        df = df[-82:]
     except:
         print('get data fail')
     return df
+
 
 def getStockInfo2(code, section, startDate, endDate):
     sql = "select distinct date,adjclose from kdata_" + section + " where date>='%s' and date<='%s' and code='%s' order by date" % (
@@ -161,11 +165,11 @@ if __name__ == "__main__":
     import corCal
 
     #
-    # code = sys.argv[1]
-    # date = sys.argv[2]
-    # before=sys.argv[3]
+    code = sys.argv[1]
+    date = sys.argv[2]
+    before=sys.argv[3]
 
-    # getMinuteData(code, date)
+    getMinuteData(code, date)
     # getMinuteData('000001', '2017-06-08')
     # getTodayData('000001')
     # getMinuteData()
@@ -173,82 +177,69 @@ if __name__ == "__main__":
     # print(1)
     # print(2)
 
-    date='2016-06-10'
-    before='2016-01-01'
-    code='000001'
-    sectionName='sza'
-    sectionName=getSectionByCode(code)
-    df=getstockinfo(code,before,date,sectionName)
+    # date = '2016-06-10'
+    # before = '2016-01-01'
+    # code = '000001'
+    # sectionName = 'sza'
+    sectionName = getSectionByCode(code)
+    df = getstockinfo(code, before, date, sectionName)
     # print(len(df))
     # prediction=svmPredict(df)
     # print(prediction)
 
-
-    adjdf=df['close']
-    indexList=list(adjdf.index)
-
-    #获取行业
-    sql = "select industry from basicinfo where  code='%s' " % ( code)
-    try:
-        cursor.execute(sql)
-        results = cursor.fetchall()
-        for row in results:
-            industry=row[0]
-    except:
-        print('fail')
-
-    #获取同行业股票
-    sql = "select code from basicinfo where  industry='%s' " % ( industry)
-    try:
-        cursor.execute(sql)
-        results = cursor.fetchall()
-        codes=[]
-        for row in results:
-            codes.append(row[0])
-    except:
-        print('fail')
-
-    re=[]
-    for i in codes:
-        sectionName=getSectionByCode(i)
-        df=getStockInfo2(i,sectionName,before,date)
-        if(len(df)>82):
-            df=df[-82:]
-            profit = []
-            ttt = list(df['close'])
-            profit.append(0)
-            for i in range(1, len(ttt)):
-                t = (ttt[i] - ttt[i - 1]) / ttt[i - 1]
-                profit.append(t)
-            re.append(profit)
-
-    meanvalue=[]
-    for i in range(0,82):
-        m=0
-        for t in re:
-            m+=t[i]
-        meanvalue.append(m/len(re))
-
-    seriess=[]
-    for i in range(0,82):
-        res=[indexList[i],meanvalue[i]]
-        seriess.append(res)
-    marketDF=pd.DataFrame(seriess,columns=['date','rate'])
-    marketDF=marketDF.set_index('date')
-
-    ttt=smCorCal(adjdf,marketDF)
-    print(ttt)
-    # print(adjdf[0])
-
-
-
-
-
-
-
-
-
-
-
-
-
+    # print(df)
+    # adjdf = df['close']
+    # indexList = list(adjdf.index)
+    #
+    # # 获取行业
+    # sql = "select industry from basicinfo where  code='%s' " % (code)
+    # try:
+    #     cursor.execute(sql)
+    #     results = cursor.fetchall()
+    #     for row in results:
+    #         industry = row[0]
+    # except:
+    #     print('fail')
+    #
+    # # 获取同行业股票
+    # sql = "select code from basicinfo where  industry='%s' " % (industry)
+    # try:
+    #     cursor.execute(sql)
+    #     results = cursor.fetchall()
+    #     codes = []
+    #     for row in results:
+    #         codes.append(row[0])
+    # except:
+    #     print('fail')
+    #
+    # re = []
+    # for i in codes:
+    #     sectionName = getSectionByCode(i)
+    #     df = getStockInfo2(i, sectionName, before, date)
+    #     if (len(df) > 82):
+    #         df = df[-82:]
+    #         profit = []
+    #         ttt = list(df['close'])
+    #         profit.append(0)
+    #         for i in range(1, len(ttt)):
+    #             t = (ttt[i] - ttt[i - 1]) / ttt[i - 1]
+    #             profit.append(t)
+    #         re.append(profit)
+    #
+    # meanvalue = []
+    # for i in range(0, 82):
+    #     m = 0
+    #     for t in re:
+    #         m += t[i]
+    #     meanvalue.append(m / len(re))
+    #
+    # seriess = []
+    # for i in range(0, 82):
+    #     res = [indexList[i], meanvalue[i]]
+    #     seriess.append(res)
+    # marketDF = pd.DataFrame(seriess, columns=['date', 'rate'])
+    # marketDF = marketDF.set_index('date')
+    #
+    # relativity = smCorCal(adjdf, marketDF)
+    # print(relativity)
+    # # print(adjdf[0])

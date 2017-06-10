@@ -64,7 +64,7 @@ public class Minute_Data_Impl implements Minute_Data_Service {
         }
         //周末，用星期五的数据
         else{
-            while(!dateFm.format(date).equals("星期四")) {
+            while(!dateFm.format(date).equals("星期五")) {
                 date = new Date(date.getTime() - 24 * 60 * 60 * 1000);
             }
             String dateStr = formatter.format(date);
@@ -105,8 +105,8 @@ public class Minute_Data_Impl implements Minute_Data_Service {
                         minute[i] = in.readLine();
                         prices[i] = Double.parseDouble(in.readLine());
                     }
-                    prediction=Double.parseDouble(in.readLine());
-                    relativity=Double.parseDouble(in.readLine());
+//                    prediction=Double.parseDouble(in.readLine());
+//                    relativity=Double.parseDouble(in.readLine());
                     MinuteDataPO minuteDataPO = new MinuteDataPO(minute, prices,prediction,relativity);
                     return minuteDataPO;
                 }

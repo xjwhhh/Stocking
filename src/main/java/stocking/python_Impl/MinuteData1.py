@@ -3,6 +3,55 @@ import sys
 import pymysql
 import pandas as pd
 
+def svmPredict(oriDf):
+    sys.path.append("C:\\Users\\xjwhh\\Anaconda3\\Lib\\site-packages")
+    # import svm
+    # import naive_bayes
+    # import ensemble
+    from sklearn import svm
+    from sklearn import naive_bayes
+    from sklearn import ensemble
+
+    train = 80
+    value = pd.Series(oriDf['close'].shift(-1) - oriDf['close'], index=oriDf.index)  # 后一天减前一天的
+    oriDf['high-low'] = oriDf['high'] - oriDf['low']  # Difference between High and Low
+    oriDf['profit'] = (oriDf['close'] - oriDf['close'].shift(1)) / oriDf['close'].shift(1)  # 今日的收益率
+    oriDf['close-open'] = oriDf['close'] - oriDf['open']  # today's Close - Open
+    value[value >= 0] = 1  # 0 means rise
+    value[value < 0] = 0  # 1 means fall
+    oriDf = oriDf.dropna(how='any')
+    value = value[~value.isnull()]
+
+    del (oriDf['open'])
+    del (oriDf['close'])
+    del (oriDf['high'])
+    del (oriDf['low'])
+
+    data_train = oriDf[0:train - 1]
+    value_train = value[0:train - 1]
+    # svm
+    classifier = svm.SVC(kernel='poly')
+    classifier.fit(data_train, value_train)
+    value_predict1 = classifier.predict(oriDf.iloc[[train - 1]])
+    # naive_bayes
+    bayes = naive_bayes.GaussianNB()
+    bayes.fit(data_train, value_train)
+    value_predict2 = bayes.predict(oriDf.iloc[[train - 1]])
+    # forest
+    forest = ensemble.RandomForestClassifier(n_estimators=10)
+    forest.fit(data_train, value_train)
+    value_predict3 = forest.predict(oriDf.iloc[[train - 1]])
+    return 0.1 * int(value_predict1) + 0.2 * int(value_predict2) + 0.7 * int(value_predict3)
+
+
+def smCorCal(stock, market):
+    rate = pd.DataFrame(stock[0] - stock[0].shift(1) / stock[0].shift(1))
+    df = pd.concat([rate[0], market[0]], axis=1, keys=['closeS', 'closeM'])
+    df = df.dropna(how='any')
+    result = df.corr(method='pearson', min_periods=1)
+    return result.at['closeS', 'closeM']
+
+
 # 当日已发生价格
 def getTodayData(code):
     df = ts.get_today_ticks(code)
@@ -20,6 +69,7 @@ def getTodayData(code):
     for k, v in d.items():
         print(k)
         print(v)
+
 
 def getSectionByCode(code):
     subCode = code[:3]
@@ -43,7 +93,8 @@ def getSectionByCode(code):
         section = "szb"
     return section
 
-def getstockinfo(code,startDate,endDate,sectionName):
+
+def getstockinfo(code, startDate, endDate, sectionName):
     sql = "select distinct date,adjopen,adjhigh,adjlow,adjclose,volume from kdata_" + sectionName + " where date>='%s' and date<='%s' and code='%s' order by date" % (
         startDate, endDate, code)
     try:
@@ -61,7 +112,25 @@ def getstockinfo(code,startDate,endDate,sectionName):
             re.append(resultList)
         df = pd.DataFrame(re, columns=['date', 'open', 'high', 'close', 'low', 'volume'])
         df = df.set_index('date')
-        df=df[-82:]
+        df = df[-82:]
+    except:
+        print('get data fail')
+    return df
+
+def getStockInfo2(code, section, startDate, endDate):
+    sql = "select distinct date,adjclose from kdata_" + section + " where date>='%s' and date<='%s' and code='%s' order by date" % (
+        startDate, endDate, code)
+    try:
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        re = []
+        for row in results:
+            date = row[0]
+            close = row[1]
+            resultlist = [date, close]
+            re.append(resultlist)
+        df = pd.DataFrame(re, columns=['date', 'close'])
+        df = df.set_index('date')
     except:
         print('get data fail')
     return df
@@ -86,10 +155,9 @@ if __name__ == "__main__":
     #
     import corCal
 
-
     code = sys.argv[1]
     date = sys.argv[2]
-    before=sys.argv[3]
+    before = sys.argv[3]
 
     # getMinuteData(code, date)
     # getMinuteData('000001', '2017-04-05')
@@ -97,20 +165,13 @@ if __name__ == "__main__":
     # getMinuteData()
     getTodayData(code)
     import predict
+
     # date='2016-06-10'
     # before='2016-01-01'
     # code='000001'
     # sectionName='sza'
-    sectionName=getSectionByCode(code)
-    df=getstockinfo(code,before,date,sectionName)
+    sectionName = getSectionByCode(code)
+    df = getstockinfo(code, before, date, sectionName)
     # print(len(df))
-    prediction=predict.svmPredict(df)
+    prediction = predict.svmPredict(df)
     print(prediction)
-
-
-
-
-
-
-
-
