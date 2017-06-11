@@ -119,6 +119,7 @@
 
             for (var v = 0; v < stockToCompare.length; v++) {
                 var stockName = stockToCompare[v];
+                alert(stockName);
 
                 var key = JSON.stringify(new getIdentifier("normal",stockName,startDate+" 00:00:00",endDate+" 00:00:00"));
                 $.ajax({
@@ -142,75 +143,7 @@
                         datesList= data[0].dates;
 //                        closePrice = close;
 
-//                        variance = v;
-//                        alert(v[0]);
-//                        var myChart = echarts.init(document.getElementById("closePrice"));
-//                        var option = {
-//                            title : {
-//                                text: '每日收盘价',
-//
-//                            },
-//                            tooltip : {
-//                                trigger: 'axis'
-//                            },
-//                            legend: {
-//                                data:"a",
-//                            },
-//                            //右上角工具条
-//                            toolbox: {
-//                                show : true,
-//                                feature : {
-//                                    mark : {show: true},
-//                                    dataView : {show: true, readOnly: false},
-//                                    magicType : {show: true, type: ['line', 'bar']},
-//                                    restore : {show: true},
-//                                    saveAsImage : {show: true}
-//                                }
-//                            },
-//                            calculable : true,
-//                            xAxis : [
-//                                {
-//                                    type : 'category',
-//                                    boundaryGap : false,
-//                                    data : datesList,
-//                                }
-//                            ],
-//                            yAxis : [
-//                                {
-//                                    type : 'value',
-//
-//                                }
-//                            ],
-//
-//                            series : [
-//                                {
-//                                    name:"a",
-//                                    type:'line',
-//                                    data:closePrice,
-//                                    markPoint : {
-//                                        data : [
-//                                            {type : 'max', name: '最大值'},
-//                                            {type : 'min', name: '最小值'}
-//                                        ]
-//                                    },
-//
-//                                },
-//                            ]
-//                        };
-//                        myChart.setOption(option,true);
 
-
-//                        closePrice[v] = new Array();
-//                        for(var i=0;i<close.length;i++){
-//                            closePrice[v][i]=close[i];
-//                        }
-//                        alert("close"+close[0]);
-//                        alert(closePrice[v][0]+"sss");
-//                        closePrice.push(close);
-//                        variance[v] = new Array();
-//                        for(var i=0;i<variance.length;i++){
-//                            variance[v][i]=v[i];
-//                        }
 
                         var x = document.getElementById("compareResult").insertRow(v+1);
                         var y = x.insertCell(0);
@@ -225,9 +158,9 @@
                         vvv.innerHTML=low;
                         vvvv.innerHTML=up;
                         vvvvv.innerHTML=up;
-                        closePrice=close;
-                        variance=profits;
-                        alert("vass"+variance[0]);
+                        closePrice=[v+1,v+2];
+                        variance=[v+2,v+3];
+//                        alert("vass"+variance[0]);
                     }
 
                 });//回调函数
@@ -416,6 +349,35 @@
 //        closePrice=[0,0];
 //        alert("load");
 //        ShowChart();
+
+
+        //判断是否登陆
+        var sstorage = sessionStorage;
+        if(sstorage.getItem("login")==null){
+            var ul=document.getElementById("login");
+
+            var li=document.createElement("li");
+
+            li.innerHTML="<a href='login.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>登录</a>";
+
+            ul.appendChild(li);
+
+            var li2=document.createElement("li");
+            li2.innerHTML="<a href='#' style='height: 100px;line-height: 70px; font-size:1.2em'>注册</a>";
+            ul.appendChild(li2);
+
+        }else{
+            var ul=document.getElementById("login");
+
+            var li=document.createElement("li");
+
+            li.innerHTML="<a href='CustomerSetting.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>用户设置</a>";
+
+            ul.appendChild(li);
+
+        }
+
+
         var url="http://localhost:8080/codename";
         var key = JSON.stringify(new getPlate("all"));
 //        alert(key);
@@ -445,7 +407,7 @@
 
 
 <!--固定导航栏-->
-<div class="container-fluid">
+<div class="container-fluid" style="background: url(lgBg1.jpg);background-size: 100%">
     <div class="navbar-header">
         <img src="stock2.jpg" class="img-rounded">
     </div>
@@ -460,10 +422,10 @@
         <a class="navbar-brand" href="#" style="height: 100px;line-height: 70px; font-size:4em">Stocking</a>
     </div>
     <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="login.html" target="_blank" style="height: 100px;line-height: 70px; font-size:1.2em">登录</a>
-            </li>
-            <li><a href="#" style="height: 100px;line-height: 70px; font-size:1.2em">注册</a></li>
+        <ul  id="login" class="nav navbar-nav navbar-right">
+            <!--<li><a href="login.html" target="_blank" style="height: 100px;line-height: 70px; font-size:1.2em">登录</a>-->
+            <!--</li>-->
+            <!--<li>f</li>-->
         </ul>
         <form class="navbar-form navbar-right" action="#" role="search">
             <div class="form-group">
@@ -512,7 +474,7 @@
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade in active" id="stockContent">
         <form action="singleStockCurrent.html" method="POST">
-            <div style="padding-left:40px;margin-top: 40px ;margin-left: 40px" class="nav__search">
+            <div style="padding-left:40px;margin-top: 40px ;margin-left: 40px;border:0px solid #2767a9;border-bottom-width: 2px;width:70%" class="nav__search">
                 <input type="text" id="stockNameInput" placeholder="输入股票名或股票编号">
                 <span class="nav__search__addon">
            <!--<input style="background: rgba(0,0,0,0)" type="submit">-->
@@ -530,7 +492,7 @@
         </form>
 
 
-        <div style="padding-left:40px;margin-left: 40px;margin-top:40px;width:70%;float:left"
+        <div style="padding-left:40px;margin-left: 40px;margin-top:0px;width:70%;float:left;border:0px solid #2767a9;padding-top:40px"
              class="stockScreener-range">
             <div class="stockScreener-title">选择范围</div>
             <div class="stockScreener-range-wrapper">
@@ -685,7 +647,7 @@
 
 
                 </select></div>
-                <div class="stockScreener-range-area" style="width:40%;float:left;margin-top: 4%">
+                <div class="stockScreener-range-area" style="width:40%;float:left;">
                     <span>板块：</span><select id="bankuai">
                     <option value="全部">全部</option>
                     <option value="创业板">创业板</option>

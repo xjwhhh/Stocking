@@ -22,55 +22,14 @@
     <script type="text/javascript" src="json2-min.js"></script>
 </head>
 
-<body style="background: url(lgBg1.jpg);background-size: 100%">
-<script type="text/javascript">
-    function getUser(opstr,idstr,namestr,passwordstr,newpasswordstr) {
-        this.op=opstr;
-        this.id=idstr;
-        this.name=namestr;
-        this.password=passwordstr;
-        this.newPassword=newpasswordstr;
-    }
-    function submit()
-    {
-        alert("aaaa");
-        var url="http://localhost:8080/customer";
-        var name = document.getElementById("login-name").value;
-        var password = document.getElementById("login-pass").value;
-//        alert(name);
-//        alert(password);
-        var user = JSON.stringify(new getUser("login",name,"",password,""));
-
-//调用JQuery提供的Ajax方法
-        $.ajax({
-            type:"POST",
-            url:url,
-            data:user,
-            dataType: "json",//此处要设置成jason
-            success:function (data) {
-                alert("ok");
-                var id=data[0].id;
-                var s = sessionStorage;
-                s.setItem("login",id);
-                document.location.href && (document.location.href = "singleSearch.html" );
-
-
-
-
-            }});//回调函数
-    }
-
-//    <img src="../../../../../../Desktop/lgBg1.jpg"/>
-</script>
-
-
+<body>
 
 <div class="container">
 
-    <div class="login" style="border-radius: 10px;opacity: 0.9;width:30%;height: 70%;margin-left:70%;margin-top:20%">
+    <div class="login">
         <div class="login-screen">
             <div class="login-icon">
-                <!--<img src="stock.png" alt="Welcome to Mail App"/>-->
+                <img src="stock.png" alt="Welcome to Mail App"/>
                 <h4>Welcome to
                     <small>Stocking</small>
                 </h4>
@@ -89,17 +48,43 @@
                     <label class="login-field-icon fui-lock" for="login-pass"></label>
                 </div>
                 <!--<div class="checkbox">-->
-                    <!--<label>-->
-                        <!--<input type="checkbox" value="remember-me"> Remember me-->
-                    <!--</label>-->
+                <!--<label>-->
+                <!--<input type="checkbox" value="remember-me"> Remember me-->
+                <!--</label>-->
                 <!--</div>-->
-                <a class="btn btn-primary btn-lg btn-block" onclick="submit()" value="Log in">Log in</a>
+                <a class="btn btn-primary btn-lg btn-block" onclick="submit()" value="Log in" href="index.html">Log in</a>
                 <a class="login-link" href="#">Lost your password?</a>
             </div>
         </div>
     </div>
 
 </div>  <!--/container -->
+<script type="text/javascript">
+    function User(userId, name) {
+        this.userId = userId;
+        this.name = name;
+    }
+    function submit()
+    {
+        var url="http://";
+        var name = document.getElementById("login-name").value;
+        var password = document.getElementById("login-pass").value;
+        var user = JSON.stringify(new User(name,password));
 
+//调用JQuery提供的Ajax方法
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:user,
+            dataType: "jason",//此处要设置成jason
+            success: callback});//回调函数
+    }
+    function callback(jasonObj)
+    {
+        var str = jasonObj;
+        var obj = JSON.parse(str);//调用Json2.js中提供的JSON解析器来解析成JSONObject
+        alert(obj.errNum);
+    }
+</script>
 </body>
 </html>
