@@ -1,6 +1,7 @@
 package stocking.servlet;
 
 import net.sf.json.JSONArray;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -18,6 +19,7 @@ class SendByServlet {
                 this.pw = response.getWriter();
                 pw.write("wrong");
                 pw.flush();
+                System.out.println("wrong");
             } catch (IOException ioe) {
                 ioe.printStackTrace();
             }

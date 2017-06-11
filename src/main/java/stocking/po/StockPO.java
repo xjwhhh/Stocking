@@ -205,4 +205,12 @@ public class StockPO {
         this.up = up;
     }
 
+    public double[] getProfit() {
+        return profit;
+    }
+
+    public void setProfit(double[] profit) {
+        this.profit=profit;
+    }
+
 }

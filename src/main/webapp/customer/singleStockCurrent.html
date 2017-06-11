@@ -45,6 +45,7 @@
         stockCode = getval1.split("=")[1];
         var minuteList=[];
         var priceList=[];
+        var lowest;
 
         stockName = decodeURIComponent(stockName);
 
@@ -94,7 +95,7 @@
         function CurrentLoads() {
 //            alert("1234567")
             var url="http://localhost:8080/singleStock";
-            stockName = "a";
+//            stockName = "a";
             var  key=JSON.stringify(new getKey("minute",stockName));
 //            alert("aaaaaa");
 //        alert(key);
@@ -111,7 +112,14 @@
 //                    alert("success");
                     minuteList=data[0].minute;
                     priceList=data[0].prices;
-                    alert("hah"+minuteList[0]);
+
+
+
+
+
+
+
+//                    alert("hah"+minuteList[0]);
                     ShowTimeChart();
 //                alert(allNames.length);
                 }});
@@ -159,6 +167,8 @@
                 yAxis: [
                     {
                         type: 'value',
+                        min:8,
+
 
                     }
                 ],

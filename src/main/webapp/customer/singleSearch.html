@@ -79,6 +79,7 @@
         var allCodes;
 
 
+
         function getIdentifier(typestr,stockNamestr,startstr,endstr) {
             this.type = typestr;
             this.identifier = stockNamestr;
@@ -88,45 +89,44 @@
 
 
         function Compare() {
+            var series1=[];
+            var series2=[];
             closePrice = new Array();
             variance = new Array();
-
             startDate = $("#compareStart").val();
             endDate = $("#compareEnd").val();
 //            alert(startDate);
 //            ShowChart();
 //            alert(stockToCompare[0]);
             var url = "http://localhost:8080/singleStock";
-
-
-
             var key = JSON.stringify(new getIdentifier("normal",stockToCompare[0],startDate+" 00:00:00",endDate+" 00:00:00"));
             $.ajax({
                 type: "POST",
                 url: url,
                 data: key,
                 dataType: "json",//此处要设置成json
+                async : false,
                 success: function (data) {
 
                      datesList= data[0].dates;
 
-
-
                 }
             });
-//            alert(datesList.length);
+//            alert("datesList.length);
 
 
 
 
             for (var v = 0; v < stockToCompare.length; v++) {
                 var stockName = stockToCompare[v];
+
                 var key = JSON.stringify(new getIdentifier("normal",stockName,startDate+" 00:00:00",endDate+" 00:00:00"));
                 $.ajax({
                     type: "POST",
                     url: url,
                     data: key,
                     dataType: "json",//此处要设置成json
+                    async : false,
                     success: function (data) {
 //                        alert("chuanle");
                         var open = data[0].open;
@@ -135,68 +135,69 @@
 //                        var low = data[0].low;
 //                        datesList= data[0].dates;
 
-                        var v = data[0].profit;
+                        var profits = data[0].profit;
                         var high = data[0].highest;
                         var low = data[0].lowest;
                         var up = data[0].up;
                         datesList= data[0].dates;
-                        closePrice = close;
-                        variance = v;
+//                        closePrice = close;
+
+//                        variance = v;
 //                        alert(v[0]);
-                        var myChart = echarts.init(document.getElementById("closePrice"));
-                        var option = {
-                            title : {
-                                text: '每日收盘价',
-
-                            },
-                            tooltip : {
-                                trigger: 'axis'
-                            },
-                            legend: {
-                                data:"a",
-                            },
-                            //右上角工具条
-                            toolbox: {
-                                show : true,
-                                feature : {
-                                    mark : {show: true},
-                                    dataView : {show: true, readOnly: false},
-                                    magicType : {show: true, type: ['line', 'bar']},
-                                    restore : {show: true},
-                                    saveAsImage : {show: true}
-                                }
-                            },
-                            calculable : true,
-                            xAxis : [
-                                {
-                                    type : 'category',
-                                    boundaryGap : false,
-                                    data : datesList,
-                                }
-                            ],
-                            yAxis : [
-                                {
-                                    type : 'value',
-
-                                }
-                            ],
-
-                            series : [
-                                {
-                                    name:"a",
-                                    type:'line',
-                                    data:closePrice,
-                                    markPoint : {
-                                        data : [
-                                            {type : 'max', name: '最大值'},
-                                            {type : 'min', name: '最小值'}
-                                        ]
-                                    },
-
-                                },
-                            ]
-                        };
-                        myChart.setOption(option,true);
+//                        var myChart = echarts.init(document.getElementById("closePrice"));
+//                        var option = {
+//                            title : {
+//                                text: '每日收盘价',
+//
+//                            },
+//                            tooltip : {
+//                                trigger: 'axis'
+//                            },
+//                            legend: {
+//                                data:"a",
+//                            },
+//                            //右上角工具条
+//                            toolbox: {
+//                                show : true,
+//                                feature : {
+//                                    mark : {show: true},
+//                                    dataView : {show: true, readOnly: false},
+//                                    magicType : {show: true, type: ['line', 'bar']},
+//                                    restore : {show: true},
+//                                    saveAsImage : {show: true}
+//                                }
+//                            },
+//                            calculable : true,
+//                            xAxis : [
+//                                {
+//                                    type : 'category',
+//                                    boundaryGap : false,
+//                                    data : datesList,
+//                                }
+//                            ],
+//                            yAxis : [
+//                                {
+//                                    type : 'value',
+//
+//                                }
+//                            ],
+//
+//                            series : [
+//                                {
+//                                    name:"a",
+//                                    type:'line',
+//                                    data:closePrice,
+//                                    markPoint : {
+//                                        data : [
+//                                            {type : 'max', name: '最大值'},
+//                                            {type : 'min', name: '最小值'}
+//                                        ]
+//                                    },
+//
+//                                },
+//                            ]
+//                        };
+//                        myChart.setOption(option,true);
 
 
 //                        closePrice[v] = new Array();
@@ -211,73 +212,6 @@
 //                            variance[v][i]=v[i];
 //                        }
 
-
-
-                      myChart = echarts.init(document.getElementById("variance"));
-                       option = {
-                            title : {
-                                text: '每日对数收益率',
-
-                            },
-                            tooltip : {
-                                trigger: 'axis'
-                            },
-                            legend: {
-                                data:"a",
-                            },
-                            //右上角工具条
-                            toolbox: {
-                                show : true,
-                                feature : {
-                                    mark : {show: true},
-                                    dataView : {show: true, readOnly: false},
-                                    magicType : {show: true, type: ['line', 'bar']},
-                                    restore : {show: true},
-                                    saveAsImage : {show: true}
-                                }
-                            },
-                            calculable : true,
-                            xAxis : [
-                                {
-                                    type : 'category',
-                                    boundaryGap : false,
-                                    data : datesList,
-                                }
-                            ],
-                            yAxis : [
-                                {
-                                    type : 'value',
-
-                                }
-                            ],
-                            series : [
-                                {
-                                    name:"a",
-                                    type:'line',
-                                    data:variance,
-                                    markPoint : {
-                                        data : [
-                                            {type : 'max', name: '最大值'},
-                                            {type : 'min', name: '最小值'}
-                                        ]
-                                    },
-
-                                },
-                            ]
-                        };
-
-                       alert("ssss");
-// 为echarts对象加载数据
-                        myChart.setOption(option,true);
-
-
-//                        variance.push(v);
-
-
-//                        highest.push(high);
-//                        lowest.push(low);
-//                        ShowChart();
-//                        ShowTable();
                         var x = document.getElementById("compareResult").insertRow(v+1);
                         var y = x.insertCell(0);
                         var z = x.insertCell(1);
@@ -291,25 +225,122 @@
                         vvv.innerHTML=low;
                         vvvv.innerHTML=up;
                         vvvvv.innerHTML=up;
-
-
-
-
-
-
-
-
+                        closePrice=close;
+                        variance=profits;
+                        alert("vass"+variance[0]);
                     }
 
-
-//
                 });//回调函数
+//                alert("vass"+variance[0]);
+
+                series1.push({
+                    name: stockToCompare[v],
+                    type: 'line',
+//                            stack: '总量',
+                    data:closePrice,
+//                            data: close
+                });
+//                        alert("ssss");
+                series2.push({
+                    name: stockToCompare[v],
+                    type: 'line',
+//                            stack: '总量',
+                    data:variance,
+//                            data: v
+                });
 
 
             }
-//            alert("aaa"+variance[0][0]);
-//            ShowChart();
-//            ShowTable();
+            alert("asd"+closePrice[0]);
+            alert("datessss"+datesList[0]);
+
+            var myChart = echarts.init(document.getElementById("closePrice"));
+            var option = {
+                title : {
+                    text: '每日收盘价',
+
+                },
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:"a",
+                },
+                //右上角工具条
+                toolbox: {
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                calculable : true,
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : false,
+                        data : datesList,
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+
+                    }
+                ],
+
+                series : series1,
+            };
+            myChart.setOption(option,true);
+
+//相对收益率
+
+            var myChart1 = echarts.init(document.getElementById("variance"));
+            var option1 = {
+                title : {
+                    text: '每日对数收益率',
+
+                },
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:"a",
+                },
+                //右上角工具条
+                toolbox: {
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                calculable : true,
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : false,
+                        data : datesList,
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+
+                    }
+                ],
+                series : series2
+            };
+
+//            alert("ssss");
+// 为echarts对象加载数据
+            myChart1.setOption(option1,true);
 
 
         }
@@ -322,44 +353,7 @@
 
         }
         function ShowChart(){
-//            alert("chart");
-//            alert(closePrice.length);
-            var series1=[];
-            var series2=[];
-
- /*           for(var i = 0;i<stockToCompare.length;i++){
-                var temp1=[];
-                var temp2=[];
-//                alert(dates.length);
-                for(var v=0;v<dates.length;v++){
-                    temp1.push(closePrice[i][v]);
-                    temp2.push(variance[i][v]);
-                }
-
-                series1.push({
-                    name: stockToCompare[i],
-                    type: 'line',
-//                    stack: '总量',
-                     data:temp1,
-//                    data: arr_sum_long_new[i]
-                });
-//                alert("success!!!");
-
-//                alert(closePrice[i][0]);
-                series2.push({
-                   name:stockToCompare[i],
-                    type:'line',
-                    data:temp2,
-                });
-            }
-*/
-
 //            每日收盘价
-
-
-//            alert("success");
-//相对收益率
-
 
         }
 
@@ -492,8 +486,8 @@
         <li class="active"><a href="singleSearch.html">股票数据</a>
 
         </li>
-        <li><a href="market_2.html">行情信息</a></li>
-        <li><a href="regressionTest.html">回测</a></li>
+        <li><a href="market_1.html">行情信息</a></li>
+        <li><a href="regressionSetting.html">回测</a></li>
         <li><a href="news.html">新闻</a></li>
     </ul>
 </div>

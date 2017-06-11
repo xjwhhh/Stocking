@@ -92,8 +92,8 @@
     <ul class="nav nav-tabs">
         <li><a href="index.html">首页</a></li>
         <li><a href="singleSearch.html">股票数据</a></li>
-        <li><a href="market_2.html">行情信息</a></li>
-        <li class="active"><a href="#">回测</a></li>
+        <li><a href="market_1.html">行情信息</a></li>
+        <li class="active"><a href="regressionSetting.html">回测</a></li>
         <li><a href="news.html">新闻</a></li>
     </ul>
 </div>
@@ -378,17 +378,17 @@
                                         </thead>
                                         <tbody>
                                         <tr class="odd ">
-                                            <td><a target="_blank" title="弘信电子 (SZ300657)" href="/S/SZ300657">弘信电子</a>
+                                            <td><a target="_blank" title="弘信电子 (SZ300657)" href="/S/SZ300657">平安银行</a>
                                             </td>
-                                            <td>14.89</td>
+                                            <td>000001</td>
                                             <td><span class="glyphicon glyphicon-plus"></span></td>
                                         </tr>
-                                        <tr class="even ">
-                                            <td><a target="_blank" title="正丹股份 (SZ300641)" href="/S/SZ300641">正丹股份</a>
-                                            </td>
-                                            <td>20.59</td>
-                                            <td><span class="glyphicon glyphicon-plus"></span></td>
-                                        </tr>
+                                        <!--<tr class="even ">-->
+                                        <!--<td><a target="_blank" title="正丹股份 (SZ300641)" href="/S/SZ300641">正丹股份</a>-->
+                                        <!--</td>-->
+                                        <!--<td>20.59</td>-->
+                                        <!--<td><span class="glyphicon glyphicon-plus"></span></td>-->
+                                        <!--</tr>-->
                                         </tbody>
                                     </table>
                                 </div>
@@ -456,12 +456,12 @@
     //            }
     //
     //        }
-    function getmessage(type, start, end, hold, form, isPla, stocks) {
+    function getmessage(type, start, end, form, hold, isPla, stocks) {
         this.type = type;
         this.start = start;
         this.end = end;
-        this.hold = hold;
         this.form = form;
+        this.hold = hold;
         this.isPla = isPla;
         this.stocks = stocks;
     }
@@ -476,15 +476,15 @@
         }
         var isPla;
         var trs = document.getElementById("stocktable").rows;
-        alert(trs.length)
+//        alert(trs.length)
         var stocks = new Array();
         if (document.getElementById("single").className == "active") {
             isPla = 0;
             for (var j = 1; j < trs.length; j++) {
                 var tds = trs[j].getElementsByTagName("td");
                 stocks.push(tds[1].innerHTML);
-                alert(tds[1]);
-                alert(tds[1].innerHTML);
+//                alert(tds[1]);
+//                alert(tds[1].innerHTML);
             }
         } else {
             isPla = 1;
@@ -504,13 +504,8 @@
                 stocks.push(document.getElementById("cb5").value);
             }
         }
-        alert("type:" + type);
-        alert("isPla:" + isPla);
-        alert("stocks:" + stocks);
-        alert(JSON.stringify(stocks))
 
-        var messageObj = new getmessage(type, dtp_input1.value, dtp_input2.value, holtTime.value, shapeTime.value, isPla, stocks);
-        alert(JSON.stringify(messageObj));
+        var messageObj = new getmessage(type, dtp_input1.value, dtp_input2.value, shapeTime.value, holtTime.value, isPla, stocks);
         var messageStr = encodeURIComponent(JSON.stringify(messageObj));
         window.location.href = "regressionResult.html?message=" + messageStr;
 //        window.location.href("regressionResult.html?strategy=" + strategy.value

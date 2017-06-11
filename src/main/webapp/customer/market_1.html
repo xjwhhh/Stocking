@@ -81,7 +81,7 @@
     <ul class="nav nav-tabs">
         <li><a href="index.html">首页</a></li>
         <li><a href="singleSearch.html">股票数据</a></li>
-        <li class="active"><a href="#">行情信息</a></li>
+        <li class="active"><a href="market_1.html">行情信息</a></li>
         <li><a href="regressionSetting.html">回测</a></li>
         <li><a href="news.html">新闻</a></li>
     </ul>
@@ -208,8 +208,9 @@
             data:date,
             dataType: "json",//此处要设置成json
             success: function (data) {
-                alert(data)
-                alert(data[0].totalDeal)
+                alert(JSON.stringify(data))
+                alert(JSON.stringify(data[0]));
+//                alert(data[0].totalDeal)
                 totalDeal = data[0].totalDeal
                 limitUpNum = data[0].limitUpNum;
                 limitDownNum = data[0].limitDownNum;

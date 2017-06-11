@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -75,6 +76,7 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
             //判断该股票代码是否存在
             if (code_name.containsKey(identifier)) {
                 section = getSectionByCode(identifier);
+                System.out.println("code");
             } else {
                 return null;
             }
@@ -82,6 +84,7 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
             if (name_code.containsKey(identifier)) {
                 identifier = name_code.get(identifier);
                 section = getSectionByCode(identifier);
+                System.out.println("name");
             } else {
                 return null;
             }
@@ -101,7 +104,8 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
                         InputStreamReader(pr.getInputStream(), "gbk"));
                 String line;
                 line = in.readLine();//个数
-                if (tools.isInteger(line)) {
+                System.out.println(line);
+                if (tools.isInteger(line)&&Integer.parseInt(line)>0) {
                     String name = code_name.get(identifier);
                     String code = identifier;
                     String start = startDateStr;
@@ -171,7 +175,10 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
                             lowest = low[i];
                         }
                     }
+                    //保留五位小数
                     double up = (low[num - 1] - low[0]) / low[num - 1];
+                    DecimalFormat decimalFormat=new DecimalFormat("#.00000");
+                    up=Double.parseDouble(decimalFormat.format(up));
                     StockPO stockPO = new StockPO(name, code, start, over, open, high, low, volume, adjClose, dates, average5, average10, average20, average30, average60, profit, variance, highest, lowest, up);
                     return stockPO;
                 }
