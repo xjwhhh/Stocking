@@ -29,12 +29,12 @@
             color: #333333
         }
 
-        th{
+        th {
             text-align: center;
         }
 
-        td{
-            text-align:center;
+        td {
+            text-align: center;
         }
 
         /*a:hover {*/
@@ -99,12 +99,13 @@
 
     <div style="background: white;" class="ranking">
         <div class="timeSelect" style="width:100%">
-            <select>
-                <option>第一个周期</option>
+            <select id="select" style="margin-top: 15px;height:30px">
+
             </select>
         </div>
-        <table  border="4">
+        <table style="width:100%;" border="4" id="rankTable">
             <caption style="font-size: 1.2em">周期股票排名</caption>
+
             <thead>
             <tr>
                 <th>排名</th>
@@ -114,17 +115,21 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td>a</td>
-                <td>0001</td>
-            </tr>
+            <!--<tr>-->
+                <!--<td>1</td>-->
+                <!--<td>a</td>-->
+                <!--<td>0001</td>-->
+                <!--<td></td>-->
+            <!--</tr>-->
 
             </tbody>
         </table>
+        <button onclick="addTableCell()">更新排名</button>
     </div>
 
-    <div id="indexAndRates" style="background: white;" >
+    <br>
+
+    <div id="indexAndRates" style="background: white;">
         <table style="width:100%;" border="4">
             <thead>
             <tr>
@@ -171,7 +176,7 @@
             <input style="width: 16%" type="text" id="interval" value="">天
         </div>
         <div>
-            <button style="background-color: #32619e" class="btn btn-default" onclick="sendtobgraph()" >确认</button>
+            <button style="background-color: #32619e" class="btn btn-default" onclick="sendtobgraph()">确认</button>
         </div>
     </div>
 </div>
@@ -186,7 +191,8 @@
 <!--<script type="text/javascript" src="varianceChart.js"></script>-->
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
-<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+<script type="text/javascript"
+        src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
@@ -233,7 +239,7 @@
         //    numberOfStock = message[5].split("=")[1]
         //    search = message[6].split("=")[1]
         //    industry = message[7].split("=")[1]
-        alert("message:"+message);
+        alert("message:" + message);
 
         var url = "http://localhost:8080/strategy";
         $.ajax({
@@ -251,7 +257,7 @@
 //                alert(data[0]);
 //                alert(JSON.stringify(data[0]));
 //                alert(JSON.parse(data))
-                var jsonO = eval("("+data+")");
+                var jsonO = eval("(" + data + ")");
 //                alert(jsonO[0].profits);
 //                alert(jsonO[0].profits.length);
 //                alert(jsonO[0].profits[0]);
@@ -265,11 +271,14 @@
                 profits = jsonO[0].profits;
                 basicProfits = jsonO[0].basicProfits;//基准收益
                 sets = jsonO[0].sets//获胜股票，mom为前百分之二十，avr为持股数
-                alert(sets);
-                alert(JSON.stringify(sets));
-                alert(sets[0]);
-                alert(JSON.stringify(sets[0]));
-
+//                alert(sets);
+//                alert(JSON.stringify(sets));
+//                alert(sets.length);
+//                alert(sets[0])
+//                alert(JSON.stringify(sets[0]));
+//                alert(sets[0].codes);
+//                alert(sets[0].codes.length);
+//                alert();
                 annualReturn = parseFloat(annualReturn.toFixed(4));
                 basicAnnualReturn = parseFloat(basicAnnualReturn.toFixed(4));
                 alpha = parseFloat(alpha.toFixed(4));
@@ -284,14 +293,14 @@
                 document.getElementById("sr").innerHTML = sharpeRatio;
                 document.getElementById("md").innerHTML = maxDrawDown;
 
-
+                rank();
                 linechart();
                 barchart();
             }
         })
     }
 
-    function getmessage(type, start, end,isHold,interval,  isPla, stocks) {
+    function getmessage(type, start, end, isHold, interval, isPla, stocks) {
         this.type = type;
         this.start = start;
         this.end = end;
@@ -307,20 +316,73 @@
     function sendtobgraph() {
 //        var url = "http://localhost:8080/bgraph";
 
-        if(document.getElementById('opt').options[document.getElementById('opt').selectedIndex].text="持有期"){
+        if (document.getElementById('opt').options[document.getElementById('opt').selectedIndex].text = "持有期") {
             isHold = 0;
-        }else{
+        } else {
             isHold = 1;
         }//获胜股
         interval = document.getElementById("interval").value;
         var messageobj = JSON.parse(message);
-        var newMessage = JSON.stringify(new getmessage(messageobj.type,messageobj.start,messageobj.end,isHold,interval,messageobj.stocks));
+        var newMessage = JSON.stringify(new getmessage(messageobj.type, messageobj.start, messageobj.end, isHold, interval, JSON.parse(messageobj.stocks)));
         var messageStr = encodeURIComponent(newMessage)
-        window.location.href = "superVariance.html?message="+messageStr;
+        alert(messageStr);
+        window.location.href = "superVariance.html?message=" + messageStr;
 
     }
 
-    function linechart(){
+    function rank() {
+        var s = document.getElementById("select");
+        for (var i = 0; i < sets.length; i++) {
+            var val = "第" + (i + 1) + "个周期"
+            s.options.add(new Option(val));
+//            addTableCell(i)
+        }
+//        alert(document.getElementById("select").selectedIndex);
+//        var num = document.getElementById("select").selectedIndex;
+//        $.ajax({
+//            addTableCell(num)
+//        })
+    }
+    function addTableCell() {
+        var num = document.getElementById("select").selectedIndex;
+//        alert("num:"+num);
+        var trs = document.getElementById("rankTable").rows;
+//        var n = trs.length;
+//        alert(trs.length);
+//        if(trs.length>1){
+//            for(var i = trs.length-1;i>0;i--){
+//                var tb = document.getElementById("rankTable");
+//                tb.deleteRow(i);
+//            }
+//        }
+        var tb = document.getElementById("rankTable");
+        while(trs.length>1){
+            tb.deleteRow(trs.length-1);
+        }
+//        if(n>1){
+//            tb.deleteRow(2);
+//            tb.deleteRow(1);
+//        }
+
+//        while(n>1){
+//            tb.deleteRow(n-1);
+//            n--;
+//        }
+//        alert(trs.length);
+        for(var j = 0;j<sets[num].codes.length;j++){
+            var newTr = rankTable.insertRow();
+            var newTd0 = newTr.insertCell();
+            var newTd1 = newTr.insertCell();
+            var newTd2 = newTr.insertCell();
+            var newTd3 = newTr.insertCell();
+            newTd0.innerHTML = j+1;
+            newTd1.innerText = sets[num].names[j];
+            newTd2.innerText = sets[num].codes[j];
+            newTd3.innerText = sets[num].profits[j];
+        }
+    }
+
+    function linechart() {
         var myChart = echarts.init(document.getElementById("accumReturnRate"));
         var option = {
             title: {
@@ -394,71 +456,71 @@
         myChart.setOption(option);
 
     }
-    function barchart(){
+    function barchart() {
         var myChart = echarts.init(document.getElementById("varianceChart"));
 
         // myChart.hideLoading();
-        var p0=0,p1=0,p2=0,p3=0,p4=0,p5=0,p6=0,p7=0,p8=0,p9=0;
-        var m0=0,m1=0,m2=0,m3=0,m4=0,m5=0,m6=0,m7=0,m8=0,m9=0;
-        for(var i = 0;i<profits.length;i++){
-            if(0<profits[i]&&profits[i]<0.01){
+        var p0 = 0, p1 = 0, p2 = 0, p3 = 0, p4 = 0, p5 = 0, p6 = 0, p7 = 0, p8 = 0, p9 = 0;
+        var m0 = 0, m1 = 0, m2 = 0, m3 = 0, m4 = 0, m5 = 0, m6 = 0, m7 = 0, m8 = 0, m9 = 0;
+        for (var i = 0; i < profits.length; i++) {
+            if (0 < profits[i] && profits[i] < 0.01) {
                 p0++;
             }
-            if(0.01<profits[i]&&profits[i]<0.02){
+            if (0.01 < profits[i] && profits[i] < 0.02) {
                 p1++;
             }
-            if(0.02<profits[i]&&profits[i]<0.03){
+            if (0.02 < profits[i] && profits[i] < 0.03) {
                 p2++;
             }
-            if(0.03<profits[i]&&profits[i]<0.04){
+            if (0.03 < profits[i] && profits[i] < 0.04) {
                 p3++;
             }
-            if(0.04<profits[i]&&profits[i]<0.05){
+            if (0.04 < profits[i] && profits[i] < 0.05) {
                 p4++;
             }
-            if(0.05<profits[i]&&profits[i]<0.06){
+            if (0.05 < profits[i] && profits[i] < 0.06) {
                 p5++;
             }
-            if(0.06<profits[i]&&profits[i]<0.07){
+            if (0.06 < profits[i] && profits[i] < 0.07) {
                 p6++;
             }
-            if(0.07<profits[i]&&profits[i]<0.08){
+            if (0.07 < profits[i] && profits[i] < 0.08) {
                 p7++;
             }
-            if(0.08<profits[i]&&profits[i]<0.09){
+            if (0.08 < profits[i] && profits[i] < 0.09) {
                 p8++;
             }
-            if(0.09<profits[i]){
+            if (0.09 < profits[i]) {
                 p9++;
             }
-            if(-0.01<profits[i]&&profits[i]<0){
+            if (-0.01 < profits[i] && profits[i] < 0) {
                 m0++;
             }
-            if(-0.02<profits[i]&&profits[i]<-0.01){
+            if (-0.02 < profits[i] && profits[i] < -0.01) {
                 m1++;
             }
-            if(-0.03<profits[i]&&profits[i]<-0.02){
+            if (-0.03 < profits[i] && profits[i] < -0.02) {
                 m2++;
             }
-            if(-0.04<profits[i]&&profits[i]<-0.03){
+            if (-0.04 < profits[i] && profits[i] < -0.03) {
                 m3++;
             }
-            if(-0.05<profits[i]&&profits[i]<-0.04){
+            if (-0.05 < profits[i] && profits[i] < -0.04) {
                 m4++;
             }
-            if(-0.06<profits[i]&&profits[i]<-0.05){
+            if (-0.06 < profits[i] && profits[i] < -0.05) {
                 m5++;
             }
-            if(-0.07<profits[i]&&profits[i]<-0.06){
+            if (-0.07 < profits[i] && profits[i] < -0.06) {
                 m6++;
             }
-            if(-0.08<profits[i]&&profits[i]<-0.07){
+            if (-0.08 < profits[i] && profits[i] < -0.07) {
                 m7++;
             }
-            if(-0.09<profits[i]&&profits[i]<-0.08){
+            if (-0.09 < profits[i] && profits[i] < -0.08) {
                 m8++;
             }
-            if(profits[i]<-0.09){
+            if (profits[i] < -0.09) {
                 m9++;
             }
         }
@@ -499,7 +561,7 @@
                 {
                     name: '正收益',
                     type: 'bar',
-                    data: [p0,p1,p2,p3,p4,p5,p6,p7,p8,p9],
+                    data: [p0, p1, p2, p3, p4, p5, p6, p7, p8, p9],
                     markPoint: {
                         data: [
                             {type: 'max', name: '最大值'},
@@ -515,7 +577,7 @@
                 {
                     name: '负收益',
                     type: 'bar',
-                    data: [m0,m1,m2,m3,m4,m5,m6,m7,m8,m9],
+                    data: [m0, m1, m2, m3, m4, m5, m6, m7, m8, m9],
                     markPoint: {
                         data: [
                             {name: '年最高', value: 182.2, xAxis: 7, yAxis: 183},
@@ -536,13 +598,6 @@
 
     }
 </script>
-<script type="text/javascript">
 
-
-</script>
-<script type="text/javascript">
-
-
-</script>
 </body>
 </html>
