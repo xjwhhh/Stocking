@@ -2,6 +2,8 @@ package stocking.servlet;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import stocking.data_impl.DataFactory_Data_Impl;
+import stocking.data_service.Strategy_Data_Service;
 import stocking.po.StockWinnerSet;
 import stocking.po.StrategyPO;
 
@@ -19,7 +21,7 @@ import java.util.Date;
  */
 @WebServlet(name = "strategy")
 public class Strategy_Servlet extends HttpServlet {
-//    private Strategy_Data_Service sds;
+    private Strategy_Data_Service sds;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
@@ -33,7 +35,7 @@ public class Strategy_Servlet extends HttpServlet {
         System.out.println(request);
         System.out.println(jsonObject.toString());
 
-//        sds = DataFactory_Data_Impl.getInstance().strategy();
+        sds = DataFactory_Data_Impl.getInstance().strategy();
         String type = jsonObject.getString("type");//策略类型(M,A),动量策略传1，均值策略传2
 
         ParseDate pd = new ParseDate();
@@ -63,8 +65,8 @@ public class Strategy_Servlet extends HttpServlet {
         double2[0] = 1.1;
         double2[0] = 1.1;
         StockWinnerSet[] s = new StockWinnerSet[2];
-//        result = sds.traceBack(type, start, end, form, hold, isPla, stocks);
+        result = sds.traceBack(type, start, end, form, hold, isPla, stocks);
 //        result = new StrategyPO(1.1,1.1,1.1,1.1,1.1,1.1,d,double1,double2,s);
-//        new SendByServlet().doSend(response, result);
+        new SendByServlet().doSend(response, result);
     }
 }

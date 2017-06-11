@@ -7,9 +7,9 @@
     <!-- Bootstrap core CSS -->
     <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <!--<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>-->
+    <!--<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
     <style type="text/css">
         #input {
             margin-top: 20px;
@@ -27,6 +27,14 @@
 
         a {
             color: #333333
+        }
+
+        th{
+            text-align: center;
+        }
+
+        td{
+            text-align:center;
         }
 
         /*a:hover {*/
@@ -88,81 +96,127 @@
 
 <div class="container">
     <!--股票排名-->
-    <div style="width:75%;background: white;margin-top: 2%;margin-left: 12%" class="ranking">
-        <!--<h6 style="display: inline">周期股票排名</h6>-->
-        <div style="margin-left: 50%" class="timeSelect">
+
+    <div style="background: white" class="ranking">
+        <div class="timeSelect">
             <select>
                 <option>第一个周期</option>
             </select>
         </div>
-        <div style="margin-top: -3%">
-            <table class="table table-hover">
-                <caption>周期股票排名</caption>
-                <thead>
-                <tr>
-                    <th>排名</th>
-                    <th>股票名</th>
-                    <th>股票编号</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>a</td>
-                    <td>0001</td>
-                </tr>
+        <table class="table table-hover">
+            <caption>周期股票排名</caption>
+            <thead>
+            <tr>
+                <th>排名</th>
+                <th>股票名</th>
+                <th>股票编号</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>a</td>
+                <td>0001</td>
+            </tr>
 
-                </tbody>
-            </table>
-        </div>
+            </tbody>
+        </table>
+    </div>
 
+
+    <!--<div style="width:75%;background: white;margin-top: 2%;margin-left: 12%" class="ranking">-->
+        <!--&lt;!&ndash;<h6 style="display: inline">周期股票排名</h6>&ndash;&gt;-->
+        <!--<div style="margin-left: 50%" class="timeSelect">-->
+            <!--<select>-->
+                <!--<option>第一个周期</option>-->
+            <!--</select>-->
+        <!--</div>-->
+        <!--<div style="margin-top: -3%">-->
+            <!--<table class="table table-hover">-->
+                <!--<caption>周期股票排名</caption>-->
+                <!--<thead>-->
+                <!--<tr>-->
+                    <!--<th>排名</th>-->
+                    <!--<th>股票名</th>-->
+                    <!--<th>股票编号</th>-->
+                <!--</tr>-->
+                <!--</thead>-->
+                <!--<tbody>-->
+                <!--<tr>-->
+                    <!--<td>1</td>-->
+                    <!--<td>a</td>-->
+                    <!--<td>0001</td>-->
+                <!--</tr>-->
+
+                <!--</tbody>-->
+            <!--</table>-->
+        <!--</div>-->
+
+    <!--</div>-->
+
+    <div id="indexAndRates" style="background: white;" >
+        <table style="width:100%;" border="4">
+            <thead>
+            <tr>
+                <th>年化收益率</th>
+                <th>基准年化收益率</th>
+                <th>阿尔法</th>
+                <th>贝塔</th>
+                <th>夏普比率</th>
+                <th>最大回撤</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td id="ar"></td>
+                <td id="bar"></td>
+                <td id="alpha"></td>
+                <td id="beta"></td>
+                <td id="sr"></td>
+                <td id="md"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
     <!--累计收益率比较这线图-->
-    <div style="width:75%;background: white;margin-top: 2%;margin-left: 12%">
-        <div id="accumReturnRate" style="height:350px;width: 600px"></div>
-
-
+    <div style="background: white;margin-top: 2%;height:500px;">
+        <div id="accumReturnRate" style="height:100%"></div>
     </div>
 
     <!--收益率分布直方图-->
-    <div style="width:75%;background: white;margin-top: 2%;margin-left: 12%">
-        <div id="varianceChart" style="height:350px;width: 600px"></div>
-
-
+    <div style="background: white;margin-top: 2%;height:500px">
+        <div id="varianceChart" style="height:100%"></div>
     </div>
 
 
-    <div style="width:75%;background: white;margin-top: 2%;margin-left: 12%">
+    <div style="background: white;margin-top: 2%">
         <h7>超额收益及胜率计算</h7>
         <div class="timeSelect">
             <span>选择定量:</span>
-            <select id="opt">
+            <select id="opt" style="height:20px">
                 <option>持有期</option>
                 <option>形成期</option>
-
             </select>
-            <input style="width: 16%" type="text" id="interval" value="">天
-
-
+            <input style="width: 16%" type="text" id="interval" value="" style="height: 20px">天
         </div>
         <div>
-            <a style=" margin-left:50%;background-color: #32619e" class="btn btn-default" onclick="sendtobgraph()"
-               role="button">确认</a>
+            <button style="background-color: #32619e" class="btn btn-default" onclick="sendtobgraph()" >确认</button>
         </div>
-
-
     </div>
 </div>
 
 
-
+<!-- Bootstrap core JavaScript
+================================================== -->
+<script src="http://cdn.static.runoob.com/libs/jquery/1.12.4/jquery.min.js" charset="UTF-8"></script>
+<script>window.jQuery || document.write('<script src="http://cdn.static.runoob.com/libs/jquery/1.12.4/jquery.min.js"><\/script>')</script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!--<script type="text/javascript" src="accumReturnRate.js"></script>-->
 <!--<script type="text/javascript" src="varianceChart.js"></script>-->
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
-<script type="text/javascript"
-        src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
@@ -218,17 +272,45 @@
             data: message,
             datatype: "json",
             success: function (data) {
-                alert(data);
-                annualReturn = data.annualReturn;//年化收益率
-                basicAnnualReturn = data.basicAnnualReturn;//基准年化收益率
-                alpha = data.alpha;
-                beta = data.beta;
-                sharpeRatio = data.sharpeRatio;
-                maxDrawDown = data.maxDrawDown;//最大回撤
-                dates = data.dates;
-                profits = data.profits;
-                basicProfits = data.basicProfits;//基准收益
-                sets = data.sets//获胜股票，mom为前百分之二十，avr为持股数
+//                alert(data);
+//                alert(data[1]);
+//                obj = JSON.parse(data);
+//                alert(obj.alpha);
+//                alert(data);
+//                alert(JSON.stringify(data))
+//                alert(data[0]);
+//                alert(JSON.stringify(data[0]));
+//                alert(JSON.parse(data))
+                var jsonO = eval("("+data+")");
+//                alert(jsonO[0].annualReturn);
+                annualReturn = jsonO[0].annualReturn;//年化收益率
+                basicAnnualReturn = jsonO[0].basicAnnualReturn;//基准年化收益率
+                alpha = jsonO[0].alpha;
+                beta = jsonO[0].beta;
+                sharpeRatio = jsonO[0].sharpeRatio;
+                maxDrawDown = jsonO[0].maxDrawDown;//最大回撤
+                dates = jsonO[0].dates;
+                profits = jsonO[0].profits;
+                basicProfits = jsonO[0].basicProfits;//基准收益
+                sets = jsonO[0].sets//获胜股票，mom为前百分之二十，avr为持股数
+
+                annualReturn = parseFloat(annualReturn.toFixed(4));
+                basicAnnualReturn = parseFloat(basicAnnualReturn.toFixed(4));
+                alpha = parseFloat(alpha.toFixed(4));
+                beta = parseFloat(beta.toFixed(4));
+                sharpeRatio = parseFloat(sharpeRatio.toFixed(4));
+                maxDrawDown = parseFloat(maxDrawDown.toFixed(4));
+
+                document.getElementById("ar").innerHTML = annualReturn;
+                document.getElementById("bar").innerHTML = basicAnnualReturn;
+                document.getElementById("alpha").innerHTML = alpha;
+                document.getElementById("beta").innerHTML = beta;
+                document.getElementById("sr").innerHTML = sharpeRatio;
+                document.getElementById("md").innerHTML = maxDrawDown;
+
+
+                linechart();
+                barchart();
             }
         })
     }
@@ -261,154 +343,227 @@
 
     }
 
-</script>
-<script type="text/javascript">
-    var myChart = echarts.init(document.getElementById("accumReturnRate"));
-    var option = {
-        title: {
-            text: '累计收益率',
-
-        },
-        tooltip: {
-            trigger: 'axis'
-        },
-        legend: {
-            data: ['策略', '基准']
-        },
-        //右上角工具条
-        toolbox: {
-            show: true,
-            feature: {
-                mark: {show: true},
-                dataView: {show: true, readOnly: false},
-                magicType: {show: true, type: ['line', 'bar']},
-                restore: {show: true},
-                saveAsImage: {show: true}
-            }
-        },
-        calculable: true,
-        xAxis: [
-            {
-                type: 'category',
-                boundaryGap: false,
-                data: ['1', '2', '3', '4', '5', '6', '7']
-            }
-        ],
-        yAxis: [
-            {
-                type: 'value',
-                axisLabel: {
-                    formatter: '{value} °C'
-                }
-            }
-        ],
-        series: [
-            {
-                name: '策略',
-                type: 'line',
-                data: [11, 11, 15, 13, 12, 13, 10],
-                markPoint: {
-                    data: [
-                        {type: 'max', name: '最大值'},
-                        {type: 'min', name: '最小值'}
-                    ]
-                },
+    function linechart(){
+        var myChart = echarts.init(document.getElementById("accumReturnRate"));
+        var option = {
+            title: {
+                text: '累计收益率',
 
             },
-            {
-                name: '基准',
-                type: 'line',
-                data: [1, -2, 2, 5, 3, 2, 0],
-                markPoint: {
-                    data: [
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: ['策略', '基准']
+            },
+            //右上角工具条
+            toolbox: {
+                show: true,
+                feature: {
+                    mark: {show: true},
+                    dataView: {show: true, readOnly: false},
+                    magicType: {show: true, type: ['line', 'bar']},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            calculable: true,
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: dates
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    axisLabel: {
+                        formatter: '{value} °C'
+                    }
+                }
+            ],
+            series: [
+                {
+                    name: '策略',
+                    type: 'line',
+//                data: [11, 11, 15, 13, 12, 13, 10],
+                    data: profits,
+                    markPoint: {
+                        data: [
+                            {type: 'max', name: '最大值'},
+                            {type: 'min', name: '最小值'}
+                        ]
+                    },
+
+                },
+                {
+                    name: '基准',
+                    type: 'line',
+//                data: [1, -2, 2, 5, 3, 2, 0],
+                    data: basicProfits,
+                    markPoint: {
+                        data: [
 //                        {name : '周最低', value : -2, xAxis: 1, yAxis: -1.5}
-                        {type: 'min', name: '周最低'}
-                    ]
-                },
+                            {type: 'min', name: '周最低'}
+                        ]
+                    },
 
+                }
+            ]
+        };
+
+        // 为echarts对象加载数据
+        myChart.setOption(option);
+
+    }
+    function barchart(){
+        var myChart = echarts.init(document.getElementById("varianceChart"));
+
+        // myChart.hideLoading();
+        var p0,p1,p2,p3,p4,p5,p6,p7,p8,p9;
+        var m0,m1,m2,m3,m4,m5,m6,m7,m8,m9;
+        for(var i = 0;i<profits.length;i++){
+            if(0<profits[i]&&profits[i]<0.01){
+                p0++;
             }
-        ]
-    };
+            if(0.01<profits[i]&&profits[i]<0.02){
+                p1++;
+            }
+            if(0.02<profits[i]&&profits[i]<0.03){
+                p2++;
+            }
+            if(0.03<profits[i]&&profits[i]<0.04){
+                p3++;
+            }
+            if(0.04<profits[i]&&profits[i]<0.05){
+                p4++;
+            }
+            if(0.05<profits[i]&&profits[i]<0.06){
+                p5++;
+            }
+            if(0.06<profits[i]&&profits[i]<0.07){
+                p6++;
+            }
+            if(0.07<profits[i]&&profits[i]<0.08){
+                p7++;
+            }
+            if(0.08<profits[i]&&profits[i]<0.09){
+                p8++;
+            }
+            if(0.09<profits[i]){
+                p9++;
+            }
+            if(-0.01<profits[i]&&profits[i]<0){
+                m0++;
+            }
+            if(-0.02<profits[i]&&profits[i]<-0.01){
+                m1++;
+            }
+            if(-0.03<profits[i]&&profits[i]<-0.02){
+                m2++;
+            }
+            if(-0.04<profits[i]&&profits[i]<-0.03){
+                m3++;
+            }
+            if(-0.05<profits[i]&&profits[i]<-0.04){
+                m4++;
+            }
+            if(-0.06<profits[i]&&profits[i]<-0.05){
+                m5++;
+            }
+            if(-0.07<profits[i]&&profits[i]<-0.06){
+                m6++;
+            }
+            if(-0.08<profits[i]&&profits[i]<-0.07){
+                m7++;
+            }
+            if(-0.09<profits[i]&&profits[i]<-0.08){
+                m8++;
+            }
+            if(profits[i]<-0.09){
+                m9++;
+            }
+        }
+        var option = {
+            title: {
+                text: '收益率分布直方图',
+                // subtext: '纯属虚构'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: ['正收益', '负收益']
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    dataView: {show: true, readOnly: false},
+                    magicType: {show: true, type: ['line', 'bar']},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            calculable: true,
+            xAxis: [
+                {
+                    type: 'category',
+                    data: ['1%', '2%', '3%', '4%', '5%', '6%', '7%', '8%', '9%', '10%']
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
 
-    // 为echarts对象加载数据
-    myChart.setOption(option);
+            series: [
+                {
+                    name: '正收益',
+                    type: 'bar',
+                    data: [p0,p1,p2,p3,p4,p5,p6,p7,p8,p9],
+                    markPoint: {
+                        data: [
+                            {type: 'max', name: '最大值'},
+                            {type: 'min', name: '最小值'}
+                        ]
+                    },
+                    markLine: {
+                        data: [
+                            {type: 'average', name: '平均值'}
+                        ]
+                    }
+                },
+                {
+                    name: '负收益',
+                    type: 'bar',
+                    data: [m0,m1,m2,m3,m4,m5,m6,m7,m8,m9],
+                    markPoint: {
+                        data: [
+                            {name: '年最高', value: 182.2, xAxis: 7, yAxis: 183},
+                            {name: '年最低', value: 2.3, xAxis: 11, yAxis: 3}
+                        ]
+                    },
+                    markLine: {
+                        data: [
+                            {type: 'average', name: '平均值'}
+                        ]
+                    }
+                }
+            ]
+        };
+
+
+        myChart.setOption(option);
+
+    }
+</script>
+<script type="text/javascript">
 
 
 </script>
 <script type="text/javascript">
-    var myChart = echarts.init(document.getElementById("varianceChart"));
-
-    // myChart.hideLoading();
-    var option = {
-        title: {
-            text: '收益率分布直方图',
-            // subtext: '纯属虚构'
-        },
-        tooltip: {
-            trigger: 'axis'
-        },
-        legend: {
-            data: ['正收益', '负收益']
-        },
-        toolbox: {
-            show: true,
-            feature: {
-                dataView: {show: true, readOnly: false},
-                magicType: {show: true, type: ['line', 'bar']},
-                restore: {show: true},
-                saveAsImage: {show: true}
-            }
-        },
-        calculable: true,
-        xAxis: [
-            {
-                type: 'category',
-                data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
-            }
-        ],
-        yAxis: [
-            {
-                type: 'value'
-            }
-        ],
-        series: [
-            {
-                name: '正收益',
-                type: 'bar',
-                data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
-                markPoint: {
-                    data: [
-                        {type: 'max', name: '最大值'},
-                        {type: 'min', name: '最小值'}
-                    ]
-                },
-                markLine: {
-                    data: [
-                        {type: 'average', name: '平均值'}
-                    ]
-                }
-            },
-            {
-                name: '负收益',
-                type: 'bar',
-                data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
-                markPoint: {
-                    data: [
-                        {name: '年最高', value: 182.2, xAxis: 7, yAxis: 183},
-                        {name: '年最低', value: 2.3, xAxis: 11, yAxis: 3}
-                    ]
-                },
-                markLine: {
-                    data: [
-                        {type: 'average', name: '平均值'}
-                    ]
-                }
-            }
-        ]
-    };
-
-
-    myChart.setOption(option);
 
 
 </script>
