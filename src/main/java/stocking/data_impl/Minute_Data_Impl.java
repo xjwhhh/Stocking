@@ -39,64 +39,72 @@ public class Minute_Data_Impl implements Minute_Data_Service {
                 return null;
             }
         }
+        if (cache.getMinuteDataPOHashtable().containsKey(code)) {
+            return cache.getMinuteDataPOHashtable().get(code);
+        } else {
 
-        Date date = new Date();
-        SimpleDateFormat dateFm = new SimpleDateFormat("EEEE");
-        String ofWeek = dateFm.format(date);
+            Date date = new Date();
+            SimpleDateFormat dateFm = new SimpleDateFormat("EEEE");
+            String ofWeek = dateFm.format(date);
 
-        //非周末，有实时数据
-        if (!ofWeek.equals("星期六") && !ofWeek.equals("星期日")) {
-            String dateStr = formatter.format(date);
-            Date before = new Date(date.getTime() - 24 * 60 * 60 * 100 * 160);
-            String beforeStr = formatter.format(before);
-            try {
-                List<String> commands = new LinkedList<String>();
-                commands.add("python");
-                commands.add(tools.getProjectPath("src\\main\\java\\stocking\\python_Impl\\MinuteData1.py"));
-                commands.add(code);
-                commands.add(dateStr);
-                commands.add(beforeStr);
-                ProcessBuilder processBuilder = new ProcessBuilder(commands);
-                Process pr = processBuilder.start();
-                BufferedReader in = new BufferedReader(new
-                        InputStreamReader(pr.getInputStream(), "gbk"));
-                MinuteDataPO minuteDataPO = getMinuteDataPO(in);
-                return minuteDataPO;
+            //非周末，有实时数据
+            if (!ofWeek.equals("星期六") && !ofWeek.equals("星期日")) {
+                String dateStr = formatter.format(date);
+                Date before = new Date(date.getTime() - 24 * 60 * 60 * 100 * 160);
+                String beforeStr = formatter.format(before);
+                try {
+                    List<String> commands = new LinkedList<String>();
+                    commands.add("python");
+                    commands.add(tools.getProjectPath("src\\main\\java\\stocking\\python_Impl\\MinuteData1.py"));
+                    commands.add(code);
+                    commands.add(dateStr);
+                    commands.add(beforeStr);
+                    ProcessBuilder processBuilder = new ProcessBuilder(commands);
+                    Process pr = processBuilder.start();
+                    BufferedReader in = new BufferedReader(new
+                            InputStreamReader(pr.getInputStream(), "gbk"));
+                    MinuteDataPO minuteDataPO = getMinuteDataPO(in);
+                    cache.setMinuteDataPOHashtable(code, minuteDataPO);
+                    System.out.println(cache.getMinuteDataPOHashtable().size());
+                    return minuteDataPO;
 
-            } catch (IOException e) {
-                e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+            //周末，用星期五的数据
+            else {
+                while (!dateFm.format(date).equals("星期五")) {
+                    date = new Date(date.getTime() - 24 * 60 * 60 * 1000);
+                }
+                String dateStr = formatter.format(date);
+
+                Date before = new Date(date.getTime() - 24 * 60 * 60 * 1000);
+                for (int i = 0; i < 160; i++) {
+                    before = new Date(before.getTime() - 24 * 60 * 60 * 1000);
+                }
+                String beforeStr = formatter.format(before);
+                try {
+                    List<String> commands = new LinkedList<String>();
+                    commands.add("python");
+                    commands.add(tools.getProjectPath("src\\main\\java\\stocking\\python_Impl\\MinuteData2.py"));
+                    commands.add(code);
+                    commands.add(dateStr);
+                    commands.add(beforeStr);
+                    ProcessBuilder processBuilder = new ProcessBuilder(commands);
+                    Process pr = processBuilder.start();
+                    BufferedReader in = new BufferedReader(new
+                            InputStreamReader(pr.getInputStream(), "gbk"));
+                    MinuteDataPO minuteDataPO = getMinuteDataPO(in);
+                    cache.setMinuteDataPOHashtable(code, minuteDataPO);
+                    System.out.println(cache.getMinuteDataPOHashtable().size());
+                    return minuteDataPO;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
         }
-        //周末，用星期五的数据
-        else {
-            while (!dateFm.format(date).equals("星期五")) {
-                date = new Date(date.getTime() - 24 * 60 * 60 * 1000);
-            }
-            String dateStr = formatter.format(date);
-
-            Date before = new Date(date.getTime() - 24 * 60 * 60 * 1000);
-            for (int i = 0; i < 160; i++) {
-                before = new Date(before.getTime() - 24 * 60 * 60 * 1000);
-            }
-            String beforeStr = formatter.format(before);
-            try {
-                List<String> commands = new LinkedList<String>();
-                commands.add("python");
-                commands.add(tools.getProjectPath("src\\main\\java\\stocking\\python_Impl\\MinuteData2.py"));
-                commands.add(code);
-                commands.add(dateStr);
-                commands.add(beforeStr);
-                ProcessBuilder processBuilder = new ProcessBuilder(commands);
-                Process pr = processBuilder.start();
-                BufferedReader in = new BufferedReader(new
-                        InputStreamReader(pr.getInputStream(), "gbk"));
-                MinuteDataPO minuteDataPO = getMinuteDataPO(in);
-                return minuteDataPO;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
     }
 
     private MinuteDataPO getMinuteDataPO(BufferedReader in) {
@@ -104,7 +112,7 @@ public class Minute_Data_Impl implements Minute_Data_Service {
             String line = in.readLine();
             double prediction = 0;
             double relativity = 0;
-            if (tools.isInteger(line)&&Integer.parseInt(line)>3) {
+            if (tools.isInteger(line) && Integer.parseInt(line) > 3) {
 //                System.out.print(line);
                 int num = Integer.parseInt(line);
                 String[] minute = new String[num];
@@ -113,18 +121,18 @@ public class Minute_Data_Impl implements Minute_Data_Service {
                     minute[i] = in.readLine();
                     prices[i] = Double.parseDouble(in.readLine());
                 }
-                minute=(String[])reverse(minute);
-                prices=(Double[])reverse(prices);
+                minute = (String[]) reverse(minute);
+                prices = (Double[]) reverse(prices);
 
                 prediction = Double.parseDouble(in.readLine());
                 relativity = Double.parseDouble(in.readLine());
-                double minimum=prices[0];
-                for(int i=0;i<prices.length;i++){
-                    if(minimum>prices[i]){
-                        minimum=prices[i];
+                double minimum = prices[0];
+                for (int i = 0; i < prices.length; i++) {
+                    if (minimum > prices[i]) {
+                        minimum = prices[i];
                     }
                 }
-                MinuteDataPO minuteDataPO = new MinuteDataPO(minute, prices, prediction, relativity,minimum);
+                MinuteDataPO minuteDataPO = new MinuteDataPO(minute, prices, prediction, relativity, minimum);
                 return minuteDataPO;
             }
         } catch (IOException e) {
@@ -135,14 +143,15 @@ public class Minute_Data_Impl implements Minute_Data_Service {
 
     /**
      * 数组反转
+     *
      * @param objects
      * @return
      */
-    private Object[] reverse(Object[] objects){
-        for(int i=0;i<objects.length/2;i++){
-            Object temp=objects[i];
-            objects[i]=objects[objects.length-i-1];
-            objects[objects.length-i-1]=temp;
+    private Object[] reverse(Object[] objects) {
+        for (int i = 0; i < objects.length / 2; i++) {
+            Object temp = objects[i];
+            objects[i] = objects[objects.length - i - 1];
+            objects[objects.length - i - 1] = temp;
         }
         return objects;
     }
