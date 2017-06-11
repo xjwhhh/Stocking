@@ -41,6 +41,11 @@
 //            alert("delete");
             var code= $(obj).parent().parent().children("td").eq(1).text();
 //            alert(code+"code");
+            obj.parentNode.parentNode.parentNode.removeChild(obj.parentNode.parentNode);
+//            alert("success");
+//            hang.parentNode.removeChild(hang);
+//            t.removeChild(hang);
+//            alert("success");
             var url="http://localhost:8080/collection";
             var key = JSON.stringify(new getKey2("delete","1",code));
             $.ajax({
@@ -70,19 +75,19 @@
 //        alert(key);
 //                alert(date);
 //            alert("success");
-//            $.ajax({
-//
-//                type:"POST",
-//                url:url,
-//                data:key,
-//                dataType: "json",//此处要设置成json
-//                async : false,
-//                success: function (data) {
-//
-//                    names=data[0].name;
-//                    codes=data[0].code;
-//
-//                }});
+            $.ajax({
+
+                type:"POST",
+                url:url,
+                data:key,
+                dataType: "json",//此处要设置成json
+                async : false,
+                success: function (data) {
+
+                    names=data[0].name;
+                    codes=data[0].code;
+
+                }});
             for (var i = 0; i < names.length; i++) {
                 var x = document.getElementById("myCollection").insertRow(i);
 //                alert("find");
