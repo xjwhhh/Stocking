@@ -50,10 +50,13 @@
             success:function (data) {
                 alert("ok");
                 var id=data[0].id;
-                var s = sessionStorage;
-                s.setItem("login",id);
-                document.location.href && (document.location.href = "singleSearch.html" );
-
+                if(id=="wrong"){
+                    alert("请重新输入");
+                }else {
+                    var s = sessionStorage;
+                    s.setItem("login", id);
+                    document.location.href && (document.location.href = "singleSearch.html" );
+                }
 
 
 

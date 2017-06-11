@@ -39,7 +39,7 @@
         var password = document.getElementById("login-pass").value;
 //        alert(name);
 //        alert(password);
-        var user = JSON.stringify(new getUser("login",name,"",password,""));
+        var user = JSON.stringify(new getUser("signup",name,"",password,""));
 
 //调用JQuery提供的Ajax方法
         $.ajax({
@@ -52,6 +52,7 @@
                 var id=data[0].id;
                 var s = sessionStorage;
                 s.setItem("login",id);
+                alert("注册成功，id为"+id);
                 document.location.href && (document.location.href = "singleSearch.html" );
 
 

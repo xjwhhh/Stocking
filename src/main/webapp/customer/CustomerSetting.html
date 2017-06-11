@@ -3,6 +3,9 @@
 <head>
     <meta charset="utf-8">
     <link href="Flat-UI-master/dist/css/flat-ui.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="Flat-UI-master/docs/assets/css/demo.css" rel="stylesheet">
     <title>Stocking量化交易</title>
 
@@ -20,71 +23,126 @@
  -->
     <script type="text/javascript" src="http://cdn.static.runoob.com/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="text/javascript" src="json2-min.js"></script>
+    <script>
+        var names=["a","b"];
+        var codes=["1","2"];
+        var id;
+
+        function getKey(typestr,idstr) {
+            this.type=typestr;
+            this.id=idstr;
+        }
+        function getKey2(typestr,idstr,codestr) {
+            this.type=typestr;
+            this.id=idstr;
+            this.code=codestr;
+        }
+        function Delete(obj) {
+//            alert("delete");
+            var code= $(obj).parent().parent().children("td").eq(1).text();
+//            alert(code+"code");
+            var url="http://localhost:8080/collection";
+            var key = JSON.stringify(new getKey2("delete","1",code));
+            $.ajax({
+
+                type:"POST",
+                url:url,
+                data:key,
+                dataType: "json",//此处要设置成json
+                async : false,
+                success: function (data) {
+
+                    alert("已删除");
+
+                }});
+
+
+
+        }
+
+        function getCollection(){
+            var sstorage = sessionStorage;
+           id = sstorage.getItem("login");
+//            alert(id);
+
+            var url="http://localhost:8080/collection";
+            var key = JSON.stringify(new getKey("get",id));
+//        alert(key);
+//                alert(date);
+//            alert("success");
+//            $.ajax({
+//
+//                type:"POST",
+//                url:url,
+//                data:key,
+//                dataType: "json",//此处要设置成json
+//                async : false,
+//                success: function (data) {
+//
+//                    names=data[0].name;
+//                    codes=data[0].code;
+//
+//                }});
+            for (var i = 0; i < names.length; i++) {
+                var x = document.getElementById("myCollection").insertRow(i);
+//                alert("find");
+                var y = x.insertCell(0);
+                var z = x.insertCell(1);
+                var de=x.insertCell(2);
+                y.innerHTML = names[i] ;
+                z.innerHTML = codes[i];
+                de.innerHTML="<button type='button' class='btn btn-default btn-sm' onclick='Delete(this)'> 删除</button>";
+
+            }
+            var x = document.getElementById("myCollection").insertRow(0);
+            var y = x.insertCell(0);
+            var z = x.insertCell(1);
+            var de=x.insertCell(2);
+//                        var zz = x.insertCell(2);
+            y.innerHTML = "股票名称";
+            z.innerHTML = "股票编号";
+            de.innerHTML="删除";
+//                        zz.innerHTML = "收藏"
+//            document.getElementById('numberOfSearch').innerHTML = stockList.length;
+
+
+
+
+
+
+
+        }
+
+    </script>
 </head>
 
-<body>
+<body onload="getCollection()">
 
-<div class="container">
+<div style="margin-top:5%;width:70%;border:0px solid #2767a9;border-bottom-width: 1px;border-left-width: 1px;border-top-width: 1px;border-right-width: 1px;" class="container">
 
     <div class="login">
-        <div class="login-screen">
-            <div class="login-icon">
-                <img src="stock.png" alt="Welcome to Mail App"/>
-                <h4>Welcome to
-                    <small>Stocking</small>
-                </h4>
-            </div>
+        <span style="font-size: 50px;color: #0e90d2" class="glyphicon glyphicon-user"></span>
+        <label style="width: 80px;height: 40px">Welcome Stocking!</label>
 
-            <div class="login-form">
-                <div class="form-group">
-                    <input type="text" class="form-control login-field" value="" placeholder="Identification"
-                           id="login-name"/>
-                    <label class="login-field-icon fui-user" for="login-name"></label>
-                </div>
-
-                <div class="form-group">
-                    <input type="password" class="form-control login-field" value="" placeholder="Password"
-                           id="login-pass"/>
-                    <label class="login-field-icon fui-lock" for="login-pass"></label>
-                </div>
-                <!--<div class="checkbox">-->
-                <!--<label>-->
-                <!--<input type="checkbox" value="remember-me"> Remember me-->
-                <!--</label>-->
-                <!--</div>-->
-                <a class="btn btn-primary btn-lg btn-block" onclick="submit()" value="Log in" href="index.html">Log in</a>
-                <a class="login-link" href="#">Lost your password?</a>
-            </div>
-        </div>
     </div>
 
 </div>  <!--/container -->
-<script type="text/javascript">
-    function User(userId, name) {
-        this.userId = userId;
-        this.name = name;
-    }
-    function submit()
-    {
-        var url="http://";
-        var name = document.getElementById("login-name").value;
-        var password = document.getElementById("login-pass").value;
-        var user = JSON.stringify(new User(name,password));
 
-//调用JQuery提供的Ajax方法
-        $.ajax({
-            type:"POST",
-            url:url,
-            data:user,
-            dataType: "jason",//此处要设置成jason
-            success: callback});//回调函数
-    }
-    function callback(jasonObj)
-    {
-        var str = jasonObj;
-        var obj = JSON.parse(str);//调用Json2.js中提供的JSON解析器来解析成JSONObject
-        alert(obj.errNum);
-    }
-</script>
+<div style="margin-top:5%;width:70%;border:0px solid #2767a9;border-bottom-width: 1px;border-left-width: 1px;border-top-width: 1px;border-right-width: 1px;" class="container">
+
+
+
+    <h5>我的收藏</h5>
+    <table id="myCollection" style="width:690px;" cellspacing="0" cellpadding="0">
+        <tbody>
+
+        </tbody>
+
+
+    </table>
+
+</div>
+
+
 </body>
 </html>
