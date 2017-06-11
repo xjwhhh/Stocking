@@ -13,7 +13,7 @@ class SendByServlet {
     private PrintWriter pw;
 
     void doSend(HttpServletResponse response, Object po) throws IOException {
-        if (po == "null") {
+        if (po == null) {
             try {
                 this.pw = response.getWriter();
                 pw.write("wrong");
@@ -21,15 +21,16 @@ class SendByServlet {
             } catch (IOException ioe) {
                 ioe.printStackTrace();
             }
-        }
-        JSONArray jsonArray = JSONArray.fromObject(po);
-        try {
-            this.pw = response.getWriter();
-            pw.write(jsonArray.toString());
-            pw.flush();
-            System.out.print("success");
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+        } else {
+            JSONArray jsonArray = JSONArray.fromObject(po);
+            try {
+                this.pw = response.getWriter();
+                pw.write(jsonArray.toString());
+                pw.flush();
+                System.out.print("success");
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
         }
     }
 }
