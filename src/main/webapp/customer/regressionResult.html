@@ -97,19 +97,20 @@
 <div class="container">
     <!--股票排名-->
 
-    <div style="background: white" class="ranking">
-        <div class="timeSelect">
+    <div style="background: white;" class="ranking">
+        <div class="timeSelect" style="width:100%">
             <select>
                 <option>第一个周期</option>
             </select>
         </div>
-        <table class="table table-hover">
-            <caption>周期股票排名</caption>
+        <table  border="4">
+            <caption style="font-size: 1.2em">周期股票排名</caption>
             <thead>
             <tr>
                 <th>排名</th>
                 <th>股票名</th>
                 <th>股票编号</th>
+                <th>收益率</th>
             </tr>
             </thead>
             <tbody>
@@ -122,37 +123,6 @@
             </tbody>
         </table>
     </div>
-
-
-    <!--<div style="width:75%;background: white;margin-top: 2%;margin-left: 12%" class="ranking">-->
-        <!--&lt;!&ndash;<h6 style="display: inline">周期股票排名</h6>&ndash;&gt;-->
-        <!--<div style="margin-left: 50%" class="timeSelect">-->
-            <!--<select>-->
-                <!--<option>第一个周期</option>-->
-            <!--</select>-->
-        <!--</div>-->
-        <!--<div style="margin-top: -3%">-->
-            <!--<table class="table table-hover">-->
-                <!--<caption>周期股票排名</caption>-->
-                <!--<thead>-->
-                <!--<tr>-->
-                    <!--<th>排名</th>-->
-                    <!--<th>股票名</th>-->
-                    <!--<th>股票编号</th>-->
-                <!--</tr>-->
-                <!--</thead>-->
-                <!--<tbody>-->
-                <!--<tr>-->
-                    <!--<td>1</td>-->
-                    <!--<td>a</td>-->
-                    <!--<td>0001</td>-->
-                <!--</tr>-->
-
-                <!--</tbody>-->
-            <!--</table>-->
-        <!--</div>-->
-
-    <!--</div>-->
 
     <div id="indexAndRates" style="background: white;" >
         <table style="width:100%;" border="4">
@@ -282,9 +252,9 @@
 //                alert(JSON.stringify(data[0]));
 //                alert(JSON.parse(data))
                 var jsonO = eval("("+data+")");
-                alert(jsonO[0].profits);
-                alert(jsonO[0].profits.length);
-                alert(jsonO[0].profits[0]);
+//                alert(jsonO[0].profits);
+//                alert(jsonO[0].profits.length);
+//                alert(jsonO[0].profits[0]);
                 annualReturn = jsonO[0].annualReturn;//年化收益率
                 basicAnnualReturn = jsonO[0].basicAnnualReturn;//基准年化收益率
                 alpha = jsonO[0].alpha;
@@ -295,6 +265,10 @@
                 profits = jsonO[0].profits;
                 basicProfits = jsonO[0].basicProfits;//基准收益
                 sets = jsonO[0].sets//获胜股票，mom为前百分之二十，avr为持股数
+                alert(sets);
+                alert(JSON.stringify(sets));
+                alert(sets[0]);
+                alert(JSON.stringify(sets[0]));
 
                 annualReturn = parseFloat(annualReturn.toFixed(4));
                 basicAnnualReturn = parseFloat(basicAnnualReturn.toFixed(4));
@@ -332,11 +306,12 @@
 
     function sendtobgraph() {
 //        var url = "http://localhost:8080/bgraph";
-        if(document.getElementById("opt").option[0].selected==true){
+
+        if(document.getElementById('opt').options[document.getElementById('opt').selectedIndex].text="持有期"){
             isHold = 0;
         }else{
             isHold = 1;
-        }[0].sets//获胜股
+        }//获胜股
         interval = document.getElementById("interval").value;
         var messageobj = JSON.parse(message);
         var newMessage = JSON.stringify(new getmessage(messageobj.type,messageobj.start,messageobj.end,isHold,interval,messageobj.stocks));
