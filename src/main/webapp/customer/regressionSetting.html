@@ -476,15 +476,15 @@
         }
         var isPla;
         var trs = document.getElementById("stocktable").rows;
-        alert(trs.length)
+//        alert(trs.length)
         var stocks = new Array();
         if (document.getElementById("single").className == "active") {
             isPla = 0;
             for (var j = 1; j < trs.length; j++) {
                 var tds = trs[j].getElementsByTagName("td");
                 stocks.push(tds[1].innerHTML);
-                alert(tds[1]);
-                alert(tds[1].innerHTML);
+//                alert(tds[1]);
+//                alert(tds[1].innerHTML);
             }
         } else {
             isPla = 1;

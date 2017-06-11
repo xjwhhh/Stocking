@@ -194,11 +194,11 @@
         <h7>超额收益及胜率计算</h7>
         <div class="timeSelect">
             <span>选择定量:</span>
-            <select id="opt" style="height:20px">
+            <select id="opt">
                 <option>持有期</option>
                 <option>形成期</option>
             </select>
-            <input style="width: 16%" type="text" id="interval" value="" style="height: 20px">天
+            <input style="width: 16%" type="text" id="interval" value="">天
         </div>
         <div>
             <button style="background-color: #32619e" class="btn btn-default" onclick="sendtobgraph()" >确认</button>
@@ -282,7 +282,9 @@
 //                alert(JSON.stringify(data[0]));
 //                alert(JSON.parse(data))
                 var jsonO = eval("("+data+")");
-//                alert(jsonO[0].annualReturn);
+                alert(jsonO[0].profits);
+                alert(jsonO[0].profits.length);
+                alert(jsonO[0].profits[0]);
                 annualReturn = jsonO[0].annualReturn;//年化收益率
                 basicAnnualReturn = jsonO[0].basicAnnualReturn;//基准年化收益率
                 alpha = jsonO[0].alpha;
@@ -421,8 +423,8 @@
         var myChart = echarts.init(document.getElementById("varianceChart"));
 
         // myChart.hideLoading();
-        var p0,p1,p2,p3,p4,p5,p6,p7,p8,p9;
-        var m0,m1,m2,m3,m4,m5,m6,m7,m8,m9;
+        var p0=0,p1=0,p2=0,p3=0,p4=0,p5=0,p6=0,p7=0,p8=0,p9=0;
+        var m0=0,m1=0,m2=0,m3=0,m4=0,m5=0,m6=0,m7=0,m8=0,m9=0;
         for(var i = 0;i<profits.length;i++){
             if(0<profits[i]&&profits[i]<0.01){
                 p0++;
