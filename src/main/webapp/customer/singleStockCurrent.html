@@ -55,9 +55,9 @@
         document.getElementById("stockName").value = stockName;
 
 
-        var url = "http://hq.sinajs.cn/list=sh" + "601005";
-        $("#firstscript").attr("src", url);
-        var elements = ("hq_str_sh" + stockCode).split(",")
+//        var url = "http://hq.sinajs.cn/list=sh" + "601005";
+//        $("#firstscript").attr("src", url);
+//        var ele = ("hq_str_sh" + stockCode).split()
         //        alert()
 
 //        var temp = eval("hq_str_sh" + stockCode);
@@ -68,22 +68,18 @@
 //            document.getElementById('ee').value=showval;
         }
         //        通过新浪数据借口得到值
-        var elements = temp.split(",");
-        var openToday = elements[1];
-        var closeYesterday = elements[2];
-        var priceNow = elements[3];
-        var highToday = elements[4];
-        var lowToday = elements[5];
+//        var elements = temp.split(",");
+//        var openToday = elements[1];
+//        var closeYesterday = elements[2];
+//        var priceNow = elements[3];
+//        var highToday = elements[4];
+//        var lowToday = elements[5];
 
-        function Collection() {
-
-        }
 
         function getKey(typestr,identifier){
             this.type=typestr;
             this.identifier=identifier;
         }
-
         function historyCheck() {
 //            alert("success");
             var startDate = $("#startDate").val();
@@ -265,9 +261,9 @@
                                         class="stockName"><script>document.write(stockName)</script></strong>
         </span>
         <span class="stockOp" style="display: inline;">
-            <button style="background: #0e8ecf" type="button" class="btn btn-default btn-sm" onclick="Collection()">
-          <span  class="glyphicon glyphicon-heart"></span> 收藏
-        </button>
+            <span
+                    class="stockFollowRelation"><span id="addStock" class="addFriendBtn op"><b>＋</b>加关注</span>
+            </span>
         </span>
     </div>
     <table style="margin-top: 20px" class="topTable">

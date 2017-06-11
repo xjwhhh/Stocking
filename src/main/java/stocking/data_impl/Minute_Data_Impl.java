@@ -112,9 +112,18 @@ public class Minute_Data_Impl implements Minute_Data_Service {
                     minute[i] = in.readLine();
                     prices[i] = Double.parseDouble(in.readLine());
                 }
+                minute=(String[])reverse(minute);
+                prices=(Double[])reverse(prices);
+
                 prediction = Double.parseDouble(in.readLine());
                 relativity = Double.parseDouble(in.readLine());
-                MinuteDataPO minuteDataPO = new MinuteDataPO(minute, prices, prediction, relativity);
+                double minimum=prices[0];
+                for(int i=0;i<prices.length;i++){
+                    if(minimum>prices[i]){
+                        minimum=prices[i];
+                    }
+                }
+                MinuteDataPO minuteDataPO = new MinuteDataPO(minute, prices, prediction, relativity,minimum);
                 return minuteDataPO;
             }
         } catch (IOException e) {
@@ -123,4 +132,17 @@ public class Minute_Data_Impl implements Minute_Data_Service {
         return null;
     }
 
+    /**
+     * 数组反转
+     * @param objects
+     * @return
+     */
+    private Object[] reverse(Object[] objects){
+        for(int i=0;i<objects.length/2;i++){
+            Object temp=objects[i];
+            objects[i]=objects[objects.length-i-1];
+            objects[objects.length-i-1]=temp;
+        }
+        return objects;
+    }
 }

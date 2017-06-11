@@ -8,12 +8,14 @@ public class MinuteDataPO {
     private Double[] prices;
     private double prediction;
     private double relativity;
+    private double minimum;
 
-    public MinuteDataPO(String[] minute, Double[] prices, double prediction, double relativity) {
+    public MinuteDataPO(String[] minute, Double[] prices, double prediction, double relativity, double minimum) {
         this.minute = minute;
         this.prices = prices;
         this.prediction = prediction;
         this.relativity = relativity;
+        this.minimum = minimum;
     }
 
     public String[] getMinute() {
@@ -46,6 +48,14 @@ public class MinuteDataPO {
 
     public void setRelativity(double relativity) {
         this.relativity = relativity;
+    }
+
+    public double getMinimum() {
+        return minimum;
+    }
+
+    public void setMinimum(double minimum) {
+        this.minimum = minimum;
     }
 
 }

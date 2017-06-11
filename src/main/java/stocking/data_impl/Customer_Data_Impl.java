@@ -65,6 +65,11 @@ public class Customer_Data_Impl implements Customer_Data_Service {
                 pool.freeConnection(connection);
                 return newCustomerPO;
             }
+            else{
+                CustomerPO newCustomerPO = new CustomerPO("wrong", "", "", "");
+                pool.freeConnection(connection);
+                return newCustomerPO;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -129,6 +134,11 @@ public class Customer_Data_Impl implements Customer_Data_Service {
             if (rows > 0) {
                 customerPO.setPassword(newPassword);
                 return customerPO;
+            }
+            else{
+                CustomerPO newCustomerPO = new CustomerPO("wrong", "", "", "");
+                pool.freeConnection(connection);
+                return newCustomerPO;
             }
         } catch (SQLException e) {
             e.printStackTrace();
