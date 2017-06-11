@@ -4,6 +4,8 @@ import stocking.data_impl.dbconnector.DBConnectionManager;
 import stocking.data_impl.dbconnector.DBConnectionPool;
 import stocking.data_service.DataFactory_Data_Service;
 import stocking.po.MarketPO;
+import stocking.po.MinuteDataPO;
+import stocking.po.NewsPO;
 import stocking.po.RankingPO;
 
 import java.io.BufferedReader;
@@ -33,18 +35,22 @@ public class Cache {
     private Hashtable<String, String> code_section = new Hashtable<String, String>();
     private Hashtable<String, String> code_industry = new Hashtable<String, String>();
     private Hashtable<String, String> name_code = new Hashtable<String, String>();
-    private MarketPO marketPO;
+    private MarketPO marketPO;//默认市场情况
     private RankingPO rankingPO1;//日换手率达到20%的前五只证券
     private RankingPO rankingPO2;//日涨幅偏离值达到7%的前五只证券
     private RankingPO rankingPO3;//日跌幅偏离值达到7%的前五只证券
+    private Hashtable<String, NewsPO> singleNews = new Hashtable<String, NewsPO>();
+    private Hashtable<String, MinuteDataPO> minuteDataPOHashtable;
 
 
     private Cache() {
+        minuteDataPOHashtable = new Hashtable<String, MinuteDataPO>();
         this.setStockInfo();
 //        this.setYesterdayMarketPO();
 //        rankingPO1 = setRankingPO("日换手率达到20%的前五只证券");
 //        rankingPO2 = setRankingPO("日涨幅偏离值达到7%的前五只证券");
 //        rankingPO3 = setRankingPO("日跌幅偏离值达到7%的前五只证券");
+        this.getMinuteData();
 
     }
 
@@ -57,7 +63,6 @@ public class Cache {
         if (cache == null) {
             cache = new Cache();
         }
-        System.out.println("ttttt");
         return cache;
     }
 
@@ -138,6 +143,12 @@ public class Cache {
         }
     }
 
+    /**
+     * 读取龙虎榜
+     *
+     * @param reason
+     * @return
+     */
     private RankingPO setRankingPO(String reason) {
         Date today = new Date();
         Date yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000 * 2);
@@ -173,6 +184,29 @@ public class Cache {
         return null;
     }
 
+    public void getMinuteData() {
+        int size = code_name.size();
+        String[] allCodes = new String[size];
+        int i = 0;
+        for (String key : code_name.keySet()) {
+            allCodes[i] = key;
+            i++;
+        }
+        int numOfThread = 10;
+        int m = size / numOfThread + 1;
+        for (int j = 0; j < numOfThread; j++) {
+            int start = 0;
+            String[] codes = new String[m];
+            for (int a = 0; a < m; a++) {
+                if (a + m * j > size - 1) {
+                    codes[a] = allCodes[size - 1];
+                } else {
+                    codes[a] = allCodes[a + m * j];
+                }
+            }
+            new MyThread(codes).start();
+        }
+    }
 
     public Hashtable<String, String> getCode_Name() {
         return code_name;
@@ -188,6 +222,29 @@ public class Cache {
 
     public Hashtable<String, String> getName_Code() {
         return name_code;
+    }
+
+    public Hashtable<String, NewsPO> getSingleNews() {
+        return singleNews;
+    }
+
+    public void addSingleNews(String code, NewsPO newsPO) {
+        singleNews.put(code, newsPO);
+    }
+
+    public Hashtable<String, MinuteDataPO> getMinuteDataPOHashtable() {
+        return minuteDataPOHashtable;
+    }
+
+    public void setMinuteDataPOHashtable(String code, MinuteDataPO minuteDataPO) {
+        if (minuteDataPOHashtable.containsKey(code)) {
+            minuteDataPOHashtable.remove(code);
+        }
+//        System.out.print(code);
+//        System.out.print(minuteDataPO);
+        if(minuteDataPO!=null) {
+            minuteDataPOHashtable.put(code, minuteDataPO);
+        }
     }
 
     public MarketPO getYesterdayMarketPO() {
@@ -208,13 +265,14 @@ public class Cache {
 
 
     public static void main(String[] args) {
-        Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("HH");
-        String str = formatter.format(date);
-        System.out.print(str);
-        int hour = Integer.parseInt(str);
-        if (hour > 13) {
-            System.out.print("123456");
-        }
+//        Date date = new Date();
+//        SimpleDateFormat formatter = new SimpleDateFormat("HH");
+//        String str = formatter.format(date);
+//        System.out.print(str);
+//        int hour = Integer.parseInt(str);
+//        if (hour > 13) {
+//            System.out.print("123456");
+//        }
+        Cache cache = Cache.getInstance();
     }
 }

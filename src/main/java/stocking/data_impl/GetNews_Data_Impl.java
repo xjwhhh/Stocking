@@ -7,6 +7,7 @@ import stocking.po.NewsPO;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -48,22 +49,29 @@ public class GetNews_Data_Impl implements GetNews_Data_Service {
      */
     @Override
     public NewsPO getSingleNews(String code) {
-        try {
-            List<String> commands = new LinkedList<String>();
-            commands.add("python");
-            commands.add(tools.getProjectPath("src\\main\\java\\stocking\\python_Impl\\SingleNewsSpider.py"));
-            commands.add(code);
-            ProcessBuilder processBuilder = new ProcessBuilder(commands);
-            Process pr = processBuilder.start();
-            BufferedReader in = new BufferedReader(new
-                    InputStreamReader(pr.getInputStream(), "gbk"));
-            String line = in.readLine();
-            NewsPO newsPO = getNewsPO(in, line);
-            return newsPO;
-        } catch (IOException e) {
-            e.printStackTrace();
+        Cache cache = Cache.getInstance();
+        Hashtable<String, NewsPO> singleNews = cache.getSingleNews();
+        if (singleNews.containsKey(code)) {
+            return singleNews.get(code);
+        } else {
+            try {
+                List<String> commands = new LinkedList<String>();
+                commands.add("python");
+                commands.add(tools.getProjectPath("src\\main\\java\\stocking\\python_Impl\\SingleNewsSpider.py"));
+                commands.add(code);
+                ProcessBuilder processBuilder = new ProcessBuilder(commands);
+                Process pr = processBuilder.start();
+                BufferedReader in = new BufferedReader(new
+                        InputStreamReader(pr.getInputStream(), "gbk"));
+                String line = in.readLine();
+                NewsPO newsPO = getNewsPO(in, line);
+                cache.addSingleNews(code, newsPO);
+                return newsPO;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
         }
-        return null;
     }
 
     private NewsPO getNewsPO(BufferedReader in, String line) {
