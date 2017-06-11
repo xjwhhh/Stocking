@@ -45,7 +45,9 @@
         stockCode = getval1.split("=")[1];
         var minuteList=[];
         var priceList=[];
-        var lowest;
+        var minimum;
+        var prediction;
+        var relativity;
 
         stockName = decodeURIComponent(stockName);
 
@@ -110,9 +112,14 @@
                 dataType: "json",//此处要设置成json
                 success: function (data) {
 
-//                    alert("success");
+                    alert("success");
                     minuteList=data[0].minute;
                     priceList=data[0].prices;
+                    minimum=data[0].minimum;
+                    prediction=data[0].prediction;
+                    relativity=data[0].relativity;
+                    alert(data[0].toString())
+
 
 
 
@@ -168,8 +175,7 @@
                 yAxis: [
                     {
                         type: 'value',
-                        min:8,
-
+                        min:minimum-0.03,
 
                     }
                 ],

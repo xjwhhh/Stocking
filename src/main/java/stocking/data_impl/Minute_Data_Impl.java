@@ -104,7 +104,8 @@ public class Minute_Data_Impl implements Minute_Data_Service {
             String line = in.readLine();
             double prediction = 0;
             double relativity = 0;
-            if (tools.isInteger(line)) {
+            if (tools.isInteger(line)&&Integer.parseInt(line)>3) {
+//                System.out.print(line);
                 int num = Integer.parseInt(line);
                 String[] minute = new String[num];
                 Double[] prices = new Double[num];
