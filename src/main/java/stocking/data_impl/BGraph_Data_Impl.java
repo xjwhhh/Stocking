@@ -47,6 +47,7 @@ public class BGraph_Data_Impl implements BGraph_Data_Service {
             BufferedReader in = new BufferedReader(new
                     InputStreamReader(pr.getInputStream(), "gbk"));
             String line = in.readLine();
+            System.out.print(line);
             if (tools.isInteger(line)) {
                 int num = Integer.parseInt(line);
                 Double[] profits = new Double[num];
