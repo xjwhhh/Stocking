@@ -30,7 +30,7 @@
 
     <script type="text/javascript" src="json2-min.js"></script>
 </head>
-<body onload="getnews()">
+<body onload="getnews();judgeLogin()">
 <div class="container-fluid" style="background: url(lgBg1.jpg);background-size: 100%">
     <div class="navbar-header">
         <img src="stock.png" class="img-rounded">
@@ -75,7 +75,7 @@
 </div>
 
 <div class="container">
-    <div class="col-md-10" style="background: #efeff4">
+    <div class="col-md-12" style="background: #efeff4">
         <H4>最近新闻</H4>
         <hr/>
         <div style="height: 100px;line-height: 100px;background: white;">
@@ -176,7 +176,7 @@
             </a>
         </div>
     </div>
-    <div class="col-md-2" style="background: #efeff4">
+    <!--<div class="col-md-2" style="background: #efeff4">-->
 
     </div>
 </div>
@@ -189,7 +189,8 @@
     function posttype(op) {
         this.op = op;
     }
-    function getnews() {
+
+    function judgeLogin(){
         //判断是否登录
         var sstorage = sessionStorage;
         if(sstorage.getItem("login")==null){
@@ -221,6 +222,10 @@
 
 
 
+
+    }
+
+    function getnews() {
 
 
 
