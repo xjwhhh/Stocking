@@ -119,7 +119,7 @@
 
             for (var v = 0; v < stockToCompare.length; v++) {
                 var stockName = stockToCompare[v];
-//                alert(stockName);
+                alert(stockName);
 
                 var key = JSON.stringify(new getIdentifier("normal",stockName,startDate+" 00:00:00",endDate+" 00:00:00"));
                 $.ajax({
@@ -727,7 +727,7 @@
                             var y = x.insertCell(0);
                             var z = x.insertCell(1);
                            var stockName=encodeURIComponent(stockList[i]);
-                            y.innerHTML = "<a href='singleStockCurrent.html?stockNameInput=" + stockName + "'>" + stockName + "</a>";
+                            y.innerHTML = "<a href='singleStockCurrent.html?stockNameInput=" + stockName + "'>" + stockList[i] + "</a>";
                             z.innerHTML = codeList[i];
 
                         }

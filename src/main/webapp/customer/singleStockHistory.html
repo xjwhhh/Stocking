@@ -35,9 +35,10 @@
         var thisURL = document.URL;
         var  getval1 =thisURL.split('?')[1];
 //        alert("a");
-//        var stockName= getval1.split("=")[1];
-//        stockName = decodeURIComponent(stockName);
-        stockName = "平安银行";
+        var stockName= getval1.split("=")[1];
+        stockName = decodeURIComponent(stockName);
+//
+//        var stockName = getval1.split("=")[1];
 //        alert("b");
 
         var getval2 = thisURL.split('?')[2];
