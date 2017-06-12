@@ -119,7 +119,7 @@
 
             for (var v = 0; v < stockToCompare.length; v++) {
                 var stockName = stockToCompare[v];
-                alert(stockName);
+//                alert(stockName);
 
                 var key = JSON.stringify(new getIdentifier("normal",stockName,startDate+" 00:00:00",endDate+" 00:00:00"));
                 $.ajax({
@@ -152,13 +152,13 @@
                         var vv = x.insertCell(2);
                         var vvv = x.insertCell(3);
                         var vvvv = x.insertCell(4);
-                        var vvvvv = x.insertCell(5);
+//                        var vvvvv = x.insertCell(5);
                         y.innerHTML = stockToCompare[v];
                         z.innerHTML =code;
                         vv.innerHTML=high;
                         vvv.innerHTML=low;
                         vvvv.innerHTML=up;
-                        vvvvv.innerHTML=up;
+//                        vvvvv.innerHTML=up;
                         closePrice=close;
                         variance=profits;
 //                        alert("vass"+variance[0]);
@@ -185,8 +185,8 @@
 
 
             }
-            alert("asd"+closePrice[0]);
-            alert("datessss"+datesList[0]);
+//            alert("asd"+closePrice[0]);
+//            alert("datessss"+datesList[0]);
 
             var myChart = echarts.init(document.getElementById("closePrice"));
             var option = {
@@ -198,7 +198,7 @@
                     trigger: 'axis'
                 },
                 legend: {
-                    data:"a",
+                    data:stockToCompare,
                 },
                 //右上角工具条
                 toolbox: {
@@ -242,7 +242,7 @@
                     trigger: 'axis'
                 },
                 legend: {
-                    data:"a",
+                    data:stockToCompare,
                 },
                 //右上角工具条
                 toolbox: {
@@ -789,7 +789,7 @@
                                                                                                  value="2015-09-24"
                 >
                     <div class="sc_suggest">
-                        添加对比：<input type="text" value="代码/名称/拼音" id="stockInput" autocomplete="off">
+                        添加对比：<input type="text" placeholder="请输入股票名称／编号" id="stockInput" autocomplete="off">
                         <!-- <a href="" class="sc_sel_btn" id="sc_sel_add">添加对比</a> -->
                         <button type="button" class="btn btn-default btn-sm" onclick="Inputadd()">
                             <span class="glyphicon glyphicon-plus"></span>
