@@ -224,22 +224,39 @@
         showMeridian: 0
     });
 
-    //以下是查询方法
-    function getdate(datestr){
-        this.date  = datestr
+    function getdate(datestr) {
+        this.date = datestr;
     }
-    function search() {
-        var url="http://localhost:8080/market";
-        var date = JSON.stringify(new getdate(dtp_input1.value));
-        alert(date);
+
+    window.onload = function () {
+        var url = "http://localhost:8080/market";
+//        var date = JSON.stringify(new getdate(dtp_input1.value));
+//        alert(date);
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate() - 1;
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+            + " " + "00" + seperator2 + "00"
+            + seperator2 + "00";
+
+        var cd = JSON.stringify(new getdate(currentdate));
+//        alert(cd);
         $.ajax({
-            type:"POST",
-            url:url,
-            data:date,
+            type: "POST",
+            url: url,
+            data: cd,
             dataType: "json",//此处要设置成json
             success: function (data) {
-                alert(JSON.stringify(data))
-                alert(JSON.stringify(data[0]));
+//                alert(JSON.stringify(data))
+//                alert(JSON.stringify(data[0]));
 //                alert(data[0].totalDeal)
                 totalDeal = data[0].totalDeal
                 limitUpNum = data[0].limitUpNum;
@@ -258,40 +275,77 @@
                 enginechart_4()
                 enginechart_5()
                 enginechart_6()
-            }});//回调函数
+            }
+        });//回调函数
+    }
+
+    //以下是查询方法
+
+    function search() {
+        var url = "http://localhost:8080/market";
+        var date = JSON.stringify(new getdate(dtp_input1.value));
+//        alert(date);
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: date,
+            dataType: "json",//此处要设置成json
+            success: function (data) {
+//                alert(JSON.stringify(data))
+//                alert(JSON.stringify(data[0]));
+//                alert(data[0].totalDeal)
+                totalDeal = data[0].totalDeal
+                limitUpNum = data[0].limitUpNum;
+                limitDownNum = data[0].limitDownNum;
+                overFivePerNum = data[0].overFivePerNum;//涨幅超过5%的股票数
+                belowFivePerNum = data[0].belowFivePerNum;//跌幅超过5%的股票数
+                oc_overPFivePerNum = data[0].oc_overPFivePerNum;//开盘-收盘大于5%*上一个交易日收盘价的股票个数
+                oc_belowMFivePerNum = data[0].oc_belowMFivePerNum;
+                numOfStock = data[0].numOfStock
+                document.getElementById("totalDeal").innerHTML = totalDeal
+                piechart()
+                barchart()
+                enginechart_1()
+                enginechart_2()
+                enginechart_3()
+                enginechart_4()
+                enginechart_5()
+                enginechart_6()
+            }
+        });//回调函数
     }
 
     //以下是饼图
-    function piechart(){
+    function piechart() {
         var dom = document.getElementById("container-piechart");
         var myChart = echarts.init(dom);
         var app = {};
         option = null;
         option = {
-            title : {
-                x:'center'
+            title: {
+                x: 'center'
             },
-            tooltip : {
+            tooltip: {
                 trigger: 'item',
                 formatter: "{a} <br/>{b} : {c} ({d}%)"
             },
             legend: {
                 orient: 'vertical',
                 left: 'left',
-                data: ['涨停股票','跌停股票','涨幅超过5%股票','跌幅超过5%股票','涨跌幅小于5%股票']
+                data: ['涨停股票', '跌停股票', '涨幅超过5%股票', '跌幅超过5%股票', '涨跌幅小于5%股票']
             },
-            series : [
+            series: [
                 {
                     name: '访问来源',
                     type: 'pie',
-                    radius : '55%',
+                    radius: '55%',
                     center: ['50%', '60%'],
-                    data:[
-                        {value:limitUpNum, name:'涨停股票'},
-                        {value:limitDownNum, name:'跌停股票'},
-                        {value:overFivePerNum, name:'涨幅超过5%股票'},
-                        {value:belowFivePerNum, name:'跌幅超过5%股票'},
-                        {value:numOfStock-overFivePerNum-belowFivePerNum, name:'涨跌幅小于5%股票'}
+                    data: [
+                        {value: limitUpNum, name: '涨停股票'},
+                        {value: limitDownNum, name: '跌停股票'},
+                        {value: overFivePerNum, name: '涨幅超过5%股票'},
+                        {value: belowFivePerNum, name: '跌幅超过5%股票'},
+                        {value: numOfStock - overFivePerNum - belowFivePerNum, name: '涨跌幅小于5%股票'}
                     ],
                     itemStyle: {
                         emphasis: {
@@ -310,16 +364,14 @@
 
 
     //以下是柱状图
-    function barchart(){
+    function barchart() {
         var dom = document.getElementById("container-barchart");
         var myChart = echarts.init(dom);
         var app = {};
         option = null;
 
         option = {
-            title: {
-
-            },
+            title: {},
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {
@@ -337,7 +389,7 @@
             },
             xAxis: {
                 type: 'category',
-                data: ['涨/跌停股票','涨/跌幅超过5%股票','开盘-收盘大于/小于5%股票']
+                data: ['涨/跌停股票', '涨/跌幅超过5%股票', '开盘-收盘小于5%股票']
             },
             yAxis: {
                 type: 'value',
@@ -363,14 +415,14 @@
     }
 
     //以下是引擎图
-    function enginechart_1(){
+    function enginechart_1() {
         var dom = document.getElementById("container-uplimited");
         var myChart = echarts.init(dom);
         var app = {};
         option = null;
         option = {
-            tooltip : {
-                formatter: "{a} <br/>{b} : {c}%"
+            tooltip: {
+                formatter: "{a} <br/>{b} : {c}"
             },
             toolbox: {
                 feature: {
@@ -382,7 +434,8 @@
                 {
                     name: '业务指标',
                     type: 'gauge',
-                    detail: {formatter:'{value}'},
+                    detail: {formatter: '{value}'},
+                    max: 250,
                     data: [{value: limitUpNum, name: '涨停股票数'}]
                 }
             ]
@@ -396,13 +449,13 @@
             myChart.setOption(option, true);
         }
     }
-    function enginechart_2(){
+    function enginechart_2() {
         var dom = document.getElementById("container-downlimited");
         var myChart = echarts.init(dom);
         var app = {};
         option = null;
         option = {
-            tooltip : {
+            tooltip: {
                 formatter: "{a} <br/>{b} : {c}"
             },
             toolbox: {
@@ -415,7 +468,8 @@
                 {
                     name: '业务指标',
                     type: 'gauge',
-                    detail: {formatter:'{value}'},
+                    detail: {formatter: '{value}'},
+                    max: 250,
                     data: [{value: limitDownNum, name: '跌停股票数'}]
                 }
             ]
@@ -429,13 +483,13 @@
             myChart.setOption(option, true);
         }
     }
-    function enginechart_3(){
+    function enginechart_3() {
         var dom = document.getElementById("container-upfivepercent");
         var myChart = echarts.init(dom);
         var app = {};
         option = null;
         option = {
-            tooltip : {
+            tooltip: {
                 formatter: "{a} <br/>{b} : {c}"
             },
             toolbox: {
@@ -448,7 +502,8 @@
                 {
                     name: '业务指标',
                     type: 'gauge',
-                    detail: {formatter:'{value}'},
+                    detail: {formatter: '{value}'},
+                    max: 250,
                     data: [{value: overFivePerNum, name: '涨幅超过5%股票数'}]
                 }
             ]
@@ -462,13 +517,13 @@
             myChart.setOption(option, true);
         }
     }
-    function enginechart_4(){
+    function enginechart_4() {
         var dom = document.getElementById("container-downfivepercent");
         var myChart = echarts.init(dom);
         var app = {};
         option = null;
         option = {
-            tooltip : {
+            tooltip: {
                 formatter: "{a} <br/>{b} : {c}"
             },
             toolbox: {
@@ -481,7 +536,8 @@
                 {
                     name: '业务指标',
                     type: 'gauge',
-                    detail: {formatter:'{value}'},
+                    detail: {formatter: '{value}'},
+                    max: 250,
                     data: [{value: belowFivePerNum, name: '涨幅小于5%股票数'}]
                 }
             ]
@@ -495,13 +551,13 @@
             myChart.setOption(option, true);
         }
     }
-    function enginechart_5(){
+    function enginechart_5() {
         var dom = document.getElementById("container-minusupfivepercent");
         var myChart = echarts.init(dom);
         var app = {};
         option = null;
         option = {
-            tooltip : {
+            tooltip: {
                 formatter: "{a} <br/>{b} : {c}"
             },
             toolbox: {
@@ -514,7 +570,8 @@
                 {
                     name: '业务指标',
                     type: 'gauge',
-                    detail: {formatter:'{value}'},
+                    detail: {formatter: '{value}'},
+                    max: 250,
                     data: [{value: oc_overPFivePerNum, name: '开盘-收盘大于5%股票数'}]
                 }
             ]
@@ -528,13 +585,13 @@
             myChart.setOption(option, true);
         }
     }
-    function enginechart_6(){
+    function enginechart_6() {
         var dom = document.getElementById("container-minusdownfivepercent");
         var myChart = echarts.init(dom);
         var app = {};
         option = null;
         option = {
-            tooltip : {
+            tooltip: {
                 formatter: "{a} <br/>{b} : {c}"
             },
             toolbox: {
@@ -547,7 +604,8 @@
                 {
                     name: '业务指标',
                     type: 'gauge',
-                    detail: {formatter:'{value}'},
+                    detail: {formatter: '{value}'},
+                    max: 250,
                     data: [{value: oc_belowMFivePerNum, name: '开盘-收盘小于5%股票数'}]
                 }
             ]
