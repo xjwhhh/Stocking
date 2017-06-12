@@ -50,9 +50,39 @@
     </style>
 
     <script type="text/javascript" src="json2-min.js"></script>
+    <script>
+        function Load() {
+            //判断是否登陆
+            var sstorage = sessionStorage;
+            if(sstorage.getItem("login")==null){
+                var ul=document.getElementById("login");
+
+                var li=document.createElement("li");
+
+                li.innerHTML="<a href='login.html' target='_blank' style='height: 80px;line-height: 60px; font-size:1.0em'>登录</a>";
+
+                ul.appendChild(li);
+
+                var li2=document.createElement("li");
+                li2.innerHTML="<a href='signup.html' style='height: 80px;line-height: 60px; font-size:1.0em'>注册</a>";
+                ul.appendChild(li2);
+
+            }else{
+                var ul=document.getElementById("login");
+
+                var li=document.createElement("li");
+
+                li.innerHTML="<a href='CustomerSetting.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>用户设置</a>";
+
+                ul.appendChild(li);
+
+            }
+
+        }
+    </script>
 </head>
 <!--<body onload="gettrs()">-->
-<body>
+<body onload="Load()">
 <div class="container-fluid">
     <div class="navbar-header">
         <img src="stock2.jpg" class="img-rounded">
@@ -68,10 +98,8 @@
         <a class="navbar-brand" href="#" style="height: 100px;line-height: 70px; font-size:4em">Stocking</a>
     </div>
     <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="login.html" target="_blank" style="height: 100px;line-height: 70px; font-size:1.2em">登录</a>
-            </li>
-            <li><a href="#" style="height: 100px;line-height: 70px; font-size:1.2em">注册</a></li>
+        <ul id="login" class="nav navbar-nav navbar-right">
+
         </ul>
         <form class="navbar-form navbar-right" action="#" role="search">
             <div class="form-group">
@@ -196,7 +224,7 @@
                             <div class="stockScreener-range-industry" style="width:20%;display: inline">
                                 <span>行业：</span><select
                                     id="industry">
-                                <option value="">全部</option>
+                                <option value="全部">全部</option>
 
                                 <option value="银行业">银行业</option>
                                 <option value="房地产开发与经营业">房地产开发与经营业</option>
@@ -356,7 +384,7 @@
                                 <option value="沪市B股">沪市B股</option>
 
                             </select>
-                            <button type="button" class="btn btn-default btn-sm" type="submit">
+                            <button type="button" class="btn btn-default btn-sm" type="submit" onclick="SearchStock()">
 
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
@@ -367,22 +395,9 @@
                                 <div class="stockScreener-search-result-table mainTable overflowx">
                                     <table style="width:690px;" cellspacing="0" cellpadding="0"
                                            class="table table-striped" id="stocktable">
-                                        <thead>
-                                        <tr>
-                                            <th class="sortable desc" data-key="symbol" style="min-width:80px"><s></s>股票
-                                            </th>
-                                            <th class="sortable" data-key="current" style="min-width:45px"><s></s>股票编号
-                                            </th>
-                                            <th class="" data-key="hasExist" style="min-width:30px"><s></s>添加对比</th>
-                                        </tr>
-                                        </thead>
+
                                         <tbody>
-                                        <tr class="odd ">
-                                            <td><a target="_blank" title="弘信电子 (SZ300657)" href="/S/SZ300657">平安银行</a>
-                                            </td>
-                                            <td>000001</td>
-                                            <td><span class="glyphicon glyphicon-plus"></span></td>
-                                        </tr>
+
                                         <!--<tr class="even ">-->
                                         <!--<td><a target="_blank" title="正丹股份 (SZ300641)" href="/S/SZ300641">正丹股份</a>-->
                                         <!--</td>-->
@@ -456,6 +471,75 @@
     //            }
     //
     //        }
+    //根据行业和板块搜索符合条件的股票
+    function getType(typestr){
+        this.type = typestr;
+    }
+    function SearchStock(){
+        var stockList=[];
+        var codeList=[];
+
+        var myselect1 = document.getElementById("industry");
+        var myselect2 = document.getElementById("plate");
+        var index1=myselect1.selectedIndex ;
+        var index2=myselect2.selectedIndex ;
+        var hangye=myselect1.options[index1].value;
+        var bankuai =myselect2.options[index2].value;
+        //调用ajax得到codelist和stocklist
+        var url="http://localhost:8080/codename";
+        var key = JSON.stringify(new getType(hangye+"/"+bankuai));
+
+        $.ajax({
+
+            type:"POST",
+            url:url,
+            data:key,
+            dataType: "json",//此处要设置成json
+            async : false,
+            success: function (data) {
+//                                alert("ok");
+
+                stockList = data[0].name;
+                codeList = data[0].code;
+
+            }});
+
+//        alert(stockList.length);
+
+        for (var i = 0; i < stockList.length; i++) {
+            var x = document.getElementById("stocktable").insertRow(i);
+            var y = x.insertCell(0);
+            var z = x.insertCell(1);
+            var a = x.insertCell(2);
+            y.innerHTML =  stockList[i] ;
+            z.innerHTML = codeList[i];
+            a.innerHTML="<button type='button' class='btn btn-default btn-sm'> <span class='glyphicon glyphicon-plus'></span> </button>";
+
+        }
+        var x = document.getElementById("stocktable").insertRow(0);
+        var y = x.insertCell(0);
+        var z = x.insertCell(1);
+        var a = x.insertCell(2);
+//                        var zz = x.insertCell(2);
+        y.innerHTML = "股票名称";
+        z.innerHTML = "股票编号";
+        a.innerHTML="添加对比";
+//                        zz.innerHTML = "收藏"
+//        document.getElementById('numberOfSearch').innerHTML = stockList.length;
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
     function getmessage(type, start, end, form, hold, isPla, stocks) {
         this.type = type;
         this.start = start;

@@ -53,10 +53,8 @@
         <a class="navbar-brand" href="#" style="height: 100px;line-height: 70px; font-size:4em">Stocking</a>
     </div>
     <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="login.html" target="_blank" style="height: 100px;line-height: 70px; font-size:1.2em">登录</a>
-            </li>
-            <li><a href="#" style="height: 100px;line-height: 70px; font-size:1.2em">注册</a></li>
+        <ul id="login" class="nav navbar-nav navbar-right">
+
         </ul>
         <form class="navbar-form navbar-right" action="#" role="search">
             <div class="form-group">
@@ -201,6 +199,41 @@
         this.op = op;
     }
     function getnews() {
+        //判断是否登录
+        var sstorage = sessionStorage;
+        if(sstorage.getItem("login")==null){
+            var ul=document.getElementById("login");
+
+            var li=document.createElement("li");
+
+            li.innerHTML="<a href='login.html' target='_blank' style='height: 80px;line-height: 60px; font-size:1.0em'>登录</a>";
+
+            ul.appendChild(li);
+
+            var li2=document.createElement("li");
+            li2.innerHTML="<a href='signup.html' style='height: 80px;line-height: 60px; font-size:1.0em'>注册</a>";
+            ul.appendChild(li2);
+
+        }else{
+            var ul=document.getElementById("login");
+
+            var li=document.createElement("li");
+
+            li.innerHTML="<a href='CustomerSetting.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>用户设置</a>";
+
+            ul.appendChild(li);
+
+        }
+
+
+
+
+
+
+
+
+
+
         var url = "http://localhost:8080/news";
         var op = JSON.stringify(new posttype("all"));
         $.ajax({

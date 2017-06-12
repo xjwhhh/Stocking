@@ -43,26 +43,27 @@
         stockName = getval.split("=")[1]
         var getval1 = thisURL.split('?')[2];
         stockCode = getval1.split("=")[1];
-        var minuteList=[];
-        var priceList=[];
+        var minuteList = [];
+        var priceList = [];
         var minimum;
         var prediction;
         var relativity;
+        var customerID;
 
         stockName = decodeURIComponent(stockName);
 
-//        alert("sss");
+        //        alert("sss");
 
-//        alert(stockName);
+        //        alert(stockName);
         document.getElementById("stockName").value = stockName;
 
 
-//        var url = "http://hq.sinajs.cn/list=sh" + "601005";
-//        $("#firstscript").attr("src", url);
-//        var ele = ("hq_str_sh" + stockCode).split()
+        //        var url = "http://hq.sinajs.cn/list=sh" + "601005";
+        //        $("#firstscript").attr("src", url);
+        //        var ele = ("hq_str_sh" + stockCode).split()
         //        alert()
 
-//        var temp = eval("hq_str_sh" + stockCode);
+        //        var temp = eval("hq_str_sh" + stockCode);
 
 
         function showvalf() {
@@ -70,24 +71,24 @@
 //            document.getElementById('ee').value=showval;
         }
         //        通过新浪数据借口得到值
-//        var elements = temp.split(",");
-//        var openToday = elements[1];
-//        var closeYesterday = elements[2];
-//        var priceNow = elements[3];
-//        var highToday = elements[4];
-//        var lowToday = elements[5];
+        //        var elements = temp.split(",");
+        //        var openToday = elements[1];
+        //        var closeYesterday = elements[2];
+        //        var priceNow = elements[3];
+        //        var highToday = elements[4];
+        //        var lowToday = elements[5];
 
 
-        function getKey(typestr,identifier){
-            this.type=typestr;
-            this.identifier=identifier;
+        function getKey(typestr, identifier) {
+            this.type = typestr;
+            this.identifier = identifier;
         }
         function historyCheck() {
 //            alert("success");
             var startDate = $("#startDate").val();
             var endDate = $("#endDate").val();
 
-            stockName=encodeURIComponent(stockName);
+            stockName = encodeURIComponent(stockName);
 //alert(startDate+" "+endDate);
 //            var startDate = document.getElementById("startDate").valueAsDate;
 //            var startDate = document.getElementById("startDate").valueAsDate;
@@ -99,81 +100,68 @@
 
             //判断是否已登陆
             var sstorage = sessionStorage;
-            if(sstorage.getItem("login")==null){
-                var ul=document.getElementById("login");
+            if (sstorage.getItem("login") == null) {
+                var ul = document.getElementById("login");
 
-                var li=document.createElement("li");
+                var li = document.createElement("li");
 
-                li.innerHTML="<a href='login.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>登录</a>";
+                li.innerHTML = "<a href='login.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>登录</a>";
 
                 ul.appendChild(li);
 
-                var li2=document.createElement("li");
-                li2.innerHTML="<a href='signup.html' style='height: 100px;line-height: 70px; font-size:1.2em'>注册</a>";
+                var li2 = document.createElement("li");
+                li2.innerHTML = "<a href='signup.html' style='height: 100px;line-height: 70px; font-size:1.2em'>注册</a>";
                 ul.appendChild(li2);
 
-            }else{
-                var ul=document.getElementById("login");
+            } else {
+//                customerID = sstorage.getItem("login");
 
-                var li=document.createElement("li");
+                var ul = document.getElementById("login");
 
-                li.innerHTML="<a href='CustomerSetting.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>用户设置</a>";
+                var li = document.createElement("li");
+
+                li.innerHTML = "<a href='CustomerSetting.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>用户设置</a>";
 
                 ul.appendChild(li);
 
             }
 
 
-
-
-
-
-
 //            alert("1234567")
-            var url="http://localhost:8080/singleStock";
+            var url = "http://localhost:8080/singleStock";
 //            stockName = "a";
-            var  key=JSON.stringify(new getKey("minute",stockName));
+            var key = JSON.stringify(new getKey("minute", stockName));
 //            alert("aaaaaa");
 //        alert(key);
 //                alert(date);
 //            alert("success");
             $.ajax({
 
-                type:"POST",
-                url:url,
-                data:key,
+                type: "POST",
+                url: url,
+                data: key,
                 dataType: "json",//此处要设置成json
                 success: function (data) {
 
                     alert("success");
-                    minuteList=data[0].minute;
-                    priceList=data[0].prices;
-                    minimum=data[0].minimum;
-                    prediction=data[0].prediction;
-                    relativity=data[0].relativity;
+                    minuteList = data[0].minute;
+                    priceList = data[0].prices;
+                    minimum = data[0].minimum;
+                    prediction = data[0].prediction;
+                    relativity = data[0].relativity;
                     alert(data[0].toString())
-
-
-
-
-
-
 
 
 //                    alert("hah"+minuteList[0]);
                     ShowTimeChart();
 //                alert(allNames.length);
-                }});
-
-
-
-
-
+                }
+            });
 
 
 //            alert("load");
         }
-        function ShowTimeChart(){
+        function ShowTimeChart() {
             var myChart = echarts.init(document.getElementById("fenshi"));
             var option = {
                 title: {
@@ -208,7 +196,7 @@
                 yAxis: [
                     {
                         type: 'value',
-                        min:minimum-0.03,
+                        min: minimum - 0.03,
 
                     }
                 ],
@@ -234,6 +222,46 @@
 
 
         }
+
+        function getCollectionKey(typestr,idstr,codestr) {
+
+            this.type=typestr;
+            this.id=idstr;
+            this.code=codestr;
+        }
+
+
+
+        function Collection(){
+            var ss=sessionStorage;
+            if(ss.getItem("login")==null){
+                alert("请先登录");
+            }else{
+                customerID = ss.getItem("login");
+                alert(customerID);
+//                alert()
+                var key = JSON.stringify(new getCollectionKey("add",customerID,stockCode));
+//            alert("aaaaaa");
+//        alert(key);
+//                alert(date);
+//            alert("success");
+                $.ajax({
+
+                    type: "POST",
+                    url: url,
+                    data: key,
+                    dataType: "json",//此处要设置成json
+                    success: function (data) {
+
+                    }
+                });
+
+            }
+
+
+        }
+
+
 
 
         //        document.getElementById("quote-high").value=100000;
@@ -298,9 +326,11 @@
         <span class="stockName"><strong style="height: 20px;width: 30px"
                                         class="stockName"><script>document.write(stockName)</script></strong>
         </span>
-        <span class="stockOp" style="display: inline;">
-            <span
-                    class="stockFollowRelation"><span id="addStock" class="addFriendBtn op"><b>＋</b>加关注</span>
+        <span class="stockOp" style="display: inline;margin-left: 8px">
+            <span style="background: #0064b4">
+                   <button  style="background: #0064b4;font-size: 12px" type="button" class="btn btn-default btn-sm" onclick="Collection()">
+                    <span style="background: #0064b4" class="glyphicon glyphicon-heart"></span> 收藏
+                    </button>
             </span>
         </span>
     </div>
@@ -341,7 +371,6 @@
         <script type="text/javascript"
                 src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
         <script type="text/javascript">
-
 
 
         </script>
