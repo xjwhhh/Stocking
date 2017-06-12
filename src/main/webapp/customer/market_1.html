@@ -253,7 +253,7 @@
             + seperator2 + "00";
 
         var cd = JSON.stringify(new getdate(currentdate));
-        alert(cd);
+//        alert(cd);
         $.ajax({
             type: "POST",
             url: url,
@@ -289,7 +289,7 @@
     function search() {
         var url = "http://localhost:8080/market";
         var date = JSON.stringify(new getdate(dtp_input1.value));
-        alert(date);
+//        alert(date);
         $.ajax({
             type: "POST",
             url: url,

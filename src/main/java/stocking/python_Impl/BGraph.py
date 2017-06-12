@@ -103,6 +103,7 @@ if __name__ == "__main__":
         newPath += (paths[i] + "\\")
     newPath += "calculation"
     sys.path.append(newPath)
+    sys.path.append("C:\\Users\\朱晨乾\\IdeaProjects\\Stock_Analyzing_System\\src\\main\\java\\stocking\\calculation")
     sys.path.append(
         "C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\Stock_Analyzing_System\\src\\main\\java\\stocking\\calculation")
     import bGraph
@@ -119,12 +120,12 @@ if __name__ == "__main__":
     stockLists = stocks.split("/")  # 股票代码列表
 
     # strategyType = 1  # 策略类型
-    # startDate = '2017-03-01'  # 开始日期
-    # endDate = '2017-06-01'  # 结束日期
+    # startDate = '2017-05-10'  # 开始日期
+    # endDate = '2017-05-28'  # 结束日期
     # isHold = 0  # s是否是形成期
-    # interval = 20  # 已知时间
-    # isPla = 1  # 是否为板块
-    # stocks = '创业板'
+    # interval = 4  # 已知时间
+    # isPla = 0  # 是否为板块
+    # stocks = '000001/000002'
     # stockLists = stocks.split("/")  # 股票代码列表
     # print(len(stockLists))
 
