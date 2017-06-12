@@ -15,23 +15,15 @@
 
         .nav-tabs > li {
             width: 20%;
-            background-color: #0064b4;
+            background-color: #004fa2;
         }
 
         a {
             color: #333333
         }
 
-        /*a:hover {*/
-        /*color: #000000*/
-        /*}*/
-
         ul {
             text-align: center;
-        }
-
-        .nav > li:hover .dropdown-menu {
-            display: block;
         }
 
     </style>
@@ -74,9 +66,9 @@
     </script>
 </head>
 <body onload="Load()">
-<div class="container-fluid">
+<div class="container-fluid" style="background: url(lgBg1.jpg);background-size: 100%">
     <div class="navbar-header">
-        <img src="stock2.jpg" class="img-rounded">
+        <img src="stock.png" class="img-rounded">
     </div>
     <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -109,11 +101,11 @@
 </div>
 <div class="collapse navbar-collapse" id="navbar-collapse-6">
     <ul class="nav nav-tabs">
-        <li><a href="index.html">首页</a></li>
-        <li><a href="singleSearch.html">股票数据</a></li>
-        <li class="active"><a href="market_1.html">行情信息</a></li>
-        <li><a href="regressionSetting.html">回测</a></li>
-        <li><a href="news.html">新闻</a></li>
+        <li><a href="index.html"><span class="glyphicon glyphicon-home"></span>&nbsp&nbsp&nbsp首页</a></li>
+        <li><a href="singleSearch.html"><span class="glyphicon glyphicon-stats"></span>&nbsp&nbsp&nbsp股票数据</a></li>
+        <li class="active"><a href="market_1.html"><span class="glyphicon glyphicon-file"></span>&nbsp&nbsp&nbsp行情信息</a></li>
+        <li><a href="regressionSetting.html"><span class="glyphicon glyphicon-tags"></span>&nbsp&nbsp&nbsp回测</a></li>
+        <li><a href="news.html"><span class="glyphicon glyphicon-book"></span>&nbsp&nbsp&nbsp新闻</a></li>
     </ul>
 </div>
 
