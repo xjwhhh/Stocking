@@ -50,7 +50,7 @@ public class Cache {
 //        rankingPO1 = setRankingPO("日换手率达到20%的前五只证券");
 //        rankingPO2 = setRankingPO("日涨幅偏离值达到7%的前五只证券");
 //        rankingPO3 = setRankingPO("日跌幅偏离值达到7%的前五只证券");
-        this.getMinuteData();
+//        this.getMinuteData();
 
     }
 
