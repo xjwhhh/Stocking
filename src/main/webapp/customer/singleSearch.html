@@ -100,18 +100,18 @@
 //            alert(stockToCompare[0]);
             var url = "http://localhost:8080/singleStock";
             var key = JSON.stringify(new getIdentifier("normal",stockToCompare[0],startDate+" 00:00:00",endDate+" 00:00:00"));
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: key,
-                dataType: "json",//此处要设置成json
-                async : false,
-                success: function (data) {
-
-                     datesList= data[0].dates;
-
-                }
-            });
+//            $.ajax({
+//                type: "POST",
+//                url: url,
+//                data: key,
+//                dataType: "json",//此处要设置成json
+//                async : false,
+//                success: function (data) {
+//
+//                     datesList= data[0].dates;
+//
+//                }
+//            });
 //            alert("datesList.length);
 
 
@@ -119,7 +119,7 @@
 
             for (var v = 0; v < stockToCompare.length; v++) {
                 var stockName = stockToCompare[v];
-                alert(stockName);
+//                alert(stockName);
 
                 var key = JSON.stringify(new getIdentifier("normal",stockName,startDate+" 00:00:00",endDate+" 00:00:00"));
                 $.ajax({
@@ -141,6 +141,7 @@
                         var low = data[0].lowest;
                         var up = data[0].up;
                         datesList= data[0].dates;
+                        var code = data[0].code;
 //                        closePrice = close;
 
 
@@ -153,13 +154,13 @@
                         var vvvv = x.insertCell(4);
                         var vvvvv = x.insertCell(5);
                         y.innerHTML = stockToCompare[v];
-                        z.innerHTML = "1";
+                        z.innerHTML =code;
                         vv.innerHTML=high;
                         vvv.innerHTML=low;
                         vvvv.innerHTML=up;
                         vvvvv.innerHTML=up;
-                        closePrice=[v+1,v+2];
-                        variance=[v+2,v+3];
+                        closePrice=close;
+                        variance=profits;
 //                        alert("vass"+variance[0]);
                     }
 
@@ -704,7 +705,7 @@
                        var bankuai =myselect2.options[index2].value;
                        //调用ajax得到codelist和stocklist
                         var url="http://localhost:8080/codename";
-                        var key = JSON.stringify(new getType(myselect1+"/"+myselect2));
+                        var key = JSON.stringify(new getType(hangye+"/"+bankuai));
 
                         $.ajax({
 
@@ -713,6 +714,7 @@
                             data:key,
                             dataType: "json",//此处要设置成json
                             success: function (data) {
+//                                alert("ok");
 
                                 stockList = data[0].name;
                                 codeList = data[0].code;
@@ -771,7 +773,7 @@
     <!--//股票对比-->
 
     <div class="tab-pane " id="stockCompare">
-        <div style="margin-left: 5%;margin-top:3%;width: 30%;" class="common_clom2_1">
+        <div style="margin-left: 2%;margin-top:3%;width: 30%;" class="common_clom2_1">
             <div class="sc_selector">
                 <div class="sc_title">
                     <h4 style="margin: 0px">股票对比
@@ -931,7 +933,7 @@
             </div>
 
         </div>
-        <div style="margin-top: -25%;" class="common_clom2_2">
+        <div style="margin-top: 10%;width: 50%" class="common_clom2_2">
             <div class="compare_table">
                 <div class="comparetitle">
                     <h6>基本指标对比</h6>
