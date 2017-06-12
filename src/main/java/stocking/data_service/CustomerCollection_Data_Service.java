@@ -8,5 +8,5 @@ import stocking.po.CollectionPO;
 public interface CustomerCollection_Data_Service {
     CollectionPO getCollection(String id);
 
-    boolean execute(String op, String id, String code);//op分为add，delete两类，code为股票编码
+    CollectionPO execute(String op, String id, String code);//op分为add，delete两类，code为股票编码
 }

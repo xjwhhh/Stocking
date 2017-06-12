@@ -53,26 +53,6 @@ def smCorCal(stock, market):
     return result.at['closeS', 'closeM']
 
 
-# 当日已发生价格
-def getTodayData(code):
-    df = ts.get_today_ticks(code)
-    d = {0: 0}
-    time = list(df['time'])
-    price = list(df['price'])
-    for i in range(0, len(time)):
-        minute = time[i][:5]
-        # print(minute)
-        pr = round(float(price[i]), 2)
-        d[minute] = pr
-    del (d[0])
-    print("#")
-    print(len(d))
-    for k, v in d.items():
-        print(k)
-        print(v)
-    ff.write('success')
-
-
 def getSectionByCode(code):
     subCode = code[:3]
     if subCode == "600":
@@ -139,101 +119,146 @@ def getStockInfo2(code, section, startDate, endDate):
     return df
 
 
+def getStocks():
+    sql = "select distinct code from basicinfo"
+    try:
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        re = []
+        for row in results:
+            re.append(row[0])
+    except:
+        print('get data fail')
+    return re
+
+def get(code,df):
+    if(len(df)>100):
+        sectionName = getSectionByCode(code)
+        minutes = []
+        prices = []
+        d={0:0}
+        time = list(df['time'])
+        price = list(df['price'])
+        for i in range(0, len(time)):
+            minute = time[i][:5]
+            pr = round(float(price[i]), 2)
+            d[minute] = pr
+        del (d[0])
+        for k, v in d.items():
+            minutes.append(k)
+            prices.append(v)
+
+        df = getstockinfo(code, before, date, sectionName)
+        print(len(df))
+        if len(df) == 82:
+            prediction = svmPredict(df)
+            closeList = list(df['close'])
+            indexList = list(df.index)
+
+            adjDF = pd.DataFrame(closeList, index=indexList)
+
+            # 获取行业
+            sql = "select industry from basicinfo where  code='%s' " % (code)
+            try:
+                cursor.execute(sql)
+                results = cursor.fetchall()
+                for row in results:
+                    industry = row[0]
+            except:
+                print('fail')
+
+            # 获取同行业股票
+            sql = "select code from basicinfo where  industry='%s' " % (industry)
+            try:
+                cursor.execute(sql)
+                results = cursor.fetchall()
+                codes = []
+                for row in results:
+                    codes.append(row[0])
+            except:
+                print('fail')
+
+            re = []
+            size = len(codes)
+
+            while (size > 100):
+                size = size / 2
+            # print(size)
+            for i in range(0, int(size)):
+                sectionName = getSectionByCode(codes[i])
+                df = getStockInfo2(codes[i], sectionName, before, date)
+                if len(df) > 82:
+                    df = df[-82:]
+                    profit = []
+                    ttt = list(df['close'])
+                    profit.append(0)
+                    for i in range(1, len(ttt)):
+                        t = (ttt[i] - ttt[i - 1]) / ttt[i - 1]
+                        profit.append(t)
+                        # print(len(profit))
+                        # print(profit)
+                    re.append(profit)
+            # print(len(re))
+
+            meanvalue = []
+            for i in range(0, 82):
+                m = 0
+                for t in re:
+                    m += t[i]
+                meanvalue.append(m / len(re))
+
+            marketDF = pd.DataFrame(meanvalue, index=indexList)
+            relativity = smCorCal(adjDF, marketDF)
+            write(code,minutes,prices,prediction,relativity)
+
+        else:
+            prediction = 0.05
+            relativity=0
+            # print(1)
+        print(prediction)
+        print(relativity)
+
+def write(code,minutes,prices,prediction,relativity):
+    for i in range(0,len(minutes)):
+        sql="insert into minute_data(code,minute,price,prediction,relativity) values('%s','%s','%s','%s','%s')"%(code,minutes[i],prices[i],prediction,relativity)
+        cursor.execute(sql)
+        db.commit()
+
 if __name__ == "__main__":
     db = pymysql.connect("localhost", "root", "123456", "stock", charset="utf8")
     cursor = db.cursor()
-    paths = sys.argv[0].split("\\")
-    newPath = ""
-    for i in range(0, len(paths) - 2):
-        newPath += (paths[i] + "\\")
-    newPath += "calculation"
+    # paths = sys.argv[0].split("\\")
+    # newPath = ""
+    # for i in range(0, len(paths) - 2):
+    #     newPath += (paths[i] + "\\")
+    # newPath += "calculation"
     # newPath="C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\Stock_Analyzing_System\\src\\main\\java\\stocking\\calculation"
-    sys.path.append(newPath)
+    # sys.path.append(newPath)
     sys.path.append(
         "C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\Stock_Analyzing_System\\src\\main\\java\\stocking\\calculation")
 
     # print(newPath)
-    ff=open("C:\\Users\\xjwhh\\Desktop\\t.txt",'a')
+    # ff=open("C:\\Users\\xjwhh\\Desktop\\t.txt",'a')
 
     #
     #
-    code = sys.argv[1]
-    date = sys.argv[2]
-    before = sys.argv[3]
+    # code = sys.argv[1]
+    # date = sys.argv[2]
+    # before = sys.argv[3]
 
     # getMinuteData(code, date)
     # getMinuteData('000001', '2017-04-05')
     # getTodayData('000403')
     # getMinuteData()
-    getTodayData(code)
+    # getTodayData(code)
+    date = '2016-06-12'
+    before = '2016-01-01'
 
-    # date = '2016-06-12'
-    # before = '2016-01-01'
-    # code = '000403'
     # sectionName = 'sza'
-    sectionName = getSectionByCode(code)
-    df = getstockinfo(code, before, date, sectionName)
-    # print(len(df))
-    prediction = svmPredict(df)
-    # print(1)
-    print(prediction)
-    ff.write(str(prediction))
+    allcodes = getStocks()
+    for code in allcodes:
 
-    closeList = list(df['close'])
-    indexList = list(df.index)
 
-    adjDF = pd.DataFrame(closeList, index=indexList)
-
-    # 获取行业
-    sql = "select industry from basicinfo where  code='%s' " % (code)
-    try:
-        cursor.execute(sql)
-        results = cursor.fetchall()
-        for row in results:
-            industry = row[0]
-    except:
-        print('fail')
-
-    # 获取同行业股票
-    sql = "select code from basicinfo where  industry='%s' " % (industry)
-    try:
-        cursor.execute(sql)
-        results = cursor.fetchall()
-        codes = []
-        for row in results:
-            codes.append(row[0])
-    except:
-        print('fail')
-
-    re = []
-    size = len(codes)
-
-    while (size > 100):
-        size = size / 2
-    # print(size)
-    for i in range(0, int(size)):
-        sectionName = getSectionByCode(codes[i])
-        df = getStockInfo2(codes[i], sectionName, before, date)
-        if len(df) > 82:
-            df = df[-82:]
-            profit = []
-            ttt = list(df['close'])
-            profit.append(0)
-            for i in range(1, len(ttt)):
-                t = (ttt[i] - ttt[i - 1]) / ttt[i - 1]
-                profit.append(t)
-            # print(profit)
-            re.append(profit)
-
-    meanvalue = []
-    for i in range(0, 82):
-        m = 0
-        for t in re:
-            m += t[i]
-        meanvalue.append(m / len(re))
-
-    marketDF = pd.DataFrame(meanvalue, index=indexList)
-
-    relativity = smCorCal(adjDF, marketDF)
-    print(relativity)
-    ff.write('aaaaaa')
+        df = ts.get_today_ticks(code)
+        # if(str(df)!='None')
+        get(code,df)

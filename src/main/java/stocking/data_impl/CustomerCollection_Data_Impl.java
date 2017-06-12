@@ -59,7 +59,7 @@ public class CustomerCollection_Data_Impl implements CustomerCollection_Data_Ser
      * @param code
      * @return
      */
-    public boolean execute(String op, String id, String code) {
+    public CollectionPO execute(String op, String id, String code) {
         if (op.equals("add")) {
             return addStock(id, code);
         } else {
@@ -74,7 +74,7 @@ public class CustomerCollection_Data_Impl implements CustomerCollection_Data_Ser
      * @param code
      * @return
      */
-    private boolean addStock(String id, String code) {
+    private CollectionPO addStock(String id, String code) {
         BasicDBObject basicDBObject = new BasicDBObject();
         basicDBObject.put("id", id);
         FindIterable<Document> findIterable = collection.find(basicDBObject);
@@ -92,7 +92,9 @@ public class CustomerCollection_Data_Impl implements CustomerCollection_Data_Ser
             documents.add(document);
             collection.insertMany(documents);
         }
-        return true;
+        String[] codes={""};
+        String[] names={""};
+        return new CollectionPO(codes,names);
     }
 
     /**
@@ -102,7 +104,7 @@ public class CustomerCollection_Data_Impl implements CustomerCollection_Data_Ser
      * @param code
      * @return
      */
-    private boolean deleteStock(String id, String code) {
+    private CollectionPO deleteStock(String id, String code) {
         BasicDBObject basicDBObject = new BasicDBObject();
         basicDBObject.put("id", id);
         FindIterable<Document> findIterable = collection.find(basicDBObject);
@@ -125,6 +127,18 @@ public class CustomerCollection_Data_Impl implements CustomerCollection_Data_Ser
             line += ("/" + newcodes.get(i));
         }
         collection.updateMany(Filters.eq("id", id), new Document("$set", new Document("stock", line)));
-        return true;
+        String[] codeses={""};
+        String[] names={""};
+        return new CollectionPO(codes,names);
+    }
+
+
+    public static void main(String[] args){
+        CustomerCollection_Data_Service customerCollection_data_service=new CustomerCollection_Data_Impl();
+        customerCollection_data_service.execute("add","1","000001");
+        customerCollection_data_service.execute("add","1","000002");
+        customerCollection_data_service.execute("add","1","000003");
+        customerCollection_data_service.execute("add","1","000004");
+        customerCollection_data_service.execute("add","1","000005");
     }
 }

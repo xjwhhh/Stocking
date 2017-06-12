@@ -97,19 +97,22 @@ import tushare as ts
 #     print(t)
 #
 #
+#
+# df = ts.get_today_ticks('000403')
+# d = {0: 0}
+# time = list(df['time'])
+# price = list(df['price'])
+# for i in range(0, len(time)):
+#     minute = time[i][:5]
+#     # print(minute)
+#     pr = round(float(price[i]), 2)
+#     d[minute] = pr
+# del (d[0])
+# print("#")
+# print(len(d))
+# for k, v in d.items():
+#     print(k)
+#     print(v)
 
-df = ts.get_today_ticks('000001')
-d = {0: 0}
-time = list(df['time'])
-price = list(df['price'])
-for i in range(0, len(time)):
-    minute = time[i][:5]
-    # print(minute)
-    pr = round(float(price[i]), 2)
-    d[minute] = pr
-del (d[0])
-print("#")
-print(len(d))
-for k, v in d.items():
-    print(k)
-    print(v)
+df=ts.get_h_data('000001',start='2017-06-09',end='2017-06-09')
+print(df)

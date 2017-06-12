@@ -39,9 +39,10 @@ public class Minute_Data_Impl implements Minute_Data_Service {
                 return null;
             }
         }
-        if (cache.getMinuteDataPOHashtable().containsKey(code)) {
-            return cache.getMinuteDataPOHashtable().get(code);
-        } else {
+
+//        if (cache.getMinuteDataPOHashtable().containsKey(code)) {
+//            return cache.getMinuteDataPOHashtable().get(code);
+//        } else {
 
             Date date = new Date();
             SimpleDateFormat dateFm = new SimpleDateFormat("EEEE");
@@ -69,8 +70,6 @@ public class Minute_Data_Impl implements Minute_Data_Service {
                             InputStreamReader(pr.getInputStream(), "gbk"));
                     in.readLine();
                     MinuteDataPO minuteDataPO = getMinuteDataPO(in);
-                    cache.setMinuteDataPOHashtable(code, minuteDataPO);
-                    System.out.println(cache.getMinuteDataPOHashtable().size());
                     return minuteDataPO;
 
                 } catch (IOException e) {
@@ -101,15 +100,13 @@ public class Minute_Data_Impl implements Minute_Data_Service {
                     BufferedReader in = new BufferedReader(new
                             InputStreamReader(pr.getInputStream(), "gbk"));
                     MinuteDataPO minuteDataPO = getMinuteDataPO(in);
-                    cache.setMinuteDataPOHashtable(code, minuteDataPO);
-                    System.out.println(cache.getMinuteDataPOHashtable().size());
                     return minuteDataPO;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
             return null;
-        }
+//        }
     }
 
     private MinuteDataPO getMinuteDataPO(BufferedReader in) {

@@ -21,8 +21,16 @@ public class MyThread extends Thread {
         DataFactory_Data_Service dataFactory_data_service=DataFactory_Data_Impl.getInstance();
         Minute_Data_Service minute_data_service=dataFactory_data_service.minute();
         for(String key:codes){
-//            long startMili=System.currentTimeMillis();
+            System.out.println(key);
+            long startMili=System.currentTimeMillis();
             MinuteDataPO minuteDataPO=minute_data_service.getMinuteDataPO(key);
+
+//            while(true){
+//                long endMili=System.currentTimeMillis();
+//                if(endMili-startMili>=15000){
+//
+//                }
+//            }
 //            long endMili=System.currentTimeMillis();
 //            System.out.print(key+"  ");
 //            System.out.println(endMili-startMili);

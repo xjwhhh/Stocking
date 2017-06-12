@@ -1,12 +1,10 @@
 package stocking.data_impl;
 
+import net.sf.json.JSONObject;
 import stocking.data_impl.dbconnector.DBConnectionManager;
 import stocking.data_impl.dbconnector.DBConnectionPool;
 import stocking.data_service.DataFactory_Data_Service;
-import stocking.po.MarketPO;
-import stocking.po.MinuteDataPO;
-import stocking.po.NewsPO;
-import stocking.po.RankingPO;
+import stocking.po.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,11 +13,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by xjwhhh on 2017/5/24.
@@ -40,18 +36,25 @@ public class Cache {
     private RankingPO rankingPO2;//日涨幅偏离值达到7%的前五只证券
     private RankingPO rankingPO3;//日跌幅偏离值达到7%的前五只证券
     private Hashtable<String, NewsPO> singleNews = new Hashtable<String, NewsPO>();
-    private Hashtable<String, MinuteDataPO> minuteDataPOHashtable;
+    private Hashtable<String, MinuteDataPO> minuteDataPOHashtable = new Hashtable<String, MinuteDataPO>();
+
 
 
     private Cache() {
-        minuteDataPOHashtable = new Hashtable<String, MinuteDataPO>();
+
         this.setStockInfo();
-//        this.setYesterdayMarketPO();
+        this.setYesterdayMarketPO();
 //        rankingPO1 = setRankingPO("日换手率达到20%的前五只证券");
 //        rankingPO2 = setRankingPO("日涨幅偏离值达到7%的前五只证券");
 //        rankingPO3 = setRankingPO("日跌幅偏离值达到7%的前五只证券");
-//        this.getMinuteData();
 
+//        this.getMinuteData();
+//        Date date = new Date();
+//        SimpleDateFormat hourFormatter = new SimpleDateFormat("HH");
+//        int hour = Integer.parseInt(hourFormatter.format(date));
+//        if (hour > 15) {
+//            this.setMinuteData();
+//        }
     }
 
     /**
@@ -100,25 +103,39 @@ public class Cache {
         SimpleDateFormat hourFormatter = new SimpleDateFormat("HH");
         int hour = Integer.parseInt(hourFormatter.format(date));
         Date yesterday = new Date();
-        if (hour < 15) {
+//        if (hour < 15) {
             yesterday = new Date(date.getTime() - 24 * 60 * 60 * 1000);
-        }
+//        }
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat dateFm = new SimpleDateFormat("EEEE");
         String ofWeek = dateFm.format(yesterday);
         String todayStr = formatter.format(yesterday);
         String yesterday2Str = "";
+        String yesterday3Str = "";
+        System.out.println(yesterday);
+
         if (ofWeek.equals("星期一")) {
             yesterday2Str = formatter.format(new Date(yesterday.getTime() - 3 * 24 * 60 * 60 * 1000));
-        } else {
+            yesterday3Str = formatter.format(new Date(yesterday.getTime() - 4 * 24 * 60 * 60 * 1000));
+        } else if(ofWeek.equals("星期六")){
             yesterday2Str = formatter.format(new Date(yesterday.getTime() - 24 * 60 * 60 * 1000));
+            yesterday3Str = formatter.format(new Date(yesterday.getTime() - 2*24 * 60 * 60 * 1000));
         }
+        else  if(ofWeek.equals("星期日")){
+            yesterday2Str = formatter.format(new Date(yesterday.getTime() - 24 * 60 * 60 * 1000*2));
+            yesterday3Str = formatter.format(new Date(yesterday.getTime() - 24 * 60 * 60 * 1000*3));
+        }
+        else{
+            yesterday2Str=formatter.format(yesterday);
+        }
+        System.out.println(yesterday2Str);
+        System.out.println(yesterday3Str);
         try {
             List<String> commands = new LinkedList<String>();
             commands.add("python");
             commands.add(tools.getProjectPath("src\\main\\java\\stocking\\python_Impl\\OverallSearch.py"));
-            commands.add(todayStr);
             commands.add(yesterday2Str);
+            commands.add(yesterday3Str);
             ProcessBuilder processBuilder = new ProcessBuilder(commands);
             Process pr = processBuilder.start();
             BufferedReader in = new BufferedReader(new
@@ -184,29 +201,29 @@ public class Cache {
         return null;
     }
 
-    public void getMinuteData() {
-        int size = code_name.size();
-        String[] allCodes = new String[size];
-        int i = 0;
-        for (String key : code_name.keySet()) {
-            allCodes[i] = key;
-            i++;
-        }
-        int numOfThread = 10;
-        int m = size / numOfThread + 1;
-        for (int j = 0; j < numOfThread; j++) {
-            int start = 0;
-            String[] codes = new String[m];
-            for (int a = 0; a < m; a++) {
-                if (a + m * j > size - 1) {
-                    codes[a] = allCodes[size - 1];
-                } else {
-                    codes[a] = allCodes[a + m * j];
-                }
-            }
-            new MyThread(codes).start();
-        }
-    }
+//    public void getMinuteData() {
+//        int size = code_name.size();
+//        String[] allCodes = new String[size];
+//        int i = 0;
+//        for (String key : code_name.keySet()) {
+//            allCodes[i] = key;
+//            i++;
+//        }
+//        int numOfThread = 1;
+//        int m = size / numOfThread + 1;
+//        for (int j = 0; j < numOfThread; j++) {
+//            int start = 0;
+//            String[] codes = new String[m];
+//            for (int a = 0; a < m; a++) {
+//                if (a + m * j > size - 1) {
+//                    codes[a] = allCodes[size - 1];
+//                } else {
+//                    codes[a] = allCodes[a + m * j];
+//                }
+//            }
+//            new MyThread(codes).start();
+//        }
+//    }
 
     public Hashtable<String, String> getCode_Name() {
         return code_name;
@@ -237,13 +254,56 @@ public class Cache {
     }
 
     public void setMinuteDataPOHashtable(String code, MinuteDataPO minuteDataPO) {
+        JSONObject json = JSONObject.fromObject(minuteDataPO);//将java对象转换为json对象
+        String str = json.toString();//将json对象转换为字符串
+        System.out.println(str);
         if (minuteDataPOHashtable.containsKey(code)) {
             minuteDataPOHashtable.remove(code);
         }
 //        System.out.print(code);
 //        System.out.print(minuteDataPO);
-        if(minuteDataPO!=null) {
+        if (minuteDataPO != null) {
             minuteDataPOHashtable.put(code, minuteDataPO);
+        }
+    }
+
+    private void setMinuteData() {
+        Connection connection = connectionManager.getConnection("stock");
+        for (String key : code_name.keySet()) {
+            String sql = "select distinct minute,price,prediction,relativity from minute_data where code=" + key;
+            PreparedStatement pstmt;
+            ArrayList<String> minutes = new ArrayList<String>();
+            ArrayList<Double> prices = new ArrayList<Double>();
+            double prediction = 0;
+            double relativity = 0;
+            try {
+                pstmt = (PreparedStatement) connection.prepareStatement(sql);
+                ResultSet rs = pstmt.executeQuery();
+                boolean get = false;
+                while (rs.next()) {
+                    get = true;
+                    minutes.add(rs.getString("minute"));
+                    prices.add(Double.parseDouble(rs.getString("price")));
+                    prediction = Double.parseDouble(rs.getString("prediction"));
+                    relativity = Double.parseDouble(rs.getString("relativity"));
+                }
+                if (get) {
+                    int size = minutes.size();
+                    String[] minutes2 = (String[]) minutes.toArray(new String[size]);
+                    Double[] prices2 = (Double[]) prices.toArray(new Double[size]);
+                    double minimum = prices2[0];
+                    for (int i = 0; i < size; i++) {
+                        if (minimum > prices2[i]) {
+                            minimum = prices2[i];
+                        }
+                    }
+                    pool.freeConnection(connection);
+                    MinuteDataPO minuteDataPO = new MinuteDataPO(minutes2, prices2, prediction, relativity, minimum);
+                    this.setMinuteDataPOHashtable(key, minuteDataPO);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -264,7 +324,7 @@ public class Cache {
     }
 
 
-    public static void main(String[] args) {
+//    public static void main(String[] args) {
 //        Date date = new Date();
 //        SimpleDateFormat formatter = new SimpleDateFormat("HH");
 //        String str = formatter.format(date);
@@ -273,6 +333,10 @@ public class Cache {
 //        if (hour > 13) {
 //            System.out.print("123456");
 //        }
-        Cache cache = Cache.getInstance();
-    }
+//        Cache cache = Cache.getInstance();
+//        MarketPO marketPO=cache.getYesterdayMarketPO();
+//        JSONObject json = JSONObject.fromObject(marketPO);//将java对象转换为json对象
+//        String str = json.toString();//将json对象转换为字符串
+//        System.out.print(str);
+//    }
 }

@@ -29,6 +29,8 @@ public class CustomerCollection_Servlet extends HttpServlet {
             return;
         }
 
+        System.out.println(jsonObject.toString());
+
         cds = DataFactory_Data_Impl.getInstance().customerCollection();
         String op = jsonObject.getString("type");//三种操作get，add，delete
         String id = jsonObject.getString("id");
@@ -39,7 +41,7 @@ public class CustomerCollection_Servlet extends HttpServlet {
             new SendByServlet().doSend(response, result);
         } else {
             String code = jsonObject.getString("code");
-            boolean success = cds.execute(op, id, code);
+            CollectionPO success = cds.execute(op, id, code);
             new SendByServlet().doSend(response, success);
         }
     }
