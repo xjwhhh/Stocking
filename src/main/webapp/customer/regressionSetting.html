@@ -868,41 +868,22 @@
         this.stocks = stocks;
     }
 
-    function addTableCell(){
+    //添加已选股票
+    window.onload = function (){
         for(var i = 0;i<stocks.length;i++){
             var newTr = addtable.insertRow();
             var newTd0 = newTr.insertCell();
             var newTd1 = newTr.insertCell();
             var newTd2 = newTr.insertCell();
 
-            newTd0.innerText = stocks[i].name;
-            newTd1.innerText = stocks[i].code;
+//            newTd0.innerText = stocks[i].name;
+//            newTd1.innerText = stocks[i].code;
+            newTd1.innerText = stocks[i];
             newTd2.innerHTML = "<button type='button' class='btn btn-danger btn-sm' onclick='Delete(this)'> 删除</button>";
         }
     }
 
-    function Delete(obj) {
-//            alert("delete");
-        var code= $(obj).parent().parent().children("td").eq(1).text();
-//            alert(code+"code");
-        obj.parentNode.parentNode.parentNode.removeChild(obj.parentNode.parentNode);
-//            alert("success");
-//            hang.parentNode.removeChild(hang);
-//            t.removeChild(hang);
-//            alert("success");
-        var url="http://localhost:8080/collection";
-        var key = JSON.stringify(new getKey2("delete","1",code));
-        $.ajax({
 
-            type:"POST",
-            url:url,
-            data:key,
-            dataType: "json",//此处要设置成json
-            async : false,
-            success: function (data) {
-                alert("已删除");
-            }});
-    }
 
     function sendMessage() {
         var choosestocks;
