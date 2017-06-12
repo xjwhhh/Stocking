@@ -180,8 +180,12 @@
                 <tr>
                     <th>股票名称</th>
                     <th>股票编号</th>
+                    <th>删除</th>
                 </tr>
                 </thead>
+                <tbody>
+
+                </tbody>
             </table>
         </div>
     </div>
@@ -864,7 +868,44 @@
         this.stocks = stocks;
     }
 
+    function addTableCell(){
+        for(var i = 0;i<stocks.length;i++){
+            var newTr = addtable.insertRow();
+            var newTd0 = newTr.insertCell();
+            var newTd1 = newTr.insertCell();
+            var newTd2 = newTr.insertCell();
+
+            newTd0.innerText = stocks[i].name;
+            newTd1.innerText = stocks[i].code;
+            newTd2.innerHTML = "<button type='button' class='btn btn-danger btn-sm' onclick='Delete(this)'> 删除</button>";
+        }
+    }
+
+    function Delete(obj) {
+//            alert("delete");
+        var code= $(obj).parent().parent().children("td").eq(1).text();
+//            alert(code+"code");
+        obj.parentNode.parentNode.parentNode.removeChild(obj.parentNode.parentNode);
+//            alert("success");
+//            hang.parentNode.removeChild(hang);
+//            t.removeChild(hang);
+//            alert("success");
+        var url="http://localhost:8080/collection";
+        var key = JSON.stringify(new getKey2("delete","1",code));
+        $.ajax({
+
+            type:"POST",
+            url:url,
+            data:key,
+            dataType: "json",//此处要设置成json
+            async : false,
+            success: function (data) {
+                alert("已删除");
+            }});
+    }
+
     function sendMessage() {
+        var choosestocks;
         var url = "regressionResult.html"
         var type
         if (strategy.value == "动量策略") {
@@ -878,32 +919,41 @@
 
         if (document.getElementById("single").className == "active") {
             isPla = 0;
-            for (var j = 1; j < trs.length; j++) {
-                var tds = trs[j].getElementsByTagName("td");
-                stocks.push(tds[1].innerHTML);
+//            for (var j = 1; j < trs.length; j++) {
+//                var tds = trs[j].getElementsByTagName("td");
+                choosestocks.push(tds[1].innerHTML);
 //                alert(tds[1]);
-//                alert(tds[1].innerHTML);
-            }
-        } else {
+//                choosestocksalert(tds[1].innerHTML);
+//            }
+        }else{
             isPla = 1;
-            if (document.getElementById("cb1").checked == true) {
-                stocks.push(document.getElementById("cb1").value);
-            }
-            if (document.getElementById("cb2").checked == true) {
-                stocks.push(document.getElementById("cb2").value);
-            }
-            if (document.getElementById("cb3").checked == true) {
-                stocks.push(document.getElementById("cb3").value);
-            }
-            if (document.getElementById("cb4").checked == true) {
-                stocks.push(document.getElementById("cb4").value);
-            }
-            if (document.getElementById("cb5").checked == true) {
-                stocks.push(document.getElementById("cb5").value);
-            }
         }
-        alert(stocks);
-        var messageObj = new getmessage(type, dtp_input1.value, dtp_input2.value, shapeTime.value, holtTime.value, isPla, stocks);
+        for (var j = 1; j < trs.length; j++) {
+            var tds = trs[j].getElementsByTagName("td");
+            choosestocks.push(tds[1].innerHTML);
+//                alert(tds[1]);
+//                choosestocksalert(tds[1].innerHTML);
+        }
+//        else {
+//            isPla = 1;
+//            if (document.getElementById("cb1").checked == true) {
+//                stocks.push(document.getElementById("cb1").value);
+//            }
+//            if (document.getElementById("cb2").checked == true) {
+//                stocks.push(document.getElementById("cb2").value);
+//            }
+//            if (document.getElementById("cb3").checked == true) {
+//                stocks.push(document.getElementById("cb3").value);
+//            }
+//            if (document.getElementById("cb4").checked == true) {
+//                stocks.push(document.getElementById("cb4").value);
+//            }
+//            if (document.getElementById("cb5").checked == true) {
+//                stocks.push(document.getElementById("cb5").value);
+//            }
+//        }
+        alert(choosestocks);
+        var messageObj = new getmessage(type, dtp_input1.value, dtp_input2.value, shapeTime.value, holtTime.value, isPla, choosestocks);
         var messageStr = encodeURIComponent(JSON.stringify(messageObj));
         if (typeof(Storage) !== "undefined") {
             sessionStorage["message"] = messageStr;
