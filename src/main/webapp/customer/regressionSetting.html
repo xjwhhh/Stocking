@@ -588,7 +588,7 @@
                 stocks.push(document.getElementById("cb5").value);
             }
         }
-
+        alert(stocks);
         var messageObj = new getmessage(type, dtp_input1.value, dtp_input2.value, shapeTime.value, holtTime.value, isPla, stocks);
         var messageStr = encodeURIComponent(JSON.stringify(messageObj));
         window.location.href = "regressionResult.html?message=" + messageStr;

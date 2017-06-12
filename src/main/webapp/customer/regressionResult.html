@@ -323,8 +323,10 @@
         }//获胜股
         interval = document.getElementById("interval").value;
         var messageobj = JSON.parse(message);
-        var newMessage = JSON.stringify(new getmessage(messageobj.type, messageobj.start, messageobj.end, isHold, interval, JSON.parse(messageobj.stocks)));
-        var messageStr = encodeURIComponent(newMessage)
+        alert(messageobj.stocks);
+        var newObj = new getmessage(messageobj.type,messageobj.start,messageobj.end,isHold,interval,messageobj.isPla,messageobj.stocks);
+        var newMessage = JSON.stringify(newObj);
+        var messageStr = encodeURIComponent(newMessage);
         alert(messageStr);
         window.location.href = "superVariance.html?message=" + messageStr;
 
