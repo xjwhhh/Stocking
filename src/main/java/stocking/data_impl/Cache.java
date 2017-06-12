@@ -53,6 +53,7 @@ public class Cache {
 //        SimpleDateFormat hourFormatter = new SimpleDateFormat("HH");
 //        int hour = Integer.parseInt(hourFormatter.format(date));
 //        if (hour > 15) {
+//            System.out.print("12345");
 //            this.setMinuteData();
 //        }
     }
@@ -128,8 +129,8 @@ public class Cache {
         else{
             yesterday2Str=formatter.format(yesterday);
         }
-        System.out.println(yesterday2Str);
-        System.out.println(yesterday3Str);
+//        System.out.println(yesterday2Str);
+//        System.out.println(yesterday3Str);
         try {
             List<String> commands = new LinkedList<String>();
             commands.add("python");
@@ -254,9 +255,9 @@ public class Cache {
     }
 
     public void setMinuteDataPOHashtable(String code, MinuteDataPO minuteDataPO) {
-        JSONObject json = JSONObject.fromObject(minuteDataPO);//将java对象转换为json对象
-        String str = json.toString();//将json对象转换为字符串
-        System.out.println(str);
+//        JSONObject json = JSONObject.fromObject(minuteDataPO);//将java对象转换为json对象
+//        String str = json.toString();//将json对象转换为字符串
+//        System.out.println(str);
         if (minuteDataPOHashtable.containsKey(code)) {
             minuteDataPOHashtable.remove(code);
         }
@@ -265,6 +266,7 @@ public class Cache {
         if (minuteDataPO != null) {
             minuteDataPOHashtable.put(code, minuteDataPO);
         }
+        System.out.println(minuteDataPOHashtable.size());
     }
 
     private void setMinuteData() {

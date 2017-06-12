@@ -110,42 +110,16 @@
         }
         function CurrentLoads() {
 
-            var code="601006";
-            var v="http://hq.sinajs.cn/list=sh"+code;
+//            var code=stockCode;
+//            var v="http://hq.sinajs.cn/list=sh"+code;
+//
+//            //alert("aaa");
+//            document.getElementById("js").src=v;
+//            var elements = eval("hq_str_sh"+"601006").split(",");
+//            alert(elements[3]);
 
-            //alert("aaa");
-            document.getElementById("js").src=v;
-            var elements = eval("hq_str_sh"+"601006").split(",");
-            alert(elements[3]);
 
 
-            //判断是否已登陆
-            var sstorage = sessionStorage;
-            if (sstorage.getItem("login") == null) {
-                var ul = document.getElementById("login");
-
-                var li = document.createElement("li");
-
-                li.innerHTML = "<a href='login.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>登录</a>";
-
-                ul.appendChild(li);
-
-                var li2 = document.createElement("li");
-                li2.innerHTML = "<a href='signup.html' style='height: 100px;line-height: 70px; font-size:1.2em'>注册</a>";
-                ul.appendChild(li2);
-
-            } else {
-//                customerID = sstorage.getItem("login");
-
-                var ul = document.getElementById("login");
-
-                var li = document.createElement("li");
-
-                li.innerHTML = "<a href='CustomerSetting.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>用户设置</a>";
-
-                ul.appendChild(li);
-
-            }
 
 
 //            alert("1234567")
@@ -181,6 +155,33 @@
 
 
 //            alert("load");
+            //判断是否已登陆
+            var sstorage = sessionStorage;
+            if (sstorage.getItem("login") == null) {
+                var ul = document.getElementById("login");
+
+                var li = document.createElement("li");
+
+                li.innerHTML = "<a href='login.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>登录</a>";
+
+                ul.appendChild(li);
+
+                var li2 = document.createElement("li");
+                li2.innerHTML = "<a href='signup.html' style='height: 100px;line-height: 70px; font-size:1.2em'>注册</a>";
+                ul.appendChild(li2);
+
+            } else {
+//                customerID = sstorage.getItem("login");
+
+                var ul = document.getElementById("login");
+
+                var li = document.createElement("li");
+
+                li.innerHTML = "<a href='CustomerSetting.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>用户设置</a>";
+
+                ul.appendChild(li);
+
+            }
         }
         function ShowTimeChart() {
             var myChart = echarts.init(document.getElementById("fenshi"));
