@@ -49,8 +49,9 @@ public class Tools {
 //        for (int i = 0; i < pathList.length - 6; i++) {
 //            newPath += (pathList[i] + "\\");
 //        }
-        String newPath = "C:\\Users\\xjwhh\\IdeaProjects_Ultimate\\Stock_Analyzing_System\\";
+        String newPath = "C:\\Users\\朱晨乾\\IdeaProjects\\Stock_Analyzing_System\\";
         newPath += path;
+        System.out.print(newPath);
         return newPath;
     }
 

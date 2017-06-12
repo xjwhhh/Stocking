@@ -33,6 +33,7 @@ public class GetNews_Data_Impl implements GetNews_Data_Service {
             BufferedReader in = new BufferedReader(new
                     InputStreamReader(pr.getInputStream(), "gbk"));
             String line = in.readLine();
+            System.out.print(line);
             NewsPO newsPO = getNewsPO(in, line);
             return newsPO;
         } catch (IOException e) {
