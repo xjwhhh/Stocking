@@ -123,15 +123,26 @@ public class Minute_Data_Impl implements Minute_Data_Service {
                 System.out.println(line);
                 for (int i = 0; i < num; i++) {
                     minute[i] = in.readLine();
-//                    System.out.println(minute[i]);
+                    System.out.println(minute[i]);
                     prices[i] = Double.parseDouble(in.readLine());
-//                    System.out.println(prices[i]);
+                    System.out.println(prices[i]);
                 }
                 minute = (String[]) reverse(minute);
                 prices = (Double[]) reverse(prices);
+                if((line=in.readLine())!=null) {
 
-                prediction = Double.parseDouble(in.readLine());
-                relativity = Double.parseDouble(in.readLine());
+                    prediction = Double.parseDouble(line);
+                }
+                else{
+                    prediction=0.5;
+                }
+                if((line=in.readLine())!=null) {
+
+                    relativity = Double.parseDouble(line);
+                }
+                else{
+                    prediction=0;
+                }
 //                System.out.println(in.readLine());
 //                System.out.println(in.readLine());
                 double minimum = prices[0];

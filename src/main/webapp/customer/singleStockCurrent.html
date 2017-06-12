@@ -59,7 +59,47 @@
         var getval = thisURL.split('?')[1];
         stockName = getval.split("=")[1];
         var getval1 = thisURL.split('?')[2];
-        stockCode = getval1.split("=")[1];
+        var allNames;
+        var allCodes;
+if(getval1=="1"){
+    alert("mingzi");
+    stockName = decodeURIComponent(stockName);
+    var url="http://localhost:8080/codename";
+    var key = JSON.stringify(new getPlate("all"));
+//        alert(key);
+//                alert(date);
+//            alert("success");
+    $.ajax({
+
+        type:"POST",
+        url:url,
+        data:key,
+        dataType: "json",//此处要设置成json
+        async : false,
+        success: function (data) {
+
+            allNames = data[0].name;
+            allCodes = data[0].code;
+//                alert(alerallNames.length);
+        }});
+
+    for(var i=0;i<allNames.length;i++){
+        if(stockName==allNames[i]){
+            stockCode=allCodes[i];
+//            alert("code"+stockCode);
+            break;
+        }
+    }
+
+}else{
+
+    stockName = decodeURIComponent(stockName);
+    stockCode=getval1.split("=")[1];
+}
+
+
+
+//        stockCode = getval1.split("=")[1];
         var minuteList = [];
         var priceList = [];
         var minimum;
@@ -67,7 +107,7 @@
         var relativity;
         var customerID;
 
-        stockName = decodeURIComponent(stockName);
+//        stockName = decodeURIComponent(stockName);
 
         //        alert("sss");
 
@@ -90,6 +130,9 @@
         //        通过新浪数据借口得到值
 
 
+        function getPlate(platestr){
+            this.type=platestr;
+        }
 
         function getKey(typestr, identifier) {
             this.type = typestr;
