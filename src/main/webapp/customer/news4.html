@@ -13,34 +13,27 @@
             margin-top: 20px;
         }
 
-        ul {
-            text-align: center;
-        }
-
         .nav-tabs > li {
             width: 20%;
-            background-color: #0064b4;
+            background-color: #004fa2;
         }
 
         a {
             color: #333333
         }
 
-        /*a:hover {*/
-        /*color: #000000*/
-        /*}*/
-
-        .nav > li:hover .dropdown-menu {
-            display: block;
+        ul {
+            text-align: center;
         }
+
     </style>
 
     <script type="text/javascript" src="json2-min.js"></script>
 </head>
 <body onload="getnews()">
-<div class="container-fluid">
+<div class="container-fluid" style="background: url(lgBg1.jpg);background-size: 100%">
     <div class="navbar-header">
-        <img src="stock2.jpg" class="img-rounded">
+        <img src="stock.png" class="img-rounded">
     </div>
     <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -53,10 +46,8 @@
         <a class="navbar-brand" href="#" style="height: 100px;line-height: 70px; font-size:4em">Stocking</a>
     </div>
     <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="login.html" target="_blank" style="height: 100px;line-height: 70px; font-size:1.2em">登录</a>
-            </li>
-            <li><a href="#" style="height: 100px;line-height: 70px; font-size:1.2em">注册</a></li>
+        <ul id="login" class="nav navbar-nav navbar-right">
+
         </ul>
         <form class="navbar-form navbar-right" action="#" role="search">
             <div class="form-group">
@@ -75,13 +66,11 @@
 </div>
 <div class="collapse navbar-collapse" id="navbar-collapse-6">
     <ul class="nav nav-tabs">
-        <li><a href="index.html">首页</a></li>
-        <li><a href="singleSearch.html">股票数据</a>
-
-        </li>
-        <li><a href="market_1.html">行情信息</a></li>
-        <li><a href="regressionSetting.html">回测</a></li>
-        <li class="active"><a href="news.html">新闻</a></li>
+        <li><a style="color: #efefef" href="index.html"><span class="glyphicon glyphicon-home"></span>&nbsp&nbsp&nbsp首页</a></li>
+        <li><a style="color: #efefef" href="singleSearch.html"><span class="glyphicon glyphicon-stats"></span>&nbsp&nbsp&nbsp股票数据</a></li>
+        <li><a style="color: #efefef" href="market_1.html"><span class="glyphicon glyphicon-file"></span>&nbsp&nbsp&nbsp行情信息</a></li>
+        <li><a style="color: #efefef" href="regressionSetting.html"><span class="glyphicon glyphicon-tags"></span>&nbsp&nbsp&nbsp回测</a></li>
+        <li class="active"><a href="news.html"><span class="glyphicon glyphicon-book"></span>&nbsp&nbsp&nbsp新闻</a></li>
     </ul>
 </div>
 
