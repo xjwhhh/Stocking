@@ -98,9 +98,9 @@
                     var y = x.insertCell(0);
                     var z = x.insertCell(1);
                     var de = x.insertCell(2);
-                    y.innerHTML = names[i];
+                    y.innerHTML ="<span class='label label-info'>"+ names[i]+"</span>";
                     z.innerHTML = codes[i];
-                    de.innerHTML = "<button type='button' class='btn btn-default btn-sm' onclick='Delete(this)'> 删除</button>";
+                    de.innerHTML = "<button type='button' class='btn btn-danger btn-sm' onclick='Delete(this)'> 删除</button>";
 
                 }
                 var x = document.getElementById("myCollection").insertRow(0);
@@ -134,12 +134,13 @@
 
 </div>  <!--/container -->
 
-<div style="margin-top:5%;width:70%;border:0px solid #2767a9;border-bottom-width: 1px;border-left-width: 1px;border-top-width: 1px;border-right-width: 1px;" class="container">
+<div style="padding:0px;margin-top:5%;width:70%;border:0px solid #2767a9;border-bottom-width: 1px;border-left-width: 1px;border-top-width: 1px;border-right-width: 1px;" class="container panel panel-primary">
 
 
-
-    <h5>我的收藏</h5>
-    <table id="myCollection" style="width:690px;" cellspacing="0" cellpadding="0">
+    <div class="panel-heading" style="height: 40px">
+        <h3 style="margin:auto">我的收藏</h3>
+    </div>
+    <table id="myCollection" class="table table-striped" style="width:100%;" cellspacing="0" cellpadding="0">
         <tbody>
 
         </tbody>

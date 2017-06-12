@@ -51,6 +51,11 @@
 
     <script type="text/javascript" src="json2-min.js"></script>
     <script>
+
+        var tempList=[];
+
+
+
         function Load() {
             //判断是否登陆
             var sstorage = sessionStorage;
@@ -388,7 +393,7 @@
 
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
-                            <button style="background: white;color: #666666" class="btn btn-primary">全选</button>
+                            <button onclick="ChooseAll()" style="background: white;color: #666666" class="btn btn-primary">全选</button>
 
 
                             <div class="stockScreener-search-result-table-container">
@@ -476,6 +481,7 @@
         this.type = typestr;
     }
     function SearchStock(){
+        tempList=new Array();
         var stockList=[];
         var codeList=[];
 
@@ -502,9 +508,11 @@
                 stockList = data[0].name;
                 codeList = data[0].code;
 
+                tempList=data[0].name;
             }});
 
 //        alert(stockList.length);
+        $("#stocktable tbody").html("");
 
         for (var i = 0; i < stockList.length; i++) {
             var x = document.getElementById("stocktable").insertRow(i);
@@ -513,7 +521,7 @@
             var a = x.insertCell(2);
             y.innerHTML =  stockList[i] ;
             z.innerHTML = codeList[i];
-            a.innerHTML="<button type='button' class='btn btn-default btn-sm'> <span class='glyphicon glyphicon-plus'></span> </button>";
+            a.innerHTML="<button onclick='ChooseStock(this)' style='background: white' type='button' class='btn btn-default btn-sm'> <span class='glyphicon glyphicon-plus'></span> </button>";
 
         }
         var x = document.getElementById("stocktable").insertRow(0);
@@ -531,9 +539,19 @@
 
     }
 
+//选股票
+
+    function ChooseStock(obj) {
+
+        var c= $(obj).parent().parent().children("td").eq(0).text();
+                                alert("stockCHose :"+c);
 
 
 
+    }
+    //全选按钮
+    function ChooseAll() {
+    }
 
 
 
