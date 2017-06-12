@@ -155,7 +155,7 @@ if __name__ == "__main__":
 
 
     #
-
+    #
     code = sys.argv[1]
     date = sys.argv[2]
     before = sys.argv[3]
@@ -166,7 +166,7 @@ if __name__ == "__main__":
     # getMinuteData()
     getTodayData(code)
 
-    # date='2016-06-10'
+    # date='2016-06-12'
     # before='2016-01-01'
     # code='000001'
     # sectionName='sza'
@@ -174,6 +174,7 @@ if __name__ == "__main__":
     df = getstockinfo(code, before, date, sectionName)
     # print(len(df))
     prediction = svmPredict(df)
+    # print(1)
     print(prediction)
 
     closeList = list(df['close'])

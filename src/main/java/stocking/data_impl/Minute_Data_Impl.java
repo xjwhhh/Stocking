@@ -50,7 +50,11 @@ public class Minute_Data_Impl implements Minute_Data_Service {
             //非周末，有实时数据
             if (!ofWeek.equals("星期六") && !ofWeek.equals("星期日")) {
                 String dateStr = formatter.format(date);
-                Date before = new Date(date.getTime() - 24 * 60 * 60 * 100 * 160);
+
+                Date before = new Date(date.getTime() - 24 * 60 * 60 * 1000);
+                for (int i = 0; i < 160; i++) {
+                    before = new Date(before.getTime() - 24 * 60 * 60 * 1000);
+                }
                 String beforeStr = formatter.format(before);
                 try {
                     List<String> commands = new LinkedList<String>();
@@ -63,6 +67,7 @@ public class Minute_Data_Impl implements Minute_Data_Service {
                     Process pr = processBuilder.start();
                     BufferedReader in = new BufferedReader(new
                             InputStreamReader(pr.getInputStream(), "gbk"));
+                    in.readLine();
                     MinuteDataPO minuteDataPO = getMinuteDataPO(in);
                     cache.setMinuteDataPOHashtable(code, minuteDataPO);
                     System.out.println(cache.getMinuteDataPOHashtable().size());
@@ -117,15 +122,20 @@ public class Minute_Data_Impl implements Minute_Data_Service {
                 int num = Integer.parseInt(line);
                 String[] minute = new String[num];
                 Double[] prices = new Double[num];
+                System.out.println(line);
                 for (int i = 0; i < num; i++) {
                     minute[i] = in.readLine();
+                    System.out.println(minute[i]);
                     prices[i] = Double.parseDouble(in.readLine());
+                    System.out.println(prices[i]);
                 }
                 minute = (String[]) reverse(minute);
                 prices = (Double[]) reverse(prices);
 
                 prediction = Double.parseDouble(in.readLine());
                 relativity = Double.parseDouble(in.readLine());
+//                System.out.println(in.readLine());
+//                System.out.println(in.readLine());
                 double minimum = prices[0];
                 for (int i = 0; i < prices.length; i++) {
                     if (minimum > prices[i]) {
