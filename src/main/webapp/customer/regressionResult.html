@@ -6,27 +6,27 @@
 
     <!-- Bootstrap core CSS -->
     <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="https://cdn.bootcss.com/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet">
-    <!--<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">-->
-    <!--<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>-->
-    <!--<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
     <style type="text/css">
         #input {
             margin-top: 20px;
         }
 
-        ul {
-            text-align: center;
-
-        }
-
         .nav-tabs > li {
             width: 20%;
-            background-color: #0064b4;
+            background-color: #004fa2;
         }
 
         a {
             color: #ffffff
+        }
+
+        ul {
+            text-align: center;
         }
 
         th {
@@ -37,19 +37,12 @@
             text-align: center;
         }
 
-        /*a:hover {*/
-        /*color: #000000*/
-        /*}*/
-
-        .nav > li:hover .dropdown-menu {
-            display: block;
-        }
     </style>
 
     <script type="text/javascript" src="json2-min.js"></script>
 </head>
 <body style="background: #efeff4" onload="start()">
-<div class="container-fluid">
+<div class="container-fluid" style="background: url(lgBg1.jpg);background-size: 100%">
     <div class="navbar-header">
         <img src="stock2.png" class="img-rounded">
     </div>
@@ -84,11 +77,11 @@
 </div>
 <div class="collapse navbar-collapse" id="navbar-collapse-6">
     <ul class="nav nav-tabs">
-        <li><a href="index.html">首页</a></li>
-        <li><a href="singleSearch.html">股票数据</a></li>
-        <li><a href="market_2.html">行情信息</a></li>
-        <li class="active"><a href="#">回测</a></li>
-        <li><a href="news.html">新闻</a></li>
+        <li><a href="index.html"><span class="glyphicon glyphicon-home"></span>&nbsp&nbsp&nbsp首页</a></li>
+        <li><a href="singleSearch.html"><span class="glyphicon glyphicon-stats"></span>&nbsp&nbsp&nbsp股票数据</a></li>
+        <li><a href="market_1.html"><span class="glyphicon glyphicon-file"></span>&nbsp&nbsp&nbsp行情信息</a></li>
+        <li class="active"><a href="regressionSetting.html"><span class="glyphicon glyphicon-tags"></span>&nbsp&nbsp&nbsp回测</a></li>
+        <li><a href="news.html"><span class="glyphicon glyphicon-book"></span>&nbsp&nbsp&nbsp新闻</a></li>
     </ul>
 </div>
 
@@ -221,10 +214,10 @@
     var message;
 
     function start() {
-        thisURL = document.URL;
-        getval = thisURL.split("?")[1];
-        message = decodeURIComponent(getval.split("=")[1]);
 
+        if (typeof(Storage) !== "undefined") {
+            message = decodeURIComponent(sessionStorage["message"]);
+        }
         //    var message = new Array(8)
         //    for(var i = 0;i<8;i++){
         //        message[i] = getval.split("&")[i]
@@ -353,7 +346,12 @@
         var newMessage = JSON.stringify(newObj);
         var messageStr = encodeURIComponent(newMessage);
         alert(messageStr);
-        window.location.href = "superVariance.html?message=" + messageStr;
+        if (typeof(Storage) !== "undefined") {
+            sessionStorage["message"] = messageStr;
+        } else {
+            sessionStorage["message"] = '';
+        }
+        window.location.href = "superVariance.html";
 
     }
 

@@ -581,7 +581,7 @@
             type = 2;
         }
         var isPla;
-        var trs = document.getElementById("stocktable").rows;
+        var trs = document.getElementById("addtable").rows;
 //        alert(trs.length)
 
         if (document.getElementById("single").className == "active") {
@@ -613,7 +613,12 @@
         alert(stocks);
         var messageObj = new getmessage(type, dtp_input1.value, dtp_input2.value, shapeTime.value, holtTime.value, isPla, stocks);
         var messageStr = encodeURIComponent(JSON.stringify(messageObj));
-        window.location.href = "regressionResult.html?message=" + messageStr;
+        if (typeof(Storage) !== "undefined") {
+            sessionStorage["message"] = messageStr;
+        } else {
+            sessionStorage["message"] = '';
+        }
+        window.location.href = "regressionResult.html";
 //        window.location.href("regressionResult.html?strategy=" + strategy.value
 //            + "&startdate=" + startdate.value + "&enddate=" + enddate.value
 //            + "&holtTime=" + holtTime.value + "&shapeTime=" + shapeTime.value
