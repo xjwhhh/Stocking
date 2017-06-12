@@ -221,10 +221,10 @@
     var message;
 
     function start() {
-        thisURL = document.URL;
-        getval = thisURL.split("?")[1];
-        message = decodeURIComponent(getval.split("=")[1]);
 
+        if (typeof(Storage) !== "undefined") {
+            message = decodeURIComponent(sessionStorage["message"]);
+        }
         //    var message = new Array(8)
         //    for(var i = 0;i<8;i++){
         //        message[i] = getval.split("&")[i]
@@ -353,7 +353,12 @@
         var newMessage = JSON.stringify(newObj);
         var messageStr = encodeURIComponent(newMessage);
         alert(messageStr);
-        window.location.href = "superVariance.html?message=" + messageStr;
+        if (typeof(Storage) !== "undefined") {
+            sessionStorage["message"] = messageStr;
+        } else {
+            sessionStorage["message"] = '';
+        }
+        window.location.href = "superVariance.html";
 
     }
 

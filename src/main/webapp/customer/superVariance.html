@@ -139,9 +139,10 @@
     var winChance;
     function start() {
         var url = "http://localhost:8080/bgraph";
-        var thisURL = document.URL;
-        var getval = thisURL.split("?")[1];
-        var message = decodeURIComponent(getval.split("=")[1]);
+        var message;
+        if (typeof(Storage) !== "undefined") {
+            message = decodeURIComponent(sessionStorage["message"]);
+        }
         alert(JSON.stringify(message));
         $.ajax({
             type: "POST",
