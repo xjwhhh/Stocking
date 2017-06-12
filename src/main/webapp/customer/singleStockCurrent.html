@@ -233,18 +233,15 @@
 
 
         function Collection(){
+            var url="http://localhost:8080/collection";
             var ss=sessionStorage;
+
             if(ss.getItem("login")==null){
                 alert("请先登录");
             }else{
                 customerID = ss.getItem("login");
-                alert(customerID);
-//                alert()
-                var key = JSON.stringify(new getCollectionKey("add",customerID,stockCode));
-//            alert("aaaaaa");
-//        alert(key);
-//                alert(date);
-//            alert("success");
+                var key = JSON.stringify(new getCollectionKey("add",customerID,"1"));
+
                 $.ajax({
 
                     type: "POST",
@@ -252,7 +249,8 @@
                     data: key,
                     dataType: "json",//此处要设置成json
                     success: function (data) {
-
+                        var v=data[0].name;
+                       alert("已添加");
                     }
                 });
 

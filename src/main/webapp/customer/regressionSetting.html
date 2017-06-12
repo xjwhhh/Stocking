@@ -211,9 +211,9 @@
 
 
                     <div style=";margin-top: 2%">
-                        <input style="width: 16%" type="text" id="search" placeholder="输入股票名／编号">
+                        <input style="width: 16%" type="text" id="searchInput" placeholder="输入股票名／编号">
                         <button type="button"
-                                class="btn btn-default btn-sm">
+                                class="btn btn-default btn-sm" onclick="singleAdd()">
                             <span class="glyphicon glyphicon-plus"></span>
                         </button>
                     </div>
@@ -546,14 +546,24 @@
 
     function ChooseStock(obj) {
 
-        var c= $(obj).parent().parent().children("td").eq(0).text();
+        var c= $(obj).parent().parent().children("td").eq(1).text();
                                 alert("stockCHose :"+c);
-
-
+        stocks.push(c);
 
     }
     //全选按钮
     function ChooseAll() {
+        for(var i=0;i<tempList.length;i++){
+            stocks.push(tempList[i]);
+
+        }
+
+
+    }
+    function singleAdd() {
+
+        var temp = document.getElementById("searchInput").value;
+        stocks.push(temp);
     }
 
 
