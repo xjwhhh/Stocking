@@ -29,10 +29,27 @@
             color: #333333
         }
     </style>
+    <script>
 
-    <!--<script type="text/javascript" src="http://hq.sinajs.cn/list=sh601006" charset="gb2312"></script>-->
+    </script>
+
+    <!--<script type="text/javascript">-->
+        <!--var code="601006";-->
+        <!--var path="http://hq.sinajs.cn/list=sh";-->
+        <!--document.write('<script type="text/javascript" src="'+path+code+'" charset="gb2312">'+'</scr'+'ipt>')-->
+    <!--</script>-->
+    <!--<script type="text/javascript">-->
+        <!--var elements=eval("hq_str_sh"+code).split(",");-->
+        <!--alert(elements[0]);-->
+    <!--</script>-->
     <script type="text/javascript" id="firstscript" charset="gb2312"></script>
 
+    <!--<script>-->
+        <!--alert("aaa");-->
+        <!--document.getElementById("js").src=v;-->
+        <!--var elements = eval("hq_str_sh"+"601006").split(",");-->
+        <!--alert(elements[3]);-->
+    <!--</script>-->
 
     <script>
         //        全局变量
@@ -40,7 +57,7 @@
         var stockCode;
         var thisURL = document.URL;
         var getval = thisURL.split('?')[1];
-        stockName = getval.split("=")[1]
+        stockName = getval.split("=")[1];
         var getval1 = thisURL.split('?')[2];
         stockCode = getval1.split("=")[1];
         var minuteList = [];
@@ -67,16 +84,11 @@
 
 
         function showvalf() {
-//            alert(showval);
-//            document.getElementById('ee').value=showval;
+
+
         }
         //        通过新浪数据借口得到值
-        //        var elements = temp.split(",");
-        //        var openToday = elements[1];
-        //        var closeYesterday = elements[2];
-        //        var priceNow = elements[3];
-        //        var highToday = elements[4];
-        //        var lowToday = elements[5];
+
 
 
         function getKey(typestr, identifier) {
@@ -97,6 +109,15 @@
             document.location.href && (document.location.href = "singleStockHistory.html?stockName=" + stockName + "?startDate=" + startDate + "?endDate=" + endDate);
         }
         function CurrentLoads() {
+
+            var code="601006";
+            var v="http://hq.sinajs.cn/list=sh"+code;
+
+            //alert("aaa");
+            document.getElementById("js").src=v;
+            var elements = eval("hq_str_sh"+"601006").split(",");
+            alert(elements[3]);
+
 
             //判断是否已登陆
             var sstorage = sessionStorage;
@@ -149,7 +170,7 @@
                     minimum = data[0].minimum;
                     prediction = data[0].prediction;
                     relativity = data[0].relativity;
-                    alert(data[0].toString())
+                    alert(data[0].toString());
 
 
 //                    alert("hah"+minuteList[0]);
@@ -264,6 +285,15 @@
 
         //        document.getElementById("quote-high").value=100000;
     </script>
+    <script type="text/javascript">
+        var code=stockCode;
+        var path="http://hq.sinajs.cn/list=sh";
+        document.write('<script type="text/javascript" src="'+path+code+'" charset="gb2312">'+'</scr'+'ipt>')
+    </script>
+    <script type="text/javascript">
+        var elements=eval("hq_str_sh"+code).split(",");
+//        alert(elements[0]);
+    </script>
 
     <!--<script type="text/javascript" src="http://hq.sinajs.cn/list=sh601006" charset="gb2312"></script>-->
 
@@ -335,14 +365,14 @@
     <table style="margin-top: 20px" class="topTable">
         <tbody>
         <tr>
-            <td>今开：<span><script>document.write(openToday)</script></span></td>
-            <td>昨收：<span id="quote-high"><script>document.write(highToday)</script></span></td>
+            <td>今开：<span><script>document.write(elements[1])</script></span></td>
+            <td>昨收：<span id="quote-high"><script>document.write(elements[2])</script></span></td>
             <!--<td>52周最高：<span>8.83</span></td>-->
-            <td>当前价格：<span><script>document.write(priceNow)</script></span></td>
+            <td>当前价格：<span><script>document.write(elements[3])</script></span></td>
         </tr>
         <tr class="seperateTop">
-            <td>今日最高价：<span><script>document.write(highToday)</script></span></td>
-            <td>今日最低价：<span id="quote-low"><script>document.write(lowToday)</script></span></td>
+            <td>今日最高价：<span><script>document.write(elements[4])</script></span></td>
+            <td>今日最低价：<span id="quote-low"><script>document.write(elements[5])</script></span></td>
             <td>成交金额:<span><script>document.write(elements[9])</script></span></td>
 
         </tr>
