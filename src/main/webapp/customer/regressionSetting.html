@@ -452,6 +452,9 @@
 <script type="text/javascript" src="bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.fr.js"
         charset="UTF-8"></script>
 <script type="text/javascript">
+    //需要传输的股票所存入的数组（数组里只存变量）
+    var stocks = new Array();
+
     //日期选择器
     $('.form_datetime').datetimepicker({
         //language:  'fr',
@@ -579,7 +582,7 @@
         var isPla;
         var trs = document.getElementById("stocktable").rows;
 //        alert(trs.length)
-        var stocks = new Array();
+
         if (document.getElementById("single").className == "active") {
             isPla = 0;
             for (var j = 1; j < trs.length; j++) {
