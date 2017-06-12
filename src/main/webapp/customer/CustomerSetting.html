@@ -86,35 +86,36 @@
 
                     names=data[0].name;
                     codes=data[0].code;
-
+//
                 }});
-            for (var i = 0; i < names.length; i++) {
-                var x = document.getElementById("myCollection").insertRow(i);
+            if(codes==""){
+                alert("您还未添加收藏");
+            }else {
+
+                for (var i = 0; i < names.length; i++) {
+                    var x = document.getElementById("myCollection").insertRow(i);
 //                alert("find");
+                    var y = x.insertCell(0);
+                    var z = x.insertCell(1);
+                    var de = x.insertCell(2);
+                    y.innerHTML = names[i];
+                    z.innerHTML = codes[i];
+                    de.innerHTML = "<button type='button' class='btn btn-default btn-sm' onclick='Delete(this)'> 删除</button>";
+
+                }
+                var x = document.getElementById("myCollection").insertRow(0);
                 var y = x.insertCell(0);
                 var z = x.insertCell(1);
-                var de=x.insertCell(2);
-                y.innerHTML = names[i] ;
-                z.innerHTML = codes[i];
-                de.innerHTML="<button type='button' class='btn btn-default btn-sm' onclick='Delete(this)'> 删除</button>";
-
-            }
-            var x = document.getElementById("myCollection").insertRow(0);
-            var y = x.insertCell(0);
-            var z = x.insertCell(1);
-            var de=x.insertCell(2);
+                var de = x.insertCell(2);
 //                        var zz = x.insertCell(2);
-            y.innerHTML = "股票名称";
-            z.innerHTML = "股票编号";
-            de.innerHTML="删除";
+                y.innerHTML = "股票名称";
+                z.innerHTML = "股票编号";
+                de.innerHTML = "删除";
 //                        zz.innerHTML = "收藏"
 //            document.getElementById('numberOfSearch').innerHTML = stockList.length;
 
 
-
-
-
-
+            }
 
         }
 
