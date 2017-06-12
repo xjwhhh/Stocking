@@ -93,7 +93,7 @@
                     <div class="col-md-6">当前点数<p id="当前点数1" style="color: #ff4b44; font-size: 2em;">a</p></div>
                 </div>
                 <div class="col-md-12">
-                    <div class="col-md-6">当前价格<p id="当前价格1" style="color: #ff4b44; font-size: 1.2em;">a</p></div>
+                    <div class="col-md-6">今日价格涨跌<p id="当前价格1" style="color: #ff4b44; font-size: 1.2em;">a</p></div>
                     <div class="col-md-6">涨跌率<p id="涨跌率1" style="color: #ff4b44; font-size: 2em;">a</p></div>
                 </div>
                 <div class="col-md-12">
@@ -112,7 +112,7 @@
                     <div class="col-md-6">当前点数<p id="当前点数2" style="color: #ff4b44; font-size: 2em;">a</p></div>
                 </div>
                 <div class="col-md-12">
-                    <div class="col-md-6">当前价格<p id="当前价格2" style="color: #ff4b44; font-size: 1.2em;">a</p></div>
+                    <div class="col-md-6">今日价格涨跌<p id="当前价格2" style="color: #ff4b44; font-size: 1.2em;">a</p></div>
                     <div class="col-md-6">涨跌率<p id="涨跌率2" style="color: #ff4b44; font-size: 2em;">a</p></div>
                 </div>
                 <div class="col-md-12">
@@ -129,7 +129,7 @@
         </div>
     </div>
 
-    <div id="news">
+    <div id="news" style="">
         <h5>新闻专栏</h5>
         <hr/>
         <!--<div class="news_1">-->
@@ -152,7 +152,7 @@
         <!--&lt;!&ndash;<a href="#">新闻5</a>&ndash;&gt;-->
         <!--</div>-->
         <div style="height: 100px;line-height: 100px;background: white;">
-            <a href="#" id="url1" target="_blank">
+            <a href="#" id="url1" target="_blank" style="color:black">
                 <div class="col-md-2" id="classify1"></div>
                 <div class="col-md-8" id="title1"></div>
                 <div class="col-md-2" id="time1" style="font-size: 1em"></div>
@@ -160,7 +160,7 @@
         </div>
         <br>
         <div style="height: 100px;line-height: 100px;background: white;">
-            <a href="#" id="url2" target="_blank">
+            <a href="#" id="url2" target="_blank" style="color:black">
                 <div class="col-md-2" id="classify2"></div>
                 <div class="col-md-8" id="title2"></div>
                 <div class="col-md-2" id="time2" style="font-size: 1em"></div>
@@ -168,7 +168,7 @@
         </div>
         <br>
         <div style="height: 100px;line-height: 100px;background: white;">
-            <a href="#" id="url3" target="_blank">
+            <a href="#" id="url3" target="_blank" style="color:black">
                 <div class="col-md-2" id="classify3"></div>
                 <div class="col-md-8" id="title3"></div>
                 <div class="col-md-2" id="time3" style="font-size: 1em"></div>
@@ -176,7 +176,7 @@
         </div>
         <br>
         <div style="height: 100px;line-height: 100px;background: white;">
-            <a href="#" id="url4" target="_blank">
+            <a href="#" id="url4" target="_blank" style="color:black">
                 <div class="col-md-2" id="classify4"></div>
                 <div class="col-md-8" id="title4"></div>
                 <div class="col-md-2" id="time4" style="font-size: 1em"></div>
@@ -184,7 +184,7 @@
         </div>
         <br>
         <div style="height: 100px;line-height: 100px;background: white;">
-            <a href="#" id="url5" target="_blank">
+            <a href="#" id="url5" target="_blank" style="color:black">
                 <div class="col-md-2" id="classify5"></div>
                 <div class="col-md-8" id="title5"></div>
                 <div class="col-md-2" id="time5" style="font-size: 1em"></div>
@@ -258,49 +258,39 @@
     function posttype(op) {
         this.op = op;
     }
-    function judgeLogin(){
+    function judgeLogin() {
         //判断是否已登陆
 
 //            alert("ok");
         //判断是否登陆
         var sstorage = sessionStorage;
-        if(sstorage.getItem("login")==null){
-            var ul=document.getElementById("login");
+        if (sstorage.getItem("login") == null) {
+            var ul = document.getElementById("login");
 
-            var li=document.createElement("li");
+            var li = document.createElement("li");
 
-            li.innerHTML="<a href='login.html' target='_blank' style='height: 80px;line-height: 60px; font-size:1.0em'>登录</a>";
+            li.innerHTML = "<a href='login.html' target='_blank' style='height: 80px;line-height: 60px; font-size:1.0em'>登录</a>";
 
             ul.appendChild(li);
 
-            var li2=document.createElement("li");
-            li2.innerHTML="<a href='signup.html' style='height: 80px;line-height: 60px; font-size:1.0em'>注册</a>";
+            var li2 = document.createElement("li");
+            li2.innerHTML = "<a href='signup.html' style='height: 80px;line-height: 60px; font-size:1.0em'>注册</a>";
             ul.appendChild(li2);
 
-        }else{
-            var ul=document.getElementById("login");
+        } else {
+            var ul = document.getElementById("login");
 
-            var li=document.createElement("li");
+            var li = document.createElement("li");
 
-            li.innerHTML="<a href='CustomerSetting.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>用户设置</a>";
+            li.innerHTML = "<a href='CustomerSetting.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>用户设置</a>";
 
             ul.appendChild(li);
 
         }
 
 
-
-
-
-
-
     }
     function getnews() {
-
-
-
-
-
 
 
         var url = "http://localhost:8080/news";
