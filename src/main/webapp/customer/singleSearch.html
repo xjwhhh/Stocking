@@ -726,7 +726,8 @@
                             var x = document.getElementById("stockTable").insertRow(i);
                             var y = x.insertCell(0);
                             var z = x.insertCell(1);
-                            y.innerHTML = "<a href='singleStockCurrent.html?stockNameInput=" + stockList[i] + "'>" + stockList[i] + "</a>";
+                           var stockName=encodeURIComponent(stockList[i]);
+                            y.innerHTML = "<a href='singleStockCurrent.html?stockNameInput=" + stockName + "'>" + stockName + "</a>";
                             z.innerHTML = codeList[i];
 
                         }
