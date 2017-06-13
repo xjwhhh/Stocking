@@ -48,7 +48,7 @@ public class BGraph_Data_Impl implements BGraph_Data_Service {
                     InputStreamReader(pr.getInputStream(), "gbk"));
             String line = in.readLine();
             System.out.print(line);
-            if (tools.isInteger(line)) {
+            if (line!=null&&tools.isInteger(line)) {
                 int num = Integer.parseInt(line);
                 Double[] profits = new Double[num];
                 Double[] winChance = new Double[num];
@@ -67,18 +67,4 @@ public class BGraph_Data_Impl implements BGraph_Data_Service {
         }
         return null;
     }
-//
-//    public static void main(String [] args) throws  Exception{
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//        Date startDate = formatter.parse("2016-03-01");
-//        Date endDate = formatter.parse("2016-06-01");
-//        String[] array = new String[]{"000001", "000002", "000004", "300001", "300002", "300003"};
-//        JSONArray jsonArray = JSONArray.fromObject(array);
-////        System.out.print(bGraph_data_service.get("1", startDate, endDate, "1", 20, "0", jsonArray) == null);
-//        BGraph_Data_Service bGraph_data_service=new BGraph_Data_Impl();
-//        BGraphPO bGraphPO = bGraph_data_service.get("1", startDate, endDate, "1", 20, "0", jsonArray);
-//        JSONObject json = JSONObject.fromObject(bGraphPO);//将java对象转换为json对象
-//        String str = json.toString();//将json对象转换为字符串
-//        System.out.print(str);
-//    }
 }

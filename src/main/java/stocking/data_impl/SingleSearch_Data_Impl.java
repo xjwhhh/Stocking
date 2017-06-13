@@ -76,7 +76,7 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
             //判断该股票代码是否存在
             if (code_name.containsKey(identifier)) {
                 section = getSectionByCode(identifier);
-                System.out.println("code");
+//                System.out.println("code");
             } else {
                 return null;
             }
@@ -84,7 +84,7 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
             if (name_code.containsKey(identifier)) {
                 identifier = name_code.get(identifier);
                 section = getSectionByCode(identifier);
-                System.out.println("name");
+//                System.out.println("name");
             } else {
                 return null;
             }
@@ -104,8 +104,8 @@ public class SingleSearch_Data_Impl implements SingleSearch_Data_Service {
                         InputStreamReader(pr.getInputStream(), "gbk"));
                 String line;
                 line = in.readLine();//个数
-                System.out.println(line);
-                if (tools.isInteger(line)&&Integer.parseInt(line)>0) {
+//                System.out.println(line);
+                if (line!=null&&tools.isInteger(line)&&Integer.parseInt(line)>0) {
                     String name = code_name.get(identifier);
                     String code = identifier;
                     String start = startDateStr;

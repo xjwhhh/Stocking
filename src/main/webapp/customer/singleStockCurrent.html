@@ -64,24 +64,7 @@
 if(getval1=="1"){
     alert("mingzi");
     stockName = decodeURIComponent(stockName);
-    var url="http://localhost:8080/codename";
-    var key = JSON.stringify(new getPlate("all"));
-//        alert(key);
-//                alert(date);
-//            alert("success");
-    $.ajax({
 
-        type:"POST",
-        url:url,
-        data:key,
-        dataType: "json",//此处要设置成json
-        async : false,
-        success: function (data) {
-
-            allNames = data[0].name;
-            allCodes = data[0].code;
-//                alert(alerallNames.length);
-        }});
 
     for(var i=0;i<allNames.length;i++){
         if(stockName==allNames[i]){
@@ -107,11 +90,6 @@ if(getval1=="1"){
         var relativity;
         var customerID;
 
-//        stockName = decodeURIComponent(stockName);
-
-        //        alert("sss");
-
-        //        alert(stockName);
         document.getElementById("stockName").value = stockName;
 
 
@@ -121,6 +99,50 @@ if(getval1=="1"){
         //        alert()
 
         //        var temp = eval("hq_str_sh" + stockCode);
+
+
+        var url = "http://localhost:8080/singleStock";
+        //            stockName = "a";
+        var key = JSON.stringify(new getKey("minute", stockName));
+        //            alert("aaaaaa");
+        //        alert(key);
+        //                alert(date);
+        //            alert("success");
+        $.ajax({
+
+            type: "POST",
+            url: url,
+            data: key,
+            dataType: "json",//此处要设置成json
+            success: function (data) {
+
+                alert("success");
+                minuteList = data[0].minute;
+                priceList = data[0].prices;
+                minimum = data[0].minimum;
+                prediction = data[0].prediction;
+                relativity = data[0].relativity;
+                alert(data[0].toString());
+//                document.getElementById("prediction").value=prediction;
+//                document.getElementById("relativity").value=relativity;
+
+
+//                    alert("hah"+minuteList[0]);
+                ShowTimeChart();
+//                alert(allNames.length);
+            }
+        });
+
+
+//        document.getElementById("prediction").value=prediction;
+//        document.getElementById("relativity").value=relativity;
+
+
+
+
+
+
+
 
 
         function showvalf() {
@@ -179,6 +201,7 @@ if(getval1=="1"){
                 url: url,
                 data: key,
                 dataType: "json",//此处要设置成json
+                async : false,
                 success: function (data) {
 
                     alert("success");
@@ -187,7 +210,24 @@ if(getval1=="1"){
                     minimum = data[0].minimum;
                     prediction = data[0].prediction;
                     relativity = data[0].relativity;
-                    alert(data[0].toString());
+
+
+//                    document.getElementById("pre").value=prediction;
+
+//                    alert(prediction);
+
+                    var x = document.getElementById("resultShow").insertRow(0);
+                    alert(prediction);
+                    var vv = x.insertCell(0);
+
+//                        var vvvvv = x.insertCell(5);
+                    vv.innerHTML = "上涨预测:"+prediction;
+
+                    var y=x.insertCell(1);
+                    y.innerHTML = "市场相关系数"+relativity;
+//                    z.innerHTML =codesToCompare[v];
+//                    vv.innerHTML=high;
+//                    vvv.innerHTML=low;
 
 
 //                    alert("hah"+minuteList[0]);
@@ -197,6 +237,8 @@ if(getval1=="1"){
             });
 
 
+//            document.getElementById("prediction").value=prediction;
+//            document.getElementById("relativity").value=relativity;
 //            alert("load");
             //判断是否已登陆
             var sstorage = sessionStorage;
@@ -225,6 +267,10 @@ if(getval1=="1"){
                 ul.appendChild(li);
 
             }
+
+
+
+
         }
         function ShowTimeChart() {
             var myChart = echarts.init(document.getElementById("fenshi"));
@@ -236,9 +282,7 @@ if(getval1=="1"){
                 tooltip: {
                     trigger: 'axis'
                 },
-                legend: {
-                    data: ['A', 'B']
-                },
+
                 //右上角工具条
                 toolbox: {
                     show: true,
@@ -344,7 +388,7 @@ if(getval1=="1"){
 </head>
 <body onload="CurrentLoads()">
 <!--<body onload="alert(123)">-->
-<div class="container-fluid" style="background: url(lgBg1.jpg);background-size: 100%">
+<div  class="container-fluid" style="background: url(lgBg1.jpg);background-size: 100%">
     <div class="navbar-header">
         <img src="stock2.png" class="img-rounded">
     </div>
@@ -356,18 +400,23 @@ if(getval1=="1"){
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Stocking</a>
+        <a class="navbar-brand" href="#" style="height: 100px;line-height: 70px; font-size:4em">Stocking</a>
     </div>
-    <div id="navbar" class="navbar-collapse collapse">
-        <ul id="login" class="nav navbar-nav navbar-right">
-
+    <div class="navbar-collapse collapse">
+        <ul  id="login" class="nav navbar-nav navbar-right">
+            <!--<li><a href="login.html" target="_blank" style="height: 100px;line-height: 70px; font-size:1.2em">登录</a>-->
+            <!--</li>-->
+            <!--<li>f</li>-->
         </ul>
         <form class="navbar-form navbar-right" action="#" role="search">
             <div class="form-group">
-                <div class="input-group">
-                    <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
+                <div class="input-group" id="input">
+                    <input class="form-control" id="navbarInput-01" type="search" placeholder="Search"
+                           style="height: 45px;padding: 10px 15px;font-size: 17px;line-height: 1.235; width:300px">
                     <span class="input-group-btn">
-                  <button type="submit" class="btn"><span class="fui-search"></span></button>
+                  <button type="submit" class="btn"
+                          style="height: 45px;padding: 10px 15px;font-size: 17px;line-height: 1.235"><span
+                          class="fui-search "></span></button>
                 </span>
                 </div>
             </div>
@@ -376,22 +425,16 @@ if(getval1=="1"){
 </div>
 <div class="collapse navbar-collapse" id="navbar-collapse-6">
     <ul class="nav nav-tabs">
-        <li><a href="#">首页</a></li>
-        <li class="active"><a href="singleSearch.html">股票数据</a>
+        <li><a style="color: white" href="index.html"><span class="glyphicon glyphicon-home"></span>&nbsp&nbsp&nbsp首页</a></li>
+        <li class="active"><a href="singleSearch.html"><span class="glyphicon glyphicon-stats"></span>&nbsp&nbsp&nbsp股票数据</a>
 
         </li>
-        <li><a href="market_1.html">行情信息</a></li>
-        <li><a href="regressionTest.html">回测</a>
-            <ul class="dropdown-menu">
-                <li><a href="#">策略一</a></li>
-                <li><a href="#">策略二</a></li>
-                <!--<li><a href="#">Jasper Report</a></li>-->
-
-            </ul>
-        </li>
-        <li><a href="news.html">新闻</a></li>
+        <li><a href="market_1.html"><span class="glyphicon glyphicon-file"></span>&nbsp&nbsp&nbsp行情信息</a></li>
+        <li><a href="regressionSetting.html"><span class="glyphicon glyphicon-tags"></span>&nbsp&nbsp&nbsp回测</a></li>
+        <li><a href="news.html"><span class="glyphicon glyphicon-book"></span>&nbsp&nbsp&nbsp新闻</a></li>
     </ul>
 </div>
+
 
 <div style="margin-top: 20px" class="main">
     <div class="stockTile">
@@ -406,8 +449,12 @@ if(getval1=="1"){
             </span>
         </span>
     </div>
-    <table style="margin-top: 20px" class="topTable">
+
+
+    <table  id="resultShow" style="margin-top: 20px" class="topTable">
         <tbody>
+
+
         <tr>
             <td>今开：<span><script>document.write(elements[1])</script></span></td>
             <td>昨收：<span id="quote-high"><script>document.write(elements[2])</script></span></td>
