@@ -2,6 +2,9 @@ package stocking.data_impl;
 
 import net.sf.json.JSONArray;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.regex.Pattern;
 
 /**
@@ -62,13 +65,28 @@ public class Tools {
      * @return
      */
     public String jsonArrayToString(JSONArray jsonArray) {
+        ArrayList<String> aarryList = new ArrayList<String>();
         String arr = "";
         if (jsonArray.size() > 0) {
             for (int i = 0; i < jsonArray.size() - 1; i++) {
-                arr += (jsonArray.getString(i) + "/");
+                aarryList.add(jsonArray.getString(i));
             }
-            arr += (jsonArray.getString(jsonArray.size() - 1));
+            aarryList.add(jsonArray.getString(jsonArray.size() - 1));
         }
+        HashSet<String> hashSet = new HashSet<String>(aarryList);
+        hashSet.clear();
+        Iterator<String> it = hashSet.iterator();
+        while (it.hasNext()) {
+            arr += (it.next() + "/");
+        }
+        arr.substring(0, arr.length() - 1);
         return arr;
     }
+    
 }
+
+
+
+
+
+
