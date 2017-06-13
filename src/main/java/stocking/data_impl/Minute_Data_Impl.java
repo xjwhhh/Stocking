@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
+import java.text.*;
 
 /**
  * Created by xjwhhh on 2017/6/4.
@@ -130,18 +131,24 @@ public class Minute_Data_Impl implements Minute_Data_Service {
                 minute = (String[]) reverse(minute);
                 prices = (Double[]) reverse(prices);
                 if((line=in.readLine())!=null) {
-
                     prediction = Double.parseDouble(line);
+                    DecimalFormat decimalFormat = new DecimalFormat();
+                    decimalFormat.applyPattern("0.#");
+                    String testdf = decimalFormat.format(prediction);
+                    prediction = Double.parseDouble(testdf);
                 }
                 else{
                     prediction=0.5;
                 }
                 if((line=in.readLine())!=null) {
-
                     relativity = Double.parseDouble(line);
+                    DecimalFormat decimalFormat = new DecimalFormat();
+                    decimalFormat.applyPattern("0.#");
+                    String testdf = decimalFormat.format(relativity);
+                    relativity = Double.parseDouble(testdf);
                 }
                 else{
-                    prediction=0;
+                    relativity = 0;
                 }
 //                System.out.println(in.readLine());
 //                System.out.println(in.readLine());
