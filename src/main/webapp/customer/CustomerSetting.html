@@ -92,15 +92,18 @@
                 alert("您还未添加收藏");
             }else {
 
-                for (var i = 0; i < names.length; i++) {
-                    var x = document.getElementById("myCollection").insertRow(i);
+
+                for (var i = 0; i < names.length-1; i++) {
+
+                        var x = document.getElementById("myCollection").insertRow(i);
 //                alert("find");
-                    var y = x.insertCell(0);
-                    var z = x.insertCell(1);
-                    var de = x.insertCell(2);
-                    y.innerHTML ="<span class='label label-info'>"+ names[i]+"</span>";
-                    z.innerHTML = codes[i];
-                    de.innerHTML = "<button type='button' class='btn btn-danger btn-sm' onclick='Delete(this)'> 删除</button>";
+                        var y = x.insertCell(0);
+                        var z = x.insertCell(1);
+                        var de = x.insertCell(2);
+//                        alert(names[i]);
+                        y.innerHTML = names[i+1];
+                        z.innerHTML = codes[i+1];
+                        de.innerHTML = "<button type='button' class='btn btn-danger btn-sm' onclick='Delete(this)'> 删除</button>";
 
                 }
                 var x = document.getElementById("myCollection").insertRow(0);

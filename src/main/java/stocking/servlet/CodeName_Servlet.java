@@ -25,6 +25,7 @@ public class CodeName_Servlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject jsonObject = new ToJSON().toJSONObject(request);
+        System.out.print(jsonObject.toString());
         if (jsonObject == null) {
             return;
         }

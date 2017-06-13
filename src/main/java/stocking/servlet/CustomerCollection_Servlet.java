@@ -38,10 +38,12 @@ public class CustomerCollection_Servlet extends HttpServlet {
 
         if (op.equals("get")) {
             CollectionPO result = cds.getCollection(id);
+            response.setCharacterEncoding("utf-8");
             new SendByServlet().doSend(response, result);
         } else {
             String code = jsonObject.getString("code");
             CollectionPO success = cds.execute(op, id, code);
+            response.setCharacterEncoding("utf-8");
             new SendByServlet().doSend(response, success);
         }
     }

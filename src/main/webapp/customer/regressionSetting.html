@@ -173,9 +173,10 @@
             </div>
         </div>
 
-        <div class="col-md-6">
+        <div style="height: 170px;overflow-x: auto;overflow-y: auto;margin-top: 4%" class="col-md-6">
+
             <h6>已选股票</h6>
-            <table style="width: 80%;" border="4" id="addTable">
+            <table style="height:250px;width: 80%;" border="1" id="addTable">
                 <thead>
 
                 <tr>
@@ -865,6 +866,7 @@
     function ChooseAll() {
         for (var i = 0; i < tempList.length; i++) {
             stocks.push(tempList[i]);
+//            alert(tempList[i])
 
         }
 
