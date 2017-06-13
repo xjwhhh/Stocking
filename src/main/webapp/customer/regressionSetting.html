@@ -892,8 +892,8 @@
     //添加已选股票
     function addstocks() {
         var newTr = document.getElementById("addTable");
-        alert(newTr);
-        alert(JSON.stringify(stocks));
+//        alert(newTr);
+//        alert(JSON.stringify(stocks));
 //        var tr=document.createElement("tr");
 //        var td1=document.createElement("td");
 //        var td2=document.createElement("td");
@@ -990,6 +990,8 @@
         } else {
             sessionStorage["message"] = '';
         }
+        stocks.splice(0,stocks.length);
+        alert(stocks);
         window.location.href = "regressionResult.html";
 //        window.location.href("regressionResult.html?strategy=" + strategy.value
 //            + "&startdate=" + startdate.value + "&enddate=" + enddate.value
