@@ -64,7 +64,7 @@ public class Strategy_Data_Impl implements Strategy_Data_Service {
             double sharpeRatio = Double.parseDouble(data[4]);
             double maxDrawDown = Double.parseDouble(data[5]);//最大回撤
             String line = in.readLine();
-            if (tools.isInteger(line)) {
+            if (line!=null&&tools.isInteger(line)) {
                 int num = Integer.parseInt(line);
                 String[] dates = new String[num];
                 Double[] profits = new Double[num];

@@ -76,7 +76,7 @@ public class GetNews_Data_Impl implements GetNews_Data_Service {
 
     private NewsPO getNewsPO(BufferedReader in, String line) {
         try {
-            if (tools.isInteger(line)) {
+            if (line!=null&&tools.isInteger(line)) {
                 int num = Integer.parseInt(line);
                 String[] classify = new String[num];
                 String[] title = new String[num];
