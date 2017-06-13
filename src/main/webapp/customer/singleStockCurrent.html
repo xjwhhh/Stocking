@@ -61,24 +61,10 @@
         var getval1 = thisURL.split('?')[2];
         var allNames;
         var allCodes;
-if(getval1=="1"){
-    alert("mingzi");
-    stockName = decodeURIComponent(stockName);
 
-
-    for(var i=0;i<allNames.length;i++){
-        if(stockName==allNames[i]){
-            stockCode=allCodes[i];
-//            alert("code"+stockCode);
-            break;
-        }
-    }
-
-}else{
 
     stockName = decodeURIComponent(stockName);
     stockCode=getval1.split("=")[1];
-}
 
 
 

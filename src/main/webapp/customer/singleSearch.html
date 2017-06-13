@@ -741,7 +741,8 @@
                             var y = x.insertCell(0);
                             var z = x.insertCell(1);
                            var stockName=encodeURIComponent(stockList[i]);
-                            y.innerHTML = "<a style='color: black' href='singleStockCurrent.html?stockNameInput=" + stockList[i] +"?1"+ "'>" + stockList[i] + "</a>";
+                           var code = codeList[i];
+                            y.innerHTML = "<a style='color: black' href='singleStockCurrent.html?stockNameInput=" + stockList[i] +"?code="+code+ "'>" + stockList[i] + "</a>";
                             z.innerHTML = codeList[i];
 
                         }
