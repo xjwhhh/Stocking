@@ -7,22 +7,23 @@
     <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!--图表相关引用-->
-    <script type="text/javascript"
-            src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
-    <script type="text/javascript" src="closePrice.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
     <script type="text/javascript"
             src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
     <script type="text/javascript"
             src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
-    <script type="text/javascript"
-            src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
-    <script type="text/javascript"
-            src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
-    <script type="text/javascript"
-            src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
     <script type="text/javascript"
             src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+    <script type="text/javascript">
+
+
+    </script>
+
+
+
 
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet">
@@ -67,6 +68,7 @@
         //        股票对比
         var Number=0 ;//记录比较表格个数
         var stockToCompare = [];//记录进行比较的股票名
+        var codesToCompare=[]//记录进行比较的股票编码
         var codeList = [];//
         var startTime;
         var endTime;
@@ -154,7 +156,7 @@
                         var vvvv = x.insertCell(4);
 //                        var vvvvv = x.insertCell(5);
                         y.innerHTML = stockToCompare[v];
-                        z.innerHTML =code;
+                        z.innerHTML =codesToCompare[v];
                         vv.innerHTML=high;
                         vvv.innerHTML=low;
                         vvvv.innerHTML=up;
@@ -195,9 +197,15 @@
 
                 },
                 tooltip : {
+                    show:true,
                     trigger: 'axis'
                 },
                 legend: {
+                    width:30,
+                    left:'center',
+                    itemGap: 10,
+                    itemWidth: 20,
+                    itemHeight: 14,
                     data:stockToCompare,
                 },
                 //右上角工具条
@@ -242,6 +250,11 @@
                     trigger: 'axis'
                 },
                 legend: {
+                    itemGap: 10,
+                    itemWidth: 20,
+                    itemHeight: 14,
+
+
                     data:stockToCompare,
                 },
                 //右上角工具条
@@ -408,7 +421,7 @@
 
 
 <!--固定导航栏-->
-<div  class="container-fluid" style="background: url(lgBg1.jpg);background-size: 100%">
+<div class="container-fluid" style="background: url(lgBg2.jpg);background-size: 100%">
     <div class="navbar-header">
         <img src="stock2.png" class="img-rounded">
     </div>
@@ -459,12 +472,12 @@
 <div class="collapse navbar-collapse" id="navbar-collapse-7">
     <ul style="margin-top: 20px" id="myTab" class="nav nav-tabs">
         <li style="background: #fffaf0" class="active">
-            <a href="#stockContent" data-toggle="tab">
+            <a style="color: black" href="#stockContent" data-toggle="tab">
                 个股详情
             </a>
 
         </li>
-        <li style="background: white"><a href="#stockCompare" data-toggle="tab">股票比较</a></li>
+        <li style="background: white"><a style="color: black" href="#stockCompare" data-toggle="tab">股票比较</a></li>
 
     </ul>
 </div>
@@ -475,7 +488,7 @@
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade in active" id="stockContent">
         <form action="singleStockCurrent.html" method="POST">
-            <div style="padding-left:40px;margin-top: 40px ;margin-left: 40px;border:0px solid #2767a9;border-bottom-width: 2px;width:70%" class="nav__search">
+            <div style="padding-left:40px;margin-top: 40px ;margin-left: 40px;border:0px solid #2767a9;width:70%" class="nav__search">
                 <input type="text" id="stockNameInput" placeholder="输入股票名或股票编号">
                 <span class="nav__search__addon">
            <!--<input style="background: rgba(0,0,0,0)" type="submit">-->
@@ -664,7 +677,7 @@
 
                 <div>
 
-                    <button style="margin-left: -20%;margin-top: 4%" type="button" class="btn btn-default btn-sm"
+                    <button style="margin-left: -20%;margin-top: -1%" type="button" class="btn btn-default btn-sm"
                             type="submit" onclick="stockSearch()">
                         <span class="glyphicon glyphicon-search"></span>
                     </button>
@@ -706,6 +719,7 @@
                        //调用ajax得到codelist和stocklist
                         var url="http://localhost:8080/codename";
                         var key = JSON.stringify(new getType(hangye+"/"+bankuai));
+                        alert("ok!~");
 
                         $.ajax({
 
@@ -727,7 +741,7 @@
                             var y = x.insertCell(0);
                             var z = x.insertCell(1);
                            var stockName=encodeURIComponent(stockList[i]);
-                            y.innerHTML = "<a href='singleStockCurrent.html?stockNameInput=" + stockList[i] +"?1"+ "'>" + stockList[i] + "</a>";
+                            y.innerHTML = "<a style='color: black' href='singleStockCurrent.html?stockNameInput=" + stockList[i] +"?1"+ "'>" + stockList[i] + "</a>";
                             z.innerHTML = codeList[i];
 
                         }
@@ -756,15 +770,33 @@
                 </thead>
                 <tr class="depreciate">
                     <td>1</td>
-                    <td style="margin-left: 20px"><a href="/S/BABA" target="_blank">深发展A</a></td>
+                    <td style="margin-left: 20px">平安银行</td>
 
                 </tr>
                 <tr class="depreciate">
                     <td>2</td>
-                    <td style="margin-left: 20px"><a href="/S/BABA" target="_blank">沪深</a></td>
+                    <td style="margin-left: 20px">神州高铁</td>
+
+                </tr>
+                <tr class="depreciate">
+                    <td>3</td>
+                    <td style="margin-left: 20px">世纪星源</td>
 
                 </tr>
 
+                <tr>
+                    <td>4</td>
+                    <td>中国宝安</td>
+                </tr>
+
+                <tr>
+                    <td>5</td>
+                    <td>美丽生态</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>深物业A</td>
+                </tr>
             </table>
 
 
@@ -775,7 +807,7 @@
     <!--//股票对比-->
 
     <div class="tab-pane " id="stockCompare">
-        <div style="margin-left: 2%;width: 30%;float: left" class="common_clom2_1">
+        <div style="margin-left: 2%;width: 30%;float: left;margin-top: 2%" class="common_clom2_1">
             <div class="sc_selector">
                 <div class="sc_title">
                     <h4 style="margin: 0px">股票对比
@@ -813,14 +845,17 @@
                         <script>
                             function Inputadd() {
                                 var repeat = 0;
+                                var exit=0;
 
 //                                判断输入是否存在
                                 var stockName = document.getElementById("stockInput").value;
 
+//                                alert(stockName);
 
                                 for(var v=0;v<allNames.length;v++){
                                     if(allNames[v]==stockName){
                                         stockCode = allCodes[v];
+                                        codesToCompare.push(stockCode);
                                         exit=1;
                                         break;
                                     }
@@ -842,11 +877,14 @@
                                     stockToCompare.push(stockName);
                                     Number++;}else {alert("该股票已存在");}
                                 }else{
+                                    alert("code");
                                     for(var v=0;v<allNames.length;v++){
                                         if(allCodes[v]==stockName){
                                             exit=1;
                                             stockCode=stockName;
+                                            codesToCompare.push(stockCode);
                                             stockName = allNames[v];
+//                                            alert(stockName);
                                             break;
                                         }
                                     }
@@ -885,6 +923,18 @@
                                 var y = x.insertCell(0);
 
                                 y.innerHTML = c;
+
+                                for(var temp=0;temp<allNames.length;temp++){
+                                    if(allNames[temp]==c){
+                                        codesToCompare.push(allCodes[temp]);
+                                        break;
+                                    }
+                                }
+
+
+
+
+
 //                                document.getElementById('numberOfSearch').innerHTML = stockNames.length;
                                 Number++;}else{alert("该股票已存在");}
 
@@ -896,9 +946,9 @@
                                 <span class="glyphicon glyphicon-search"></span> 开始对比
                             </button>
                             <!-- _url为对比的跳转链接,只需保证存在{code}存在即可		 -->
-                            <button style="font-size: 18px" type="button" class="btn btn-default btn-sm" onclick="Remove()">
+                            <a style="color:  #004fa2;font-size: 18px;margin-left: 8%" href="singleSearch.html">
                                 <span class="glyphicon glyphicon-trash"></span> 清空
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -935,7 +985,7 @@
             </div>
 
         </div>
-        <div style="width: 50%" class="common_clom2_2">
+        <div style="width: 50%;margin-top: 2%" class="common_clom2_2">
             <div class="compare_table">
                 <div class="comparetitle">
                     <h6>基本指标对比</h6>
@@ -948,7 +998,8 @@
                         <th>最低值</th>
                         <th>最高值</th>
                         <th>涨跌幅</th>
-                        <th>涨跌幅</th>
+
+
 
                     </tr>
                     </thead>
@@ -964,20 +1015,15 @@
             <div class="close_price">
                 <!--<h6>每日收盘价</h6>-->
                 <div>
-                    <div id="closePrice" style="height:350px;width: 600px"></div>
-                    <script type="text/javascript"
-                            src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
-                    <!--<script type="text/javascript" src="closePrice.js"></script>-->
+                    <div id="closePrice" style="height:350px;width: 600px;margin-top: 3%"></div>
+                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
                     <script type="text/javascript"
                             src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
                     <script type="text/javascript"
                             src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
-                    <script type="text/javascript"
-                            src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
-                    <script type="text/javascript"
-                            src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
-                    <script type="text/javascript"
-                            src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+                    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
                     <script type="text/javascript"
                             src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
                     <!--<script type="text/javascript" src="closePrice.js"></script>-->
