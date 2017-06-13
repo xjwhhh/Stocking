@@ -68,18 +68,21 @@ public class Tools {
         ArrayList<String> aarryList = new ArrayList<String>();
         String arr = "";
         if (jsonArray.size() > 0) {
-            for (int i = 0; i < jsonArray.size() - 1; i++) {
+            for (int i = 0; i < jsonArray.size() ; i++) {
                 aarryList.add(jsonArray.getString(i));
+//                System.out.println(jsonArray.getString(i));
             }
             aarryList.add(jsonArray.getString(jsonArray.size() - 1));
         }
         HashSet<String> hashSet = new HashSet<String>(aarryList);
-        hashSet.clear();
+//        System.out.print(hashSet.size());
         Iterator<String> it = hashSet.iterator();
         while (it.hasNext()) {
             arr += (it.next() + "/");
+//            System.out.println(arr);
         }
-        arr.substring(0, arr.length() - 1);
+        arr=arr.substring(0, arr.length() - 1);
+//        System.out.print(arr);
         return arr;
     }
     
