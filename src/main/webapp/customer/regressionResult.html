@@ -401,9 +401,10 @@
             var newTd2 = newTr.insertCell();
             var newTd3 = newTr.insertCell();
             newTd0.innerHTML = j+1;
-            newTd1.innerText = sets[num].names[j];
-            newTd2.innerText = sets[num].codes[j];
-            newTd3.innerText = sets[num].profits[j];
+            parseFloat(sharpeRatio.toFixed(4));
+            newTd1.innerText = parseFloat(sets[num].names[j].toFixed(6));
+            newTd2.innerText = parseFloat(sets[num].codes[j].toFixed(6));
+            newTd3.innerText = parseFloat(sets[num].profits[j].toFixed(6));
         }
     }
 

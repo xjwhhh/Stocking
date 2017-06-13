@@ -175,8 +175,9 @@
 
         <div class="col-md-6">
             <h6>已选股票</h6>
-            <table style="width: 80%;" border="4" ;id="addtable">
+            <table style="width: 80%;" border="4" id="addTable">
                 <thead>
+
                 <tr>
                     <th>股票名称</th>
                     <th>股票编号</th>
@@ -203,11 +204,27 @@
 
 
                     <div style=";margin-top: 2%">
-                        <input style="width: 16%" type="text" id="searchInput" placeholder="输入股票名／编号">
-                        <button type="button"
-                                class="btn btn-default btn-sm" onclick="singleAdd()">
-                            <span class="glyphicon glyphicon-plus"></span>
-                        </button>
+                        <div class="col-md-12">
+                            <input style="width: 16%" type="text" id="searchInput" placeholder="输入股票名／编号">
+                            <button type="button"
+                                    class="btn btn-default btn-sm" onclick="singleAdd()">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </div>
+                        <div class="col-md-12" style="height: 20px"></div>
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <a style=" ;background-color: #32619e" class="btn btn-default" onclick="addstocks()"
+                                   role="button">查看已选股票</a>
+                            </div>
+                            <div class="col-md-3">
+                                <a style=" ;background-color: #32619e" class="btn btn-default" onclick="sendMessage()"
+                                   role="button">开始回测</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="height:20px"></div>
+
+
                     </div>
 
                     <div class="stockScreener-range-area" style="">
@@ -427,8 +444,7 @@
 
                 </div>
             </div>
-            <a style=" ;background-color: #32619e" class="btn btn-default" onclick="sendMessage()"
-               role="button">开始回测</a>
+
         </div>
 
     </div>
@@ -745,6 +761,7 @@
 <script type="text/javascript">
     //需要传输的股票所存入的数组（数组里只存变量）
     var stocks = new Array();
+    var names = new Array();
 
     //日期选择器
     $('.form_datetime').datetimepicker({
@@ -802,7 +819,7 @@
                 stockList = data[0].name;
                 codeList = data[0].code;
 
-                tempList = data[0].name;
+                tempList = data[0].code;
             }
         });
 
@@ -838,8 +855,10 @@
     function ChooseStock(obj) {
 
         var c = $(obj).parent().parent().children("td").eq(1).text();
+//        var d = $(obj).parent().parent().children("td").eq(0).text();
         alert("stockCHose :" + c);
         stocks.push(c);
+//        names.push(d);
 
     }
     //全选按钮
@@ -869,24 +888,52 @@
     }
 
     //添加已选股票
-    window.onload = function (){
-        for(var i = 0;i<stocks.length;i++){
-            var newTr = addtable.insertRow();
-            var newTd0 = newTr.insertCell();
-            var newTd1 = newTr.insertCell();
-            var newTd2 = newTr.insertCell();
+    function addstocks() {
+        var newTr = document.getElementById("addTable");
+        alert(newTr);
+        alert(JSON.stringify(stocks));
+//        var tr=document.createElement("tr");
+//        var td1=document.createElement("td");
+//        var td2=document.createElement("td");
+//        var td3=document.createElement("td");
 
-//            newTd0.innerText = stocks[i].name;
+
+        for (var i = 0; i < stocks.length; i++) {
+//            td1.innerHTML = i+1;
+//            td2.innerText = stocks[i];
+//            td3.innerHtml = "<button type='button' class='btn btn-danger btn-sm' onclick='Delete(this)'> 删除</button>";
+//
+//            newTr.appendChild(tr);
+//            tr.appendChild(td1);
+//            tr.appendChild(td2);
+//            tr.appendChild(td3);
+
+            var newTr = document.getElementById("addTable").insertRow();
+            var newTd0 = newTr.insertCell(0);
+            var newTd1 = newTr.insertCell(1);
+            var newTd2 = newTr.insertCell(2);
+//
+////            newTr = addTable.insertRow();
+////            newTd0 = newTr.insertCell();
+////            newTd1 = newTr.insertCell();
+////            newTd2 = newTr.insertCell();
+//
+            newTd0.innerHTML = i + 1;
 //            newTd1.innerText = stocks[i].code;
             newTd1.innerText = stocks[i];
-            newTd2.innerHTML = "<button type='button' class='btn btn-danger btn-sm' onclick='Delete(this)'> 删除</button>";
+            newTd2.innerHTML = "<button type='button' class='btn btn-danger btn-sm' onclick='delone(this)'> 删除</button>";
         }
     }
+    function delone(otr){
+        var a=otr.parentNode.parentNode;
+        a.parentNode.removeChild(a);
 
 
+    }
 
     function sendMessage() {
-        var choosestocks;
+
+        var choosestocks = new Array();
         var url = "regressionResult.html"
         var type
         if (strategy.value == "动量策略") {
@@ -895,18 +942,18 @@
             type = 2;
         }
         var isPla;
-        var trs = document.getElementById("addtable").rows;
+        var trs = document.getElementById("addTable").rows;
 //        alert(trs.length)
 
         if (document.getElementById("single").className == "active") {
             isPla = 0;
 //            for (var j = 1; j < trs.length; j++) {
 //                var tds = trs[j].getElementsByTagName("td");
-                choosestocks.push(tds[1].innerHTML);
+//            choosestocks.push(tds[1].innerHTML);
 //                alert(tds[1]);
 //                choosestocksalert(tds[1].innerHTML);
 //            }
-        }else{
+        } else {
             isPla = 1;
         }
         for (var j = 1; j < trs.length; j++) {
