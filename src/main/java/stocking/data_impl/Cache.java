@@ -39,7 +39,6 @@ public class Cache {
     private Hashtable<String, MinuteDataPO> minuteDataPOHashtable = new Hashtable<String, MinuteDataPO>();
 
 
-
     private Cache() {
 
         this.setStockInfo();
@@ -55,6 +54,7 @@ public class Cache {
 //        if (hour > 15) {
 //            System.out.print("12345");
 //            this.setMinuteData();
+
 //        }
     }
 
@@ -93,7 +93,7 @@ public class Cache {
     }
 
     /**
-     * 获取市场界面默认值，15:00之前昨日市场情况，之后今日
+     * 获取市场界面默认值，默认昨日市场信息
      */
     private void setYesterdayMarketPO() {
 
@@ -101,11 +101,11 @@ public class Cache {
         int i = 0;
         DataFactory_Data_Service dataFactory_data_service = DataFactory_Data_Impl.getInstance();
         Date date = new Date();
-        SimpleDateFormat hourFormatter = new SimpleDateFormat("HH");
-        int hour = Integer.parseInt(hourFormatter.format(date));
+//        SimpleDateFormat hourFormatter = new SimpleDateFormat("HH");
+//        int hour = Integer.parseInt(hourFormatter.format(date));
         Date yesterday = new Date();
 //        if (hour < 15) {
-            yesterday = new Date(date.getTime() - 24 * 60 * 60 * 1000);
+        yesterday = new Date(date.getTime() - 24 * 60 * 60 * 1000);
 //        }
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat dateFm = new SimpleDateFormat("EEEE");
@@ -118,16 +118,14 @@ public class Cache {
         if (ofWeek.equals("星期一")) {
             yesterday2Str = formatter.format(new Date(yesterday.getTime() - 3 * 24 * 60 * 60 * 1000));
             yesterday3Str = formatter.format(new Date(yesterday.getTime() - 4 * 24 * 60 * 60 * 1000));
-        } else if(ofWeek.equals("星期六")){
+        } else if (ofWeek.equals("星期六")) {
             yesterday2Str = formatter.format(new Date(yesterday.getTime() - 24 * 60 * 60 * 1000));
-            yesterday3Str = formatter.format(new Date(yesterday.getTime() - 2*24 * 60 * 60 * 1000));
-        }
-        else  if(ofWeek.equals("星期日")){
-            yesterday2Str = formatter.format(new Date(yesterday.getTime() - 24 * 60 * 60 * 1000*2));
-            yesterday3Str = formatter.format(new Date(yesterday.getTime() - 24 * 60 * 60 * 1000*3));
-        }
-        else{
-            yesterday2Str=formatter.format(yesterday);
+            yesterday3Str = formatter.format(new Date(yesterday.getTime() - 2 * 24 * 60 * 60 * 1000));
+        } else if (ofWeek.equals("星期日")) {
+            yesterday2Str = formatter.format(new Date(yesterday.getTime() - 24 * 60 * 60 * 1000 * 2));
+            yesterday3Str = formatter.format(new Date(yesterday.getTime() - 24 * 60 * 60 * 1000 * 3));
+        } else {
+            yesterday2Str = formatter.format(yesterday);
         }
 //        System.out.println(yesterday2Str);
 //        System.out.println(yesterday3Str);
@@ -269,9 +267,13 @@ public class Cache {
         System.out.println(minuteDataPOHashtable.size());
     }
 
+    /**
+     * 读取分时信息
+     */
     private void setMinuteData() {
         Connection connection = connectionManager.getConnection("stock");
         for (String key : code_name.keySet()) {
+            if(key.substring(0,3).equals("000")){
             String sql = "select distinct minute,price,prediction,relativity from minute_data where code=" + key;
             PreparedStatement pstmt;
             ArrayList<String> minutes = new ArrayList<String>();
@@ -306,7 +308,7 @@ public class Cache {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
+        }}
     }
 
     public MarketPO getYesterdayMarketPO() {
@@ -326,7 +328,7 @@ public class Cache {
     }
 
 
-//    public static void main(String[] args) {
+    public static void main(String[] args) {
 //        Date date = new Date();
 //        SimpleDateFormat formatter = new SimpleDateFormat("HH");
 //        String str = formatter.format(date);
@@ -340,5 +342,6 @@ public class Cache {
 //        JSONObject json = JSONObject.fromObject(marketPO);//将java对象转换为json对象
 //        String str = json.toString();//将json对象转换为字符串
 //        System.out.print(str);
-//    }
+        System.out.print("000001".substring(0,3));
+    }
 }
