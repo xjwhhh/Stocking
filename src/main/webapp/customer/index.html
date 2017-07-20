@@ -75,19 +75,13 @@
 </div>
 
 
-<div class="container"  style="background: #efeff4">
+<div class="container" style="background: #efeff4">
     <!--<div class="row-fluid">-->
     <div class="col-md-12">
         <div class="container-fluid" id="stock">
             <h5>市场数据</h5>
             <hr/>
             <div class="col-md-6">
-                <!--<p>-->
-                <!--上证指数</p>-->
-                <!--<div class="current" style="color: #ff4b44; font-size: 1.5em; font-weight: bold;">3110.06</div>-->
-                <!--<div class="growth" style="color: #ff4b44;"><i>+</i>0.07%-->
-                <!--(<i>+</i>2.23)-->
-                <!--</div>-->
                 <div class="col-md-12">
                     <div class="col-md-6">指数名称<p id="指数名称1" style="color: #ff4b44; font-size: 1.2em;">a</p></div>
                     <div class="col-md-6">当前点数<p id="当前点数1" style="color: #ff4b44; font-size: 2em;">a</p></div>
@@ -102,11 +96,6 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <!--<p>创业板指</p>-->
-                <!--<div class="current" style="color: #00bb00; font-size: 1.5em; font-weight: bold;">1759.63</div>-->
-                <!--<div class="growth" style="color: #00bb00;"><i>+</i>-1.02%-->
-                <!--(<i>+</i>-18.06)-->
-                <!--</div>-->
                 <div class="col-md-12">
                     <div class="col-md-6">指数名称<p id="指数名称2" style="color: #ff4b44; font-size: 1.2em;">a</p></div>
                     <div class="col-md-6">当前点数<p id="当前点数2" style="color: #ff4b44; font-size: 2em;">a</p></div>
@@ -120,37 +109,12 @@
                     <div class="col-md-6">成交额<p id="成交额2" style="color: #ff4b44; font-size: 1.2em;">a</p></div>
                 </div>
             </div>
-            <!--<div class="col-md-4">-->
-            <!--<p>恒生指数</p>-->
-            <!--<div class="current" style="color: #ff4b44; font-size: 1.5em; font-weight: bold;">25701.63</div>-->
-            <!--<div class="growth" style="color: #ff4b44;"><i>+</i>0.24%-->
-            <!--(<i>+</i>62.36)-->
-            <!--</div>-->
         </div>
     </div>
 
     <div id="news">
         <h5>新闻专栏</h5>
         <hr/>
-        <!--<div class="news_1">-->
-        <!--&lt;!&ndash;<a href="#">新闻1</a>&ndash;&gt;-->
-        <!--</div>-->
-        <!--<hr/>-->
-        <!--<div class="news_2">-->
-        <!--&lt;!&ndash;<a href="#">新闻2</a>&ndash;&gt;-->
-        <!--</div>-->
-        <!--<hr/>-->
-        <!--<div class="news_3">-->
-        <!--&lt;!&ndash;<a href="#">新闻3</a>&ndash;&gt;-->
-        <!--</div>-->
-        <!--<hr/>-->
-        <!--<div class="news_4">-->
-        <!--&lt;!&ndash;<a href="#">新闻4</a>&ndash;&gt;-->
-        <!--</div>-->
-        <!--<hr/>-->
-        <!--<div class="news_5">-->
-        <!--&lt;!&ndash;<a href="#">新闻5</a>&ndash;&gt;-->
-        <!--</div>-->
         <div style="height: 100px;line-height: 100px;background: white;">
             <a href="#" id="url1" target="_blank" style="color:black">
                 <div class="col-md-2" id="classify1"></div>
@@ -259,40 +223,24 @@
         this.op = op;
     }
     function judgeLogin() {
-        //判断是否已登陆
-
-//            alert("ok");
-        //判断是否登陆
         var sstorage = sessionStorage;
         if (sstorage.getItem("login") == null) {
             var ul = document.getElementById("login");
-
             var li = document.createElement("li");
-
             li.innerHTML = "<a href='login.html' target='_blank' style='height: 80px;line-height: 60px; font-size:1.0em'>登录</a>";
-
             ul.appendChild(li);
-
             var li2 = document.createElement("li");
             li2.innerHTML = "<a href='signup.html' style='height: 80px;line-height: 60px; font-size:1.0em'>注册</a>";
             ul.appendChild(li2);
-
         } else {
             var ul = document.getElementById("login");
-
             var li = document.createElement("li");
-
             li.innerHTML = "<a href='CustomerSetting.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>用户设置</a>";
-
             ul.appendChild(li);
-
         }
-
 
     }
     function getnews() {
-
-
         var url = "http://localhost:8080/news";
         var op = JSON.stringify(new posttype("all"));
         $.ajax({

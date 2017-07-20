@@ -20,14 +20,11 @@ public class Minute_Data_ImplTest {
     @Before
     public void init() {
         dataFactory_data_service = DataFactory_Data_Impl.getInstance();
-        System.out.println(1);
         minute_data_service = dataFactory_data_service.minute();
-        System.out.println(1);
     }
 
     @Test
     public void getMinuteDataPO() throws Exception {
-        System.out.print("start");
         MinuteDataPO minuteDataPO = minute_data_service.getMinuteDataPO("000001");
         JSONObject json = JSONObject.fromObject(minuteDataPO);//将java对象转换为json对象
         String str = json.toString();//将json对象转换为字符串

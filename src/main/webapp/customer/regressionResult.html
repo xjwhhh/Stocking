@@ -80,7 +80,8 @@
         <li><a href="index.html"><span class="glyphicon glyphicon-home"></span>&nbsp&nbsp&nbsp首页</a></li>
         <li><a href="singleSearch.html"><span class="glyphicon glyphicon-stats"></span>&nbsp&nbsp&nbsp股票数据</a></li>
         <li><a href="market_1.html"><span class="glyphicon glyphicon-file"></span>&nbsp&nbsp&nbsp行情信息</a></li>
-        <li class="active"><a href="regressionSetting.html"><span class="glyphicon glyphicon-tags"></span>&nbsp&nbsp&nbsp回测</a></li>
+        <li class="active"><a href="regressionSetting.html"><span class="glyphicon glyphicon-tags"></span>&nbsp&nbsp&nbsp回测</a>
+        </li>
         <li><a href="news.html"><span class="glyphicon glyphicon-book"></span>&nbsp&nbsp&nbsp新闻</a></li>
     </ul>
 </div>
@@ -107,12 +108,6 @@
                 <th>股票编号</th>
                 <th>收益率</th>
             </tr>
-            <!--<tr>-->
-                <!--<td>1</td>-->
-                <!--<td>a</td>-->
-                <!--<td>0001</td>-->
-                <!--<td></td>-->
-            <!--</tr>-->
 
             </tbody>
         </table>
@@ -200,14 +195,6 @@
     var profits;
     var basicProfits;//基准收益
     var sets;//获胜股票，mom为前百分之二十，avr为持股数
-    //    var strategy
-    //    var startdate
-    //    var enddate
-    //    var holtTime
-    //    var shapeTime
-    //    var numberOfStock
-    //    var search
-    //    var industry
     var isHold;
     var interval;
     var thisURL;
@@ -219,19 +206,6 @@
         if (typeof(Storage) !== "undefined") {
             message = decodeURIComponent(sessionStorage["message"]);
         }
-        //    var message = new Array(8)
-        //    for(var i = 0;i<8;i++){
-        //        message[i] = getval.split("&")[i]
-        //    }
-        //    strategy = message[0].split("=")[1]
-        //    startdate = message[1].split("=")[1]
-        //    enddate = message[2].split("=")[1]
-        //    holtTime = message[3].split("=")[1]
-        //    shapeTime = message[4].split("=")[1]
-        //    numberOfStock = message[5].split("=")[1]
-        //    search = message[6].split("=")[1]
-        //    industry = message[7].split("=")[1]
-        alert("message:" + message);
 
         var url = "http://localhost:8080/strategy";
         $.ajax({
@@ -240,19 +214,7 @@
             data: message,
             datatype: "json",
             success: function (data) {
-//                alert(data);
-//                alert(data[1]);
-//                obj = JSON.parse(data);
-//                alert(obj.alpha);
-//                alert(data);
-//                alert(JSON.stringify(data))
-//                alert(data[0]);
-//                alert(JSON.stringify(data[0]));
-//                alert(JSON.parse(data))
                 var jsonO = eval("(" + data + ")");
-//                alert(jsonO[0].profits);
-//                alert(jsonO[0].profits.length);
-//                alert(jsonO[0].profits[0]);
                 annualReturn = jsonO[0].annualReturn;//年化收益率
                 basicAnnualReturn = jsonO[0].basicAnnualReturn;//基准年化收益率
                 alpha = jsonO[0].alpha;
@@ -263,28 +225,18 @@
                 profits = jsonO[0].profits;
                 basicProfits = jsonO[0].basicProfits;//基准收益
                 sets = jsonO[0].sets//获胜股票，mom为前百分之二十，avr为持股数
-//                alert(sets);
-//                alert(JSON.stringify(sets));
-//                alert(sets.length);
-//                alert(sets[0])
-//                alert(JSON.stringify(sets[0]));
-//                alert(sets[0].codes);
-//                alert(sets[0].codes.length);
-//                alert();
                 annualReturn = parseFloat(annualReturn.toFixed(4));
                 basicAnnualReturn = parseFloat(basicAnnualReturn.toFixed(4));
                 alpha = parseFloat(alpha.toFixed(4));
                 beta = parseFloat(beta.toFixed(4));
                 sharpeRatio = parseFloat(sharpeRatio.toFixed(4));
                 maxDrawDown = parseFloat(maxDrawDown.toFixed(4));
-
                 document.getElementById("ar").innerHTML = annualReturn;
                 document.getElementById("bar").innerHTML = basicAnnualReturn;
                 document.getElementById("alpha").innerHTML = alpha;
                 document.getElementById("beta").innerHTML = beta;
                 document.getElementById("sr").innerHTML = sharpeRatio;
                 document.getElementById("md").innerHTML = maxDrawDown;
-
                 rank();
                 linechart();
                 barchart();
@@ -293,39 +245,26 @@
 
 
         var sstorage = sessionStorage;
-        if(sstorage.getItem("login")==null){
-            var ul=document.getElementById("login");
-
-            var li=document.createElement("li");
-
-            li.innerHTML="<a href='login.html' target='_blank' style='height: 80px;line-height: 60px; font-size:1.0em'>登录</a>";
-
+        if (sstorage.getItem("login") == null) {
+            var ul = document.getElementById("login");
+            var li = document.createElement("li");
+            li.innerHTML = "<a href='login.html' target='_blank' style='height: 80px;line-height: 60px; font-size:1.0em'>登录</a>";
             ul.appendChild(li);
-
-            var li2=document.createElement("li");
-            li2.innerHTML="<a href='signup.html' style='height: 80px;line-height: 60px; font-size:1.0em'>注册</a>";
+            var li2 = document.createElement("li");
+            li2.innerHTML = "<a href='signup.html' style='height: 80px;line-height: 60px; font-size:1.0em'>注册</a>";
             ul.appendChild(li2);
-
-        }else{
-            var ul=document.getElementById("login");
-
-            var li=document.createElement("li");
-
-            li.innerHTML="<a href='CustomerSetting.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>用户设置</a>";
-
+        } else {
+            var ul = document.getElementById("login");
+            var li = document.createElement("li");
+            li.innerHTML = "<a href='CustomerSetting.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>用户设置</a>";
             ul.appendChild(li);
-
         }
-
     }
 
     function getmessage(type, start, end, isHold, interval, isPla, stocks) {
         this.type = type;
         this.start = start;
         this.end = end;
-//        this.hold = hold;
-//        this.form = form;
-
         this.isHold = isHold;
         this.interval = interval;
         this.isPla = isPla;
@@ -333,8 +272,6 @@
     }
 
     function sendtobgraph() {
-//        var url = "http://localhost:8080/bgraph";
-
         if (document.getElementById('opt').options[document.getElementById('opt').selectedIndex].text = "持有期") {
             isHold = 0;
         } else {
@@ -342,11 +279,9 @@
         }//获胜股
         interval = document.getElementById("interval").value;
         var messageobj = JSON.parse(message);
-        alert(messageobj.stocks);
-        var newObj = new getmessage(messageobj.type,messageobj.start,messageobj.end,isHold,interval,messageobj.isPla,messageobj.stocks);
+        var newObj = new getmessage(messageobj.type, messageobj.start, messageobj.end, isHold, interval, messageobj.isPla, messageobj.stocks);
         var newMessage = JSON.stringify(newObj);
         var messageStr = encodeURIComponent(newMessage);
-        alert(messageStr);
         if (typeof(Storage) !== "undefined") {
             sessionStorage["message"] = messageStr;
         } else {
@@ -361,47 +296,22 @@
         for (var i = 0; i < sets.length; i++) {
             var val = "第" + (i + 1) + "个周期"
             s.options.add(new Option(val));
-//            addTableCell(i)
         }
-//        alert(document.getElementById("select").selectedIndex);
-//        var num = document.getElementById("select").selectedIndex;
-//        $.ajax({
-//            addTableCell(num)
-//        })
     }
     function addTableCell() {
         var num = document.getElementById("select").selectedIndex;
-//        alert("num:"+num);
         var trs = document.getElementById("rankTable").rows;
-//        var n = trs.length;
-//        alert(trs.length);
-//        if(trs.length>1){
-//            for(var i = trs.length-1;i>0;i--){
-//                var tb = document.getElementById("rankTable");
-//                tb.deleteRow(i);
-//            }
-//        }
         var tb = document.getElementById("rankTable");
-        while(trs.length>1){
-            tb.deleteRow(trs.length-1);
+        while (trs.length > 1) {
+            tb.deleteRow(trs.length - 1);
         }
-//        if(n>1){
-//            tb.deleteRow(2);
-//            tb.deleteRow(1);
-//        }
-
-//        while(n>1){
-//            tb.deleteRow(n-1);
-//            n--;
-//        }
-//        alert(trs.length);
-        for(var j = 0;j<sets[num].codes.length;j++){
+        for (var j = 0; j < sets[num].codes.length; j++) {
             var newTr = rankTable.insertRow();
             var newTd0 = newTr.insertCell();
             var newTd1 = newTr.insertCell();
             var newTd2 = newTr.insertCell();
             var newTd3 = newTr.insertCell();
-            newTd0.innerHTML = j+1;
+            newTd0.innerHTML = j + 1;
             parseFloat(sharpeRatio.toFixed(4));
             newTd1.innerText = sets[num].names[j];
             newTd2.innerText = sets[num].codes[j];
@@ -453,7 +363,6 @@
                 {
                     name: '策略',
                     type: 'line',
-//                data: [11, 11, 15, 13, 12, 13, 10],
                     data: profits,
                     markPoint: {
                         data: [
@@ -466,11 +375,9 @@
                 {
                     name: '基准',
                     type: 'line',
-//                data: [1, -2, 2, 5, 3, 2, 0],
                     data: basicProfits,
                     markPoint: {
                         data: [
-//                        {name : '周最低', value : -2, xAxis: 1, yAxis: -1.5}
                             {type: 'min', name: '周最低'}
                         ]
                     },
@@ -554,7 +461,6 @@
         var option = {
             title: {
                 text: '收益率分布直方图',
-                // subtext: '纯属虚构'
             },
             tooltip: {
                 trigger: 'axis'
@@ -619,8 +525,6 @@
                 }
             ]
         };
-
-
         myChart.setOption(option);
 
     }

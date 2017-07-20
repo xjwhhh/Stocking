@@ -53,7 +53,7 @@ public class Cache {
 //        int hour = Integer.parseInt(hourFormatter.format(date));
 //        if (hour > 15) {
 //            System.out.print("12345");
-//            this.setMinuteData();
+            this.setMinuteData();
 
 //        }
     }

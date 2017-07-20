@@ -32,12 +32,8 @@ public class Strategy_Servlet extends HttpServlet {
         if (jsonObject == null) {
             return;
         }
-        System.out.println(request);
-        System.out.println(jsonObject.toString());
-
         sds = DataFactory_Data_Impl.getInstance().strategy();
         String type = jsonObject.getString("type");//策略类型(M,A),动量策略传1，均值策略传2
-
         ParseDate pd = new ParseDate();
         Date start = null;
         Date end = null;
@@ -53,21 +49,9 @@ public class Strategy_Servlet extends HttpServlet {
         String isPla = jsonObject.getString("isPla");//是否为板块
         JSONArray stocks = JSONArray.fromObject(jsonObject.getString("stocks"));
         StrategyPO result;
-        Date d1 = new Date();
-        Date d2 = new Date();
-        Date[] d = new Date[2];
-        d[0] = d1;
-        d[1] = d2;
-        Double[] double1 = new Double[2];
-        double1[0] = 1.1;
-        double1[0] = 1.1;
-        Double[] double2 = new Double[2];
-        double2[0] = 1.1;
-        double2[0] = 1.1;
-        StockWinnerSet[] s = new StockWinnerSet[2];
+        System.out.println(stocks.toString());
         result = sds.traceBack(type, start, end, form, hold, isPla, stocks);
         response.setCharacterEncoding("utf-8");
-//        result = new StrategyPO(1.1,1.1,1.1,1.1,1.1,1.1,d,double1,double2,s);
         new SendByServlet().doSend(response, result);
     }
 }

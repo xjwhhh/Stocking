@@ -5,7 +5,8 @@
     <title>Stocking量化交易</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+          media="screen">
     <link href="https://cdn.bootcss.com/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet">
 
     <style type="text/css">
@@ -33,28 +34,27 @@
 
     <script type="text/javascript" src="json2-min.js"></script>
     <script>
-        function Load(){
-            alert("ok");
+        function Load() {
             var sstorage = sessionStorage;
-            if(sstorage.getItem("login")==null){
-                var ul=document.getElementById("login");
+            if (sstorage.getItem("login") == null) {
+                var ul = document.getElementById("login");
 
-                var li=document.createElement("li");
+                var li = document.createElement("li");
 
-                li.innerHTML="<a href='login.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>登录</a>";
+                li.innerHTML = "<a href='login.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>登录</a>";
 
                 ul.appendChild(li);
 
-                var li2=document.createElement("li");
-                li2.innerHTML="<a href='signup.html' style='height: 100px;line-height: 70px; font-size:1.2em'>注册</a>";
+                var li2 = document.createElement("li");
+                li2.innerHTML = "<a href='signup.html' style='height: 100px;line-height: 70px; font-size:1.2em'>注册</a>";
                 ul.appendChild(li2);
 
-            }else{
-                var ul=document.getElementById("login");
+            } else {
+                var ul = document.getElementById("login");
 
-                var li=document.createElement("li");
+                var li = document.createElement("li");
 
-                li.innerHTML="<a href='CustomerSetting.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>用户设置</a>";
+                li.innerHTML = "<a href='CustomerSetting.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>用户设置</a>";
 
                 ul.appendChild(li);
 
@@ -103,7 +103,8 @@
     <ul class="nav nav-tabs">
         <li><a href="index.html"><span class="glyphicon glyphicon-home"></span>&nbsp&nbsp&nbsp首页</a></li>
         <li><a href="singleSearch.html"><span class="glyphicon glyphicon-stats"></span>&nbsp&nbsp&nbsp股票数据</a></li>
-        <li class="active"><a href="market_1.html"><span class="glyphicon glyphicon-file"></span>&nbsp&nbsp&nbsp行情信息</a></li>
+        <li class="active"><a href="market_1.html"><span class="glyphicon glyphicon-file"></span>&nbsp&nbsp&nbsp行情信息</a>
+        </li>
         <li><a href="regressionSetting.html"><span class="glyphicon glyphicon-tags"></span>&nbsp&nbsp&nbsp回测</a></li>
         <li><a href="news.html"><span class="glyphicon glyphicon-book"></span>&nbsp&nbsp&nbsp新闻</a></li>
     </ul>
@@ -113,16 +114,17 @@
     <h3>市场温度计</h3>
     <div class="col-md-12">
         <div class="col-md-6">
-            <form action="" class="form-horizontal"  role="form">
+            <form action="" class="form-horizontal" role="form">
                 <fieldset>
                     <div class="form-group">
                         <label for="dtp_input1" class="control-label">选择日期</label>
-                        <div class="input-group date form_datetime col-md-7" data-date="2017-05-10" data-date-format="yyyy MM dd" data-link-field="dtp_input1">
+                        <div class="input-group date form_datetime col-md-7" data-date="2017-05-10"
+                             data-date-format="yyyy MM dd" data-link-field="dtp_input1">
                             <input class="form-control" size="16" type="text" value="" readonly>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                         </div>
-                        <input type="hidden" id="dtp_input1" value="" /><br/>
+                        <input type="hidden" id="dtp_input1" value=""/><br/>
                     </div>
                 </fieldset>
             </form>
@@ -137,11 +139,11 @@
     <div class="col-md-12">
         <div class="col-md-6" style="height: 600px">
             <div id="container-piechart" style="height: 100%"></div>
-            <hr />
+            <hr/>
         </div>
         <div class="col-md-6" style="height: 600px;">
             <div id="container-barchart" style="height: 100%"></div>
-            <hr />
+            <hr/>
         </div>
 
     </div>
@@ -149,11 +151,11 @@
     <div class="col-md-12">
         <div class="col-md-6" style="height: 400px">
             <div id="container-uplimited" style="height: 100%"></div>
-            <hr />
+            <hr/>
         </div>
         <div class="col-md-6" style="height: 400px">
             <div id="container-downlimited" style="height: 100%"></div>
-            <hr />
+            <hr/>
         </div>
 
     </div>
@@ -184,12 +186,15 @@
 
 <!--<script type="text/javascript" src="./jquery/jquery-1.8.3.min.js" charset="UTF-8"></script>-->
 <!--<script type="text/javascript" src="js/bootstrap.min.js"></script>-->
-<script type="text/javascript" src="bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-<script type="text/javascript" src="bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+<script type="text/javascript" src="bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"
+        charset="UTF-8"></script>
+<script type="text/javascript" src="bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.fr.js"
+        charset="UTF-8"></script>
 <!--图表相关引用-->
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
-<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+<script type="text/javascript"
+        src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
@@ -205,10 +210,8 @@
     var numOfStock
     //以下是日期选择器相关的引用
     $('.form_datetime').datetimepicker({
-        //language:  'fr',
         weekStart: 1,
         minView: 2,
-//        todayBtn:  1,
         autoclose: 1,
         todayHighlight: 1,
         startView: 2,
@@ -222,8 +225,6 @@
 
     window.onload = function () {
         var url = "http://localhost:8080/market";
-//        var date = JSON.stringify(new getdate(dtp_input1.value));
-//        alert(date);
         var date = new Date();
         var seperator1 = "-";
         var seperator2 = ":";
@@ -240,16 +241,12 @@
             + seperator2 + "00";
 
         var cd = JSON.stringify(new getdate(currentdate));
-//        alert(cd);
         $.ajax({
             type: "POST",
             url: url,
             data: cd,
             dataType: "json",//此处要设置成json
             success: function (data) {
-//                alert(JSON.stringify(data))
-//                alert(JSON.stringify(data[0]));
-//                alert(data[0].totalDeal)
                 totalDeal = data[0].totalDeal
                 limitUpNum = data[0].limitUpNum;
                 limitDownNum = data[0].limitDownNum;
@@ -276,16 +273,12 @@
     function search() {
         var url = "http://localhost:8080/market";
         var date = JSON.stringify(new getdate(dtp_input1.value));
-//        alert(date);
         $.ajax({
             type: "POST",
             url: url,
             data: date,
             dataType: "json",//此处要设置成json
             success: function (data) {
-//                alert(JSON.stringify(data))
-//                alert(JSON.stringify(data[0]));
-//                alert(data[0].totalDeal)
                 totalDeal = data[0].totalDeal
                 limitUpNum = data[0].limitUpNum;
                 limitDownNum = data[0].limitDownNum;
@@ -433,10 +426,6 @@
             ]
         };
 
-//        setInterval(function () {
-//            option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
-//            myChart.setOption(option, true);
-//        },2000);
         if (option && typeof option === "object") {
             myChart.setOption(option, true);
         }
@@ -467,10 +456,6 @@
             ]
         };
 
-//        setInterval(function () {
-//            option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
-//            myChart.setOption(option, true);
-//        },2000);
         if (option && typeof option === "object") {
             myChart.setOption(option, true);
         }
@@ -501,10 +486,6 @@
             ]
         };
 
-//        setInterval(function () {
-//            option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
-//            myChart.setOption(option, true);
-//        },2000);
         if (option && typeof option === "object") {
             myChart.setOption(option, true);
         }
@@ -535,10 +516,6 @@
             ]
         };
 
-//        setInterval(function () {
-//            option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
-//            myChart.setOption(option, true);
-//        },2000);
         if (option && typeof option === "object") {
             myChart.setOption(option, true);
         }
@@ -569,10 +546,6 @@
             ]
         };
 
-//        setInterval(function () {
-//            option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
-//            myChart.setOption(option, true);
-//        },2000);
         if (option && typeof option === "object") {
             myChart.setOption(option, true);
         }
@@ -603,10 +576,6 @@
             ]
         };
 
-//        setInterval(function () {
-//            option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
-//            myChart.setOption(option, true);
-//        },2000);
         if (option && typeof option === "object") {
             myChart.setOption(option, true);
         }

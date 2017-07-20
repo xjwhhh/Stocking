@@ -30,27 +30,8 @@
         }
     </style>
     <script>
-
     </script>
-
-    <!--<script type="text/javascript">-->
-        <!--var code="601006";-->
-        <!--var path="http://hq.sinajs.cn/list=sh";-->
-        <!--document.write('<script type="text/javascript" src="'+path+code+'" charset="gb2312">'+'</scr'+'ipt>')-->
-    <!--</script>-->
-    <!--<script type="text/javascript">-->
-        <!--var elements=eval("hq_str_sh"+code).split(",");-->
-        <!--alert(elements[0]);-->
-    <!--</script>-->
     <script type="text/javascript" id="firstscript" charset="gb2312"></script>
-
-    <!--<script>-->
-        <!--alert("aaa");-->
-        <!--document.getElementById("js").src=v;-->
-        <!--var elements = eval("hq_str_sh"+"601006").split(",");-->
-        <!--alert(elements[3]);-->
-    <!--</script>-->
-
     <script>
         //        全局变量
         var stockName;
@@ -63,12 +44,9 @@
         var allCodes;
 
 
-    stockName = decodeURIComponent(stockName);
-    stockCode=getval1.split("=")[1];
+        stockName = decodeURIComponent(stockName);
+        stockCode = getval1.split("=")[1];
 
-
-
-//        stockCode = getval1.split("=")[1];
         var minuteList = [];
         var priceList = [];
         var minimum;
@@ -78,22 +56,9 @@
 
         document.getElementById("stockName").value = stockName;
 
-
-        //        var url = "http://hq.sinajs.cn/list=sh" + "601005";
-        //        $("#firstscript").attr("src", url);
-        //        var ele = ("hq_str_sh" + stockCode).split()
-        //        alert()
-
-        //        var temp = eval("hq_str_sh" + stockCode);
-
-
         var url = "http://localhost:8080/singleStock";
-        //            stockName = "a";
+
         var key = JSON.stringify(new getKey("minute", stockName));
-        //            alert("aaaaaa");
-        //        alert(key);
-        //                alert(date);
-        //            alert("success");
         $.ajax({
 
             type: "POST",
@@ -102,44 +67,27 @@
             dataType: "json",//此处要设置成json
             success: function (data) {
 
-                alert("success");
+
                 minuteList = data[0].minute;
                 priceList = data[0].prices;
                 minimum = data[0].minimum;
                 prediction = data[0].prediction;
                 relativity = data[0].relativity;
-                alert(data[0].toString());
-//                document.getElementById("prediction").value=prediction;
-//                document.getElementById("relativity").value=relativity;
 
-
-//                    alert("hah"+minuteList[0]);
                 ShowTimeChart();
-//                alert(allNames.length);
+
             }
         });
-
-
-//        document.getElementById("prediction").value=prediction;
-//        document.getElementById("relativity").value=relativity;
-
-
-
-
-
-
-
-
 
         function showvalf() {
 
 
         }
-        //        通过新浪数据借口得到值
+        //        通过新浪数据接口得到值
 
 
-        function getPlate(platestr){
-            this.type=platestr;
+        function getPlate(platestr) {
+            this.type = platestr;
         }
 
         function getKey(typestr, identifier) {
@@ -147,50 +95,27 @@
             this.identifier = identifier;
         }
         function historyCheck() {
-//            alert("success");
             var startDate = $("#startDate").val();
             var endDate = $("#endDate").val();
 
             stockName = encodeURIComponent(stockName);
-//alert(startDate+" "+endDate);
-//            var startDate = document.getElementById("startDate").valueAsDate;
-//            var startDate = document.getElementById("startDate").valueAsDate;
-//
-//            alert("success");
+
             document.location.href && (document.location.href = "singleStockHistory.html?stockName=" + stockName + "?startDate=" + startDate + "?endDate=" + endDate);
         }
         function CurrentLoads() {
 
-//            var code=stockCode;
-//            var v="http://hq.sinajs.cn/list=sh"+code;
-//
-//            //alert("aaa");
-//            document.getElementById("js").src=v;
-//            var elements = eval("hq_str_sh"+"601006").split(",");
-//            alert(elements[3]);
-
-
-
-
-
-//            alert("1234567")
             var url = "http://localhost:8080/singleStock";
-//            stockName = "a";
             var key = JSON.stringify(new getKey("minute", stockName));
-//            alert("aaaaaa");
-//        alert(key);
-//                alert(date);
-//            alert("success");
+
             $.ajax({
 
                 type: "POST",
                 url: url,
                 data: key,
                 dataType: "json",//此处要设置成json
-                async : false,
+                async: false,
                 success: function (data) {
 
-                    alert("success");
                     minuteList = data[0].minute;
                     priceList = data[0].prices;
                     minimum = data[0].minimum;
@@ -198,34 +123,21 @@
                     relativity = data[0].relativity;
 
 
-//                    document.getElementById("pre").value=prediction;
-
-//                    alert(prediction);
-
                     var x = document.getElementById("resultShow").insertRow(0);
-                    alert(prediction);
+
                     var vv = x.insertCell(0);
 
-//                        var vvvvv = x.insertCell(5);
-                    vv.innerHTML = "上涨预测:"+prediction;
 
-                    var y=x.insertCell(1);
-                    y.innerHTML = "市场相关系数"+relativity;
-//                    z.innerHTML =codesToCompare[v];
-//                    vv.innerHTML=high;
-//                    vvv.innerHTML=low;
+                    vv.innerHTML = "上涨预测:" + prediction;
 
+                    var y = x.insertCell(1);
+                    y.innerHTML = "市场相关系数" + relativity;
 
-//                    alert("hah"+minuteList[0]);
                     ShowTimeChart();
-//                alert(allNames.length);
+
                 }
             });
 
-
-//            document.getElementById("prediction").value=prediction;
-//            document.getElementById("relativity").value=relativity;
-//            alert("load");
             //判断是否已登陆
             var sstorage = sessionStorage;
             if (sstorage.getItem("login") == null) {
@@ -242,7 +154,7 @@
                 ul.appendChild(li2);
 
             } else {
-//                customerID = sstorage.getItem("login");
+
 
                 var ul = document.getElementById("login");
 
@@ -253,8 +165,6 @@
                 ul.appendChild(li);
 
             }
-
-
 
 
         }
@@ -318,24 +228,23 @@
 
         }
 
-        function getCollectionKey(typestr,idstr,codestr) {
+        function getCollectionKey(typestr, idstr, codestr) {
 
-            this.type=typestr;
-            this.id=idstr;
-            this.code=codestr;
+            this.type = typestr;
+            this.id = idstr;
+            this.code = codestr;
         }
 
 
+        function Collection() {
+            var url = "http://localhost:8080/collection";
+            var ss = sessionStorage;
 
-        function Collection(){
-            var url="http://localhost:8080/collection";
-            var ss=sessionStorage;
-
-            if(ss.getItem("login")==null){
+            if (ss.getItem("login") == null) {
                 alert("请先登录");
-            }else{
+            } else {
                 customerID = ss.getItem("login");
-                var key = JSON.stringify(new getCollectionKey("add",customerID,"1"));
+                var key = JSON.stringify(new getCollectionKey("add", customerID, "1"));
 
                 $.ajax({
 
@@ -344,8 +253,8 @@
                     data: key,
                     dataType: "json",//此处要设置成json
                     success: function (data) {
-                        var v=data[0].name;
-                       alert("已添加");
+                        var v = data[0].name;
+                        alert("已添加");
                     }
                 });
 
@@ -355,18 +264,16 @@
         }
 
 
-
-
         //        document.getElementById("quote-high").value=100000;
     </script>
     <script type="text/javascript">
-        var code=stockCode;
-        var path="http://hq.sinajs.cn/list=sh";
-        document.write('<script type="text/javascript" src="'+path+code+'" charset="gb2312">'+'</scr'+'ipt>')
+        var code = stockCode;
+        var path = "http://hq.sinajs.cn/list=sh";
+        document.write('<script type="text/javascript" src="' + path + code + '" charset="gb2312">' + '</scr' + 'ipt>')
     </script>
     <script type="text/javascript">
-        var elements=eval("hq_str_sh"+code).split(",");
-//        alert(elements[0]);
+        var elements = eval("hq_str_sh" + code).split(",");
+
     </script>
 
     <!--<script type="text/javascript" src="http://hq.sinajs.cn/list=sh601006" charset="gb2312"></script>-->
@@ -389,7 +296,7 @@
         <a class="navbar-brand" href="#" style="height: 100px;line-height: 70px; font-size:4em">Stocking</a>
     </div>
     <div class="navbar-collapse collapse">
-        <ul  id="login" class="nav navbar-nav navbar-right">
+        <ul id="login" class="nav navbar-nav navbar-right">
             <!--<li><a href="login.html" target="_blank" style="height: 100px;line-height: 70px; font-size:1.2em">登录</a>-->
             <!--</li>-->
             <!--<li>f</li>-->
@@ -411,7 +318,8 @@
 </div>
 <div class="collapse navbar-collapse" id="navbar-collapse-6">
     <ul class="nav nav-tabs">
-        <li><a style="color: white" href="index.html"><span class="glyphicon glyphicon-home"></span>&nbsp&nbsp&nbsp首页</a></li>
+        <li><a style="color: white" href="index.html"><span
+                class="glyphicon glyphicon-home"></span>&nbsp&nbsp&nbsp首页</a></li>
         <li class="active"><a href="singleSearch.html"><span class="glyphicon glyphicon-stats"></span>&nbsp&nbsp&nbsp股票数据</a>
 
         </li>
@@ -429,7 +337,8 @@
         </span>
         <span class="stockOp" style="display: inline;margin-left: 8px">
             <span style="background: #0064b4">
-                   <button  style="background: #0064b4;font-size: 12px" type="button" class="btn btn-default btn-sm" onclick="Collection()">
+                   <button style="background: #0064b4;font-size: 12px" type="button" class="btn btn-default btn-sm"
+                           onclick="Collection()">
                     <span style="background: #0064b4" class="glyphicon glyphicon-heart"></span> 收藏
                     </button>
             </span>
@@ -437,7 +346,7 @@
     </div>
 
 
-    <table  id="resultShow" style="margin-top: 20px" class="topTable">
+    <table id="resultShow" style="margin-top: 20px" class="topTable">
         <tbody>
 
 
@@ -453,12 +362,7 @@
             <td>成交金额:<span><script>document.write(elements[9])</script></span></td>
 
         </tr>
-        <!--<tr class="seperateBottom">-->
-        <!--<td>涨停价：<span>8.66</span></td>-->
-        <!--<td>总市值：<span>14275.64亿</span></td>-->
-        <!--<td title="最近报告期每股收益，单位：人民币">每股收益：<span>0.03</span></td>-->
-        <!--<td>市盈率(静)/(动)：<span>180.70/52.13</span></td>-->
-        <!--</tr>-->
+
 
         </tbody>
     </table>

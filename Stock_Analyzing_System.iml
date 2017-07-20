@@ -16,7 +16,7 @@
       </configuration>
     </facet>
     <facet type="Python" name="Python">
-      <configuration sdkName="" />
+      <configuration sdkName="Python 3.6.0 (C:\Users\xjwhh\Anaconda3\python.exe)" />
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6">
@@ -153,5 +153,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="Python 3.6.0 (C:\Users\xjwhh\Anaconda3\python.exe) interpreter library" level="application" />
   </component>
 </module>

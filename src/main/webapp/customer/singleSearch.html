@@ -23,8 +23,6 @@
     </script>
 
 
-
-
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet">
 
@@ -56,7 +54,8 @@
             color: #1565a2;
             background: white;
         }
-        .glyphicon.glyphicon-search{
+
+        .glyphicon.glyphicon-search {
             font-size: 22px;
             color: #1565a2;
 
@@ -66,23 +65,22 @@
 
     <script>
         //        股票对比
-        var Number=0 ;//记录比较表格个数
+        var Number = 0;//记录比较表格个数
         var stockToCompare = [];//记录进行比较的股票名
-        var codesToCompare=[]//记录进行比较的股票编码
+        var codesToCompare = []//记录进行比较的股票编码
         var codeList = [];//
         var startTime;
         var endTime;
-        var datesList=[];//股票比较时间list
-        var closePrice ;
-        var variance ;
+        var datesList = [];//股票比较时间list
+        var closePrice;
+        var variance;
         var lowest;//各个股票的最高最低值，填入表中
         var highest;
         var allNames;
         var allCodes;
 
 
-
-        function getIdentifier(typestr,stockNamestr,startstr,endstr) {
+        function getIdentifier(typestr, stockNamestr, startstr, endstr) {
             this.type = typestr;
             this.identifier = stockNamestr;
             this.start = startstr;
@@ -91,162 +89,124 @@
 
 
         function Compare() {
-            var series1=[];
-            var series2=[];
+            var series1 = [];
+            var series2 = [];
             closePrice = new Array();
             variance = new Array();
             startDate = $("#compareStart").val();
             endDate = $("#compareEnd").val();
-//            alert(startDate);
-//            ShowChart();
-//            alert(stockToCompare[0]);
+
             var url = "http://localhost:8080/singleStock";
-            var key = JSON.stringify(new getIdentifier("normal",stockToCompare[0],startDate+" 00:00:00",endDate+" 00:00:00"));
-//            $.ajax({
-//                type: "POST",
-//                url: url,
-//                data: key,
-//                dataType: "json",//此处要设置成json
-//                async : false,
-//                success: function (data) {
-//
-//                     datesList= data[0].dates;
-//
-//                }
-//            });
-//            alert("datesList.length);
-
-
-
+            var key = JSON.stringify(new getIdentifier("normal", stockToCompare[0], startDate + " 00:00:00", endDate + " 00:00:00"));
 
             for (var v = 0; v < stockToCompare.length; v++) {
                 var stockName = stockToCompare[v];
-//                alert(stockName);
 
-                var key = JSON.stringify(new getIdentifier("normal",stockName,startDate+" 00:00:00",endDate+" 00:00:00"));
+                var key = JSON.stringify(new getIdentifier("normal", stockName, startDate + " 00:00:00", endDate + " 00:00:00"));
                 $.ajax({
                     type: "POST",
                     url: url,
                     data: key,
                     dataType: "json",//此处要设置成json
-                    async : false,
+                    async: false,
                     success: function (data) {
-//                        alert("chuanle");
                         var open = data[0].open;
                         var close = data[0].adjClose;
-//                        var high = data[0].high;
-//                        var low = data[0].low;
-//                        datesList= data[0].dates;
-
                         var profits = data[0].profit;
                         var high = data[0].highest;
                         var low = data[0].lowest;
                         var up = data[0].up;
-                        datesList= data[0].dates;
+                        datesList = data[0].dates;
                         var code = data[0].code;
-//                        closePrice = close;
-
-
-
-                        var x = document.getElementById("compareResult").insertRow(v+1);
+                        var x = document.getElementById("compareResult").insertRow(v + 1);
                         var y = x.insertCell(0);
                         var z = x.insertCell(1);
                         var vv = x.insertCell(2);
                         var vvv = x.insertCell(3);
                         var vvvv = x.insertCell(4);
-//                        var vvvvv = x.insertCell(5);
                         y.innerHTML = stockToCompare[v];
-                        z.innerHTML =codesToCompare[v];
-                        vv.innerHTML=high;
-                        vvv.innerHTML=low;
-                        vvvv.innerHTML=up;
-//                        vvvvv.innerHTML=up;
-                        closePrice=close;
-                        variance=profits;
-//                        alert("vass"+variance[0]);
+                        z.innerHTML = codesToCompare[v];
+                        vv.innerHTML = high;
+                        vvv.innerHTML = low;
+                        vvvv.innerHTML = up;
+                        closePrice = close;
+                        variance = profits;
                     }
 
                 });//回调函数
-//                alert("vass"+variance[0]);
 
                 series1.push({
                     name: stockToCompare[v],
                     type: 'line',
-//                            stack: '总量',
-                    data:closePrice,
-//                            data: close
+                    data: closePrice,
                 });
-//                        alert("ssss");
                 series2.push({
                     name: stockToCompare[v],
                     type: 'line',
-//                            stack: '总量',
-                    data:variance,
-//                            data: v
+                    data: variance,
                 });
 
 
             }
-//            alert("asd"+closePrice[0]);
-//            alert("datessss"+datesList[0]);
 
             var myChart = echarts.init(document.getElementById("closePrice"));
             var option = {
-                title : {
+                title: {
                     text: '每日收盘价',
 
                 },
-                tooltip : {
-                    show:true,
+                tooltip: {
+                    show: true,
                     trigger: 'axis'
                 },
                 legend: {
-                    width:30,
-                    left:'center',
+                    width: 30,
+                    left: 'center',
                     itemGap: 10,
                     itemWidth: 20,
                     itemHeight: 14,
-                    data:stockToCompare,
+
+
                 },
                 //右上角工具条
                 toolbox: {
-                    show : true,
-                    feature : {
-                        mark : {show: true},
-                        dataView : {show: true, readOnly: false},
-                        magicType : {show: true, type: ['line', 'bar']},
-                        restore : {show: true},
-                        saveAsImage : {show: true}
+                    show: true,
+                    feature: {
+                        mark: {show: true},
+                        dataView: {show: true, readOnly: false},
+                        magicType: {show: true, type: ['line', 'bar']},
+                        restore: {show: true},
+                        saveAsImage: {show: true}
                     }
                 },
-                calculable : true,
-                xAxis : [
+                calculable: true,
+                xAxis: [
                     {
-                        type : 'category',
-                        boundaryGap : false,
-                        data : datesList,
+                        type: 'category',
+                        boundaryGap: false,
+                        data: datesList,
                     }
                 ],
-                yAxis : [
+                yAxis: [
                     {
-                        type : 'value',
+                        type: 'value',
 
                     }
                 ],
 
-                series : series1,
+                series: series1,
             };
-            myChart.setOption(option,true);
+            myChart.setOption(option, true);
 
 //相对收益率
 
             var myChart1 = echarts.init(document.getElementById("variance"));
             var option1 = {
-                title : {
+                title: {
                     text: '每日对数收益率',
 
                 },
-                tooltip : {
+                tooltip: {
                     trigger: 'axis'
                 },
                 legend: {
@@ -255,64 +215,60 @@
                     itemHeight: 14,
 
 
-                    data:stockToCompare,
                 },
                 //右上角工具条
                 toolbox: {
-                    show : true,
-                    feature : {
-                        mark : {show: true},
-                        dataView : {show: true, readOnly: false},
-                        magicType : {show: true, type: ['line', 'bar']},
-                        restore : {show: true},
-                        saveAsImage : {show: true}
+                    show: true,
+                    feature: {
+                        mark: {show: true},
+                        dataView: {show: true, readOnly: false},
+                        magicType: {show: true, type: ['line', 'bar']},
+                        restore: {show: true},
+                        saveAsImage: {show: true}
                     }
                 },
-                calculable : true,
-                xAxis : [
+                calculable: true,
+                xAxis: [
                     {
-                        type : 'category',
-                        boundaryGap : false,
-                        data : datesList,
+                        type: 'category',
+                        boundaryGap: false,
+                        data: datesList,
                     }
                 ],
-                yAxis : [
+                yAxis: [
                     {
-                        type : 'value',
+                        type: 'value',
 
                     }
                 ],
-                series : series2
+                series: series2
             };
 
-//            alert("ssss");
 // 为echarts对象加载数据
-            myChart1.setOption(option1,true);
+            myChart1.setOption(option1, true);
 
 
         }
-        function Remove(){
+        function Remove() {
 
         }
-        function ShowTable(){
-
+        function ShowTable() {
 
 
         }
-        function ShowChart(){
+        function ShowChart() {
 //            每日收盘价
 
         }
 
-//         个股详情
+        //         个股详情
         var stockList;//板块搜索得到股票列表和股票编号
         var codeList;
 
-//        界面加载时调用函数，得到所有股票名称和代码，初始化图表
+        //        界面加载时调用函数，得到所有股票名称和代码，初始化图表
 
 
     </script>
-
 
 
 </head>
@@ -321,103 +277,88 @@
 <script>
     var stockName
     function sendName() {
-        var exit=0;
+        var exit = 0;
         var stockCode;
         stockName = document.getElementById("stockNameInput").value;
-//        alert(stockName);
-//        判断是否存在
-        for(var v=0;v<allNames.length;v++){
-            if(allNames[v]==stockName){
+
+        for (var v = 0; v < allNames.length; v++) {
+            if (allNames[v] == stockName) {
                 stockCode = allCodes[v];
-                exit=1;
+                exit = 1;
                 break;
             }
         }
-        if(exit==1) {
-            stockName=encodeURIComponent(stockName);
+        if (exit == 1) {
+            stockName = encodeURIComponent(stockName);
 
-            document.location.href && (document.location.href = "singleStockCurrent.html?stockNameInput=" + stockName+"?stockCodeInput="+stockCode);
-        }else{
-            for(var v=0;v<allNames.length;v++){
-                if(allCodes[v]==stockName){
-                    exit=1;
-                    stockCode=stockName;
+            document.location.href && (document.location.href = "singleStockCurrent.html?stockNameInput=" + stockName + "?stockCodeInput=" + stockCode);
+        } else {
+            for (var v = 0; v < allNames.length; v++) {
+                if (allCodes[v] == stockName) {
+                    exit = 1;
+                    stockCode = stockName;
                     stockName = allNames[v];
                     break;
                 }
             }
-            if(exit==1){
-                stockName=encodeURIComponent(stockName);
-                document.location.href && (document.location.href = "singleStockCurrent.html?stockNameInput=" + stockName+"?stockCodeInput="+stockCode);
-            }else{alert("股票不存在");}
+            if (exit == 1) {
+                stockName = encodeURIComponent(stockName);
+                document.location.href && (document.location.href = "singleStockCurrent.html?stockNameInput=" + stockName + "?stockCodeInput=" + stockCode);
+            } else {
+                alert("股票不存在");
+            }
         }
     }
-    function getPlate(platestr){
-        this.type=platestr;
+    function getPlate(platestr) {
+        this.type = platestr;
     }
-    function Load(){
-//        var allNames;
-//        var allCodes;
-//        stockToCompare=["a"];
-//        dates=[1,2];
-//        closePrice=[0,0];
-//        alert("load");
-//        ShowChart();
-
+    function Load() {
 
         //判断是否登陆
         var sstorage = sessionStorage;
-        if(sstorage.getItem("login")==null){
-            var ul=document.getElementById("login");
+        if (sstorage.getItem("login") == null) {
+            var ul = document.getElementById("login");
 
-            var li=document.createElement("li");
+            var li = document.createElement("li");
 
-            li.innerHTML="<a href='login.html' target='_blank' style='height: 80px;line-height: 60px; font-size:1.0em'>登录</a>";
+            li.innerHTML = "<a href='login.html' target='_blank' style='height: 80px;line-height: 60px; font-size:1.0em'>登录</a>";
 
             ul.appendChild(li);
 
-            var li2=document.createElement("li");
-            li2.innerHTML="<a href='signup.html' style='height: 80px;line-height: 60px; font-size:1.0em'>注册</a>";
+            var li2 = document.createElement("li");
+            li2.innerHTML = "<a href='signup.html' style='height: 80px;line-height: 60px; font-size:1.0em'>注册</a>";
             ul.appendChild(li2);
 
-        }else{
-            var ul=document.getElementById("login");
+        } else {
+            var ul = document.getElementById("login");
 
-            var li=document.createElement("li");
+            var li = document.createElement("li");
 
-            li.innerHTML="<a href='CustomerSetting.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>用户设置</a>";
+            li.innerHTML = "<a href='CustomerSetting.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>用户设置</a>";
 
             ul.appendChild(li);
 
         }
 
 
-        var url="http://localhost:8080/codename";
+        var url = "http://localhost:8080/codename";
         var key = JSON.stringify(new getPlate("all"));
-//        alert(key);
-//                alert(date);
-//            alert("success");
         $.ajax({
 
-            type:"POST",
-            url:url,
-            data:key,
+            type: "POST",
+            url: url,
+            data: key,
             dataType: "json",//此处要设置成json
             success: function (data) {
 
                 allNames = data[0].name;
                 allCodes = data[0].code;
-//                alert(allNames.length);
-            }});
+            }
+        });
     }
 
 
-//    var stockNames = ["a", "b", "c"];
-//    var stockNums = [1, 2, 3];
-
-
 </script>
-
 
 
 <!--固定导航栏-->
@@ -436,7 +377,7 @@
         <a class="navbar-brand" href="#" style="height: 100px;line-height: 70px; font-size:4em">Stocking</a>
     </div>
     <div class="navbar-collapse collapse">
-        <ul  id="login" class="nav navbar-nav navbar-right">
+        <ul id="login" class="nav navbar-nav navbar-right">
             <!--<li><a href="login.html" target="_blank" style="height: 100px;line-height: 70px; font-size:1.2em">登录</a>-->
             <!--</li>-->
             <!--<li>f</li>-->
@@ -458,7 +399,8 @@
 </div>
 <div class="collapse navbar-collapse" id="navbar-collapse-6">
     <ul class="nav nav-tabs">
-        <li><a style="color: white" href="index.html"><span class="glyphicon glyphicon-home"></span>&nbsp&nbsp&nbsp首页</a></li>
+        <li><a style="color: white" href="index.html"><span
+                class="glyphicon glyphicon-home"></span>&nbsp&nbsp&nbsp首页</a></li>
         <li class="active"><a href="singleSearch.html"><span class="glyphicon glyphicon-stats"></span>&nbsp&nbsp&nbsp股票数据</a>
 
         </li>
@@ -488,7 +430,8 @@
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade in active" id="stockContent">
         <form action="singleStockCurrent.html" method="POST">
-            <div style="padding-left:40px;margin-top: 40px ;margin-left: 40px;border:0px solid #2767a9;width:70%" class="nav__search">
+            <div style="padding-left:40px;margin-top: 40px ;margin-left: 40px;border:0px solid #2767a9;width:70%"
+                 class="nav__search">
                 <input type="text" id="stockNameInput" placeholder="输入股票名或股票编号">
                 <span class="nav__search__addon">
            <!--<input style="background: rgba(0,0,0,0)" type="submit">-->
@@ -704,55 +647,51 @@
                 </div>
                 <script>
 
-                    function getType(typestr){
+                    function getType(typestr) {
                         this.type = typestr;
                     }
 
-//                    根据行业和板块得到股票列表
+                    //                    根据行业和板块得到股票列表
                     function stockSearch() {
                         var myselect1 = document.getElementById("hangye");
                         var myselect2 = document.getElementById("bankuai");
-                        var index1=myselect1.selectedIndex ;
-                        var index2=myselect2.selectedIndex ;
-                       var hangye=myselect1.options[index1].value;
-                       var bankuai =myselect2.options[index2].value;
-                       //调用ajax得到codelist和stocklist
-                        var url="http://localhost:8080/codename";
-                        var key = JSON.stringify(new getType(hangye+"/"+bankuai));
-                        alert("ok!~");
+                        var index1 = myselect1.selectedIndex;
+                        var index2 = myselect2.selectedIndex;
+                        var hangye = myselect1.options[index1].value;
+                        var bankuai = myselect2.options[index2].value;
+                        //调用ajax得到codelist和stocklist
+                        var url = "http://localhost:8080/codename";
+                        var key = JSON.stringify(new getType(hangye + "/" + bankuai));
 
                         $.ajax({
 
-                            type:"POST",
-                            url:url,
-                            data:key,
+                            type: "POST",
+                            url: url,
+                            data: key,
                             dataType: "json",//此处要设置成json
                             success: function (data) {
-//                                alert("ok");
 
                                 stockList = data[0].name;
                                 codeList = data[0].code;
 
-                            }});
-//                        $("#stockTable tbody").html("");
+                            }
+                        });
 
                         for (var i = 0; i < stockList.length; i++) {
                             var x = document.getElementById("stockTable").insertRow(i);
                             var y = x.insertCell(0);
                             var z = x.insertCell(1);
-                           var stockName=encodeURIComponent(stockList[i]);
-                           var code = codeList[i];
-                            y.innerHTML = "<a style='color: black' href='singleStockCurrent.html?stockNameInput=" + stockList[i] +"?code="+code+ "'>" + stockList[i] + "</a>";
+                            var stockName = encodeURIComponent(stockList[i]);
+                            var code = codeList[i];
+                            y.innerHTML = "<a style='color: black' href='singleStockCurrent.html?stockNameInput=" + stockList[i] + "?code=" + code + "'>" + stockList[i] + "</a>";
                             z.innerHTML = codeList[i];
 
                         }
                         var x = document.getElementById("stockTable").insertRow(0);
                         var y = x.insertCell(0);
                         var z = x.insertCell(1);
-//                        var zz = x.insertCell(2);
                         y.innerHTML = "股票名称";
                         z.innerHTML = "股票编号";
-//                        zz.innerHTML = "收藏"
                         document.getElementById('numberOfSearch').innerHTML = stockList.length;
 
 
@@ -846,53 +785,30 @@
                         <script>
                             function Inputadd() {
                                 var repeat = 0;
-                                var exit=0;
+                                var exit = 0;
 
 //                                判断输入是否存在
                                 var stockName = document.getElementById("stockInput").value;
 
-//                                alert(stockName);
 
-                                for(var v=0;v<allNames.length;v++){
-                                    if(allNames[v]==stockName){
+                                for (var v = 0; v < allNames.length; v++) {
+                                    if (allNames[v] == stockName) {
                                         stockCode = allCodes[v];
                                         codesToCompare.push(stockCode);
-                                        exit=1;
+                                        exit = 1;
                                         break;
                                     }
                                 }
-                                if(exit==1) {
+                                if (exit == 1) {
                                     //存在
-                                    for(var v=0;v<stockToCompare.length;v++){
-                                        if(stockToCompare[v]==stockName){repeat=1;break;}
-                                    }
-                                    if(repeat==0){
-
-
-
-                                    var x = document.getElementById("compareTable").insertRow(Number);
-                                    var y = x.insertCell(0);
-
-
-                                    y.innerHTML = stockName;
-                                    stockToCompare.push(stockName);
-                                    Number++;}else {alert("该股票已存在");}
-                                }else{
-                                    alert("code");
-                                    for(var v=0;v<allNames.length;v++){
-                                        if(allCodes[v]==stockName){
-                                            exit=1;
-                                            stockCode=stockName;
-                                            codesToCompare.push(stockCode);
-                                            stockName = allNames[v];
-//                                            alert(stockName);
+                                    for (var v = 0; v < stockToCompare.length; v++) {
+                                        if (stockToCompare[v] == stockName) {
+                                            repeat = 1;
                                             break;
                                         }
                                     }
-                                    if(exit==1){
-                                        for(var v=0;v<stockToCompare.length;v++){
-                                            if(stockToCompare[v]==stockName){repeat=1;break;}
-                                        }if(repeat==0){
+                                    if (repeat == 0) {
+
 
                                         var x = document.getElementById("compareTable").insertRow(Number);
                                         var y = x.insertCell(0);
@@ -900,50 +816,83 @@
 
                                         y.innerHTML = stockName;
                                         stockToCompare.push(stockName);
-                                        Number++;}else{alert("该股票已存在");}
-                                    }else{alert("股票不存在");}
-                                }
+                                        Number++;
+                                    } else {
+                                        alert("该股票已存在");
+                                    }
+                                } else {
+                                    for (var v = 0; v < allNames.length; v++) {
+                                        if (allCodes[v] == stockName) {
+                                            exit = 1;
+                                            stockCode = stockName;
+                                            codesToCompare.push(stockCode);
+                                            stockName = allNames[v];
+                                            break;
+                                        }
+                                    }
+                                    if (exit == 1) {
+                                        for (var v = 0; v < stockToCompare.length; v++) {
+                                            if (stockToCompare[v] == stockName) {
+                                                repeat = 1;
+                                                break;
+                                            }
+                                        }
+                                        if (repeat == 0) {
+
+                                            var x = document.getElementById("compareTable").insertRow(Number);
+                                            var y = x.insertCell(0);
 
 
-
-                            }
-                            function Chooseadd(obj){
-                                var repeat=0;
-//                                alert("choose");
-
-
-                                var c= $(obj).parent().parent().children("td").eq(0).text();
-//                                alert("stockCHose :"+c);
-
-                                for(var v=0;v<stockToCompare.length;v++){
-                                    if(stockToCompare[v]==c){repeat=1;break;}
-                                }if(repeat==0){
-
-                                stockToCompare.push(c);
-                                var x = document.getElementById("compareTable").insertRow(Number);
-                                var y = x.insertCell(0);
-
-                                y.innerHTML = c;
-
-                                for(var temp=0;temp<allNames.length;temp++){
-                                    if(allNames[temp]==c){
-                                        codesToCompare.push(allCodes[temp]);
-                                        break;
+                                            y.innerHTML = stockName;
+                                            stockToCompare.push(stockName);
+                                            Number++;
+                                        } else {
+                                            alert("该股票已存在");
+                                        }
+                                    } else {
+                                        alert("股票不存在");
                                     }
                                 }
 
 
+                            }
+                            function Chooseadd(obj) {
+                                var repeat = 0;
 
 
+                                var c = $(obj).parent().parent().children("td").eq(0).text();
 
-//                                document.getElementById('numberOfSearch').innerHTML = stockNames.length;
-                                Number++;}else{alert("该股票已存在");}
+                                for (var v = 0; v < stockToCompare.length; v++) {
+                                    if (stockToCompare[v] == c) {
+                                        repeat = 1;
+                                        break;
+                                    }
+                                }
+                                if (repeat == 0) {
+
+                                    stockToCompare.push(c);
+                                    var x = document.getElementById("compareTable").insertRow(Number);
+                                    var y = x.insertCell(0);
+
+                                    y.innerHTML = c;
+
+                                    for (var temp = 0; temp < allNames.length; temp++) {
+                                        if (allNames[temp] == c) {
+                                            codesToCompare.push(allCodes[temp]);
+                                            break;
+                                        }
+                                    }
+                                    Number++;
+                                } else {
+                                    alert("该股票已存在");
+                                }
 
                             }
                         </script>
 
                         <div class="sc_sel_btns">
-                            <button style="font-size: 18px" type="button" class="btn btn-default btn-sm" onclick="Compare()">
+                            <button style="font-size: 18px" type="button" class="btn btn-default btn-sm"
+                                    onclick="Compare()">
                                 <span class="glyphicon glyphicon-search"></span> 开始对比
                             </button>
                             <!-- _url为对比的跳转链接,只需保证存在{code}存在即可		 -->
@@ -973,34 +922,41 @@
                             <tr>
                                 <td>神州高铁</td>
 
-                                <th><button type="button" class="btn btn-default btn-sm" onclick="Chooseadd(this)">
-                                    <span class="glyphicon glyphicon-plus"></span>
-                                </button></th>
+                                <th>
+                                    <button type="button" class="btn btn-default btn-sm" onclick="Chooseadd(this)">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </button>
+                                </th>
                             </tr>
 
                             <tr>
                                 <td>世纪星源</td>
 
-                                <th><button type="button" class="btn btn-default btn-sm" onclick="Chooseadd(this)">
-                                    <span class="glyphicon glyphicon-plus"></span>
-                                </button></th>
+                                <th>
+                                    <button type="button" class="btn btn-default btn-sm" onclick="Chooseadd(this)">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </button>
+                                </th>
                             </tr>
 
                             <tr>
                                 <td>中国宝安</td>
 
-                                <th><button type="button" class="btn btn-default btn-sm" onclick="Chooseadd(this)">
-                                    <span class="glyphicon glyphicon-plus"></span>
-                                </button></th>
+                                <th>
+                                    <button type="button" class="btn btn-default btn-sm" onclick="Chooseadd(this)">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </button>
+                                </th>
                             </tr>
                             <tr>
                                 <td>美丽生态</td>
 
-                                <th><button type="button" class="btn btn-default btn-sm" onclick="Chooseadd(this)">
-                                    <span class="glyphicon glyphicon-plus"></span>
-                                </button></th>
+                                <th>
+                                    <button type="button" class="btn btn-default btn-sm" onclick="Chooseadd(this)">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </button>
+                                </th>
                             </tr>
-
 
 
                             </tbody>
@@ -1023,13 +979,9 @@
                         <th>最低值</th>
                         <th>最高值</th>
                         <th>涨跌幅</th>
-
-
-
                     </tr>
                     </thead>
                     <tbody>
-
 
                     </tbody>
                 </table>
@@ -1041,14 +993,18 @@
                 <!--<h6>每日收盘价</h6>-->
                 <div>
                     <div id="closePrice" style="height:350px;width: 600px;margin-top: 3%"></div>
-                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+                    <script type="text/javascript"
+                            src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
                     <script type="text/javascript"
                             src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
                     <script type="text/javascript"
                             src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
-                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
-                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
-                    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+                    <script type="text/javascript"
+                            src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+                    <script type="text/javascript"
+                            src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+                    <script type="text/javascript"
+                            src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
                     <script type="text/javascript"
                             src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
                     <!--<script type="text/javascript" src="closePrice.js"></script>-->

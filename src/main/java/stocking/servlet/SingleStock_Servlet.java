@@ -54,9 +54,6 @@ public class SingleStock_Servlet extends HttpServlet {
             StockPO stockPO = null;
             try {
                 stockPO = ssds.getStockList(identifier, start, end);
-                JSONObject json = JSONObject.fromObject(stockPO);//将java对象转换为json对象
-                String str = json.toString();//将json对象转换为字符串
-                System.out.println(str);
             } catch (ParseException e) {
                 e.printStackTrace();
                 return;
@@ -64,9 +61,6 @@ public class SingleStock_Servlet extends HttpServlet {
             new SendByServlet().doSend(response, stockPO);
         } else {
             MinuteDataPO minutePO = mds.getMinuteDataPO(identifier);
-            JSONObject json = JSONObject.fromObject(minutePO);//将java对象转换为json对象
-            String str = json.toString();//将json对象转换为字符串
-            System.out.println(str);
             new SendByServlet().doSend(response, minutePO);
         }
     }

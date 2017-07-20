@@ -178,7 +178,7 @@
     </div>
     <!--<div class="col-md-2" style="background: #efeff4">-->
 
-    </div>
+</div>
 </div>
 
 <!---------------------------以下是各种js------------------------------>
@@ -190,44 +190,37 @@
         this.op = op;
     }
 
-    function judgeLogin(){
+    function judgeLogin() {
         //判断是否登录
         var sstorage = sessionStorage;
-        if(sstorage.getItem("login")==null){
-            var ul=document.getElementById("login");
+        if (sstorage.getItem("login") == null) {
+            var ul = document.getElementById("login");
 
-            var li=document.createElement("li");
+            var li = document.createElement("li");
 
-            li.innerHTML="<a href='login.html' target='_blank' style='height: 80px;line-height: 60px; font-size:1.0em'>登录</a>";
+            li.innerHTML = "<a href='login.html' target='_blank' style='height: 80px;line-height: 60px; font-size:1.0em'>登录</a>";
 
             ul.appendChild(li);
 
-            var li2=document.createElement("li");
-            li2.innerHTML="<a href='signup.html' style='height: 80px;line-height: 60px; font-size:1.0em'>注册</a>";
+            var li2 = document.createElement("li");
+            li2.innerHTML = "<a href='signup.html' style='height: 80px;line-height: 60px; font-size:1.0em'>注册</a>";
             ul.appendChild(li2);
 
-        }else{
-            var ul=document.getElementById("login");
+        } else {
+            var ul = document.getElementById("login");
 
-            var li=document.createElement("li");
+            var li = document.createElement("li");
 
-            li.innerHTML="<a href='CustomerSetting.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>用户设置</a>";
+            li.innerHTML = "<a href='CustomerSetting.html' target='_blank' style='height: 100px;line-height: 70px; font-size:1.2em'>用户设置</a>";
 
             ul.appendChild(li);
 
         }
 
 
-
-
-
-
-
     }
 
     function getnews() {
-
-
 
 
         var url = "http://localhost:8080/news";
@@ -238,9 +231,6 @@
             data: op,
             dataType: "json",
             success: function (data) {
-//                alert(data)
-//                alert(data[0].classify)
-//                alert(JSON.stringify(data[0]))
 
                 document.getElementById("classify1").innerHTML = data[0].classify[0];
                 document.getElementById("classify2").innerHTML = data[0].classify[1];

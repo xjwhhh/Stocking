@@ -74,7 +74,8 @@
         <li><a href="index.html"><span class="glyphicon glyphicon-home"></span>&nbsp&nbsp&nbsp首页</a></li>
         <li><a href="singleSearch.html"><span class="glyphicon glyphicon-stats"></span>&nbsp&nbsp&nbsp股票数据</a></li>
         <li><a href="market_1.html"><span class="glyphicon glyphicon-file"></span>&nbsp&nbsp&nbsp行情信息</a></li>
-        <li class="active"><a href="regressionSetting.html"><span class="glyphicon glyphicon-tags"></span>&nbsp&nbsp&nbsp回测</a></li>
+        <li class="active"><a href="regressionSetting.html"><span class="glyphicon glyphicon-tags"></span>&nbsp&nbsp&nbsp回测</a>
+        </li>
         <li><a href="news.html"><span class="glyphicon glyphicon-book"></span>&nbsp&nbsp&nbsp新闻</a></li>
     </ul>
 </div>
@@ -83,49 +84,31 @@
 <div class="container">
     <div style="background: white;">
         <table class="table table-hover" id="table" border="1">
-            <!--<caption>周期股票排名</caption>-->
-            <!--<thead>-->
-            <!---->
-            <!--</thead>-->
+
             <tbody>
             <tr>
                 <th>相对强弱计算周期</th>
                 <th>超额收益</th>
                 <th>一年内收益</th>
             </tr>
-            <!--<tr>-->
-            <!--<td>1</td>-->
-            <!--<td>a</td>-->
-            <!--<td>0001</td>-->
-            <!--</tr>-->
+
 
             </tbody>
         </table>
     </div>
-    <!--<div style="width:32%;background: white;margin-top: 2%;margin-left: 5%" class="resultTable">-->
-    <!---->
-
-
-    <!--</div>-->
     <div>
-        <div id="superVar" style="height: 350px;width: 600px"></div>
+        <div id="superVar" style="height: 500px;width: 100%"></div>
         <div style="height: 50px"></div>
-        <div id="winRate" style="height: 350px;width: 600px"></div>
+        <div id="winRate" style="height: 500px;width: 100%"></div>
     </div>
-    <!--<div style="background: white;width:60%;margin-left: 41%;" class="superVar">-->
-    <!---->
-    <!--</div>-->
-
-    <!--<div style="background: white;width:60%;margin-left: 41%" class="winRate">-->
-    <!---->
-    <!--</div>-->
 </div>
 
 <script type="text/javascript" src="echarts.js"></script>
 <!--<script type="text/javascript" src="echarts.simple.min.js"></script>-->
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
-<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+<script type="text/javascript"
+        src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
@@ -140,17 +123,13 @@
         if (typeof(Storage) !== "undefined") {
             message = decodeURIComponent(sessionStorage["message"]);
         }
-        alert(JSON.stringify(message));
         $.ajax({
             type: "POST",
             url: url,
             data: message,
             dataType: "json",//此处要设置成json
             success: function (data) {
-                alert(data);
-                alert(JSON.stringify(data));
-                alert(data[0]);
-                alert(JSON.stringify(data[0]));
+
                 overProfit = data[0].overProfit;
                 winChance = data[0].winChance;
 
@@ -162,35 +141,24 @@
         })
     }
 
-    function addTableCell(){
-        for(var i = 0;i<overProfit.length;i++){
+    function addTableCell() {
+        for (var i = 0; i < overProfit.length; i++) {
             var newTr = table.insertRow();
             var newTd0 = newTr.insertCell();
             var newTd1 = newTr.insertCell();
             var newTd2 = newTr.insertCell();
 
-            newTd0.innerHTML = i+1;
+            newTd0.innerHTML = i + 1;
             newTd1.innerText = parseFloat(overProfit[i].toFixed(2));
             newTd2.innerText = parseFloat(winChance[i].toFixed(2));
         }
     }
-    function superVarChart(){
+    function superVarChart() {
         var dom = document.getElementById("superVar");
         var myChart = echarts.init(dom);
-//        var base = +new Date(1968, 9, 3);
-//        var oneDay = 24 * 3600 * 1000;
-//        var date = [];
-//
-//        var data = [Math.random() * 300];
-//
-//        for (var i = 1; i < 20000; i++) {
-//            var now = new Date(base += oneDay);
-//            date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
-//            data.push(Math.round((Math.random() - 0.5) * 20 + data[i - 1]));
-//        }
         var date = []
-        for(var i = 0;i<overProfit.length;i++){
-            date.push(i+1)
+        for (var i = 0; i < overProfit.length; i++) {
+            date.push(i + 1)
         }
         option = {
             tooltip: {
@@ -201,7 +169,7 @@
             },
             title: {
                 left: 'center',
-                text: '大数据量面积图',
+                text: '超额收益率图',
             },
             toolbox: {
                 feature: {
@@ -268,23 +236,12 @@
         myChart.setOption(option);
 
     }
-    function winChanceChart(){
+    function winChanceChart() {
         var dom = document.getElementById("winRate");
         var myChart = echarts.init(dom);
-//        var base = +new Date(1968, 9, 3);
-//        var oneDay = 24 * 3600 * 1000;
-//        var date = [];
-//
-//        var data = [Math.random() * 300];
-//
-//        for (var i = 1; i < 20000; i++) {
-//            var now = new Date(base += oneDay);
-//            date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
-//            data.push(Math.round((Math.random() - 0.5) * 20 + data[i - 1]));
-//        }
         var date = []
-        for(var i = 0;i<overProfit.length;i++){
-            date.push(i+1)
+        for (var i = 0; i < overProfit.length; i++) {
+            date.push(i + 1)
         }
         option = {
             tooltip: {
@@ -295,7 +252,7 @@
             },
             title: {
                 left: 'center',
-                text: '大数据量面积图',
+                text: '胜率图',
             },
             toolbox: {
                 feature: {

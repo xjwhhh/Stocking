@@ -9,26 +9,22 @@
     <link href="Flat-UI-master/dist/css/flat-ui.css" rel="stylesheet">
 
     <style type="text/css">
-        #input{
+        #input {
             margin-top: 20px;
         }
+
         .nav-tabs > li {
             width: 20%;
             background-color: #0064b4;
         }
+
         a {
             color: #ffffff
         }
 
-        /*a:hover {*/
-            /*color: #000000*/
-        /*}*/
-
-
         ul {
             text-align: center;
         }
-
 
         .nav > li:hover .dropdown-menu {
             display: block;
@@ -110,35 +106,9 @@
                 <br>
                 <br>
                 <br>
-                <button id="check" onclick="check()" style="color: #ffffff; font-size: 15px;" class="btn btn-info btn-hg">查看市场温度计</button>
-                <!--<div class="fl">-->
-                <!--<ul>-->
-                <!--<li>-->
-                <!--<span class="single_p" data-code="hs_1A0001">上证指数</span>-->
-                <!--<span class="val">&#45;&#45;</span>-->
-                <!--<div>-->
-                <!--<span>&#45;&#45;</span>-->
-                <!--<span>&#45;&#45;</span>-->
-                <!--</div>-->
-                <!--</li>-->
-                <!--<li>-->
-                <!--<span class="single_p" data-code="hs_399001">深证指数</span>-->
-                <!--<span class="val">&#45;&#45;</span>-->
-                <!--<div>-->
-                <!--<span>&#45;&#45;</span>-->
-                <!--<span>&#45;&#45;</span>-->
-                <!--</div>-->
-                <!--</li>-->
-                <!--<li>-->
-                <!--<span class="single_p" data-code="hs_399006">创业指数</span>-->
-                <!--<span class="val">&#45;&#45;</span>-->
-                <!--<div>-->
-                <!--<span>&#45;&#45;</span>-->
-                <!--<span>&#45;&#45;</span>-->
-                <!--</div>-->
-                <!--</li>-->
-                <!--</ul>-->
-                <!--</div>-->
+                <button id="check" onclick="check()" style="color: #ffffff; font-size: 15px;"
+                        class="btn btn-info btn-hg">查看市场温度计
+                </button>
             </div>
         </div>
     </div>
@@ -146,20 +116,10 @@
     <div class="control main_box">
 
         <h2 class="title codeTotal">涨跌停统计
-            <!--<span>(两市共计：<i>3000</i>只</span>-->
-            <!--<span>停牌个股：<i>46</i>只)</span>-->
+
         </h2>
         <div class="module ta-parent-box" data-taid="zdt_wdj">
             <div class="l_panel fl">
-                <!--<div class="chart_title">-->
-                <!--<label>赚钱效应：<i class="green"></i></label>-->
-
-                <!--<label class="earn">涨停家数：<i class="red">20</i></label>-->
-                <!--<label class="fall">跌停家数：<i class="green">106</i></label>-->
-                <!--<label>昨日涨停股，今日均涨幅：<i class="green">-3.05%</i></label>-->
-                <!--<span></span>-->
-
-                <!--</div>-->
                 <div class="similar_chart" id="similar_chart"></div>
             </div>
             <div class="r_panel temp temp_1">
@@ -179,11 +139,6 @@
         <h2 class="title">同比指数盈亏</h2>
         <div class="module earn_lose clearfix ta-parent-box" data-taid="zsyk_wdj">
             <div class="l_panel fl">
-                <!--<div class="chart_title">-->
-                <!--<label>活跃评级：<i class="green">活跃</i></label>-->
-                <!--<label class="earn">同比指数盈利股票</label>-->
-                <!--<label class="fall">同比指数亏损股票</label>-->
-                <!--</div>-->
                 <div class="clearfix">
                     <div class="chart_item" data_type="fall">
                         <div class="column"></div>
@@ -296,27 +251,6 @@
                 </table>
             </div>
         </div>
-        <!--<h2 class="title">市场热度历史总览</h2>-->
-        <!--<div class="module zdtjs ta-parent-box" data-taid="rdls_wdj">-->
-        <!--<ul class="clearfix tab_ul">-->
-        <!--<li class="jn active">涨跌停家数</li>-->
-        <!--<li class="cj ">两市交易成交总额</li>-->
-        <!--</ul>-->
-        <!--<div class="tab_box">-->
-        <!--<div class="item ">-->
-        <!--<div class="chart_title">-->
-        <!--<label class="earn">涨停家数</label>-->
-        <!--<label class="fall">跌停家数</label>-->
-        <!--</div>-->
-        <!--<div class="zdt_chart"></div>-->
-
-        <!--</div>-->
-        <!--<div class="item hide">-->
-        <!--<p class="pixel">单位：（亿元）</p>-->
-        <!--<div class="zdt_chart2"></div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
         <div class="history_data">
             <h5><a href="#"></a></h5>
         </div>
@@ -1016,7 +950,8 @@
                     up: 12,
                     down: 23,
                     uprate: 15,
-                    downrate: 44}
+                    downrate: 44
+                }
                 , {id: 4, up: 12, down: 21, uprate: 16, downrate: 42}, {
                     id: 5,
                     up: 12,
@@ -1732,7 +1667,7 @@
                     uprate: 95,
                     downrate: 43
                 }
-                ];
+            ];
 
 
             var earnData = [
@@ -1876,7 +1811,7 @@
 <script type="text/javascript" src="http://s.thsi.cn/cb?/js/apps/comment/sns/;FaceData.js"></script>
 <script type="text/javascript" src="http://s.thsi.cn/js/apps/comment/sns/EditorFace.js"></script>
 <script type="text/javascript"
-src="http://s.thsi.cn/cb?/js/apps/comment/sns/;sns_share.js;FaceData.js;main_v2.1.min.js"></script>
+        src="http://s.thsi.cn/cb?/js/apps/comment/sns/;sns_share.js;FaceData.js;main_v2.1.min.js"></script>
 <script type="text/javascript" src="http://s.thsi.cn/js/special/temperature/tips.20160921.js"></script>
 <!--上面这个标签控制顶部图片和温度计-->
 <script type="text/javascript" src="http://s.thsi.cn/js/special/temperature/drawSpringFest.js"></script>
@@ -1938,16 +1873,16 @@ src="http://s.thsi.cn/cb?/js/apps/comment/sns/;sns_share.js;FaceData.js;main_v2.
 <script type="text/javascript">
     function check() {
         //调用JQuery提供的Ajax方法
-        var url="http://";
+        var url = "http://";
         $.ajax({
-            type:"GET",
-            url:url,
+            type: "GET",
+            url: url,
 //            data:user,
             dataType: "jason",//此处要设置成jason
-            success: callback});//回调函数
+            success: callback
+        });//回调函数
     }
-    function callback(jasonObj)
-    {
+    function callback(jasonObj) {
         var str = jasonObj;
         var obj = JSON.parse(str);//调用Json2.js中提供的JSON解析器来解析成JSONObject
         //下面这些尚未实现

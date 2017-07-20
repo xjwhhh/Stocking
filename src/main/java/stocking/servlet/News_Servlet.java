@@ -28,29 +28,10 @@ public class News_Servlet extends HttpServlet {
         if (jsonObject == null) {
             return;
         }
-        System.out.print(jsonObject.toString());
         gds = DataFactory_Data_Impl.getInstance().getNews();
         String op = jsonObject.getString("op");//分为market和single
         if (op.equals("all")) {
             NewsPO result = gds.getMarketNews();
-//            List<String> classify = new ArrayList<String>();
-//            List<String> title = new ArrayList<String>();
-//            List<String> time = new ArrayList<String>();
-//            List<String> url = new ArrayList<String>();
-//            for(int i = 0;i<10;i++){
-//                classify.add("A");
-//                title.add("B");
-//                time.add("C");
-//                url.add("D");
-//            }
-//            NewsPO result = new NewsPO(classify,title,time,url);
-//            System.out.print(result.toString());
-//            String[] classify = {"啊啊啊"};
-//            String[] title = {"啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊"};
-//            String[] time = {"啊啊"};
-//            String[] url = {"https://www.baidu.com"};
-//            NewsPO result = new NewsPO(classify,title,time,url);
-//            response.setContentType("utf-8");
             response.setCharacterEncoding("utf-8");
             new SendByServlet().doSend(response, result);
         } else {
